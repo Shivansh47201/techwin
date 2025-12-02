@@ -1,0 +1,183 @@
+/* src/app/globals.css */
+
+/* Tailwind import */
+@import "tailwindcss";
+
+/* ---------- Smooth scroll behavior ---------- */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ---------- Brand tokens ---------- */
+:root {
+  --color-primary: #3087C0; /* user-chosen primary */
+  --color-primary-dark: #2D87B7;
+  --color-primary-light: #5BB7E1;
+  --color-black: #111111;
+  --color-white: #ffffff;
+
+  --radius: 0.625rem;
+  --background: #ffffff;
+  --foreground: #111111;
+
+  --bg-grid-pattern: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke-width='1' stroke='rgb(229 231 235 / 0.15)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e");
+}
+:root {
+  --site-header-height: 64px; 
+}
+
+/* Optional dark variant support for some frameworks (no error) */
+@custom-variant dark (&:is(.dark *));
+
+/* Optional theme tokens */
+@theme inline {
+  --color-primary: var(--color-primary);
+  --color-primary-foreground: var(--color-white);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+/* ---------- Generic footer tweaks ---------- */
+footer a { text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+footer svg { transition: transform .15s ease, filter .15s ease; }
+footer a:hover svg { transform: translateY(-2px); filter: drop-shadow(0 4px 8px rgba(0,0,0,0.25)); }
+
+/* ---------- Animations used by components ---------- */
+@keyframes heroHead {
+  0% { opacity: 0; transform: translateY(8px) scale(.995); filter: blur(2px); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+.animate-hero-head { animation: heroHead 700ms cubic-bezier(.22,.9,.3,1) both; }
+
+@keyframes revealUp {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-reveal { animation: revealUp 640ms cubic-bezier(.22,.9,.3,1) both; }
+
+/* ---------- Applications / App cards ---------- */
+.app-card {
+  transform: translateY(18px) scale(.997);
+  opacity: 0;
+  transition: transform 520ms cubic-bezier(.22,.9,.3,1), opacity 520ms cubic-bezier(.22,.9,.3,1), box-shadow 220ms;
+  will-change: transform, opacity;
+  padding-bottom: 3.25rem;
+}
+.app-card--visible {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+.app-card:hover {
+  transform: translateY(-6px) scale(1.004);
+  box-shadow: 0 30px 60px rgba(13, 26, 46, 0.12);
+}
+.app-card-icon {
+  transform-origin: center;
+  transition: transform 480ms cubic-bezier(.22,.9,.3,1);
+}
+.app-card:hover .app-card-icon {
+  transform: translateY(-6px) rotate(-6deg) scale(1.03);
+}
+.app-card-long {
+  max-height: 3.6rem;
+  overflow: hidden;
+  transition: max-height 420ms ease, opacity 420ms ease;
+  opacity: 0.98;
+}
+@media (hover: hover) {
+  .app-card:hover .app-card-long {
+    max-height: 8rem;
+  }
+}
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+/* responsive CTA adjustments */
+@media (max-width: 768px) {
+  .app-card { padding-bottom: 1.25rem; }
+}
+
+/* ---------- TrustStrip: marquee ---------- */
+@keyframes trustScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+/* reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .trust-track,
+  [style*="trustScroll"] {
+    animation: none !important;
+  }
+}
+
+/* ---------- TechHighlights: reveal ---------- */
+.tech-card {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 600ms cubic-bezier(.2,.9,.3,1), transform 600ms cubic-bezier(.2,.9,.3,1), box-shadow 200ms;
+  will-change: transform, opacity;
+}
+.tech-card-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+.tech-card:hover {
+  box-shadow: 0 18px 40px rgba(2,18,32,0.08);
+  transform: translateY(-6px);
+}
+
+/* reduced motion support for tech cards */
+@media (prefers-reduced-motion: reduce) {
+  .tech-card, .tech-card-visible {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* ---------- small utilities ---------- */
+.hidden-visually { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px,1px,1px,1px); white-space: nowrap; }
+
+/* End of file */
+
+
+
+
+/* About page specific accents */
+section { scroll-margin-top: 96px; }
+
+/* subtle blob and gradient accents already used in Hero; add these helper classes: */
+.bg-accent-wave {
+  background: radial-gradient(ellipse at 10% 20%, rgba(59,154,203,0.12), transparent 10%),
+              radial-gradient(circle at 80% 80%, rgba(48,135,192,0.06), transparent 20%);
+}
+
+
+
+/* Scoped override (put inside a <style jsx> or your global css) */
+.why-card,
+.comet-card,
+[data-cometcard],
+[class*="comet"] {
+  /* keep normal appearance */
+}
+
+.why-card::after,
+.why-card .hover-overlay,
+.why-card .overlay,
+.why-card .shine,
+.comet-card::after,
+.comet-card .hover-overlay,
+.comet-card .overlay,
+.comet-card .shine,
+[class*="overlay"],
+[class*="hover-overlay"],
+[class*="shine"] {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}

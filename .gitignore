@@ -1,0 +1,85 @@
+# ------------------------------
+# NEXT.JS BUILD FILES
+# ------------------------------
+.next/
+out/
+dist/
+build/
+.next/static/
+.next/cache/
+.vercel/
+
+# ------------------------------
+# NODE MODULES & PACKAGES
+# ------------------------------
+node_modules/
+package-lock.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ------------------------------
+# ENVIRONMENT FILES (SECRET)
+# ------------------------------
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+.env.*.local
+
+# ------------------------------
+# EDITOR / SYSTEM FILES
+# ------------------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# ------------------------------
+# TYPESCRIPT BUILD CACHE
+# ------------------------------
+*.tsbuildinfo
+
+# ------------------------------
+# LOGS
+# ------------------------------
+logs/
+*.log
+*.log.*
+
+# ------------------------------
+# TEMP / CACHE
+# ------------------------------
+tmp/
+temp/
+*.tmp
+.cache/
+coverage/
+*.pid
+*.seed
+*.pid.lock
+
+# ------------------------------
+# CUSTOM TO YOUR PROJECT
+# ------------------------------
+deploy-out/
+deploy-out.zip
+
+# If using next export
+export/
+
+# Ignore zip/exe/random dumps
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Ignore OS trash
+.Trash-*
