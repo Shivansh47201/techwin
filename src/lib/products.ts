@@ -434,6 +434,9 @@ export async function getProductData(category: string, productSlug: string) {
         tableData: raw.tableData || undefined,
         tableImageUrl: raw.tableImageUrl || undefined,
         graphImageURL: raw.graphImageURL || raw.graphImageUrl || raw.graphImage || undefined,
+        // Feature lists often used by the hero component
+        features: Array.isArray(raw.features) ? raw.features : undefined,
+        applicationAreas: Array.isArray(raw.applicationAreas) ? raw.applicationAreas : undefined,
       };
 
       if (process.env.NODE_ENV !== "production") {
@@ -531,6 +534,8 @@ export async function getProductData(category: string, productSlug: string) {
               tableData: raw.tableData || undefined,
               tableImageUrl: raw.tableImageUrl || undefined,
               graphImageURL: raw.graphImageURL || raw.graphImageUrl || raw.graphImage || undefined,
+              features: Array.isArray(raw.features) ? raw.features : undefined,
+              applicationAreas: Array.isArray(raw.applicationAreas) ? raw.applicationAreas : undefined,
             };
             return product;
           }
