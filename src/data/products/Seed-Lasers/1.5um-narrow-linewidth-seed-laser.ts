@@ -13,28 +13,59 @@ export const onePointFiveMicronNarrowLinewidthSeedLaser: Product = {
   },
 
   title: "1.5 µm Narrow Linewidth Seed Laser",
-  shortDescription:
-    "A stable, narrow-linewidth 1.5 µm seed laser designed for photonics research, distributed sensing, interferometry, OCT systems, and precision scientific applications.",
 
-  heroImage: { src: "/products/seed-lasers/1-5um-narrow/hero.jpg",
+  // UPDATED shortDescription from your content
+  shortDescription:
+    "The 1.5 µm ultra-narrow linewidth seed laser delivers exceptional performance with linewidths compressed to the 100 Hz level. With a specialized resonant cavity and advanced noise-suppression and linewidth-narrowing techniques, it provides highly stable, low-noise output for demanding precision applications.",
+
+  heroImage: {
+    src: "/products/seed-lasers/1-5um-narrow/hero.jpg",
     alt: "1.5 µm Narrow Linewidth Seed Laser",
   },
 
+  // Normalized gallery paths
   galleryImages: [
-      { src: "/seed-lasers/1-5um-narrow/preview.jpg", alt: "1.5µm narrow-linewidth seed laser preview" },
-      { src: "/seed-lasers/1-5um-narrow/hero.jpg", alt: "1.5µm narrow-linewidth seed laser hero" },
-    ],
+    {
+      src: "/products/seed-lasers/1-5um-narrow/hero.jpg",
+      alt: "1.5µm narrow-linewidth seed laser preview",
+    },
+    {
+      src: "/products/seed-lasers/1-5um-narrow/hero.jpg",
+      alt: "1.5µm narrow-linewidth seed laser hero",
+    },
+  ],
 
   datasheetUrl: "/products/seed-lasers/1-5um-narrow/datasheet.jpg",
   datasheetImageSrc: "/products/seed-lasers/1-5um-narrow/datasheet.jpg",
   previewImageSrc: "/products/seed-lasers/1-5um-narrow/preview.jpg",
+
+  // NEW: CSV + graph/table images
+  tableCsvUrl: "/products/seed-lasers/1-5um-narrow/specs.csv",
+  graphImageURL: "/products/seed-lasers/1-5um-narrow/graph.jpg",
+  tableImageURL: "/products/seed-lasers/1-5um-narrow/table.png",
+
+  // NEW: top-level product features (from your “Product Features” text)
+  features: [
+    "Ultra-narrow linewidth with compression down to the 100 Hz level.",
+    "Advanced linewidth-narrowing and noise-suppression architecture.",
+    "Specialized resonant cavity design for excellent spectral purity and coherence.",
+    "Low intensity noise suitable for demanding precision measurements.",
+    "Excellent environmental adaptability and long-term operational stability.",
+  ],
+
+  // NEW: top-level application areas
+  applicationAreas: [
+    "High-precision fiber optic sensing",
+    "Quantum computing",
+    "Quantum measurement technologies",
+  ],
 
   sections: [
     {
       type: "text",
       heading: "Overview of the 1.5 µm Seed Laser Platform",
       image: {
-        src: "/seed-lasers/1-5um-narrow/",
+        src: "/products/seed-lasers/1-5um-narrow/overview.jpg",
         alt: "1.5 µm seed laser overview",
       },
       content:
@@ -135,28 +166,76 @@ export const onePointFiveMicronNarrowLinewidthSeedLaser: Product = {
     },
   ],
 
-  relatedProducts: [
-    {
-      slug: "1-5um-narrow",
-      title: "1.0 µm Narrow Linewidth Seed Laser",
-      shortDescription: "Stable and narrow-linewidth 1.0 µm seed source.",
-      image: {
-        src: "/seed-lasers/1-5um-narrow/",
-        alt: "1.0 µm narrow linewidth seed laser",
-      },
-      href: "/seed-lasers/1-5um-narrow/",
+  // UPDATED: richer related products (featured seed lasers)
+relatedProducts: [
+  {
+    slug: "1um-narrow",
+    title: "1.0 µm Narrow Linewidth Seed Laser",
+    shortDescription:
+      "1.0 µm ultra-narrow linewidth seed laser with excellent coherence for precision systems.",
+    image: {
+      src: "/products/seed-lasers/1um-narrow/hero.jpg",
+      alt: "1.0 µm Narrow Linewidth Seed Laser",
     },
-    {
-      slug: "1-5um-narrow",
-      title: "1.5 µm Ultra-Low Noise Seed Laser",
-      shortDescription: "Ultra-low noise seed laser for sensing and precision tasks.",
-      image: {
-        src: "/seed-lasers/1-5um-narrow/",
-        alt: "1.5 µm ultra-low noise seed laser",
-      },
-      href: "/seed-lasers/1-5um-narrow/",
+    href: "/products/seed-lasers/1um-narrow",
+  },
+  {
+    slug: "1um-stabilized",
+    title: "1.0 µm Frequency-Stabilized Seed Laser",
+    shortDescription:
+      "Frequency-stabilized 1.0 µm seed laser with narrow linewidth and minimal drift.",
+    image: {
+      src: "/products/seed-lasers/1um-stabilized/hero.jpg",
+      alt: "1.0 µm Frequency-Stabilized Seed Laser",
     },
-  ],
+    href: "/products/seed-lasers/1um-stabilized",
+  },
+  {
+    slug: "1um-ultra-low-noise",
+    title: "1.0 µm Ultra-Low Noise Seed Laser",
+    shortDescription:
+      "1.0 µm ultra-low noise seed laser with exceptional power stability and low RIN.",
+    image: {
+      src: "/products/seed-lasers/1um-ultra-low-noise/hero.jpg",
+      alt: "1.0 µm Ultra-Low Noise Seed Laser",
+    },
+    href: "/products/seed-lasers/1um-ultra-low-noise",
+  },
+  {
+    slug: "1-5um-phase",
+    title: "1.5 µm Phase-Modulated Seed Laser",
+    shortDescription:
+      "1.5 µm phase-modulated seed laser with tunable phase and ultra-low phase noise.",
+    image: {
+      src: "/products/seed-lasers/1-5um-phase/hero.jpg",
+      alt: "1.5 µm Phase-Modulated Seed Laser",
+    },
+    href: "/products/seed-lasers/1-5um-phase",
+  },
+  {
+    slug: "2um-single",
+    title: "2.0 µm Single-Frequency Seed Laser",
+    shortDescription:
+      "2.0 µm single-frequency seed laser for quantum information, LiDAR, and spectroscopy.",
+    image: {
+      src: "/products/seed-lasers/2um-single/hero.jpg",
+      alt: "2.0 µm Single-Frequency Seed Laser",
+    },
+    href: "/products/seed-lasers/2um-single",
+  },
+  {
+    slug: "2um-phase",
+    title: "2.0 µm Phase-Modulated Fiber Seed Source",
+    shortDescription:
+      "2.0 µm phase-modulated fiber seed source with mid-IR output and advanced phase control.",
+    image: {
+      src: "/products/seed-lasers/2um-phase/hero.jpg",
+      alt: "2.0 µm Phase-Modulated Fiber Seed Source",
+    },
+    href: "/products/seed-lasers/2um-phase",
+  },
+]
+
 };
 
 export default onePointFiveMicronNarrowLinewidthSeedLaser;

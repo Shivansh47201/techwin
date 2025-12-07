@@ -2,13 +2,15 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // Enable the React compiler (Next.js 15+)
-reactCompiler: true,
+  reactCompiler: true,
 
   // Turbopack build configuration
   turbopack: {
     root: __dirname,
   },
-  // Export as a fully static site (generates `out/` with `next export` behavior)
+  
+  // ✅ PRODUCTION: Export as a fully static site (generates `out/` folder)
+  // This creates a static HTML export suitable for Hostinger deployment
   output: "export",
 
   // When exporting statically, Next.js' built-in image optimization isn't
@@ -22,6 +24,15 @@ reactCompiler: true,
   typescript: {
     ignoreBuildErrors: true,
   },
+
+  // ✅ Trailing slashes for proper static routing
+  trailingSlash: true,
+
+  // ✅ Base path (empty for root domain)
+  basePath: "",
+
+  // ✅ Optimize for production
+  productionBrowserSourceMaps: false,
 };
 
 export default nextConfig;

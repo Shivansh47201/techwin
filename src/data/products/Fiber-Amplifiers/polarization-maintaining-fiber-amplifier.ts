@@ -8,58 +8,99 @@ export const polarizationMaintainingFiberAmplifier: Product = {
     title:
       "Polarization-Maintaining Fiber Amplifier by Techwin | Fiber Amplifiers",
     description:
-      "Techwin Polarization-Maintaining Fiber Amplifier with stable single-frequency output and dependable performance from Hangzhou City. Contact +86-13958180450 for details.",
+      "Techwin Polarization-Maintaining Fiber Amplifier with stable output, high polarization extinction ratio and dependable performance from Hangzhou City. Contact +86-13958180450 for details.",
     keywords:
       "PM fiber amplifier, polarization maintaining amplifier, fiber amplifier, low-noise amplifier, Techwin fiber amplifiers",
   },
 
   title: "Polarization-Maintaining Fiber Amplifier",
-  shortDescription:
-    "High-stability PM Fiber Amplifier engineered for polarization preservation, narrow-linewidth signals & advanced sensing/laser applications.",
 
-  heroImage: { src: "/products/fiber-amplifiers/pm/hero.jpg",
+  shortDescription:
+    "The Polarization-Maintaining (PM) Fiber Amplifier is designed to amplify low-power seed lasers while preserving excellent polarization characteristics. With high gain, low noise, and a fully PM optical path, it ensures stable output and reliable performance even in environments sensitive to polarization fluctuations.",
+
+  heroImage: {
+    src: "/products/fiber-amplifiers/pm/hero.jpg",
     alt: "Polarization-Maintaining Fiber Amplifier",
   },
 
+  graphImageURL: "/products/fiber-amplifiers/pm/graph.jpg",
+  tableImageURL: "/products/fiber-amplifiers/pm/table.png",
+
   galleryImages: [
-      { src: "/fiber-amplifiers/pm/preview.jpg", alt: "Polarization-maintaining fiber amplifier preview" },
-      { src: "/fiber-amplifiers/pm/hero.jpg", alt: "Polarization-maintaining fiber amplifier hero" },
-    ],
+    {
+      src: "/products/fiber-amplifiers/pm/hero.jpg",
+      alt: "Polarization-maintaining fiber amplifier front view",
+    },
+    {
+      src: "/products/fiber-amplifiers/pm/hero.jpg",
+      alt: "Polarization-maintaining fiber amplifier module",
+    },
+  ],
 
   datasheetUrl: "/products/fiber-amplifiers/pm/datasheet.jpg",
   datasheetImageSrc: "/products/fiber-amplifiers/pm/datasheet.jpg",
   previewImageSrc: "/products/fiber-amplifiers/pm/preview.jpg",
 
+  // From Product Features
+  features: [
+    "High polarization extinction ratio",
+    "Low noise amplification",
+    "Stable output",
+    "Fully PM fiber structure",
+  ],
+
+  // From Application Areas
+  applicationAreas: [
+    "Coherent communication",
+    "Fiber optic sensing",
+    "Quantum optics",
+    "Precision measurement",
+  ],
+
   sections: [
     {
       type: "text",
-      heading: "Introduction to PM Fiber Amplifier Technology",
+      heading: "Polarization-Maintaining Fiber Amplifier",
       image: {
-        src: "/fiber-amplifiers/polarization-maintaining-fiber-amplifier/pm-technology.jpg",
-        alt: "Polarization Maintaining Fiber Technology",
+        src: "/products/fiber-amplifiers/pm/hero.jpg",
+        alt: "Polarization-Maintaining Fiber Amplifier",
       },
       content:
-        "Polarization-maintaining (PM) fiber amplifiers preserve polarization state during amplification using birefringent PM fibers. The technology supports coherent communication, precision sensing, narrow-linewidth lasers, interferometry, and advanced scientific instruments where polarization stability is critical.",
+        "The Polarization-Maintaining (PM) Fiber Amplifier is designed to amplify low-power seed lasers while preserving excellent polarization characteristics. With high gain, low noise, and a fully PM optical path, it ensures stable output and reliable performance even in environments sensitive to polarization fluctuations.",
     },
 
     {
       type: "features",
-      heading: "Key Features",
+      heading: "Product Features",
       bullets: [
-        "High Polarization Extinction Ratio (PER)",
-        "Low noise figure for clean, stable amplification",
-        "Narrow linewidth preservation for high-coherence systems",
-        "Efficient saturation performance with minimal distortion",
-        "Fiber-based, compact, alignment-free construction",
-        "Stable operation under mechanical and thermal variations",
+        "High polarization extinction ratio",
+        "Low noise amplification",
+        "Stable output",
+        "Fully PM fiber structure",
       ],
     },
 
     {
+      type: "features",
+      heading: "Application Areas",
+      bullets: [
+        "Coherent communication",
+        "Fiber optic sensing",
+        "Quantum optics",
+        "Precision measurement",
+      ],
+    },
+
+    // Keep some of the deeper technical context as extra sections
+    {
       type: "text",
-      heading: "Why Polarization Integrity Matters",
+      heading: "Introduction to PM Fiber Amplifier Technology",
+      image: {
+        src: "/products/fiber-amplifiers/pm/hero.jpg",
+        alt: "Polarization Maintaining Fiber Technology",
+      },
       content:
-        "PM fiber amplifiers ensure stable polarization, reducing measurement errors and improving performance in coherent detection, interferometry, LIDAR, frequency references, and optical sensing. High birefringence fibers maintain polarization even under temperature changes or vibration.",
+        "Polarization-maintaining (PM) fiber amplifiers preserve polarization state during amplification using birefringent PM fibers. The technology supports coherent communication, precision sensing, narrow-linewidth lasers, interferometry, and advanced scientific instruments where polarization stability is critical.",
     },
 
     {
@@ -69,9 +110,19 @@ export const polarizationMaintainingFiberAmplifier: Product = {
         {
           label: "Signal Stability",
           rows: [
-            { name: "Linewidth Preservation", value: "Maintains narrow linewidth without broadening" },
-            { name: "Noise Figure", value: "Low, suitable for coherent architectures" },
-            { name: "Environmental Stability", value: "Resistant to vibration & temperature variations" },
+            {
+              name: "Linewidth Preservation",
+              value: "Maintains narrow linewidth without significant broadening",
+            },
+            {
+              name: "Noise Figure",
+              value: "Low, suitable for coherent architectures",
+            },
+            {
+              name: "Environmental Stability",
+              value:
+                "Resistant to vibration and temperature variations in typical lab/field setups",
+            },
           ],
         },
         {
@@ -79,17 +130,13 @@ export const polarizationMaintainingFiberAmplifier: Product = {
           rows: [
             { name: "Fiber Type", value: "PM fiber input/output" },
             { name: "Package Type", value: "Module or OEM-ready assembly" },
-            { name: "Cooling", value: "Temperature-controlled internal design" },
+            {
+              name: "Cooling",
+              value: "Temperature-controlled internal mechanical design",
+            },
           ],
         },
       ],
-    },
-
-    {
-      type: "text",
-      heading: "Applications",
-      content:
-        "PM Fiber Amplifiers are widely used in precision optical sensing, coherent communication, LIDAR, interferometry, laser spectroscopy, fiber gyroscopes, frequency reference systems, and advanced laboratory research.",
     },
 
     {
@@ -108,44 +155,47 @@ export const polarizationMaintainingFiberAmplifier: Product = {
       type: "text",
       heading: "Construction & Internal Design",
       content:
-        "Built using PM fibers, pump diodes, WDM couplers, isolators, polarization-maintaining splices, and temperature stabilization units. The amplifier maintains optical reliability and consistent output during long-term operation.",
+        "Built using PM fibers, pump diodes, WDM couplers, isolators, polarization-maintaining splices and temperature stabilization units, the amplifier maintains optical reliability and consistent output during long-term operation.",
     },
 
     {
       type: "text",
       heading: "Selection Considerations",
       content:
-        "Choose based on output power needs, wavelength compatibility, environmental requirements, noise sensitivity, and fiber connector type. Proper selection ensures optimal system performance.",
+        "Choose based on output power needs, wavelength compatibility, environmental requirements, noise sensitivity and fiber connector type. Proper selection helps ensure optimal system performance in coherent and sensing architectures.",
     },
 
     {
       type: "text",
       heading: "Support & Customization",
       content:
-        "Custom options include wavelength selection, output power levels, and integration guidance. For technical assistance or system configuration support, contact our engineering team at +86-13958180450.",
+        "Custom options include wavelength selection, output power levels and integration guidance. For technical assistance or system configuration support, contact our engineering team at +86-13958180450.",
     },
   ],
 
+  // except jisme update kar rahe, baaki sab related
   relatedProducts: [
     {
-      slug: "pm",
-      title: "Erbium-Doped Fiber Amplifier (EDFA)",
-      shortDescription: "High-performance EDFA for telecom & optical amplification.",
+      slug: "high-power",
+      title: "High-Power Fiber Amplifier",
+      shortDescription:
+        "High-power MOPA fiber amplifier with excellent beam quality and efficient thermal management.",
       image: {
-        src: "/fiber-amplifiers/pm/",
-        alt: "EDFA",
+        src: "/products/fiber-amplifiers/high-power/hero.jpg",
+        alt: "High-Power Fiber Amplifier",
       },
-      href: "/fiber-amplifiers/pm/",
+      href: "/products/fiber-amplifiers/high-power",
     },
     {
-      slug: "pm",
-      title: "Superluminescent LED (SLED)",
-      shortDescription: "Broadband low-coherence SLED for fiber sensing & OCT.",
+      slug: "modules",
+      title: "Fiber Amplifier Modules",
+      shortDescription:
+        "Compact fiber amplifier modules with low noise, high gain and easy OEM integration.",
       image: {
-        src: "/ase-sources/sled-thumb.jpg",
-        alt: "SLED Source",
+        src: "/products/fiber-amplifiers/modules/hero.jpg",
+        alt: "Fiber Amplifier Modules",
       },
-      href: "/ase-sources/sled-light-source",
+      href: "/products/fiber-amplifiers/modules",
     },
   ],
 };

@@ -131,7 +131,7 @@ export default function Header() {
     searchTimeoutRef.current = setTimeout(async () => {
       try {
         const res = await fetch(
-          `/api/search?q=${encodeURIComponent(searchQuery)}`
+          `/api/search-static?q=${encodeURIComponent(searchQuery)}`
         );
         const data = await res.json();
         setSearchResults(data.results || []);

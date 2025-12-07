@@ -13,30 +13,90 @@ export const broadbandLightSource: Product = {
   },
 
   title: "Broadband Light Source",
-  shortDescription:
-    "Wide-spectrum broadband light source for metrology, OCT, fiber testing, imaging, and photonics development with stable intensity and clean spectral output.",
 
-  heroImage: { src: "/products/ase-sources/broadband/hero.jpg",
+  shortDescription:
+    "The broadband light source is designed to deliver wide-spectrum, high-stability optical output for advanced testing, sensing, and research applications. Using an optimized fiber-based architecture along with precise ATC and ACC (APC) control technology, it ensures consistent power stability, low noise, and uniform spectral distribution. Its reliable performance and wide spectral coverage make it ideal for high-precision optical systems that require stable and continuous broadband illumination.",
+
+  heroImage: {
+    src: "/products/ase-sources/broadband/hero.jpg",
     alt: "Broadband Light Source",
   },
 
+  graphImageURL: "/products/ase-sources/broadband/graph.jpg",
+  tableImageURL: "/products/ase-sources/broadband/table.png",
+
   galleryImages: [
-      { src: "/ase-sources/broadband/preview.jpg", alt: "Broadband ASE light source preview" },
-      { src: "/ase-sources/broadband/hero.jpg", alt: "Broadband ASE light source hero" },
-    ],
+    {
+      src: "/products/ase-sources/broadband/hero.jpg",
+      alt: "Broadband ASE light source front view",
+    },
+    {
+      src: "/products/ase-sources/broadband/hero.jpg",
+      alt: "Broadband ASE light source module",
+    },
+  ],
 
   datasheetUrl: "/products/ase-sources/broadband/datasheet.jpg",
   datasheetImageSrc: "/products/ase-sources/broadband/datasheet.jpg",
   previewImageSrc: "/products/ase-sources/broadband/preview.jpg",
 
+  // From your Key Features and Application Areas
+  features: [
+    "Wide and uniform spectral output",
+    "High stability and low noise",
+    "Reliable long-term performance",
+    "Single-mode or multi-mode output options (depending on configuration)",
+  ],
+
+  applicationAreas: [
+    "Optical testing and measurement",
+    "Fiber-optic sensing systems",
+    "Spectroscopy and spectral analysis",
+    "Scientific research and laboratory applications",
+  ],
+
   sections: [
+    {
+      type: "text",
+      heading: "Broadband Light Source",
+      content:
+        "The broadband light source is designed to deliver wide-spectrum, high-stability optical output for advanced testing, sensing, and research applications. Using an optimized fiber-based architecture along with precise ATC and ACC (APC) control technology, it ensures consistent power stability, low noise, and uniform spectral distribution. Its reliable performance and wide spectral coverage make it ideal for high-precision optical systems that require stable and continuous broadband illumination.",
+      image: {
+        src: "/products/ase-sources/broadband/hero.jpg",
+        alt: "Broadband Light Source product overview",
+      },
+    },
+
+    {
+      type: "features",
+      heading: "Key Features",
+      bullets: [
+        "Wide and uniform spectral output",
+        "High stability and low noise",
+        "Reliable long-term performance",
+        "Single-mode or multi-mode output options (depending on configuration)",
+      ],
+    },
+
+    {
+      type: "features",
+      heading: "Application Areas",
+      bullets: [
+        "Optical testing and measurement",
+        "Fiber-optic sensing systems",
+        "Spectroscopy and spectral analysis",
+        "Scientific research and laboratory applications",
+      ],
+    },
+
+    // Existing richer descriptive content kept as additional sections
     {
       type: "text",
       heading: "Introduction to Broadband Light Sources",
       content:
         "A Broadband Light Source provides wide-spectrum optical output essential for research, industrial testing, imaging, and fiber measurement systems. Its stable spectral output, uniform intensity, and flexible wavelength coverage make it suitable for laboratories, fiber diagnostics, spectral analysis, and calibration setups. One of the known providers is Techwin, located in Hangzhou City, offering systems optimized for optical performance.",
       image: {
-        src: "/ase-sources/broadband-light-source/intro.jpg",
+        src: "/products/ase-sources/broadband/hero.jpg",
         alt: "Broadband source overview",
       },
     },
@@ -59,7 +119,7 @@ export const broadbandLightSource: Product = {
       content:
         "These systems use emission modules, optical conditioning networks, thermal regulation, and mechanical stabilization. Emission units may include spontaneous emission, ASE-based modules, fiber-emission systems, or lamp-based broadband units. Internal optics handle spectrum shaping, stabilization, and alignment while thermal management ensures consistent performance during long operations.",
       image: {
-        src: "/ase-sources/broadband-light-source/structure.jpg",
+        src: "/products/ase-sources/broadband/hero.jpg",
         alt: "Internal broadband structure",
       },
     },
@@ -100,7 +160,7 @@ export const broadbandLightSource: Product = {
       content:
         "ASE systems operate by pumping doped fiber with a laser to generate spontaneous emission, which is then amplified within the fiber. This produces low-coherence, wide-spectrum light ideal for fiber sensing and testing environments due to its clean spectral behavior and stability.",
       image: {
-        src: "/ase-sources/broadband-light-source/ase-diagram.jpg",
+        src: "/products/ase-sources/broadband/hero.jpg",
         alt: "ASE working principle",
       },
     },
@@ -134,27 +194,51 @@ export const broadbandLightSource: Product = {
     },
   ],
 
+  // All other ASE products as related (except broadband itself)
   relatedProducts: [
     {
-      slug: "broadband",
-      title: "ASE Light Source",
-      shortDescription: "High-stability ASE emission for sensing & fiber testing.",
+      slug: "1um",
+      title: "ASE Light Source (1.0 µm)",
+      shortDescription:
+        "1.0 µm ASE source with optimized ytterbium-doped fiber design for precision testing and sensing.",
       image: {
-        src: "/ase-sources/ase-light-thumb.jpg",
-        alt: "ASE Light Source",
+        src: "/products/ase-sources/1um/hero.jpg",
+        alt: "ASE Light Source (1.0 µm)",
       },
-      href: "/ase-sources/ase-light-source",
+      href: "/products/ase-sources/1um",
     },
     {
-      slug: "broadband",
-      title: "Supercontinuum Light Source",
+      slug: "1-5um",
+      title: "ASE Light Source (1.5 µm)",
       shortDescription:
-        "Ultra-broad spectral coverage for advanced research and imaging.",
+        "1.5 µm C-band erbium-doped ASE source for optical testing, sensing and spectral analysis.",
       image: {
-        src: "/ase-sources/supercontinuum-thumb.jpg",
-        alt: "Supercontinuum Light Source",
+        src: "/products/ase-sources/1-5um/hero.jpg",
+        alt: "ASE Light Source (1.5 µm)",
       },
-      href: "/ase-sources/supercontinuum-light-source",
+      href: "/products/ase-sources/1-5um",
+    },
+    {
+      slug: "2um",
+      title: "ASE Light Source (2.0 µm)",
+      shortDescription:
+        "2.0 µm thulium-doped ASE source for advanced testing and sensing applications.",
+      image: {
+        src: "/products/ase-sources/2um/hero.jpg",
+        alt: "ASE Light Source (2.0 µm)",
+      },
+      href: "/products/ase-sources/2um",
+    },
+    {
+      slug: "sled",
+      title: "Superluminescent LED (SLED)",
+      shortDescription:
+        "High-brightness SLED broadband source for OCT, sensing and precision metrology.",
+      image: {
+        src: "/products/ase-sources/sled/hero.jpg",
+        alt: "Superluminescent LED (SLED)",
+      },
+      href: "/products/ase-sources/sled",
     },
   ],
 };

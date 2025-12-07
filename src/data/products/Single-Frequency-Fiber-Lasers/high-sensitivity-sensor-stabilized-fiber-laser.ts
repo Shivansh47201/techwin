@@ -3,6 +3,9 @@ import { Product } from "@/types/categories";
 export const highSensitivitySensorStabilizedFiberLaser: Product = {
   slug: "sensor-stabilized",
   category: "single-frequency-fiber-lasers",
+  tableCsvUrl:
+    "https://docs.google.com/spreadsheets/d/1dray0_tpQpYOvnh-88lwq-Ejo1bUlKtECY9qyasZS4o/export?format=csv&gid=105283573",
+
   meta: {
     title: "Techwin China High-Sensitivity Sensor Stabilized Fiber Laser System",
     description:
@@ -10,24 +13,56 @@ export const highSensitivitySensorStabilizedFiberLaser: Product = {
     keywords:
       "sensor-stabilized fiber laser, high-sensitivity fiber laser, low noise fiber laser, stable single-frequency laser, distributed sensing laser",
   },
+
   title: "High-Sensitivity Sensor-Stabilized Fiber Laser",
   shortDescription:
     "A High-Sensitivity Sensor-Stabilized Fiber Laser engineered for outstanding frequency stability, precise wavelength control, and low-noise optical output — ideal for demanding scientific and industrial sensing applications.",
-  heroImage: { src: "/products/single-frequency/sensor-stabilized/hero.jpg",
+
+  heroImage: {
+    src: "/products/single-frequency/sensor-stabilized/hero.jpg",
     alt: "High-Sensitivity Sensor-Stabilized Fiber Laser",
   },
+  graphImageURL: "/products/single-frequency/sensor-stabilized/graph.jpg",
+  tableImageURL: "/products/single-frequency/sensor-stabilized/table.png",
+
+  features: [
+    "High-precision sensor-based stabilization",
+    "Ultra-low drift and enhanced long-term stability",
+    "Low noise and high spectral purity",
+  ],
+
+  applicationAreas: [
+    "Precision sensing and detection",
+    "High-resolution spectroscopy",
+    "Optical metrology and interferometry",
+    "Scientific research and laboratory applications",
+  ],
+
   galleryImages: [
-      { src: "/single-frequency/sensor-stabilized/preview.jpg", alt: "High-sensitivity sensor-stabilized fiber laser preview" },
-      { src: "/single-frequency/sensor-stabilized/hero.jpg", alt: "High-sensitivity sensor-stabilized fiber laser hero" },
-    ],
+    {
+      src: "/products/single-frequency/sensor-stabilized/hero.jpg",
+      alt: "High-sensitivity sensor-stabilized fiber laser preview",
+    },
+    {
+      src: "/products/single-frequency/sensor-stabilized/hero.jpg",
+      alt: "High-sensitivity sensor-stabilized fiber laser hero",
+    },
+  ],
+
   datasheetUrl: "/products/single-frequency/sensor-stabilized/datasheet.jpg",
-  datasheetImageSrc: "/products/single-frequency/sensor-stabilized/datasheet.jpg",
-  previewImageSrc: "/products/single-frequency/sensor-stabilized/preview.jpg",
+  datasheetImageSrc:
+    "/products/single-frequency/sensor-stabilized/datasheet.jpg",
+  previewImageSrc:
+    "/products/single-frequency/sensor-stabilized/preview.jpg",
+
   sections: [
     {
       type: "text",
       heading: "What Is a High-Sensitivity Sensor-Stabilized Fiber Laser?",
-      image: { src: "/single-frequency/sensor-stabilized-what-is.jpg", alt: "Sensor stabilized explanation" },
+      image: {
+        src: "/products/single-frequency/sensor-stabilized/what-is.jpg",
+        alt: "Sensor stabilized explanation",
+      },
       content:
         "A High-Sensitivity Sensor-Stabilized Laser integrates real-time feedback sensors into the laser cavity to monitor and correct fluctuations from temperature changes, vibration, or other disturbances. The internal compensation preserves narrow linewidth and exceptional frequency stability, ensuring consistent spectral purity for precision optical measurements.",
     },
@@ -43,7 +78,10 @@ export const highSensitivitySensorStabilizedFiberLaser: Product = {
         "Custom wavelength options to match different sensing platforms",
         "Designed for continuous 24/7 operation with minimal maintenance",
       ],
-      image: { src: "/single-frequency/sensor-stabilized-features.jpg", alt: "Key features" },
+      image: {
+        src: "/products/single-frequency/sensor-stabilized/features.jpg",
+        alt: "Key Features",
+      },
     },
 
     {
@@ -60,9 +98,18 @@ export const highSensitivitySensorStabilizedFiberLaser: Product = {
         {
           label: "Control & Interface",
           rows: [
-            { name: "Control", value: "Precision control unit with real-time feedback" },
-            { name: "Interfaces", value: "Remote control (Ethernet/Serial) and local UI" },
-            { name: "Environmental Compensation", value: "Active thermal control & vibration mitigation" },
+            {
+              name: "Control",
+              value: "Precision control unit with real-time feedback",
+            },
+            {
+              name: "Interfaces",
+              value: "Remote control (Ethernet/Serial) and local UI",
+            },
+            {
+              name: "Environmental Compensation",
+              value: "Active thermal control & vibration mitigation",
+            },
           ],
         },
       ],
@@ -94,31 +141,110 @@ export const highSensitivitySensorStabilizedFiberLaser: Product = {
     },
   ],
 
+  /** -----------------------------------
+   *  UPDATED COMPLETE RELATED PRODUCTS
+   * ----------------------------------- */
   relatedProducts: [
     {
-      slug: "sensor-stabilized",
-      title: "Hz-Level Ultra-Narrow Linewidth Fiber Laser",
-      shortDescription: "Hz-level ultra-narrow linewidth single-frequency fiber laser.",
-      image: { src: "/single-frequency/ultra-narrow-linewidth.jpg", alt: "Ultra narrow linewidth" },
-      href: "/single-frequency/sensor-stabilized/",
+      slug: "ultra-narrow-linewidth",
+      title: "Hz-Level Ultra-Narrow Linewidth Single-Frequency Fiber Laser",
+      shortDescription: "Hz-level laser for ultra-high stability and precision.",
+      image: {
+        src: "/products/single-frequency/ultra-narrow-linewidth/hero.jpg",
+        alt: "Ultra Narrow Linewidth Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/ultra-narrow-linewidth",
     },
     {
-      slug: "sensor-stabilized",
-      title: "Broadband Ultra-Low Noise Fiber Laser",
-      shortDescription: "Broadband fiber laser with ultra-low noise performance.",
-      image: { src: "/single-frequency/broadband-ultra-low-noise-hero.jpg", alt: "Broadband ultra low noise" },
-      href: "/single-frequency/sensor-stabilized/",
+      slug: "broadband-low-noise",
+      title: "Broadband Ultra-Low Noise Single-Frequency Fiber Laser",
+      shortDescription:
+        "Ultra-low noise broadband source for sensing, metrology and spectroscopy.",
+      image: {
+        src: "/products/single-frequency/broadband-low-noise/hero.jpg",
+        alt: "Broadband Ultra-Low Noise Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/broadband-low-noise",
     },
     {
-      slug: "sensor-stabilized",
-      title: "Narrow Linewidth Fiber Laser",
-      shortDescription: "Stable, kHz-level narrow linewidth fiber laser.",
-      image: { src: "/single-frequency/narrow-linewidth-hero.jpg", alt: "Narrow linewidth" },
-      href: "/single-frequency/sensor-stabilized/",
+      slug: "narrow-linewidth",
+      title: "Narrow Linewidth Single-Frequency Fiber Laser",
+      shortDescription:
+        "Stable narrow-linewidth fiber laser for coherent optical detection.",
+      image: {
+        src: "/products/single-frequency/narrow-linewidth/hero.jpg",
+        alt: "Narrow Linewidth Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/narrow-linewidth",
+    },
+    {
+      slug: "magnetic-field",
+      title: "Magnetic Field Detection Laser",
+      shortDescription:
+        "Laser specialized for optical magnetic field measurement applications.",
+      image: {
+        src: "/products/single-frequency/magnetic-field/hero.jpg",
+        alt: "Magnetic Field Detection Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/magnetic-field",
+    },
+    {
+      slug: "1um",
+      title: "1.0 µm Single-Frequency Fiber Laser",
+      shortDescription:
+        "1.0 µm laser platform for sensing, interferometry and coherent detection.",
+      image: {
+        src: "/products/single-frequency/1um/hero.jpg",
+        alt: "1.0 µm Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/1um",
+    },
+    {
+      slug: "1-5um",
+      title: "1.5 µm Single-Frequency Fiber Laser",
+      shortDescription:
+        "1.5 µm laser for metrology, telecom, spectroscopy and remote sensing.",
+      image: {
+        src: "/products/single-frequency/1-5um/hero.jpg",
+        alt: "1.5 µm Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/1-5um",
+    },
+    {
+      slug: "2um",
+      title: "2.0 µm Single-Frequency Fiber Laser",
+      shortDescription:
+        "2.0 µm wavelength laser for mid-IR sensing and scientific measurements.",
+      image: {
+        src: "/products/single-frequency/2um/hero.jpg",
+        alt: "2 µm Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/2um",
+    },
+    {
+      slug: "stabilized",
+      title: "Frequency-Stabilized Fiber Laser (All Wavelengths)",
+      shortDescription:
+        "Frequency-locked laser platform for coherent, spectroscopic and quantum systems.",
+      image: {
+        src: "/products/single-frequency/stabilized/hero.jpg",
+        alt: "Frequency-Stabilized Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/stabilized",
+    },
+    {
+      slug: "ultra-low-noise",
+      title: "Ultra-Low Noise Fiber Laser Series",
+      shortDescription:
+        "Low-noise fiber laser series for demanding metrology, calibration and sensing.",
+      image: {
+        src: "/products/single-frequency/ultra-low-noise/hero.jpg",
+        alt: "Ultra-Low Noise Fiber Laser Series",
+      },
+      href: "/products/single-frequency-fiber-lasers/ultra-low-noise",
     },
   ],
 
-  // optional flags you can use for drafts/publishing
   published: true,
   featured: false,
 };

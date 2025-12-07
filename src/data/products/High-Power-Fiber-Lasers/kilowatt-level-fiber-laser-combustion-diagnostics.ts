@@ -7,33 +7,83 @@ export const kilowattLevelFiberLaserCombustionDiagnostics: Product = {
   meta: {
     title: "Techwin Kilowatt-Level Fiber Laser for Combustion Diagnostics Systems",
     description:
-      "Techwin Kilowatt-Level Fiber Laser for Combustion Diagnostics from Hangzhou City. High stability and reliable output for research. Contact +86-13958180450 today.",
+      "Techwin Kilowatt-Level Fiber Laser for Combustion Diagnostics from Hangzhou City. High stability and reliable output for research and industrial applications. Contact +86-13958180450 today.",
     keywords:
       "kilowatt fiber laser, combustion diagnostics laser, high-power fiber laser, Techwin kilowatt laser, PIV laser, LIF laser",
   },
 
   title: "Kilowatt-Level Fiber Laser for Combustion Diagnostics",
   shortDescription:
-    "High-power kilowatt-class fiber lasers engineered for combustion diagnostics, offering narrow linewidth, stable beam quality, and long-term reliability for demanding research and industrial applications.",
+    "The 2 µm kW-level narrow-linewidth fiber laser is a high-performance system with signal-modulated seed, multi-stage MOPA amplification, and distributed pumping—delivering stable kilowatt-level output for demanding combustion diagnostics and industrial environments.",
 
-  heroImage: { src: "/products/high-power/kilowatt/hero.jpg",
+  heroImage: {
+    src: "/products/high-power/kilowatt/hero.jpg",
     alt: "Kilowatt-Level Fiber Laser for Combustion Diagnostics",
   },
 
+  graphImageURL: "/products/high-power/kilowatt/graph.jpg",
+  tableImageURL: "/products/high-power/kilowatt/table.png",
+
   galleryImages: [
-      { src: "/high-power/kilowatt/preview.jpg", alt: "kilowatt-level-fiber-laser-combustion-diagnostics preview" },
-      { src: "/high-power/kilowatt/hero.jpg", alt: "kilowatt-level-fiber-laser-combustion-diagnostics hero" },
-    ],
+    {
+      src: "/products/high-power/kilowatt/hero.jpg",
+      alt: "Kilowatt-Level Fiber Laser for Combustion Diagnostics front view",
+    },
+    {
+      src: "/products/high-power/kilowatt/hero.jpg",
+      alt: "Kilowatt-Level Fiber Laser for Combustion Diagnostics module view",
+    },
+  ],
 
   datasheetUrl: "/products/high-power/kilowatt/datasheet.jpg",
   datasheetImageSrc: "/products/high-power/kilowatt/datasheet.jpg",
   previewImageSrc: "/products/high-power/kilowatt/preview.jpg",
 
+  features: [
+    "Phase-modulated linewidth broadening for narrow-linewidth operation at high power",
+    "Kilowatt-level output power with multi-stage MOPA amplification and distributed pumping",
+  ],
+
+  applicationAreas: [
+    "Combustion diagnostics and propulsion research",
+    "Industrial processing and high-energy materials treatment",
+    "Medical applications requiring high-power 2 µm sources",
+  ],
+
   sections: [
     {
       type: "text",
+      heading: "Kilowatt-Level Fiber Laser for Combustion Diagnostics",
+      image: {
+        src: "/products/high-power/kilowatt/hero.jpg",
+        alt: "Kilowatt-Level Fiber Laser for Combustion Diagnostics overview",
+      },
+      content:
+        "The 2 µm kW-level narrow-linewidth fiber laser is a high-performance system developed with fully independent intellectual property and engineered to meet international advanced standards. It integrates a signal-modulated seed source, multi-stage MOPA amplification architecture, and distributed pumping technology, enabling stable high-power output suitable for demanding application environments such as combustion diagnostics.",
+    },
+
+    {
+      type: "features",
+      heading: "Product Features",
+      bullets: [
+        "Phase-modulated linewidth broadening for high-coherence operation",
+        "Kilowatt-level output power for large-scale and long-range diagnostics",
+      ],
+    },
+
+    {
+      type: "features",
+      heading: "Application Areas",
+      bullets: [
+        "Combustion diagnostics in aero-engine, gas turbine, and propulsion test rigs",
+        "Industrial processing including high-energy materials interaction",
+        "Medical and bio-photonic applications requiring high-power 2 µm sources",
+      ],
+    },
+
+    {
+      type: "text",
       heading: "Kilowatt-Level Fiber Lasers for Combustion Research",
-      image: { src: "/high-power/kilowatt/overview.jpg", alt: "Kilowatt fiber laser overview" },
       content:
         "Combustion diagnostics requires high-energy, narrow-linewidth, and highly stable light sources. Techwin’s kilowatt-class fiber lasers are engineered to support advanced measurement techniques—delivering continuous high power, stable beam quality and resilient performance in harsh experimental environments.",
     },
@@ -124,18 +174,48 @@ export const kilowattLevelFiberLaserCombustionDiagnostics: Product = {
 
   relatedProducts: [
     {
-      slug: "kilowatt",
-      title: "Industrial High-Power Fiber Laser Series",
-      shortDescription: "High-power fiber lasers for industrial processing and testing.",
-      image: { src: "/high-power/kilowatt/", alt: "Industrial high-power fiber lasers" },
-      href: "/high-power/kilowatt/",
+      slug: "1um-cw",
+      title: "High-Power CW Single-Frequency Fiber Laser (1.0 µm)",
+      shortDescription:
+        "1.0 µm high-power CW single-frequency laser for precision sensing and coherent detection.",
+      image: {
+        src: "/products/high-power/1um-cw/hero.jpg",
+        alt: "High-Power CW Single-Frequency Fiber Laser (1.0 µm)",
+      },
+      href: "/products/high-power/1um-cw",
     },
     {
-      slug: "kilowatt",
-      title: "Mid-Power Fiber Lasers for Research",
-      shortDescription: "Stable mid-power lasers for laboratory diagnostics and experiments.",
-      image: { src: "/high-power/kilowatt/", alt: "Mid-power fiber lasers" },
-      href: "/high-power/kilowatt/",
+      slug: "1-5um-cw",
+      title: "High-Power CW Single-Frequency Fiber Laser (1.5 µm)",
+      shortDescription:
+        "Eye-safe 1.5 µm high-power single-frequency laser with ultra-narrow linewidth and low noise.",
+      image: {
+        src: "/products/high-power/1-5um-cw/hero.jpg",
+        alt: "High-Power CW Single-Frequency Fiber Laser (1.5 µm)",
+      },
+      href: "/products/high-power/1-5um-cw",
+    },
+    {
+      slug: "2um-cw",
+      title: "High-Power CW Single-Frequency Fiber Laser (2.0 µm)",
+      shortDescription:
+        "2.0 µm high-power single-frequency fiber laser for gas sensing, spectroscopy, and mid-IR applications.",
+      image: {
+        src: "/products/high-power/2um-cw/hero.jpg",
+        alt: "High-Power CW Single-Frequency Fiber Laser (2.0 µm)",
+      },
+      href: "/products/high-power/2um-cw",
+    },
+    {
+      slug: "lidar",
+      title: "Long-Distance High-Resolution LiDAR Fiber Laser",
+      shortDescription:
+        "High-power, ultra-narrow linewidth source optimized for long-range, high-resolution LiDAR.",
+      image: {
+        src: "/products/high-power/lidar/hero.jpg",
+        alt: "Long-Distance High-Resolution LiDAR Fiber Laser",
+      },
+      href: "/products/high-power/lidar",
     },
   ],
 };

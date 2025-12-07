@@ -3,6 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 // For static HTML export ensure this route is treated as static by default
 export const dynamic = "force-static";
+export const revalidate = false;
 
 // Shared type for search results used by client components
 export type SearchResult = {

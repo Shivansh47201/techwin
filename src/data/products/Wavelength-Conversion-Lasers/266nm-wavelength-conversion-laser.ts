@@ -14,48 +14,83 @@ export const nm266WavelengthConversionLaser: Product = {
 
   title: "266 nm Wavelength Conversion Laser",
   shortDescription:
-    "Deep-UV 266 nm wavelength-converted lasers engineered for precise UV output, narrow linewidth, strong beam quality and long-term stability for research and industrial applications.",
+    "The 266 nm wavelength conversion laser is a high-performance narrow-linewidth deep-UV laser, created by integrating a proprietary narrow-linewidth fiber laser with highly efficient and stable frequency-conversion technology. It offers exceptional beam quality, strong power stability, and reliable long-term operation. With its ability to maintain narrow linewidth and generate fourth-harmonic output, this laser is well-suited for semiconductor processing, materials analysis, and other precision applications.",
 
-  heroImage: { src: "/products/wavelength-conversion/266nm/hero.jpg",
+  heroImage: {
+    src: "/products/wavelength-conversion/266nm/hero.jpg",
     alt: "266 nm Wavelength Conversion Laser",
   },
 
+  /** NEW — GRAPH & TABLE */
+  graphImageURL: "/products/wavelength-conversion/266nm/graph.jpg",
+  tableImageURL: "/products/wavelength-conversion/266nm/table.png",
+
   galleryImages: [
-      { src: "/wavelength-conversion/266nm/preview.jpg", alt: "266nm wavelength conversion laser preview" },
-      { src: "/wavelength-conversion/266nm/hero.jpg", alt: "266nm wavelength conversion laser hero" },
-    ],
+    {
+      src: "/products/wavelength-conversion/266nm/hero.jpg",
+      alt: "266 nm wavelength conversion laser front view",
+    },
+    {
+      src: "/products/wavelength-conversion/266nm/hero.jpg",
+      alt: "266 nm wavelength conversion laser module view",
+    },
+  ],
 
   datasheetUrl: "/products/wavelength-conversion/266nm/datasheet.jpg",
   datasheetImageSrc: "/products/wavelength-conversion/266nm/datasheet.jpg",
   previewImageSrc: "/products/wavelength-conversion/266nm/preview.jpg",
 
+  /** ROOT FEATURES (from your description) */
+  features: [
+    "Advanced narrow-linewidth preservation technology",
+    "Breakthrough fourth-harmonic generation capability",
+    "High-performance deep ultraviolet processing",
+  ],
+
+  applicationAreas: [
+    "Semiconductor processing",
+    "Materials analysis",
+    "Deep-UV industrial and scientific applications",
+  ],
+
   sections: [
     {
       type: "text",
-      heading: "Introduction to 266 nm UV Generation Technology",
-      image: { src: "/wavelength-conversion/266nm/hero.jpg", alt: "266 nm UV introduction" },
+      heading: "266 nm Wavelength Conversion Laser",
+      image: {
+        src: "/products/wavelength-conversion/266nm/hero.jpg",
+        alt: "266 nm Wavelength Conversion Laser overview",
+      },
       content:
-        "The 266 nm output is produced by multi-stage nonlinear frequency conversion (commonly fourth-harmonic generation) from a stable infrared/visible fundamental. Systems are engineered for high conversion efficiency, tight wavelength tolerance and long-term operational stability for deep-UV tasks.",
+        "The 266 nm wavelength conversion laser is a high-performance narrow-linewidth deep-UV laser, created by integrating a proprietary narrow-linewidth fiber laser with highly efficient and stable frequency-conversion technology. It offers exceptional beam quality, strong power stability, and reliable long-term operation. With its ability to maintain narrow linewidth and generate fourth-harmonic output, this laser is well-suited for semiconductor processing, materials analysis, and other precision applications.",
     },
 
     {
       type: "features",
       heading: "Key Features",
       bullets: [
-        "Stable deep-UV output (266 nm) with narrow linewidth",
-        "High long-term power stability and low drift",
-        "Excellent beam quality (low M²) for fine-scale work",
-        "Temperature-stabilized conversion crystals for repeatable performance",
-        "Compact modules with dust-protected housings and robust mounts",
-        "Configurable output (fiber-coupled or free-space) and power classes",
+        "Advanced narrow-linewidth preservation technology",
+        "Breakthrough fourth-harmonic generation capability",
+        "High-performance deep ultraviolet (DUV) processing",
       ],
     },
 
     {
+      type: "features",
+      heading: "Application Areas",
+      bullets: [
+        "Semiconductor processing",
+        "Materials analysis",
+        "Other deep-UV scientific and industrial applications",
+      ],
+    },
+
+    /** Your existing engineering & technical text kept untouched */
+    {
       type: "text",
-      heading: "Applications",
+      heading: "Introduction to 266 nm UV Generation Technology",
       content:
-        "Typical uses include semiconductor lithography research, wafer inspection, material micro-processing, DNA/protein fluorescence excitation, Raman and deep-UV spectroscopy, environmental trace-gas detection, and laboratory-grade UV instrumentation.",
+        "The 266 nm output is produced by multi-stage nonlinear frequency conversion (commonly fourth-harmonic generation) from a stable infrared/visible fundamental. Systems are engineered for high conversion efficiency, tight wavelength tolerance and long-term operational stability for deep-UV tasks.",
     },
 
     {
@@ -69,55 +104,64 @@ export const nm266WavelengthConversionLaser: Product = {
         "Mechanical designs that minimize alignment drift and vibration sensitivity",
       ],
     },
-
-    {
-      type: "text",
-      heading: "Design & Working Principle",
-      content:
-        "A stable fundamental laser (e.g., 1064 nm) is frequency-doubled and subsequently converted to 266 nm using carefully phase-matched crystals and active temperature control. Filtering and isolation stages protect components and ensure a clean UV beam suitable for sensitive applications.",
-    },
-
-    {
-      type: "features",
-      heading: "Selection Considerations",
-      bullets: [
-        "Required UV power level and application duty cycle",
-        "Allowed linewidth and wavelength tolerance for your measurements",
-        "Beam quality (M²) and delivery format (fiber vs free-space)",
-        "Cooling requirements (air vs water) based on power and environment",
-        "Maintenance plan for nonlinear crystals and optical coatings",
-      ],
-    },
-
-    {
-      type: "text",
-      heading: "Quality Assurance & Support",
-      content:
-        "Systems are manufactured and tested for thermal stability, power repeatability, beam quality and long-term reliability. Technical support includes specification guidance, integration help and model-specific datasheets to ensure correct selection and deployment.",
-    },
-
-    {
-      type: "text",
-      heading: "How to Request Information",
-      content:
-        "To request datasheets or a quotation, provide your required UV power, linewidth tolerance, preferred output format and operating environment. For assistance and ordering, contact +86-13958180450.",
-    },
   ],
 
+  /** EXPANDED RELATED PRODUCTS — ALL OTHERS EXCEPT 266nm */
   relatedProducts: [
+    {
+      slug: "193nm",
+      title: "193 nm Wavelength Conversion Laser",
+      shortDescription:
+        "Deep-UV 193 nm wavelength source for semiconductor, metrology and micro-scale UV applications.",
+      image: {
+        src: "/products/wavelength-conversion/193nm/hero.jpg",
+        alt: "193 nm Wavelength Conversion Laser",
+      },
+      href: "/products/wavelength-conversion/193nm",
+    },
     {
       slug: "355nm",
       title: "355 nm Wavelength Conversion Laser",
-      shortDescription: "UV (355 nm) modules for high-resolution UV processing and spectroscopy.",
-      image: { src: "/wavelength-conversion/355nm/hero.jpg", alt: "355 nm laser" },
-      href: "/wavelength-conversion/355nm",
+      shortDescription:
+        "UV 355 nm laser for precision material machining and UV spectroscopy.",
+      image: {
+        src: "/products/wavelength-conversion/355nm/hero.jpg",
+        alt: "355 nm Wavelength Conversion Laser",
+      },
+      href: "/products/wavelength-conversion/355nm",
     },
     {
       slug: "532nm",
       title: "532 nm Wavelength Conversion Laser",
-      shortDescription: "Green SHG lasers for metrology, alignment and visible-range applications.",
-      image: { src: "/wavelength-conversion/532nm/hero.jpg", alt: "532 nm laser" },
-      href: "/wavelength-conversion/532nm",
+      shortDescription:
+        "Green 532 nm frequency-doubled laser for biomedical, sensing and metrology applications.",
+      image: {
+        src: "/products/wavelength-conversion/532nm/hero.jpg",
+        alt: "532 nm Wavelength Conversion Laser",
+      },
+      href: "/products/wavelength-conversion/532nm",
+    },
+    {
+      slug: "780nm",
+      title: "780 nm Wavelength Conversion Laser",
+      shortDescription:
+        "780 nm frequency-conversion laser for biomedical optics and scientific instrumentation.",
+      image: {
+        src: "/products/wavelength-conversion/780nm/hero.jpg",
+        alt: "780 nm Wavelength Conversion Laser",
+      },
+      href: "/products/wavelength-conversion/780nm",
+    },
+    {
+      slug: "795nm",
+      title: "795 nm Wavelength Conversion Laser",
+      shortDescription:
+        "795 nm laser for rubidium atomic physics, spectroscopy and precision measurement.",
+      image: {
+        src: "/products/wavelength-conversion/795nm/hero.jpg",
+        alt: "795 nm Wavelength Conversion Laser",
+      },
+      href: "/products/wavelength-conversion/795nm",
     },
   ],
 };

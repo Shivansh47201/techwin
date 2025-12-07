@@ -4,6 +4,9 @@ export const oneMicronFrequencyStabilizedSeedLaser: Product = {
   slug: "1um-stabilized",
   category: "seed-lasers",
 
+  // CSV for specs table
+  tableCsvUrl: "/products/seed-lasers/1um-stabilized/specs.csv",
+
   meta: {
     title: "1.0 µm Frequency-Stabilized Seed Laser | Techwin Precision Systems",
     description:
@@ -13,27 +16,62 @@ export const oneMicronFrequencyStabilizedSeedLaser: Product = {
   },
 
   title: "1.0 µm Frequency-Stabilized Seed Laser",
-  shortDescription:
-    "Frequency-stabilized 1.0 µm seed lasers engineered for narrow linewidth emission, minimal frequency drift, and dependable long-term operation—ideal for research, sensing, and amplifier seeding.",
 
-  heroImage: { src: "/products/seed-lasers/1um-stabilized/hero.jpg",
+  shortDescription:
+    "Frequency-stabilized 1.0 µm seed lasers engineered for narrow linewidth emission, minimal frequency drift, and dependable long-term operation — ideal for research, sensing, and amplifier seeding.",
+
+  /** HERO + IMAGES */
+  heroImage: {
+    src: "/products/seed-lasers/1um-stabilized/hero.jpg",
     alt: "1.0 µm Frequency-Stabilized Seed Laser",
   },
 
+  graphImageURL: "/products/seed-lasers/1um-stabilized/graph.jpg",
+  tableImageURL: "/products/seed-lasers/1um-stabilized/table.png",
+
   galleryImages: [
-      { src: "/seed-lasers/1um-stabilized/preview.jpg", alt: "1.0µm frequency-stabilized seed laser preview" },
-      { src: "/seed-lasers/1um-stabilized/hero.jpg", alt: "1.0µm frequency-stabilized seed laser hero" },
-    ],
+    {
+      src: "/products/seed-lasers/1um-stabilized/hero.jpg",
+      alt: "1.0 µm frequency-stabilized seed laser preview",
+    },
+    {
+      src: "/products/seed-lasers/1um-stabilized/hero.jpg",
+      alt: "1.0 µm frequency-stabilized seed laser hero",
+    },
+  ],
 
   datasheetUrl: "/products/seed-lasers/1um-stabilized/datasheet.jpg",
   datasheetImageSrc: "/products/seed-lasers/1um-stabilized/datasheet.jpg",
   previewImageSrc: "/products/seed-lasers/1um-stabilized/preview.jpg",
 
+  /** TOP FEATURES + APPLICATION AREAS */
+  features: [
+    "Narrow linewidth output with minimal mode hopping.",
+    "Excellent frequency stability across short- and long-term operation.",
+    "Low relative intensity noise (RIN) for clean signal seeding.",
+    "High spectral purity for improved amplifier behaviour.",
+    "Fiber-coupled architecture (SM / PM options) for easy integration.",
+    "Designed for long operational lifetime with low maintenance.",
+  ],
+
+  applicationAreas: [
+    "Fiber laser seeding for ytterbium amplifiers",
+    "LIDAR and coherent detection systems",
+    "Precision metrology and interferometry",
+    "Nonlinear frequency conversion and harmonic generation",
+    "Quantum optics and spectroscopy",
+    "Research laboratories and industrial testbeds",
+  ],
+
+  /** SECTIONS */
   sections: [
     {
       type: "text",
       heading: "Overview of the 1.0 µm Frequency-Stabilized Seed Laser Category",
-      image: { src: "/seed-lasers/1um-stabilized/", alt: "1.0 µm frequency-stabilized overview" },
+      image: {
+        src: "/products/seed-lasers/1um-stabilized/hero.jpg",
+        alt: "1.0 µm frequency-stabilized overview",
+      },
       content:
         "Seed lasers in the 1.0 µm region are used to initiate coherent radiation in high-power amplifiers and nonlinear systems. Frequency-stabilized models provide narrow linewidth, suppressed frequency noise, and minimal wavelength drift—ensuring high system efficiency and reliable downstream performance.",
     },
@@ -129,20 +167,73 @@ export const oneMicronFrequencyStabilizedSeedLaser: Product = {
     },
   ],
 
+  /** RELATED PRODUCTS – aligned with your actual folders */
   relatedProducts: [
     {
-      slug: "1um-stabilized",
+      slug: "1um-narrow",
       title: "1.0 µm Narrow Linewidth Seed Laser",
-      shortDescription: "Stable, low-noise seed source for coherent systems.",
-      image: { src: "/seed-lasers/1um-stabilized/", alt: "1.0 µm narrow linewidth seed" },
-      href: "/seed-lasers/1um-stabilized/",
+      shortDescription:
+        "1.0 µm ultra-narrow linewidth fiber seed laser with kHz-level linewidth, high coherence, and long-term frequency stability.",
+      image: {
+        src: "/products/seed-lasers/1um-narrow/hero.jpg",
+        alt: "1.0 µm Narrow Linewidth Seed Laser",
+      },
+      href: "/products/seed-lasers/1um-narrow",
     },
     {
-      slug: "1um-stabilized", // self-reference is OK; you may remove or replace later
-      title: "Other 1.0 µm Frequency-Stabilized Models",
-      shortDescription: "Variant models for different power and linewidth needs.",
-      image: { src: "/seed-lasers/1um-stabilized/", alt: "Frequency stabilized variants" },
-      href: "/seed-lasers/1um-stabilized/",
+      slug: "1-0um-ultra-low-noise-seed-laser",
+      title: "1.0 µm Ultra-Low Noise Seed Laser",
+      shortDescription:
+        "1.0 µm ultra-low noise seed laser with advanced low-RIN technology and exceptional power stability.",
+      image: {
+        src: "/products/seed-lasers/1um-ultra-low-noise/hero.jpg",
+        alt: "1.0 µm Ultra-Low Noise Seed Laser",
+      },
+      href: "/products/seed-lasers/1um-ultra-low-noise",
+    },
+    {
+      slug: "1-5um-narrow",
+      title: "1.5 µm Narrow Linewidth Seed Laser",
+      shortDescription:
+        "1.5 µm ultra-narrow linewidth seed laser with 100 Hz-level linewidth for high-precision sensing and quantum technologies.",
+      image: {
+        src: "/products/seed-lasers/1-5um-narrow/hero.jpg",
+        alt: "1.5 µm Narrow Linewidth Seed Laser",
+      },
+      href: "/products/seed-lasers/1-5um-narrow",
+    },
+    {
+      slug: "1-5um-phase",
+      title: "1.5 µm Phase-Modulated Seed Laser",
+      shortDescription:
+        "1.5 µm phase-modulated seed laser with tunable phase, ultra-low phase noise, and high power stability.",
+      image: {
+        src: "/products/seed-lasers/1-5um-phase/hero.jpg",
+        alt: "1.5 µm Phase-Modulated Seed Laser",
+      },
+      href: "/products/seed-lasers/1-5um-phase",
+    },
+    {
+      slug: "2um-single",
+      title: "2.0 µm Single-Frequency Seed Laser",
+      shortDescription:
+        "2.0 µm DBR single-frequency seed laser for quantum information, lidar, and high-resolution spectroscopy.",
+      image: {
+        src: "/products/seed-lasers/2um-single/hero.jpg",
+        alt: "2.0 µm Single-Frequency Seed Laser",
+      },
+      href: "/products/seed-lasers/2um-single",
+    },
+    {
+      slug: "2um-phase",
+      title: "2.0 µm Phase-Modulated Fiber Seed Source",
+      shortDescription:
+        "2.0 µm phase-modulated fiber seed source with mid-IR output, advanced phase modulation, and fully fiberized design.",
+      image: {
+        src: "/products/seed-lasers/2um-phase/hero.jpg",
+        alt: "2.0 µm Phase-Modulated Fiber Seed Source",
+      },
+      href: "/products/seed-lasers/2um-phase",
     },
   ],
 };

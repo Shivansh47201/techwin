@@ -41,6 +41,20 @@ export type CategoryData = {
   };
   contactPhone?: string;
   notes?: string;
+  featureMatrix?: {
+    categories: {
+      id: string;
+      name: string;
+      features: {
+        stability: string;
+        noise: string;
+        coherence: string;
+        integration: string;
+        bonus5?: string;
+        bonus6?: string;
+      };
+    }[];
+  };
 };
 
 export const singleFrequencyData: CategoryData = {
@@ -81,6 +95,24 @@ export const singleFrequencyData: CategoryData = {
 
   subCategories: [
     {
+      id: "1um",
+      name: "1.0 µm Single-Frequency Fiber Laser",
+      shortDescription:
+        "1.0 µm single-frequency fiber laser with ultra-narrow linewidth for Yb-doped amplifier seeding, interferometry, and precision sensing applications.",
+    },
+    {
+      id: "1-5um",
+      name: "1.5 µm Single-Frequency Fiber Laser",
+      shortDescription:
+        "1.5 µm (1550 nm) single-frequency fiber laser optimized for telecommunications, coherent detection, and distributed fiber sensing systems.",
+    },
+    {
+      id: "2um",
+      name: "2.0 µm Single-Frequency Fiber Laser",
+      shortDescription:
+        "2.0 µm single-frequency fiber laser for mid-infrared applications in sensing, spectroscopy, and materials processing.",
+    },
+    {
       id: "ultra-narrow-linewidth",
       name: "Ultra-Narrow Linewidth Fiber Laser",
       shortDescription:
@@ -97,6 +129,12 @@ export const singleFrequencyData: CategoryData = {
       name: "High-Sensitivity Sensor-Stabilized Fiber Laser",
       shortDescription:
         "Frequency-stabilized fiber laser optimized for precision fiber sensing, distributed sensing networks and high-sensitivity detection applications.",
+    },
+    {
+      id: "magnetic-field",
+      name: "Magnetic Field Detection Laser",
+      shortDescription:
+        "Specialized single-frequency fiber laser engineered for magnetic field sensing and detection with high sensitivity and stability.",
     },
     {
       id: "stabilized",
@@ -145,6 +183,71 @@ export const singleFrequencyData: CategoryData = {
   contactPhone: "+86-571-88284299",
   notes:
     "Techwin offers full customization: wavelength locking, power tuning, phase/frequency control, fiber type selection and complete OEM integration. Each unit is factory-tested for linewidth, stability and environmental performance.",
+
+  featureMatrix: {
+    categories: [
+      {
+        id: "sf-1um",
+        name: "1.0 µm Single-Frequency",
+        features: {
+          stability: "Hz-level linewidth with exceptional long-term frequency stability",
+          noise: "Ultra-low phase and intensity noise for coherent applications",
+          coherence: "Exceptional coherence length enabling precision interferometry",
+          integration: "Compact fiber-coupled design compatible with Yb-doped amplifiers",
+          bonus5: "Ideal for seeding high-power amplifier systems",
+          bonus6: "Environmental compensation for field and lab deployments",
+        },
+      },
+      {
+        id: "sf-1.5um",
+        name: "1.5 µm Single-Frequency",
+        features: {
+          stability: "Telecommunications-grade frequency stability at 1550 nm",
+          noise: "Optimized for coherent detection and communication systems",
+          coherence: "Ultra-high coherence for distributed fiber sensing applications",
+          integration: "Seamless integration with telecom fiber infrastructure",
+          bonus5: "Perfect for coherent LiDAR and DAS/DTS systems",
+          bonus6: "Advanced phase and frequency modulation capabilities",
+        },
+      },
+      {
+        id: "sf-2um",
+        name: "2.0 µm Single-Frequency",
+        features: {
+          stability: "Mid-infrared single-frequency with excellent wavelength stability",
+          noise: "Low noise architecture for gas sensing and spectroscopy",
+          coherence: "High coherence suitable for precision mid-IR applications",
+          integration: "Fiber-coupled package for specialized mid-IR systems",
+          bonus5: "Optimized for mid-infrared spectroscopy and gas detection",
+          bonus6: "Robust thermal management for continuous operation",
+        },
+      },
+      {
+        id: "sf-ultra-narrow",
+        name: "Ultra-Narrow Linewidth",
+        features: {
+          stability: "Sub-hertz linewidth delivering maximum coherence and purity",
+          noise: "Exceptional phase noise performance for quantum applications",
+          coherence: "World-class coherence length enabling advanced experiments",
+          integration: "Highly integrable with custom control electronics",
+          bonus5: "Designed for quantum optics and precision metrology",
+          bonus6: "Factory-tested to Hz-level linewidth specifications",
+        },
+      },
+      {
+        id: "sf-narrow",
+        name: "Narrow Linewidth",
+        features: {
+          stability: "kHz-level linewidth with excellent frequency stability",
+          noise: "Low phase noise optimized for measurement systems",
+          coherence: "High coherence for precision sensing and detection",
+          integration: "Easy integration with standard optical setups",
+          bonus5: "Suitable for a wide range of research applications",
+          bonus6: "Customizable power and modulation options",
+        },
+      },
+    ],
+  },
 };
 
 export default singleFrequencyData;

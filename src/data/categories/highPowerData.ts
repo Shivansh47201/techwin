@@ -44,6 +44,20 @@ export type CategoryData = {
   // optional: notes, support contact
   contactPhone?: string;
   notes?: string;
+  featureMatrix?: {
+    categories: {
+      id: string;
+      name: string;
+      features: {
+        stability: string;
+        noise: string;
+        coherence: string;
+        integration: string;
+        bonus5?: string;
+        bonus6?: string;
+      };
+    }[];
+  };
 };
 
 // highPowerData.ts
@@ -153,4 +167,69 @@ export const highPowerData: CategoryData = {
   contactPhone: "+86-571-88284299",
   notes:
     "Customization available: output power (W → kW), wavelength selection, narrow linewidth tuning, rack/bench configurations and integrated monitoring solutions.",
+
+  featureMatrix: {
+    categories: [
+      {
+        id: "hp-1um",
+        name: "High-Power 1.0 µm CW",
+        features: {
+          stability: "Excellent power stability with minimal output drift for long operations",
+          noise: "Low phase and intensity noise enabling coherent detection",
+          coherence: "Single-frequency operation with exceptional spectral purity",
+          integration: "Scalable from watt-class to multi-kilowatt industrial systems",
+          bonus5: "Ideal for industrial laser processing and remote sensing",
+          bonus6: "Customizable output power with rack-mountable designs",
+        },
+      },
+      {
+        id: "hp-1.5um",
+        name: "High-Power 1.5 µm CW",
+        features: {
+          stability: "Telecommunications-grade power stability at 1550 nm",
+          noise: "Ultra-low noise for coherent communication systems",
+          coherence: "High spectral purity for long-distance coherent detection",
+          integration: "Seamless integration with telecom ecosystem and infrastructure",
+          bonus5: "Optimized for distributed sensing and coherent LiDAR",
+          bonus6: "Advanced thermal management for continuous kilowatt operation",
+        },
+      },
+      {
+        id: "hp-2um",
+        name: "High-Power 2.0 µm CW",
+        features: {
+          stability: "Mid-infrared power stability with robust thermal control",
+          noise: "Low noise architecture for precision sensing applications",
+          coherence: "High coherence for advanced mid-IR measurement systems",
+          integration: "Compact module designs for industrial and research systems",
+          bonus5: "Ideal for gas detection and material processing",
+          bonus6: "Efficient thermal management ensuring maximum lifetime",
+        },
+      },
+      {
+        id: "hp-lidar",
+        name: "LiDAR Fiber Laser",
+        features: {
+          stability: "Exceptional frequency stability for long-range measurements",
+          noise: "Ultra-low phase noise enabling precision Doppler detection",
+          coherence: "Maximum coherence for extended measurement range",
+          integration: "Compact, light-weight design for airborne and mobile systems",
+          bonus5: "Optimized for high-resolution geospatial mapping",
+          bonus6: "Advanced beam control and modulation capabilities",
+        },
+      },
+      {
+        id: "hp-kilowatt",
+        name: "Kilowatt-Level",
+        features: {
+          stability: "Kilowatt-class power with superior long-term stability",
+          noise: "Controlled noise characteristics suitable for high-power applications",
+          coherence: "Narrow linewidth preserved at maximum power output",
+          integration: "Industrial-grade packaging with advanced thermal management",
+          bonus5: "Perfect for combustion diagnostics and plasma research",
+          bonus6: "Robust protection and monitoring for continuous deployment",
+        },
+      },
+    ],
+  },
 };

@@ -69,7 +69,7 @@ export default function MobileNav({ onClose }: MobileNavProps) {
     setIsSearching(true);
     searchTimeoutRef.current = setTimeout(async () => {
       try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`);
+        const res = await fetch(`/api/search-static?q=${encodeURIComponent(searchQuery)}`);
         const data = await res.json();
         setSearchResults(data.results || []);
         setShowSearchDropdown(true);

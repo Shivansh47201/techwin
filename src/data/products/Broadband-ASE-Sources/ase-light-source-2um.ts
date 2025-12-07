@@ -1,3 +1,4 @@
+
 import { Product } from "@/types/categories";
 
 export const aseLightSource2um: Product = {
@@ -7,34 +8,87 @@ export const aseLightSource2um: Product = {
   meta: {
     title: "ASE Light Source (2.0 µm) | Techwin Broadband 2.0 µm ASE Unit Pro",
     description:
-      "Techwin ASE Light Source (2.0 µm) for sensing, component testing, and mid-IR research. Stable broadband output from Hangzhou City. For support Call +86-13958180450.",
+      "Techwin ASE Light Source (2.0 µm) for sensing, component testing, and mid-IR research. Stable broadband output from Hangzhou City. For support call +86-13958180450.",
     keywords:
       "2.0 µm ASE, mid-IR ASE source, thulium ASE, holmium ASE, broadband mid-IR source, Techwin ASE",
   },
 
   title: "ASE Light Source (2.0 µm)",
-  shortDescription:
-    "Mid-IR ASE light source centered around 2.0 µm — stable broadband output for sensing, component testing, spectroscopy and mid-IR research.",
 
-  heroImage: { src: "/products/ase-sources/2um/hero.jpg",
-    alt: "ASE Light Source 2.0 µm Hero Image",
+  shortDescription:
+    "The 2.0 µm ASE light source is built on an optimized thulium-doped fiber optical design and equipped with high-precision ATC and ACC (APC) control circuitry to ensure stable, accurate, and reliable operation. It delivers consistent single-mode output with excellent long-term stability, making it suitable for a wide range of advanced testing and sensing applications.",
+
+  heroImage: {
+    src: "/products/ase-sources/2um/hero.jpg",
+    alt: "ASE Light Source (2.0 µm) Hero Image",
   },
 
+  graphImageURL: "/products/ase-sources/2um/graph.jpg",
+  tableImageURL: "/products/ase-sources/2um/table.png",
+
   galleryImages: [
-      { src: "/ase-sources/2um/preview.jpg", alt: "ASE light source 2.0µm preview" },
-      { src: "/ase-sources/2um/hero.jpg", alt: "ASE light source 2.0µm hero" },
-    ],
+    {
+      src: "/products/ase-sources/2um/hero.jpg",
+      alt: "ASE light source 2.0 µm front view",
+    },
+    {
+      src: "/products/ase-sources/2um/hero.jpg",
+      alt: "ASE light source 2.0 µm module",
+    },
+  ],
 
   datasheetUrl: "/products/ase-sources/2um/datasheet.jpg",
   datasheetImageSrc: "/products/ase-sources/2um/datasheet.jpg",
   previewImageSrc: "/products/ase-sources/2um/preview.jpg",
 
+  // From your Key Features & Application Areas
+  features: [
+    "Single-mode fiber output",
+    "High stability and strong reliability",
+  ],
+
+  applicationAreas: [
+    "Optical testing and measurement",
+    "Fiber-optic sensing systems",
+    "Spectral analysis",
+  ],
+
   sections: [
+    {
+      type: "text",
+      heading: "ASE Light Source (2.0 µm)",
+      image: {
+        src: "/products/ase-sources/2um/hero.jpg",
+        alt: "ASE Light Source (2.0 µm)",
+      },
+      content:
+        "The 2.0 µm ASE light source is built on an optimized thulium-doped fiber optical design and equipped with high-precision ATC and ACC (APC) control circuitry to ensure stable, accurate, and reliable operation. It delivers consistent single-mode output with excellent long-term stability, making it suitable for a wide range of advanced testing and sensing applications.",
+    },
+
+    {
+      type: "features",
+      heading: "Key Features",
+      bullets: [
+        "Single-mode fiber output",
+        "High stability and strong reliability",
+      ],
+    },
+
+    {
+      type: "features",
+      heading: "Application Areas",
+      bullets: [
+        "Optical testing and measurement",
+        "Fiber-optic sensing systems",
+        "Spectral analysis",
+      ],
+    },
+
     {
       type: "text",
       heading: "Overview — ASE Light Source (2.0 µm)",
       image: {
-        src: "/ase-sources/ase-light-source-2um/overview.jpg",
+        src: "/products/ase-sources/2um/hero.jpg",
         alt: "Overview ASE 2.0 µm",
       },
       content:
@@ -47,7 +101,7 @@ export const aseLightSource2um: Product = {
       bullets: [
         "Broadband emission centered near 2.0 µm (model dependent)",
         "Low spectral ripple and stable long-term output",
-        "Thulium/holmium doped fiber architecture",
+        "Thulium/holmium-doped fiber architecture",
         "PM and non-PM fiber pigtail options",
         "Compact module form factor — rack or bench integration",
         "Temperature-regulated packaging for repeatable performance",
@@ -68,9 +122,18 @@ export const aseLightSource2um: Product = {
         {
           label: "Performance",
           rows: [
-            { name: "Output Power", value: "Configurable per model / application" },
-            { name: "Stability", value: "Engineered for low drift over long cycles" },
-            { name: "Form Factor", value: "Module or benchtop" },
+            {
+              name: "Output Power",
+              value: "Configurable per model / application",
+            },
+            {
+              name: "Stability",
+              value: "Engineered for low drift over long cycles",
+            },
+            {
+              name: "Form Factor",
+              value: "Module or benchtop",
+            },
           ],
         },
       ],
@@ -109,28 +172,54 @@ export const aseLightSource2um: Product = {
     },
   ],
 
+  // "except jisme update kar rahe bakki sab related products aaye"
   relatedProducts: [
     {
-      slug: "2um",
-      title: "Broadband Light Source",
-      shortDescription: "Wide-spectrum source for general optical testing & metrology.",
+      slug: "1um",
+      title: "ASE Light Source (1.0 µm)",
+      shortDescription:
+        "1.0 µm ASE source with optimized ytterbium-doped fiber design for precision testing and sensing.",
       image: {
-        src: "/ase-sources/broadband-thumb.jpg",
-        alt: "Broadband light source",
+        src: "/products/ase-sources/1um/hero.jpg",
+        alt: "ASE Light Source (1.0 µm)",
       },
-      href: "/ase-sources/broadband-light-source",
+      href: "/products/ase-sources/1um",
     },
     {
-      slug: "2um",
-      title: "ASE Light Source (1.0 µm)",
-      shortDescription: "ASE source around 1.0 µm for fiber testing and calibration.",
+      slug: "1-5um",
+      title: "ASE Light Source (1.5 µm)",
+      shortDescription:
+        "1.5 µm C-band erbium-doped ASE source for optical testing, sensing and spectral analysis.",
       image: {
-        src: "/ase-sources/ase-1um-thumb.jpg",
-        alt: "ASE 1.0 µm",
+        src: "/products/ase-sources/1-5um/hero.jpg",
+        alt: "ASE Light Source (1.5 µm)",
       },
-      href: "/ase-sources/ase-light-source-1um",
+      href: "/products/ase-sources/1-5um",
+    },
+    {
+      slug: "broadband",
+      title: "Broadband Light Source",
+      shortDescription:
+        "Wide-spectrum broadband light source for optical testing, sensing and spectroscopy.",
+      image: {
+        src: "/products/ase-sources/broadband/hero.jpg",
+        alt: "Broadband Light Source",
+      },
+      href: "/products/ase-sources/broadband",
+    },
+    {
+      slug: "sled",
+      title: "Superluminescent LED (SLED)",
+      shortDescription:
+        "High-brightness SLED broadband source for OCT, sensing and precision metrology.",
+      image: {
+        src: "/products/ase-sources/sled/hero.jpg",
+        alt: "Superluminescent LED (SLED)",
+      },
+      href: "/products/ase-sources/sled",
     },
   ],
 };
 
 export default aseLightSource2um;
+

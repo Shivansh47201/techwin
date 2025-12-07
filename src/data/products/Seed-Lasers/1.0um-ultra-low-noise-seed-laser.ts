@@ -1,14 +1,9 @@
 import { Product } from "@/types/categories";
 
-/**
- * 1.0 µm Ultra-Low Noise Seed Laser — normalized for routing & rendering
- * Save / replace the existing export in your product data file.
- */
 export const ultraLowNoiseSeedLaser: Product = {
-  // make slug match the expected URL segment
+ 
   slug: "1-0um-ultra-low-noise-seed-laser",
 
-  // ensure category matches the path segment used in URL generation
   category: "seed-lasers",
 
   meta: {
@@ -21,18 +16,56 @@ export const ultraLowNoiseSeedLaser: Product = {
 
   title: "1.0 µm Ultra-Low Noise Seed Laser",
   shortDescription:
-    "Stable, narrow-linewidth 1.0 µm seed laser designed for precision sensing, amplifier seeding and high-resolution spectroscopy.",
+    "The 1.0 µm ultra-low noise seed laser is engineered for high-end applications such as new energy laser driving, coherent photoradar, precision interferometry, and quantum optics. Utilizing advanced low-RIN laser technology paired with a highly stable power control architecture, it effectively suppresses noise accumulation within the system. This ensures long-term power stability, extremely low intensity fluctuations, and enhanced detection sensitivity, significantly improving the overall accuracy and performance of related optical systems.",
 
-  // normalized image objects / paths (ensure these files exist under public/)
-  heroImage: { src: "/products/seed-lasers/1um-narrow/hero.jpg", alt: "1.0 µm Ultra-Low Noise Seed Laser" },
-  previewImageSrc: "/products/seed-lasers/1um-narrow/preview.jpg",
+  /** MAIN IMAGES (own folder) */
+  heroImage: {
+    src: "/products/seed-lasers/1um-ultra-low-noise/hero.jpg",
+    alt: "1.0 µm Ultra-Low Noise Seed Laser",
+  },
+  previewImageSrc: "/products/seed-lasers/1um-ultra-low-noise/preview.jpg",
+
   galleryImages: [
-    { src: "/products/seed-lasers/1um-narrow/preview.jpg", alt: "1.0 µm ULN seed laser preview" },
-    { src: "/products/seed-lasers/1um-narrow/hero.jpg", alt: "1.0 µm ULN seed laser hero" },
+    {
+      src: "/products/seed-lasers/1um-ultra-low-noise/hero.jpg",
+      alt: "1.0 µm ultra-low noise seed laser preview",
+    },
+    {
+      src: "/products/seed-lasers/1um-ultra-low-noise/hero.jpg",
+      alt: "1.0 µm ultra-low noise seed laser hero",
+    },
   ],
-  datasheetUrl: "/products/seed-lasers/1um-narrow/datasheet.pdf",
-  datasheetImageSrc: "/products/seed-lasers/1um-narrow/datasheet.jpg",
 
+  /** DATASHEET + TABLE/GRAPH IMAGES */
+  // tree me datasheet.jpg hai, isliye yahan bhi .jpg hi rakhenge
+  datasheetUrl: "/products/seed-lasers/1um-ultra-low-noise/datasheet.jpg",
+  datasheetImageSrc: "/products/seed-lasers/1um-ultra-low-noise/datasheet.jpg",
+
+  // CSV table for specs (optional – if your ProductSpecs uses it)
+  tableCsvUrl: "/products/seed-lasers/1um-ultra-low-noise/specs.csv",
+
+  // last main images for graph + table
+  graphImageURL: "/products/seed-lasers/1um-ultra-low-noise/graph.jpg",
+  tableImageURL: "/products/seed-lasers/1um-ultra-low-noise/table.png",
+
+  /** TOP: FEATURES + APPLICATION AREAS (from your text) */
+  features: [
+    "Ultra-low intensity noise for high-end, noise-sensitive optical systems.",
+    "Exceptional long-term power stability enabled by a highly stable power control architecture.",
+    "Effectively suppresses noise accumulation within amplifier chains and detection subsystems.",
+    "Narrow-linewidth, single-frequency operation for high spectral purity and coherence.",
+    "Fully independent intellectual property rights for reliable long-term availability.",
+  ],
+
+  applicationAreas: [
+    "New energy laser driving",
+    "Coherent photoradar",
+    "Precision interferometry",
+    "Quantum optics",
+    "Other noise-sensitive measurement and sensing fields",
+  ],
+
+  /** EXISTING SECTIONS KEPT (content unchanged) */
   sections: [
     {
       type: "text",
@@ -64,8 +97,6 @@ export const ultraLowNoiseSeedLaser: Product = {
     {
       type: "specs",
       heading: "Typical Specifications",
-      // use `specGroups` or `blocks` depending on your ProductDescription/Specs component;
-      // your types accept `rows` or `blocks` — here we provide `blocks` (SpecsSection supports blocks).
       specGroups: [
         {
           label: "Optical",
@@ -107,16 +138,73 @@ export const ultraLowNoiseSeedLaser: Product = {
     },
   ],
 
+  /** UPDATED RELATED PRODUCTS – image URLs + slugs aligned with your folder tree */
   relatedProducts: [
     {
       slug: "1um-narrow",
       title: "1.0 µm Narrow Linewidth Seed Laser",
+      shortDescription:
+        "1.0 µm ultra-narrow linewidth fiber seed laser with kHz-level linewidth and excellent spectral purity.",
+      image: {
+        src: "/products/seed-lasers/1um-narrow/hero.jpg",
+        alt: "1.0 µm Narrow Linewidth Seed Laser",
+      },
       href: "/products/seed-lasers/1um-narrow",
     },
     {
-      slug: "1-0um-single-frequency",
-      title: "1.0 µm Single-Frequency Laser",
-      href: "/products/seed-lasers/1-0um-single-frequency",
+      slug: "1um-stabilized",
+      title: "1.0 µm Frequency-Stabilized Seed Laser",
+      shortDescription:
+        "Frequency-stabilized 1.0 µm seed laser with narrow linewidth and minimal frequency drift for precision systems.",
+      image: {
+        src: "/products/seed-lasers/1um-stabilized/hero.jpg",
+        alt: "1.0 µm Frequency-Stabilized Seed Laser",
+      },
+      href: "/products/seed-lasers/1um-stabilized",
+    },
+    {
+      slug: "1-5um-narrow",
+      title: "1.5 µm Narrow Linewidth Seed Laser",
+      shortDescription:
+        "1.5 µm ultra-narrow linewidth seed laser for high-precision sensing and quantum measurement.",
+      image: {
+        src: "/products/seed-lasers/1-5um-narrow/hero.jpg",
+        alt: "1.5 µm Narrow Linewidth Seed Laser",
+      },
+      href: "/products/seed-lasers/1-5um-narrow",
+    },
+    {
+      slug: "1-5um-phase",
+      title: "1.5 µm Phase-Modulated Seed Laser",
+      shortDescription:
+        "1.5 µm phase-modulated seed laser with tunable phase and ultra-low phase noise.",
+      image: {
+        src: "/products/seed-lasers/1-5um-phase/hero.jpg",
+        alt: "1.5 µm Phase-Modulated Seed Laser",
+      },
+      href: "/products/seed-lasers/1-5um-phase",
+    },
+    {
+      slug: "2um-single",
+      title: "2.0 µm Single-Frequency Seed Laser",
+      shortDescription:
+        "2.0 µm DBR single-frequency seed laser for quantum information, lidar and high-resolution spectroscopy.",
+      image: {
+        src: "/products/seed-lasers/2um-single/hero.jpg",
+        alt: "2.0 µm Single-Frequency Seed Laser",
+      },
+      href: "/products/seed-lasers/2um-single",
+    },
+    {
+      slug: "2um-phase",
+      title: "2.0 µm Phase-Modulated Fiber Seed Source",
+      shortDescription:
+        "2.0 µm phase-modulated fiber seed source with mid-IR output and advanced phase modulation.",
+      image: {
+        src: "/products/seed-lasers/2um-phase/hero.jpg",
+        alt: "2.0 µm Phase-Modulated Fiber Seed Source",
+      },
+      href: "/products/seed-lasers/2um-phase",
     },
   ],
 };

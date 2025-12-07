@@ -5,35 +5,69 @@ export const twoMicronSingleFrequencySeedLaser: Product = {
   category: "seed-lasers",
 
   meta: {
-    title: "Techwin 2.0 µm Single-Frequency Seed Laser | High Stability.",
+    title: "Techwin 2.0 µm Single-Frequency Seed Laser | High Stability",
     description:
-      "Techwin 2.0 µm Single-Frequency Seed Laser offering stable linewidth and dependable performance for precision systems. Contact +86-13958180450 from Hangzhou City.",
+      "Techwin 2.0 µm Single-Frequency Seed Laser offering narrow linewidth, exceptional coherence and stable operation for high-precision mid-IR systems. Contact +86-13958180450.",
     keywords:
-      "2.0 µm seed laser, 2000 nm single-frequency seed, narrow linewidth 2.0um, Techwin seed laser, mid-IR seed source",
+      "2.0 µm seed laser, DBR single-frequency seed, 2000 nm narrow linewidth, mid-IR seed source, quantum sensing seed",
   },
 
   title: "2.0 µm Single-Frequency Seed Laser",
-  shortDescription:
-    "A high-stability 2.0 µm single-frequency seed laser engineered for narrow linewidth, wavelength stability, and reliable long-term operation — ideal for gas sensing, LIDAR, nonlinear conversion and precision instruments.",
 
-  heroImage: { src: "/products/seed-lasers/2um-single/hero.jpg",
+  shortDescription:
+    "A 2.0 µm DBR single-frequency seed laser engineered for kHz-level linewidth, exceptional coherence, long-term wavelength stability, and low noise performance — ideal for spectroscopy, quantum sensing, LIDAR and nonlinear conversion systems.",
+
+  /** HERO + GALLERY IMAGES */
+  heroImage: {
+    src: "/products/seed-lasers/2um-single/hero.jpg",
     alt: "2.0 µm Single-Frequency Seed Laser",
   },
 
   galleryImages: [
-      { src: "/seed-lasers/2um-single/preview.jpg", alt: "2.0µm single-frequency seed laser preview" },
-      { src: "/seed-lasers/2um-single/hero.jpg", alt: "2.0µm single-frequency seed laser hero" },
-    ],
+    {
+      src: "/products/seed-lasers/2um-single/hero.jpg",
+      alt: "2.0 µm single-frequency seed laser preview",
+    },
+    {
+      src: "/products/seed-lasers/2um-single/hero.jpg",
+      alt: "2.0 µm single-frequency seed laser hero",
+    },
+  ],
 
   datasheetUrl: "/products/seed-lasers/2um-single/datasheet.jpg",
   datasheetImageSrc: "/products/seed-lasers/2um-single/datasheet.jpg",
   previewImageSrc: "/products/seed-lasers/2um-single/preview.jpg",
 
+  /** TABLE + GRAPH SUPPORT */
+  tableCsvUrl: "/products/seed-lasers/2um-single/specs.csv",
+  graphImageURL: "/products/seed-lasers/2um-single/graph.jpg",
+  tableImageURL: "/products/seed-lasers/2um-single/table.png",
+
+  /** TOP-LEVEL FEATURES (from your required content) */
+  features: [
+    "kHz-level narrow linewidth DBR laser cavity",
+    "Wide tuning range without mode hopping",
+    "High power stability for reliable long-term seeding",
+    "Compact and robust fiber-coupled design",
+  ],
+
+  /** TOP-LEVEL APPLICATION AREAS (from your required content) */
+  applicationAreas: [
+    "Gas detection and TDLAS",
+    "Quantum computing",
+    "Quantum precision measurement",
+    "High-accuracy mid-IR sensing",
+  ],
+
+  /** MAIN SECTIONS — keeping original */
   sections: [
     {
       type: "text",
       heading: "Introduction to the 2.0 µm Wavelength Range",
-      image: { src: "/seed-lasers/2um-single/", alt: "2.0 µm wavelength overview" },
+      image: {
+        src: "/products/seed-lasers/2um-single/overview.jpg",
+        alt: "2.0 µm wavelength overview",
+      },
       content:
         "The 2.0 µm spectral band supports strong molecular absorption lines, mid-IR conversion, and eye-safer operation in many environments. Techwin’s 2.0 µm seed lasers provide narrowband, stable optical output suitable for gas sensing, free-space transmission, medical research, and high-precision instrumentation.",
     },
@@ -42,103 +76,110 @@ export const twoMicronSingleFrequencySeedLaser: Product = {
       type: "features",
       heading: "Key Features and Performance Highlights",
       bullets: [
-        "Narrow optical linewidth for coherent detection and precision metrology",
-        "Low relative intensity noise (RIN) for clean signal generation",
-        "Wavelength stability via thermal and mechanical control",
-        "Wide operating temperature tolerance for field deployment",
-        "Polarization-maintaining (PM) output options",
-        "Compact, rugged structural design for OEM integration",
+        "DBR cavity providing strong single-frequency operation",
+        "kHz-level linewidth stability for precision interferometry",
+        "Low RIN and clean spectral output for sensing and metrology",
+        "Stable wavelength under temperature and mechanical variations",
+        "Polarization-maintaining output for coherent detection",
+        "Compact and rugged OEM-ready mechanical form",
       ],
     },
 
     {
       type: "text",
-      heading: "Working Principle of Single-Frequency Seed Lasers",
-      content:
-        "A single-frequency seed laser produces one longitudinal mode with minimal unwanted spectral components. The internal cavity, gain fiber, and feedback elements are optimized to avoid mode-hopping and maintain single-mode operation, providing a stable source for amplification and precision measurement.",
-    },
-
-    {
-      type: "features",
       heading: "Applications of the 2.0 µm Single-Frequency Seed Laser",
-      bullets: [
-        "Gas detection and tunable diode laser absorption spectroscopy (TDLAS) for CO₂, CH₄ and other gases",
-        "LIDAR and remote sensing with improved atmospheric transmission",
-        "Nonlinear frequency conversion and mid-IR generation",
-        "Scientific research in photonics and spectroscopy",
-        "Fiber laser pumping and seeding for mid-IR amplifiers",
-        "Free-space communication with enhanced eye-safety characteristics",
-      ],
-    },
-
-    {
-      type: "text",
-      heading: "Technical Advantages for System Integrators",
       content:
-        "This seed laser supports coherent amplifier chains with stable seeding, compact OEM packaging, reliable thermal management (TEC-based), and standard fiber connector compatibility to simplify system integration and reduce development time.",
+        "The laser is ideal for gas spectroscopy (CO₂, CH₄, trace detection), nonlinear frequency conversion, coherent LIDAR, atmospheric remote sensing, and quantum measurement platforms requiring high coherence and ultra-stable frequency output.",
     },
 
     {
       type: "features",
-      heading: "Design Considerations Before Selection",
+      heading: "Why DBR Single-Frequency Architecture Matters",
       bullets: [
-        "Required output power (mW to watt-class options)",
-        "Linewidth and coherence length needed by your application",
-        "Wavelength tolerance and tuning range for target absorption lines",
-        "Mechanical mounting and thermal dissipation constraints",
-        "Electrical and control interface requirements",
+        "Wide tuning range without mode hopping",
+        "Excellent coherence for interferometric sensing",
+        "Stable seeding for coherent amplifiers and mid-IR sources",
+        "Predictable long-term spectral stability",
       ],
     },
 
     {
       type: "text",
-      heading: "Manufacturing Quality and Reliability",
+      heading: "System Integration Advantages",
       content:
-        "Techwin follows strict fabrication and alignment processes. Each unit is tested for linewidth, frequency stability, power consistency, and environmental tolerance to ensure reliable long-term performance from the Hangzhou City production facility.",
-    },
-
-    {
-      type: "features",
-      heading: "Safety & Operational Guidance",
-      bullets: [
-        "Use eye protection appropriate for mid-IR wavelengths",
-        "Operate within recommended thermal and humidity ranges",
-        "Avoid direct or reflected beam exposure",
-        "Ensure proper electrical grounding and protections",
-      ],
-    },
-
-    {
-      type: "text",
-      heading: "Customization Options",
-      content:
-        "Available customizations include output power variants, connector types, wavelength tolerance, specialized mounting, and electrical interface options to fit OEM or research system needs.",
-    },
-
-    {
-      type: "text",
-      heading: "Summary",
-      content:
-        "The 2.0 µm Single-Frequency Seed Laser delivers narrow linewidth, excellent wavelength stability, and integration-friendly packaging—making it a dependable seed source for sensing, research, and mid-IR photonic systems. Contact our team for datasheets, models, and integration support.",
+        "Designed for OEM and laboratory platforms, the laser features standard PM-fiber output, clean electrical interfaces, compact mechanical structure, and TEC-based thermal stabilization to ensure reliable continuous operation.",
     },
   ],
 
+  /** RELATED PRODUCTS — consistent with seed-lasers */
   relatedProducts: [
-    {
-      slug: "2um-single",
-      title: "1.5 µm Narrow Linewidth Seed Laser",
-      shortDescription: "Narrow-linewidth 1.5 µm seed source for sensing and metrology.",
-      image: { src: "/seed-lasers/2um-single/", alt: "1.5 µm seed laser" },
-      href: "/seed-lasers/2um-single/",
+  {
+    slug: "2um-phase",
+    title: "2.0 µm Phase-Modulated Fiber Seed Source",
+    shortDescription:
+      "Phase-modulated mid-IR seed source for TDFA systems, remote sensing and coherent detection.",
+    image: {
+      src: "/products/seed-lasers/2um-phase/hero.jpg",
+      alt: "2.0 µm Phase-Modulated Seed Source",
     },
-    {
-      slug: "2um-single",
-      title: "1.0 µm Narrow Linewidth Seed Laser",
-      shortDescription: "Stable 1.0 µm seed source for coherent systems and amplifier seeding.",
-      image: { src: "/seed-lasers/2um-single/", alt: "1.0 µm seed laser" },
-      href: "/seed-lasers/2um-single/",
+    href: "/products/seed-lasers/2um-phase",
+  },
+  {
+    slug: "1-5um-narrow",
+    title: "1.5 µm Narrow Linewidth Seed Laser",
+    shortDescription:
+      "100 Hz-level ultra-narrow linewidth seed laser for sensing, metrology and telecom research.",
+    image: {
+      src: "/products/seed-lasers/1-5um-narrow/hero.jpg",
+      alt: "1.5 µm Narrow Linewidth Seed Laser",
     },
-  ],
+    href: "/products/seed-lasers/1-5um-narrow",
+  },
+  {
+    slug: "1-5um-phase-modulated",
+    title: "1.5 µm Phase-Modulated Seed Laser",
+    shortDescription:
+      "Tunable phase, ultra-low phase noise, and high power stability for quantum and DAS systems.",
+    image: {
+      src: "/products/seed-lasers/1-5um-phase/hero.jpg",
+      alt: "1.5 µm Phase-Modulated Seed Laser",
+    },
+    href: "/products/seed-lasers/1-5um-phase-modulated",
+  },
+  {
+    slug: "1um-narrow",
+    title: "1.0 µm Narrow Linewidth Seed Laser",
+    shortDescription:
+      "Stable 1.0 µm seed source with narrow linewidth for coherent sensing and amplifier seeding.",
+    image: {
+      src: "/products/seed-lasers/1um-narrow/hero.jpg",
+      alt: "1.0 µm Narrow Linewidth Seed Laser",
+    },
+    href: "/products/seed-lasers/1um-narrow",
+  },
+  {
+    slug: "1um-stabilized",
+    title: "1.0 µm Frequency-Stabilized Seed Laser",
+    shortDescription:
+      "Frequency-stabilized 1.0 µm seed laser for metrology and coherent applications.",
+    image: {
+      src: "/products/seed-lasers/1um-stabilized/hero.jpg",
+      alt: "1.0 µm Frequency-Stabilized Seed Laser",
+    },
+    href: "/products/seed-lasers/1um-stabilized",
+  },
+  {
+    slug: "1um-ultra-low-noise",
+    title: "1.0 µm Ultra-Low Noise Seed Laser",
+    shortDescription:
+      "Ultra-low RIN seed source with outstanding power stability for amplifier seeding and quantum instruments.",
+    image: {
+      src: "/products/seed-lasers/1um-ultra-low-noise/hero.jpg",
+      alt: "1.0 µm Ultra-Low Noise Seed Laser",
+    },
+    href: "/products/seed-lasers/1um-ultra-low-noise",
+  },
+],
 };
 
 export default twoMicronSingleFrequencySeedLaser;

@@ -5,114 +5,206 @@ export const pointLightSource20um: Product = {
   category: "sled",
 
   meta: {
-    title: "2.0 µm Point Light Source | Techwin Fiber Optic Test Device Units",
+    title: "2.0 µm Point Light Source | Techwin Eye-Safe IR Point Source",
     description:
-      "High-performance 2.0 µm point light source for precision fiber testing. Stable output, reliable design. Contact +86-13958180450. Available from Techwin, Hangzhou City.",
-    keywords: "2.0 µm, point light source, mid-IR, thulium, holmium, fiber testing, Techwin",
+      "The 2.0 µm point light source from Techwin is a compact, high-performance infrared source designed for precise spatial positioning, eye-safe operation, and strong environmental resilience. Ideal for next-generation LiDAR, precision medical systems, and advanced industrial processing.",
+    keywords:
+      "2.0 µm point light source, 2um IR source, eye-safe infrared laser, LiDAR light source, precision medical IR, industrial mid-IR source, Techwin",
   },
 
   title: "2.0 µm Point Light Source",
 
   shortDescription:
-    "Stable 2.0 µm point illumination for mid-IR fiber testing, component validation, gas-sensing R&D and OEM integration — narrow linewidth and low-noise.",
+    "Compact, eye-safe 2.0 µm point light source with micron-level spot positioning, high peak power and strong environmental resilience for LiDAR, precision medical and advanced industrial processing.",
 
-  heroImage: { src: "/products/sled/2um-point/hero.jpg",
+  heroImage: {
+    src: "/products/sled/2um-point/hero.jpg",
     alt: "2.0 µm Point Light Source",
   },
 
+  previewImageSrc: "/products/sled/2um-point/preview.jpg",
+
   galleryImages: [
-      { src: "/sled/point-light-source-2-0um/preview.jpg", alt: "point-light-source-2-0um preview" },
-      { src: "/sled/point-light-source-2-0um/hero.jpg", alt: "point-light-source-2-0um hero" },
-    ],
+    {
+      src: "/products/sled/2um-point/hero.jpg",
+      alt: "2.0 µm point light source hero",
+    },
+    {
+      src: "/products/sled/2um-point/hero.jpg",
+      alt: "2.0 µm point light source device view",
+    },
+  ],
 
   datasheetUrl: "/products/sled/2um-point/datasheet.jpg",
   datasheetImageSrc: "/products/sled/2um-point/datasheet.jpg",
-  previewImageSrc: "/products/sled/2um-point/preview.jpg",
 
+  // Graph & table images
+  graphImageURL: "/products/sled/2um-point/graph.jpg",
+  tableImageURL: "/products/sled/2um-point/table.png",
+
+  // ROOT-LEVEL FEATURES & APPLICATION AREAS (as requested)
+  features: [
+    "High beam quality",
+    "Stable and reliable output power",
+    "Polarization-maintaining single-mode operation",
+  ],
+
+  applicationAreas: [
+    "Scientific research",
+    "Experimental teaching",
+    "Device testing and measurement",
+  ],
 
   sections: [
+    // === OVERVIEW (updated with your text) ===
     {
-      type: "overview",
+      type: "text",
       heading: "Overview",
       content:
-        "The 2.0 µm Point Light Source is a compact, fiber-delivered mid-infrared point illumination unit engineered for specialty fiber testing, component validation, atmospheric/gas sensing research, and laboratory prototyping. Based on thulium/holmium-doped fiber technology with active stabilization, it delivers narrow-linewidth, low-noise output tailored for precision mid-IR measurement workflows.",
+        "The 2.0 µm point light source is a compact, high-performance infrared laser designed for applications requiring precise spatial positioning, eye-safe operation and strong environmental resilience. With advantages such as micron-level spot positioning, high peak power, automotive-grade durability and multi-band customization, it serves as a key optical source for next-generation LiDAR, precision medical systems and advanced industrial processing.\n\nIn addition to these advanced capabilities, the source maintains excellent beam quality and stable single-mode output, enabling reliable integration into both laboratory setups and rugged OEM platforms where long-term stability and repeatable performance are critical.",
     },
 
+    // === KEY FEATURES (detailed version) ===
     {
       type: "features",
       heading: "Key Features",
       bullets: [
-        "Stable center wavelength at ~2.0 µm with narrow spectral deviation",
-        "Low intensity noise and controlled linewidth for accurate testing",
-        "Thulium/holmium-doped fiber core with high-quality filtering",
-        "Fiber-coupled single-mode output (2.0 µm compatible fiber) or free-space option",
-        "Integrated temperature control and wavelength locking",
-        "Robust metal housing with OEM-ready mechanical options",
+        "High beam quality with near-diffraction-limited output for precise focusing and coupling.",
+        "Stable and reliable output power suitable for long-duration operation.",
+        "Polarization-maintaining single-mode output for polarization-sensitive systems.",
+        "Micron-level spot positioning capability for accurate spatial targeting and scanning.",
+        "High peak power for demanding LiDAR, sensing and interaction tasks.",
+        "Automotive-grade mechanical durability and environmental robustness.",
+        "Multi-band customization options to match specific application or system requirements.",
       ],
     },
 
+    // === TECHNICAL SPECS (summary text + original structured blocks) ===
     {
-      type: "specs",
+      type: "text",
       heading: "Technical Specifications (Typical)",
+      content:
+        "The 2.0 µm Point Light Source is optimized for mid-infrared photonic systems and test platforms:\n\n" +
+        "• Fiber & Connectors: Single-mode mid-IR fiber (2.0 µm compatible) or PM options with flexible connector configurations.\n" +
+        "• Environmental & Electrical: Designed for reliable operation from 0°C to 40°C with integrated TEC control, low-noise drive electronics and multiple protection circuits.\n" +
+        "• Mechanical: Rugged metal housing available in benchtop or OEM module configurations, suitable for lab racks and embedded systems.",
       blocks: [
         {
           label: "Fiber & Connectors",
           rows: [
-            { name: "Fiber Type", value: "Single-mode mid-IR fiber (2.0 µm compatible) or PM option" },
-            { name: "Connector Options", value: "Custom (FC-type adapters for mid-IR, bare fiber pigtail, or OEM ferrule)" },
+            {
+              name: "Fiber Type",
+              value:
+                "Single-mode mid-IR fiber (2.0 µm compatible) or PM option",
+            },
+            {
+              name: "Connector Options",
+              value:
+                "Custom (FC-type adapters for mid-IR, bare fiber pigtail, or OEM ferrule)",
+            },
             { name: "Pigtail Length", value: "Customizable (standard 1 m)" },
           ],
         },
         {
           label: "Environmental & Electrical",
           rows: [
-            { name: "Operating Temperature", value: "0°C to 40°C (standard); extended ranges on request" },
+            {
+              name: "Operating Temperature",
+              value: "0°C to 40°C (standard); extended ranges on request",
+            },
             { name: "Storage Temperature", value: "-20°C to 70°C" },
-            { name: "Drive Electronics", value: "Low-noise current driver with TEC control and protection circuits" },
-            { name: "Protections", value: "Over-current, over-temp, reverse polarity" },
+            {
+              name: "Drive Electronics",
+              value:
+                "Low-noise current driver with TEC control and protection circuits",
+            },
+            {
+              name: "Protections",
+              value: "Over-current, over-temp, reverse polarity",
+            },
           ],
         },
         {
           label: "Mechanical",
           rows: [
-            { name: "Housing", value: "Metal enclosure; benchtop or OEM module variants" },
-            { name: "Dimensions (typ)", value: "Module: ~140 × 80 × 35 mm (model dependent)" },
+            {
+              name: "Housing",
+              value: "Metal enclosure; benchtop or OEM module variants",
+            },
+            {
+              name: "Dimensions (typ)",
+              value: "Module: ~140 × 80 × 35 mm (model dependent)",
+            },
             { name: "Weight (typ)", value: "Approx. 450 g" },
           ],
         },
       ],
     },
 
+    // === APPLICATIONS (extended, includes your bullet areas + advanced use) ===
     {
-      type: "applications",
+      type: "text",
       heading: "Applications",
       content:
-        "Used for mid-IR fiber component testing (FBGs, specialty couplers), gas-sensing R&D, atmospheric transmission studies, prototype mid-IR photonics development, OEM sensor integration, and laboratory measurement tasks where precise 2.0 µm illumination is required.",
+        "The 2.0 µm point light source is used across a wide range of mid-infrared and precision optical systems:\n\n" +
+        "• Scientific research – mid-IR photonics, spectroscopy and optical experiment platforms.\n" +
+        "• Experimental teaching – advanced optics courses and laboratory demonstrations involving eye-safe IR wavelengths.\n" +
+        "• Device testing and measurement – characterization of mid-IR fibers, couplers, FBGs and specialty components.\n" +
+        "• Next-generation LiDAR – automotive and industrial LiDAR requiring eye-safe, high-peak-power point sources.\n" +
+        "• Precision medical systems – diagnostic, imaging and surgical tools operating near 2.0 µm.\n" +
+        "• Advanced industrial processing – material interaction, surface treatment and process monitoring in the mid-IR band.",
     },
 
+    // === INTEGRATION OPTIONS ===
     {
-      type: "integration",
+      type: "text",
       heading: "Integration & Customization Options",
       content:
-        "Available with selectable fiber types (SM/PM for 2.0 µm), configurable connectors, pigtail length, and packaging (module, benchtop, OEM). Digital/analog control interfaces and firmware options are available for automated test-benches or embedded sensor modules.",
+        "The source can be supplied with selectable fiber types (SM or PM for 2.0 µm), configurable connectors, customized pigtail length and multiple packaging variants (module, benchtop, OEM). Digital and analog control interfaces are available to support automated test benches and embedded sensor modules. Multi-band or multi-channel configurations can be provided on request for complex system architectures.",
     },
 
+    // === SELECTION GUIDELINES ===
     {
-      type: "selection",
+      type: "text",
       heading: "Selection Guidelines",
       content:
-        "Choose based on required output power, wavelength stability, connector format, and whether PM fiber is needed for polarization-sensitive tests. For gas sensing or atmospheric work prioritize wavelength accuracy and low RIN. Consult the datasheet for model-specific linewidth and power options.",
+        "When selecting a 2.0 µm point light source, consider required output power, wavelength stability, connector formats and whether polarization-maintaining fiber is necessary for your application. For gas sensing, atmospheric transmission or LiDAR work, prioritize wavelength accuracy, low relative intensity noise (RIN) and robust environmental performance. For OEM integration, also evaluate mechanical footprint, control interface and thermal management requirements.",
     },
 
+    // === HANDLING / MAINTENANCE ===
     {
-      type: "handling",
-      heading: "Handling, Maintenance & QA",
+      type: "text",
+      heading: "Handling, Maintenance & Quality Assurance",
       content:
-        "Keep connectors and pigtails clean, avoid sharp bends and tensile loads on the fiber, allow TEC to stabilize after power-on, and operate within recommended temperature range. Follow ESD and laser safety protocols. Units undergo optical power and spectrum verification during QA before shipment.",
+        "To ensure long-term reliability, keep all connectors and pigtails clean, avoid sharp bends and tension on the fiber and operate the unit within its specified temperature range. Allow the TEC and internal control electronics to stabilize after power-on before taking critical measurements. Follow standard ESD and laser safety protocols when handling the device. Each unit undergoes optical power, spectral and stability verification during QA to ensure consistent performance.",
     },
   ],
 
-  relatedProducts: [],
+  // PROPER relatedProducts with image, text & href
+  relatedProducts: [
+    {
+      slug: "1um-point",
+      title: "1.0 µm Point Light Source",
+      shortDescription:
+        "Stable 1.0 µm point source with high beam quality and polarization-maintaining output for research, teaching and fiber testing.",
+      image: {
+        src: "/products/sled/1um-point/hero.jpg",
+        alt: "1.0 µm Point Light Source",
+      },
+      href: "/products/sled/1um-point",
+    },
+    {
+      slug: "1-5um-point",
+      title: "1.5 µm Point Light Source",
+      shortDescription:
+        "Compact, eye-safe 1.5 µm point light source with stable single-mode output for LiDAR, quantum research and biomedical systems.",
+      image: {
+        src: "/products/sled/1-5um-point/hero.jpg",
+        alt: "1.5 µm Point Light Source",
+      },
+      href: "/products/sled/1-5um-point",
+    },
+  ],
 };
 
 export default pointLightSource20um;

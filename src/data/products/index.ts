@@ -9,7 +9,7 @@ import { sledLightSource } from "./Broadband-ASE-Sources/sled-light-source";
 
 import { polarizationMaintainingFiberAmplifier } from "./Fiber-Amplifiers/polarization-maintaining-fiber-amplifier";
 import { highPowerFiberAmplifier } from "./Fiber-Amplifiers/high-power-fiber-amplifier";
-import { erbiumDopedFiberAmplifier } from "./Fiber-Amplifiers/erbium-doped-fiber-amplifier";
+import { fiberAmplifierModules } from "./Fiber-Amplifiers/fiber-amplifier-modules";
 
 import { kilowattLevelFiberLaserCombustionDiagnostics } from "./High-Power-Fiber-Lasers/kilowatt-level-fiber-laser-combustion-diagnostics";
 import { highPowerCWSingleFrequencyFiberLaser1um } from "./High-Power-Fiber-Lasers/high-power-cw-single-frequency-fiber-laser-1um";
@@ -32,11 +32,13 @@ import { twoMicronPhaseModulatedFiberSeedSource } from "./Seed-Lasers/2.0um-phas
 import { oneMicronSingleFrequencyFiberLaser } from "./Single-Frequency-Fiber-Lasers/1.0um-single-frequency-fiber-laser";
 import { onePointFiveMicronSingleFrequencyFiberLaser } from "./Single-Frequency-Fiber-Lasers/1.5um-single-frequency-fiber-laser";
 import { twoMicronSingleFrequencyFiberLaser } from "./Single-Frequency-Fiber-Lasers/2.0um-single-frequency-fiber-laser";
-import { ultraNarrowLinewidth } from "./Single-Frequency-Fiber-Lasers/ultra-narrow-linewidth-fiber-laser";
 import { highSensitivitySensorStabilizedFiberLaser } from "./Single-Frequency-Fiber-Lasers/high-sensitivity-sensor-stabilized-fiber-laser";
 import { magneticFieldDetectionLaser } from "./Single-Frequency-Fiber-Lasers/magnetic-field-detection-laser";
 import { frequencyStabilizedFiberLaser } from "./Single-Frequency-Fiber-Lasers/frequency-stabilized-fiber-laser";
 import { broadbandUltraLowNoise } from "./Single-Frequency-Fiber-Lasers/broadband-ultra-low-noise-fiber-laser";
+import {ultraNarrowLinewidth} from "./Single-Frequency-Fiber-Lasers/ultra-narrow-linewidth";
+import {narrowLinewidth} from "./Single-Frequency-Fiber-Lasers/narrow-linewidth";
+import {ultraLowNoiseFiberLaserSeries} from "./Single-Frequency-Fiber-Lasers/ultra-low-noise";
 
 import { spectralTestingSystem } from "./Testing-Systems/spectral-testing-system";
 import { noiseTestingSystem } from "./Testing-Systems/noise-testing-system";
@@ -60,12 +62,13 @@ export const PRODUCT_MAP: Record<string, any> = {
   // Fiber Amplifiers
   "polarization-maintaining-fiber-amplifier": polarizationMaintainingFiberAmplifier,
   "high-power-fiber-amplifier": highPowerFiberAmplifier,
-  "erbium-doped-fiber-amplifier": erbiumDopedFiberAmplifier,
+  "fiber-amplifier-modules": fiberAmplifierModules,
 
   // High-Power Fiber Lasers
   "kilowatt-level-fiber-laser-combustion-diagnostics": kilowattLevelFiberLaserCombustionDiagnostics,
   "high-power-cw-single-frequency-fiber-laser-1um": highPowerCWSingleFrequencyFiberLaser1um,
   "high-power-cw-single-frequency-fiber-laser-1.5um": highPowerCWSingleFrequencyFiberLaser1_5um,
+  "high-power-cw-single-frequency-fiber-laser-1-5um": highPowerCWSingleFrequencyFiberLaser1_5um,
   "high-power-cw-single-frequency-fiber-laser-2um": highPowerCWSingleFrequencyFiberLaser2um,
   "long-distance-high-resolution-lidar-fiber-laser": longDistanceHighResolutionLidarFiberLaser,
 
@@ -84,14 +87,27 @@ export const PRODUCT_MAP: Record<string, any> = {
   "2.0um-phase-modulated-fiber-seed-source": twoMicronPhaseModulatedFiberSeedSource,
 
   // Single-Frequency Fiber Lasers
+  // Map both filename-based keys and slug-based keys for lookup flexibility
   "1.0um-single-frequency-fiber-laser": oneMicronSingleFrequencyFiberLaser,
+  "1um": oneMicronSingleFrequencyFiberLaser,
   "1.5um-single-frequency-fiber-laser": onePointFiveMicronSingleFrequencyFiberLaser,
+  "1-5um": onePointFiveMicronSingleFrequencyFiberLaser,
   "2.0um-single-frequency-fiber-laser": twoMicronSingleFrequencyFiberLaser,
+  "2um": twoMicronSingleFrequencyFiberLaser,
   "ultra-narrow-linewidth-fiber-laser": ultraNarrowLinewidth,
+  "ultra-narrow-linewidth": ultraNarrowLinewidth,
+  "ultra-low-noise-fiber-laser-series": ultraLowNoiseFiberLaserSeries,
+  "ultra-low-noise": ultraLowNoiseFiberLaserSeries,
+  "narrow-linewidth-fiber-laser": narrowLinewidth,   
+  "narrow-linewidth": narrowLinewidth,    
   "high-sensitivity-sensor-stabilized-fiber-laser": highSensitivitySensorStabilizedFiberLaser,
+  "sensor-stabilized": highSensitivitySensorStabilizedFiberLaser,
   "magnetic-field-detection-laser": magneticFieldDetectionLaser,
+  "magnetic-field": magneticFieldDetectionLaser,
   "frequency-stabilized-fiber-laser": frequencyStabilizedFiberLaser,
+  "stabilized": frequencyStabilizedFiberLaser,
   "broadband-ultra-low-noise-fiber-laser": broadbandUltraLowNoise,
+  "broadband-low-noise": broadbandUltraLowNoise,
 
   // Testing Systems
   "spectral-testing-system": spectralTestingSystem,

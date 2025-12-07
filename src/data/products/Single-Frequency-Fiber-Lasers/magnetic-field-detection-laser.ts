@@ -3,6 +3,8 @@ import { Product } from "@/types/categories";
 export const magneticFieldDetectionLaser: Product = {
   slug: "magnetic-field",
   category: "single-frequency-fiber-lasers",
+  tableCsvUrl:
+    "https://docs.google.com/spreadsheets/d/1dray0_tpQpYOvnh-88lwq-Ejo1bUlKtECY9qyasZS4o/export?format=csv&gid=105283573",
 
   meta: {
     title: "Magnetic Field Detection Laser | Techwin China Precision Fiber Laser",
@@ -14,27 +16,53 @@ export const magneticFieldDetectionLaser: Product = {
 
   title: "Magnetic Field Detection Laser",
   shortDescription:
-    "A precision-engineered single-frequency fiber laser designed for magnetic field detection, quantum sensing, atomic measurements, and high-stability scientific applications.",
+    "This 1083 nm precision laser is engineered specifically for high-accuracy magnetic detection and incorporates advanced frequency-stabilization technology to maintain exceptionally stable output. Its high frequency stability and low-noise performance make it ideal for demanding applications such as quantum sensing, geomagnetic detection, and scientific research. With a compact, integration-friendly design, it provides a reliable and stable light source for advanced magnetic measurement systems, ensuring accurate data acquisition and analysis.",
 
-  heroImage: { src: "/products/single-frequency/magnetic-field/hero.jpg",
+  heroImage: {
+    src: "/products/single-frequency/magnetic-field/hero.jpg",
     alt: "Magnetic Field Detection Fiber Laser",
   },
+  graphImageURL: "/products/single-frequency/magnetic-field/graph.jpg",
+  tableImageURL: "/products/single-frequency/magnetic-field/table.png",
+
+  features: [
+    "High frequency stability",
+    "Low noise performance",
+    "Strong environmental adaptability",
+    "Compact and easy-to-integrate design",
+    "Stable and reliable operation",
+  ],
+
+  applicationAreas: [
+    "Quantum sensing",
+    "Geomagnetic detection",
+    "Precision scientific research",
+  ],
 
   galleryImages: [
-      { src: "/single-frequency/magnetic-field/preview.jpg", alt: "Magnetic field detection laser preview" },
-      { src: "/single-frequency/magnetic-field/hero.jpg", alt: "Magnetic field detection laser hero" },
-    ],
+    {
+      src: "/products/single-frequency/magnetic-field/hero.jpg",
+      alt: "Magnetic field detection laser preview",
+    },
+    {
+      src: "/products/single-frequency/magnetic-field/hero.jpg",
+      alt: "Magnetic field detection laser hero",
+    },
+  ],
 
   datasheetUrl: "/products/single-frequency/magnetic-field/datasheet.jpg",
-  datasheetImageSrc: "/products/single-frequency/magnetic-field/datasheet.jpg",
-  previewImageSrc: "/products/single-frequency/magnetic-field/preview.jpg",
+  datasheetImageSrc:
+    "/products/single-frequency/magnetic-field/datasheet.jpg",
+  previewImageSrc:
+    "/products/single-frequency/magnetic-field/preview.jpg",
 
   sections: [
     {
       type: "text",
-      heading: "Magnetic Field Detection Laser | Single-Frequency Fiber Laser Systems",
+      heading:
+        "Magnetic Field Detection Laser | Single-Frequency Fiber Laser Systems",
       image: {
-        src: "/single-frequency/magnetic-field-overview.jpg",
+        src: "/products/single-frequency/magnetic-field/overview.jpg",
         alt: "Magnetic field detection laser overview image",
       },
       content:
@@ -50,7 +78,8 @@ export const magneticFieldDetectionLaser: Product = {
 
     {
       type: "features",
-      heading: "Why Single-Frequency Fiber Lasers Are Used for Magnetic Field Detection",
+      heading:
+        "Why Single-Frequency Fiber Lasers Are Used for Magnetic Field Detection",
       bullets: [
         "Low phase noise enabling high-precision sensing",
         "Very narrow linewidth for sensitive magnetic detection",
@@ -133,7 +162,8 @@ export const magneticFieldDetectionLaser: Product = {
 
     {
       type: "text",
-      heading: "Working Principle of Magnetic Field Detection Using Fiber Lasers",
+      heading:
+        "Working Principle of Magnetic Field Detection Using Fiber Lasers",
       content:
         "The system measures magnetic-induced changes in atomic or optical media. A stable reference laser beam interacts with atoms, and resulting changes in absorption or frequency shift are translated into magnetic field values.",
     },
@@ -170,36 +200,103 @@ export const magneticFieldDetectionLaser: Product = {
     },
   ],
 
+  /** -----------------------------------
+   * COMPLETE RELATED PRODUCTS SECTION
+   * ----------------------------------- */
   relatedProducts: [
     {
-      slug: "magnetic-field",
-      title: "Hz-Level Ultra-Narrow Linewidth Fiber Laser",
-      shortDescription: "Ultra-stable Hz-level linewidth laser.",
+      slug: "ultra-narrow-linewidth",
+      title: "Hz-Level Ultra-Narrow Linewidth Single-Frequency Fiber Laser",
+      shortDescription: "Ultimate spectral purity for high-precision metrology.",
       image: {
-        src: "/single-frequency/ultra-narrow-linewidth.jpg",
-        alt: "Ultra narrow linewidth fiber laser",
+        src: "/products/single-frequency/ultra-narrow-linewidth/hero.jpg",
+        alt: "Ultra Narrow Linewidth Fiber Laser",
       },
-      href: "/single-frequency/magnetic-field/",
+      href: "/products/single-frequency-fiber-lasers/ultra-narrow-linewidth",
     },
     {
-      slug: "magnetic-field",
-      title: "Narrow Linewidth Fiber Laser",
-      shortDescription: "Stable kHz-level narrow-linewidth laser.",
+      slug: "broadband-low-noise",
+      title: "Broadband Ultra-Low Noise Single-Frequency Fiber Laser",
+      shortDescription: "Ultra-low noise broadband source for sensing and metrology.",
       image: {
-        src: "/single-frequency/narrow-linewidth-hero.jpg",
-        alt: "Narrow Linewidth Fiber Laser",
-      },
-      href: "/single-frequency/magnetic-field/",
-    },
-    {
-      slug: "magnetic-field",
-      title: "Broadband Ultra-Low Noise Fiber Laser",
-      shortDescription: "Low noise broadband laser for sensing and metrology.",
-      image: {
-        src: "/single-frequency/broadband-ultra-low-noise-hero.jpg",
+        src: "/products/single-frequency/broadband-low-noise/hero.jpg",
         alt: "Broadband Ultra Low Noise Laser",
       },
-      href: "/single-frequency/magnetic-field/",
+      href: "/products/single-frequency-fiber-lasers/broadband-low-noise",
+    },
+    {
+      slug: "narrow-linewidth",
+      title: "Narrow Linewidth Single-Frequency Fiber Laser",
+      shortDescription: "Stable narrow-linewidth laser for coherent detection.",
+      image: {
+        src: "/products/single-frequency/narrow-linewidth/hero.jpg",
+        alt: "Narrow Linewidth Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/narrow-linewidth",
+    },
+    {
+      slug: "sensor-stabilized",
+      title: "High-Sensitivity Sensor-Stabilized Fiber Laser",
+      shortDescription:
+        "Sensor-stabilized precision laser for distributed sensing.",
+      image: {
+        src: "/products/single-frequency/sensor-stabilized/hero.jpg",
+        alt: "Sensor Stabilized Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/sensor-stabilized",
+    },
+    {
+      slug: "1um",
+      title: "1.0 µm Single-Frequency Fiber Laser",
+      shortDescription: "Stable 1.0µm laser for sensing and interferometry.",
+      image: {
+        src: "/products/single-frequency/1um/hero.jpg",
+        alt: "1.0 µm Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/1um",
+    },
+    {
+      slug: "1-5um",
+      title: "1.5 µm Single-Frequency Fiber Laser",
+      shortDescription: "1.5 µm laser for metrology, telecom and remote sensing.",
+      image: {
+        src: "/products/single-frequency/1-5um/hero.jpg",
+        alt: "1.5 µm Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/1-5um",
+    },
+    {
+      slug: "2um",
+      title: "2.0 µm Single-Frequency Fiber Laser",
+      shortDescription:
+        "2.0 µm wavelength laser for mid-IR sensing and spectroscopy.",
+      image: {
+        src: "/products/single-frequency/2um/hero.jpg",
+        alt: "2.0 µm Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/2um",
+    },
+    {
+      slug: "stabilized",
+      title: "Frequency-Stabilized Fiber Laser (All Wavelengths)",
+      shortDescription:
+        "Frequency-locked laser for coherent and quantum systems.",
+      image: {
+        src: "/products/single-frequency/stabilized/hero.jpg",
+        alt: "Frequency Stabilized Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/stabilized",
+    },
+    {
+      slug: "ultra-low-noise",
+      title: "Ultra-Low Noise Fiber Laser Series",
+      shortDescription:
+        "Low-noise laser series for demanding metrology and sensing.",
+      image: {
+        src: "/products/single-frequency/ultra-low-noise/hero.jpg",
+        alt: "Ultra Low Noise Fiber Laser Series",
+      },
+      href: "/products/single-frequency-fiber-lasers/ultra-low-noise",
     },
   ],
 

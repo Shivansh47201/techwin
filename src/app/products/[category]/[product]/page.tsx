@@ -23,6 +23,7 @@ import Image from "next/image";
 import { Download, ArrowRight } from "lucide-react";
 import CompactProductPanel from "@/components/products/CompactProductPanel";
 import ProductGraphsAndTableSection from "@/components/products/ProductGraphsAndTableSection";
+import ProductGraphsAndTableImageSection from "../../../../components/products/ProductGraphsAndTableImageSection";
 
 export async function generateStaticParams() {
   return getAllProductPaths();
@@ -58,19 +59,19 @@ export default async function ProductPage({
 
   const p: Product = productData;
 
+  // --- FIXED: use the loaded product object `p` (not the route `product` string) ---
   const heroProps = {
     title: p.title,
     description: p.shortDescription,
-    // If the product exposes a gallery, prefer that so the hero becomes a slider.
-    image:
-      (p as any).galleryImages && (p as any).galleryImages.length
-        ? (p as any).galleryImages
-        : p.heroImage,
-    ctas: [
-      { label: "Request Quote", href: "#request-quote" },
-      { label: "Download Datasheet", href: p.datasheetUrl || "#" },
-    ],
+    heroImage: p.heroImage,
+    galleryImages: p.galleryImages,
+    ctas: [{ label: "Request Quote", href: "/contact" }],
+    breadcrumbs: [{ label: "Products", href: "/products" }, { label: p.title }],
+    // PASS THESE EXPLICITLY so ProductDetailHero receives them
+    features: p.features ?? [],
+    applicationAreas: p.applicationAreas ?? [],
   };
+  // ------------------------------------------------------------------------------
 
   const specSummary = {
     Bandwidth: "Wide-spectrum (multi-λ)",
@@ -142,11 +143,17 @@ export default async function ProductPage({
 
       <ProductDetailHero {...heroProps} />
 
+      <ProductGraphsAndTableImageSection
+        graphImageURL={p.graphImageURL}
+        tableImageURL={p.tableImageURL || (p as any).tableImageUrl}
+      />
+      {/* 
       <ProductGraphsAndTableSection
         graphImageURL={p.graphImageURL}
         tableCsvUrl={p.tableCsvUrl}
-        tableData={p.tableData}
-      />
+        mergeRowColumns={[0]}
+        blankAsContinuation={true}
+      /> */}
 
       <div className="lg:col-span-7">
         <CompactProductPanel
@@ -233,55 +240,6 @@ export default async function ProductPage({
               ),
             });
           }
-
-          // Downloads Tab with rich content
-          // TABS.push({
-          //   id: "downloads",
-          //   label: "Downloads",
-          //   icon: "downloads",
-          //   content: (
-          //     <div className="space-y-8">
-          //       <div>
-          //         <h3 className="text-2xl font-bold text-white mb-4">{p.title} — Downloads</h3>
-          //         <p>Download technical datasheets, view application notes, and access CAD files to integrate our laser into your setup.</p>
-          //       </div>
-          //       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
-          //         <div className="lg:col-span-2 w-full h-64 relative rounded-lg overflow-hidden">
-          //           {safeHeroSrcEncoded ? (
-          //             <Image src={safeHeroSrcEncoded} alt={p.title || "Product Preview"} fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" />
-          //           ) : (
-          //             <div className="w-full h-full bg-gray-200" />
-          //           )}
-          //         </div>
-          //         <div className="lg:col-span-3">
-          //           <h4 className="text-xl font-semibold text-white mb-2">Main Datasheet</h4>
-          //           <p className="text-gray-300 text-sm mb-4">{p.slug}-datasheet.pdf</p>
-          //           <a href={p.datasheetUrl} download className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold bg-[#00a9e0] text-white transition-transform hover:scale-105">
-          //             <Download size={18} />
-          //             Download
-          //           </a>
-          //         </div>
-          //       </div>
-          //       <div>
-          //         <h4 className="text-xl font-semibold text-white mb-4 mt-6">Additional Resources</h4>
-          //         <div className="space-y-3">
-          //           <a href="#" className="flex justify-between items-center p-4 rounded-lg bg-black/20 hover:bg-black/40 transition-colors">
-          //             <span>Application Note: Sensing</span>
-          //             <ArrowRight />
-          //           </a>
-          //           <a href="#" className="flex justify-between items-center p-4 rounded-lg bg-black/20 hover:bg-black/40 transition-colors">
-          //             <span>CAD Files (.step)</span>
-          //             <ArrowRight />
-          //           </a>
-          //           <a href="#" className="flex justify-between items-center p-4 rounded-lg bg-black/20 hover:bg-black/40 transition-colors">
-          //             <span>User Manual</span>
-          //             <ArrowRight />
-          //           </a>
-          //         </div>
-          //       </div>
-          //     </div>
-          //   ),
-          // });
 
           return TABS;
         })()}

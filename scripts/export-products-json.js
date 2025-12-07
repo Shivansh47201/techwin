@@ -41,6 +41,23 @@ function getCategoryImageFromDataFile(categoryDirName) {
   return imageMap[categoryDirName] || '';
 }
 
+function extractTitleFromTypeScript(filePath) {
+  try {
+    const content = fs.readFileSync(filePath, 'utf8');
+    // Look for root-level title (exactly 2 spaces indentation)
+    const lines = content.split('\n');
+    for (const line of lines) {
+      const match = line.match(/^  title\s*:\s*["']([^"']+)["']/);
+      if (match && match[1]) {
+        return match[1];
+      }
+    }
+  } catch (err) {
+    // Fallback
+  }
+  return null;
+}
+
 function readCategories() {
   const productsDir = findProductsDir();
   if (!productsDir) return [];
@@ -55,7 +72,19 @@ function readCategories() {
         .map(f => {
           const rawName = f.isDirectory() ? f.name : f.name.replace(/\.(json|md|ts|tsx|js)$/i, '');
           const slug = normalizeSlug(rawName);
-          const title = rawName.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+          
+          // Try to extract title from TypeScript file
+          let title = null;
+          if (f.name.endsWith('.ts') || f.name.endsWith('.tsx')) {
+            const filePath = path.join(dirPath, f.name);
+            title = extractTitleFromTypeScript(filePath);
+          }
+          
+          // Fall back to generated title if extraction failed
+          if (!title) {
+            title = rawName.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+          }
+          
           return { slug, title };
         });
 

@@ -14,17 +14,40 @@ export const oneMicronSingleFrequencyFiberLaser: Product = {
 
   title: "1.0 µm Single-Frequency Fiber Laser",
   shortDescription:
-    "The 1.0 μm ultra-narrow linewidth fiber laser is a laser with completely independent intellectual property rights and internationally advanced performance. It employs a special resonant cavity structure design, combined with noise suppression and linewidth narrowing technology, to achieve ultra-narrow linewidth laser output down to the kHz level. Product features: ultra-narrow linewidth; no mode hopping, no burst noise; high side-mode suppression ratio; low relative intensity noise  good vibration resistance and high/low temperature performance. Applications: gravitational wave detection; fiber optic sensing; underwater hydrophones; lidar; coherent communication; quantum precision measurement.",
+    "The 1.0 µm single-frequency fiber laser is designed for applications requiring exceptional spectral purity, high coherence, and stable single-frequency operation. Featuring an advanced resonator structure and optimized fiber design, it delivers ultra-narrow linewidth performance with low noise and excellent long-term stability. Its reliable output makes it suitable for precision measurement, coherent detection, fiber sensing, and a wide range of scientific research applications.",
 
-  heroImage: { src: "/products/single-frequency/1um/hero.jpg",
+  heroImage: {
+    src: "/products/single-frequency/1um/hero.jpg",
     alt: "1.0 µm Single-Frequency Fiber Laser",
   },
-  
+  graphImageURL: "/products/single-frequency/1um/graph.jpg",
+  tableImageURL: "/products/single-frequency/1um/table.png",
+
+  features: [
+    "Ultra-narrow linewidth",
+    "High coherence and frequency stability",
+    "Strong environmental adaptability",
+    "Low noise operation",
+    "Excellent long-term reliability",
+  ],
+
+  applicationAreas: [
+    "Precision measurement",
+    "Coherent optical detection",
+    "Fiber-optic sensing",
+    "Scientific experimentation and research",
+  ],
 
   galleryImages: [
-      { src: "/products/single-frequency/1um/hero1.jpg", alt: "1.0µm single-frequency fiber laser preview" },
-      { src: "/products/single-frequency/1um/hero1.jpg", alt: "1.0µm single-frequency fiber laser hero" },
-    ],
+    {
+      src: "/products/single-frequency/1um/hero.jpg",
+      alt: "1.0µm single-frequency fiber laser preview",
+    },
+    {
+      src: "/products/single-frequency/1um/hero.jpg",
+      alt: "1.0µm single-frequency fiber laser hero",
+    },
+  ],
 
   datasheetUrl: "/products/single-frequency/1um/datasheet.jpg",
   datasheetImageSrc: "/products/single-frequency/1um/datasheet.jpg",
@@ -97,18 +120,103 @@ export const oneMicronSingleFrequencyFiberLaser: Product = {
 
   relatedProducts: [
     {
-      slug: "1um",
-      title: "Narrow Linewidth Fiber Laser",
-      shortDescription: "Stable kHz-level narrow-linewidth laser.",
-      image: { src: "/single-frequency/narrow-linewidth-hero.jpg", alt: "Narrow Linewidth Fiber Laser" },
-      href: "/single-frequency/1um/",
+      slug: "ultra-narrow-linewidth",
+      title: "Hz-Level Ultra-Narrow Linewidth Single-Frequency Fiber Laser",
+      shortDescription:
+        "Hz-level ultra-narrow linewidth single-frequency fiber laser for ultimate spectral purity.",
+      image: {
+        src: "/products/single-frequency/ultra-narrow-linewidth/hero.jpg",
+        alt: "Hz-Level Ultra-Narrow Linewidth Single-Frequency Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/ultra-narrow-linewidth",
     },
     {
-      slug: "1um",
-      title: "Hz-Level Ultra-Narrow Linewidth Fiber Laser",
-      shortDescription: "Hz-level ultra-narrow linewidth single-frequency fiber laser.",
-      image: { src: "/single-frequency/ultra-narrow-linewidth.jpg", alt: "Ultra Narrow Linewidth Fiber Laser" },
-      href: "/single-frequency/1um/",
+      slug: "broadband-low-noise",
+      title: "Broadband Ultra-Low Noise Single-Frequency Fiber Laser",
+      shortDescription:
+        "Broadband ultra-low noise single-frequency fiber laser for high SNR applications.",
+      image: {
+        src: "/products/single-frequency/broadband-low-noise/hero.jpg",
+        alt: "Broadband Ultra-Low Noise Single-Frequency Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/broadband-low-noise",
+    },
+    {
+      slug: "narrow-linewidth",
+      title: "Narrow Linewidth Single-Frequency Fiber Laser",
+      shortDescription:
+        "Stable narrow-linewidth single-frequency fiber laser for precision systems.",
+      image: {
+        src: "/products/single-frequency/narrow-linewidth/hero.jpg",
+        alt: "Narrow Linewidth Single-Frequency Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/narrow-linewidth",
+    },
+    {
+      slug: "sensor-stabilized",
+      title: "High-Sensitivity Sensor-Stabilized Laser",
+      shortDescription:
+        "Sensor-stabilized laser designed for high-sensitivity detection and sensing.",
+      image: {
+        src: "/products/single-frequency/sensor-stabilized/hero.jpg",
+        alt: "High-Sensitivity Sensor-Stabilized Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/sensor-stabilized",
+    },
+    {
+      slug: "magnetic-field",
+      title: "Magnetic Field Detection Laser",
+      shortDescription:
+        "Single-frequency laser optimized for magnetic field detection applications.",
+      image: {
+        src: "/products/single-frequency/magnetic-field/hero.jpg",
+        alt: "Magnetic Field Detection Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/magnetic-field",
+    },
+    {
+      slug: "1-5um",
+      title: "1.5 µm Single-Frequency Fiber Laser",
+      shortDescription:
+        "1.5 µm single-frequency fiber laser for coherent communication and sensing.",
+      image: {
+        src: "/products/single-frequency/1-5um/hero.jpg",
+        alt: "1.5 µm Single-Frequency Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/1-5um",
+    },
+    {
+      slug: "2um",
+      title: "2.0 µm Single-Frequency Fiber Laser",
+      shortDescription:
+        "2.0 µm single-frequency fiber laser suited for mid-IR and sensing applications.",
+      image: {
+        src: "/products/single-frequency/2um/hero.jpg",
+        alt: "2.0 µm Single-Frequency Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/2um",
+    },
+    {
+      slug: "stabilized",
+      title: "Frequency-Stabilized Fiber Laser (All Wavelengths)",
+      shortDescription:
+        "Frequency-stabilized fiber laser platform covering multiple wavelength options.",
+      image: {
+        src: "/products/single-frequency/stabilized/hero.jpg",
+        alt: "Frequency-Stabilized Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/stabilized",
+    },
+    {
+      slug: "ultra-low-noise",
+      title: "Ultra-Low Noise Fiber Laser Series",
+      shortDescription:
+        "Ultra-low noise fiber laser series for demanding metrology and sensing tasks.",
+      image: {
+        src: "/products/single-frequency/ultra-low-noise/hero.jpg",
+        alt: "Ultra-Low Noise Fiber Laser Series",
+      },
+      href: "/products/single-frequency-fiber-lasers/ultra-low-noise",
     },
   ],
 };

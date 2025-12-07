@@ -24,7 +24,7 @@ export const applications: ApplicationItem[] = [
   },
 
   {
-    slug: "fiber-optic-sensing",
+    slug: "sensing",
     name: "Optical Fiber Sensing",
     heading:
       "Ultra-stable sources for DAS, DTS, and structural health monitoring across long-distance fiber links.",

@@ -7,33 +7,77 @@ export const nm795WavelengthConversionLaser: Product = {
   meta: {
     title: "795 nm Wavelength Conversion Laser | Techwin UV Laser Systems",
     description:
-      "Techwin 795 nm Wavelength Conversion Laser for UV system precision. Contact +86-13958180450 for details. Manufacturer located in Hangzhou City for optical solutions.",
+      "Techwin 795 nm Wavelength Conversion Laser for precision atomic physics, spectroscopy and metrology applications. Contact +86-13958180450 for details. Manufacturer located in Hangzhou City.",
     keywords:
       "795 nm laser, wavelength conversion 795nm, rubidium laser 795, optical pumping laser, frequency conversion laser, Techwin 795nm",
   },
 
   title: "795 nm Wavelength Conversion Laser",
   shortDescription:
-    "A precision 795 nm wavelength-converted laser designed for atomic physics, spectroscopy, optical pumping and metrology, offering narrow linewidth, high stability and reliable long-duration operation.",
+    "The 795 nm wavelength conversion laser is a high-performance frequency-doubled laser developed with fully independent intellectual property and internationally advanced technology. Using efficient nonlinear frequency-conversion methods, an optimized optical path design, and integrated beam-quality and power-stability control, it delivers high brightness, low noise, exceptional beam quality, and highly stable output. Its precise and reliable performance makes it ideal for demanding scientific applications.",
 
-  heroImage: { src: "/products/wavelength-conversion/795nm/hero.jpg",
+  heroImage: {
+    src: "/products/wavelength-conversion/795nm/hero.jpg",
     alt: "795 nm Wavelength Conversion Laser",
   },
 
+  graphImageURL: "/products/wavelength-conversion/795nm/graph.jpg",
+  tableImageURL: "/products/wavelength-conversion/795nm/table.png",
+
   galleryImages: [
-      { src: "/wavelength-conversion/795nm/preview.jpg", alt: "795nm wavelength conversion laser preview" },
-      { src: "/wavelength-conversion/795nm/hero.jpg", alt: "795nm wavelength conversion laser hero" },
-    ],
+    {
+      src: "/products/wavelength-conversion/795nm/hero.jpg",
+      alt: "795 nm wavelength conversion laser front view",
+    },
+    {
+      src: "/products/wavelength-conversion/795nm/hero.jpg",
+      alt: "795 nm wavelength conversion laser module view",
+    },
+  ],
 
   datasheetUrl: "/products/wavelength-conversion/795nm/datasheet.jpg",
   datasheetImageSrc: "/products/wavelength-conversion/795nm/datasheet.jpg",
   previewImageSrc: "/products/wavelength-conversion/795nm/preview.jpg",
 
+  features: [
+    "Efficient nonlinear frequency-conversion methods",
+    "Optimized optical path design",
+    "Integrated beam-quality and power-stability control",
+  ],
+
+  applicationAreas: [
+    "Rubidium atomic physics",
+    "Precision measurement and related research",
+  ],
+
   sections: [
     {
       type: "text",
+      heading: "795 nm Wavelength Conversion Laser",
+      image: {
+        src: "/products/wavelength-conversion/795nm/hero.jpg",
+        alt: "795 nm Wavelength Conversion Laser overview",
+      },
+      content:
+        "The 795 nm wavelength conversion laser is a high-performance frequency-doubled laser developed with fully independent intellectual property and internationally advanced technology. Using efficient nonlinear frequency-conversion methods, an optimized optical path design, and integrated beam-quality and power-stability control, it delivers high brightness, low noise, exceptional beam quality, and highly stable output. Its precise and reliable performance makes it ideal for demanding scientific applications.",
+    },
+
+    {
+      type: "features",
+      heading: "Application Areas",
+      bullets: [
+        "Rubidium atomic physics",
+        "Precision measurement and related research",
+      ],
+    },
+
+    {
+      type: "text",
       heading: "About the 795 nm Wavelength",
-      image: { src: "/wavelength-conversion/795nm/hero.jpg", alt: "795 nm overview" },
+      image: {
+        src: "/products/wavelength-conversion/795nm/hero.jpg",
+        alt: "795 nm overview",
+      },
       content:
         "The 795 nm wavelength is commonly used for rubidium D-line transitions and supports laser cooling, magneto-optical trapping, optical pumping and high-resolution spectroscopy. This wavelength-converted source is engineered for spectral purity, repeatable performance and low-noise operation in laboratory and industrial measurement systems.",
     },
@@ -113,18 +157,59 @@ export const nm795WavelengthConversionLaser: Product = {
 
   relatedProducts: [
     {
-      slug: "780nm",
-      title: "780 nm Wavelength Conversion Laser",
-      shortDescription: "Near-IR wavelength source often used for rubidium and atomic physics experiments.",
-      image: { src: "/wavelength-conversion/780nm/hero.jpg", alt: "780 nm laser" },
-      href: "/wavelength-conversion/780nm",
+      slug: "193nm",
+      title: "193 nm Wavelength Conversion Laser",
+      shortDescription:
+        "Deep-UV 193 nm wavelength conversion laser for semiconductor, metrology and micro-structuring.",
+      image: {
+        src: "/products/wavelength-conversion/193nm/hero.jpg",
+        alt: "193 nm Wavelength Conversion Laser",
+      },
+      href: "/products/wavelength-conversion/193nm",
+    },
+    {
+      slug: "266nm",
+      title: "266 nm Wavelength Conversion Laser",
+      shortDescription:
+        "Narrow-linewidth 266 nm deep-UV laser for semiconductor processing and materials analysis.",
+      image: {
+        src: "/products/wavelength-conversion/266nm/hero.jpg",
+        alt: "266 nm Wavelength Conversion Laser",
+      },
+      href: "/products/wavelength-conversion/266nm",
+    },
+    {
+      slug: "355nm",
+      title: "355 nm Wavelength Conversion Laser",
+      shortDescription:
+        "Ultraviolet 355 nm wavelength conversion laser for precision micro-machining and UV research.",
+      image: {
+        src: "/products/wavelength-conversion/355nm/hero.jpg",
+        alt: "355 nm Wavelength Conversion Laser",
+      },
+      href: "/products/wavelength-conversion/355nm",
     },
     {
       slug: "532nm",
       title: "532 nm Wavelength Conversion Laser",
-      shortDescription: "Green SHG lasers for metrology, alignment and visible-range applications.",
-      image: { src: "/wavelength-conversion/532nm/hero.jpg", alt: "532 nm laser" },
-      href: "/wavelength-conversion/532nm",
+      shortDescription:
+        "High-brightness 532 nm green wavelength conversion laser for micro-processing and biomedical optics.",
+      image: {
+        src: "/products/wavelength-conversion/532nm/hero.jpg",
+        alt: "532 nm Wavelength Conversion Laser",
+      },
+      href: "/products/wavelength-conversion/532nm",
+    },
+    {
+      slug: "780nm",
+      title: "780 nm Wavelength Conversion Laser",
+      shortDescription:
+        "780 nm wavelength conversion laser for biomedical applications, scientific instrumentation and industrial processing.",
+      image: {
+        src: "/products/wavelength-conversion/780nm/hero.jpg",
+        alt: "780 nm Wavelength Conversion Laser",
+      },
+      href: "/products/wavelength-conversion/780nm",
     },
   ],
 };

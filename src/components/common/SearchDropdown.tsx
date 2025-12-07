@@ -54,13 +54,14 @@ export function SearchDropdown({
                   >
                     <div className="px-4 py-3 hover:bg-[#EAF6FC] transition-colors cursor-pointer flex gap-3">
                       {result.image && (
-                        <div className="h-10 w-10 shrink-0 relative">
-                          <Image
+                        <div className="h-12 w-12 shrink-0 rounded overflow-hidden">
+                          <img
                             src={result.image}
                             alt={result.title}
-                            width={40}
-                            height={40}
-                            className="object-cover rounded"
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.currentTarget.style.display = "none";
+                            }}
                           />
                         </div>
                       )}
@@ -92,11 +93,25 @@ export function SearchDropdown({
                     href={result.url}
                     onClick={onResultClick}
                   >
-                    <div className="px-4 py-3 hover:bg-[#EAF6FC] transition-colors cursor-pointer">
-                      <div className="font-medium text-sm text-gray-900">
-                        {result.title}
+                    <div className="px-4 py-3 hover:bg-[#EAF6FC] transition-colors cursor-pointer flex gap-3">
+                      {result.image && (
+                        <div className="h-12 w-12 shrink-0 rounded overflow-hidden">
+                          <img
+                            src={result.image}
+                            alt={result.title}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.currentTarget.style.display = "none";
+                            }}
+                          />
+                        </div>
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <div className="font-medium text-sm text-gray-900">
+                          {result.title}
+                        </div>
+                        <div className="text-xs text-gray-500">Category</div>
                       </div>
-                      <div className="text-xs text-gray-500">Category</div>
                     </div>
                   </Link>
                 ))}
@@ -117,12 +132,25 @@ export function SearchDropdown({
                     href={result.url}
                     onClick={onResultClick}
                   >
-                    <div className="px-4 py-3 hover:bg-[#EAF6FC] transition-colors cursor-pointer">
-                      <div className="font-medium text-sm text-gray-900">
-                        {result.title}
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        {result.category}
+                    <div className="px-4 py-3 hover:bg-[#EAF6FC] transition-colors cursor-pointer flex gap-4">
+                      {result.image && (
+                        <div className="h-14 w-14 shrink-0 relative">
+                          <Image
+                            src={result.image}
+                            alt={result.title}
+                            width={56}
+                            height={56}
+                            className="object-cover rounded"
+                          />
+                        </div>
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <div className="font-medium text-sm text-gray-900">
+                          {result.title}
+                        </div>
+                        <div className="text-xs text-gray-600 line-clamp-1">
+                          {result.category}
+                        </div>
                       </div>
                     </div>
                   </Link>

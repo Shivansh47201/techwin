@@ -1,55 +1,103 @@
 import { Product } from "@/types/categories";
 
 export const pointLightSource1p5um: Product = {
-  // route-friendly slug & category (matches the URL you gave)
-  slug: "point-light-source-1-5um",
-  category: "point-light-sources",
+  slug: "1-5um-point",
+  category: "sled",
 
   meta: {
-    title: "Point Light Source 1.5 µm | Techwin Precision Point Illumination",
+    title: "Techwin 1.5 µm Point Light Source | Eye-Safe Infrared Point Source",
     description:
-      "Techwin 1.5 µm Point Light Source — stable near-IR point illumination for alignment, calibration and fiber testing. OEM options and support available. Call +86-13958180450.",
-    keywords: "point light source 1.5um, fiber point source, calibration source, Techwin point light",
+      "Techwin 1.5 µm point light source is a compact, high-performance eye-safe infrared source with stable single-mode output, high beam quality, and excellent environmental stability — ideal for LiDAR, quantum technologies, and precision medical systems.",
+    keywords:
+      "1.5 µm point light source, eye-safe IR source, 1.5um fiber source, LiDAR point source, quantum technology light source, medical infrared laser, Techwin",
   },
 
   title: "1.5 µm Point Light Source",
-  shortDescription:
-    "Stable 1.5 µm point illumination for alignment, calibration, sensing and precision fiber-optic testing with fiber-coupled and free-space options.",
 
-  // Normalized image paths under public/products/point-light-sources/1-5um/
-  heroImage: { src: "/products/sled/1-5um-point/hero.jpg", alt: "1.5 µm Point Light Source" },
+  shortDescription:
+    "The 1.5 μm point light source is a compact, high-performance infrared laser designed for applications requiring eye-safe wavelengths and stable single-mode output. With its miniaturized packaging, high peak power capability, and excellent environmental stability, it provides reliable and precise optical performance. These characteristics make it an ideal choice for advanced applications in LiDAR, quantum technologies, and precision medical systems.",
+
+  heroImage: {
+    src: "/products/sled/1-5um-point/hero.jpg",
+    alt: "1.5 µm Point Light Source",
+  },
+
   previewImageSrc: "/products/sled/1-5um-point/preview.jpg",
+
   galleryImages: [
-    { src: "/products/sled/1-5um-point/preview.jpg", alt: "Point Light Source 1.5 µm preview" },
-    { src: "/products/sled/1-5um-point/hero.jpg", alt: "Point Light Source 1.5 µm hero" },
+    {
+      src: "/products/sled/1-5um-point/hero.jpg",
+      alt: "Point Light Source 1.5 µm hero",
+    },
+    {
+      src: "/products/sled/1-5um-point/hero.jpg",
+      alt: "Point Light Source 1.5 µm device view",
+    },
   ],
 
   datasheetUrl: "/products/sled/1-5um-point/datasheet.jpg",
   datasheetImageSrc: "/products/sled/1-5um-point/datasheet.jpg",
+
+  // NEW: Graph & table image URLs
+  graphImageURL: "/products/sled/1-5um-point/graph.jpg",
+  tableImageURL: "/products/sled/1-5um-point/table.png",
+
+  features: [
+  "High beam quality",
+  "Stable output power",
+  "Polarization-maintaining single-mode operation",
+],
+
+applicationAreas: [
+  "LiDAR systems",
+  "Quantum technology research",
+  "Precision medicine and biomedical applications",
+],
+
+
   sections: [
+    // === OVERVIEW (improved text) ===
     {
-      type: "overview",
+      type: "text",
       heading: "Overview",
       content:
-        "The 1.5 µm Point Light Source provides stable near-infrared point illumination for precision optical tasks — alignment, component validation, interferometry, and fiber-optic testing. It supports fiber-coupled and free-space outputs and is designed for laboratory and OEM integration.",
+        "The 1.5 µm point light source is a compact, high-performance infrared laser designed for applications that require eye-safe wavelengths and stable single-mode output. With miniaturized packaging, high peak power capability and excellent environmental stability, it delivers reliable and precise optical performance in both laboratory and field environments.\n\nThanks to its high beam quality and polarization-maintaining single-mode output, this source is well suited for advanced LiDAR platforms, cutting-edge quantum technology experiments and precision medical systems that depend on repeatable, low-noise infrared illumination.",
     },
 
+    // === KEY FEATURES (from your Key Features text, expanded) ===
     {
       type: "features",
-      heading: "Main Performance Characteristics",
+      heading: "Key Features",
       bullets: [
-        "Stable optical emission for long-duration tasks",
-        "Controlled beam structure for precise alignment and sensing",
-        "Fiber-coupled (SM/PM) or collimated free-space options",
-        "Strong thermal stability with low wavelength drift",
-        "Compact form factor ideal for benches and OEM systems",
-        "Low-noise emission suitable for precision measurement",
+        "High beam quality with near-diffraction-limited output.",
+        "Stable output power suitable for long-duration operation.",
+        "Polarization-maintaining single-mode operation for sensitive measurements.",
+        "Miniaturized, compact package ideal for OEM and benchtop integration.",
+        "Excellent environmental stability for mobile and industrial environments.",
+        "High peak power capability for demanding LiDAR and sensing tasks.",
       ],
     },
 
+    // === APPLICATION AREAS (from your Application Areas text) ===
     {
-      type: "specs",
+      type: "features",
+      heading: "Application Areas",
+      bullets: [
+        "LiDAR systems – including automotive, industrial and atmospheric LiDAR where eye safety and range are critical.",
+        "Quantum technology research – stable 1.5 µm source for quantum communication, sensing and information experiments.",
+        "Precision medicine and biomedical applications – supports diagnostic, imaging and therapeutic systems in the 1.5 µm band.",
+      ],
+    },
+
+    // === TECHNICAL SPECS (summary text + keep structured data for future) ===
+    {
+      type: "text",
       heading: "Technical Specifications (Typical)",
+      content:
+        "The 1.5 µm Point Light Source is engineered for precise fiber-optic and photonic setups:\n\n" +
+        "• Optical: Centered around 1.5 µm with configurable output power in the mW range and point / fiber-coupled / collimated beam formats.\n" +
+        "• Fiber & Connectors: SMF or PM fiber options with FC/APC, FC/PC or bare fiber (on request) and typical coupling efficiency above 70%.\n" +
+        "• Environmental & Electronics: Regulated low-noise current drive, integrated TEC temperature control and operation from 0°C to 40°C for stable performance in lab and OEM environments.",
       specGroups: [
         {
           label: "Optical",
@@ -64,14 +112,20 @@ export const pointLightSource1p5um: Product = {
           label: "Fiber / Connectors",
           rows: [
             { name: "Output Fiber", value: "SMF or PM fiber options" },
-            { name: "Connector Types", value: "FC/APC, FC/PC, bare fiber (on request)" },
+            {
+              name: "Connector Types",
+              value: "FC/APC, FC/PC, bare fiber (on request)",
+            },
             { name: "Coupling Efficiency", value: "> 70% typical" },
           ],
         },
         {
           label: "Environmental & Electronics",
           rows: [
-            { name: "Drive Mode", value: "Regulated low-noise current drive" },
+            {
+              name: "Drive Mode",
+              value: "Regulated low-noise current drive",
+            },
             { name: "Thermal Control", value: "Integrated TEC + sensor" },
             { name: "Operating Temp", value: "0°C to 40°C" },
           ],
@@ -79,38 +133,55 @@ export const pointLightSource1p5um: Product = {
       ],
     },
 
+    // === CONFIGURATION / INTEGRATION ===
     {
-      type: "applications",
-      heading: "Typical Usage Areas",
-      content:
-        "Used in fiber-optic labs for alignment, interferometric experiments, metrology stations, sensor validation, photonic device calibration and precision system development.",
-    },
-
-    {
-      type: "integration",
+      type: "text",
       heading: "Configuration & Integration Options",
       content:
-        "Available with FC/APC, FC/PC, bare fiber or collimated free-space outputs. Supports continuous emission and adjustable power settings. Designed for quick integration into optical benches and OEM test systems.",
+        "The 1.5 µm point source is available with FC/APC, FC/PC, bare fiber or collimated free-space outputs. It supports continuous emission with adjustable power settings and is designed for quick integration into optical benches, OEM modules and compact test systems that require eye-safe, stable infrared illumination.",
     },
 
+    // === SELECTION GUIDELINES ===
     {
-      type: "selection",
+      type: "text",
       heading: "Selection Guidelines",
       content:
-        "Choose based on wavelength accuracy, required output power, connector format, and whether PM fiber is needed. For interferometry or sensing choose low-RIN options and stable TEC control.",
+        "When selecting a 1.5 µm point light source, consider wavelength accuracy, required output power, connector format and whether polarization-maintaining fiber is required. For interferometry, LiDAR or sensing applications, pay close attention to noise performance, thermal stability and long-term wavelength drift.",
     },
 
+    // === HANDLING / MAINTENANCE ===
     {
-      type: "handling",
+      type: "text",
       heading: "Handling & Maintenance",
       content:
-        "Maintain clean connectors, avoid tight bends, use recommended drivers, and follow optical safety guidelines. Allow TEC stabilization after power-up for consistent performance.",
+        "Maintain clean connectors, avoid tight fiber bends and use recommended low-noise drivers for powering the source. Allow the TEC to stabilize after power-up for consistent performance and follow standard laser safety procedures when working with 1.5 µm infrared light in laboratory or production environments.",
     },
   ],
 
+  // UPDATED relatedProducts with images + short descriptions
   relatedProducts: [
-    { slug: "2um-point", title: "2.0 µm Point Light Source", href: "/products/point-light-sources/2um-point" },
-    { slug: "1um-point", title: "1.0 µm Point Light Source", href: "/products/point-light-sources/1um-point" },
+    {
+      slug: "1um-point",
+      title: "1.0 µm Point Light Source",
+      shortDescription:
+        "Stable 1.0 µm point source with high beam quality and polarization-maintaining output for research and fiber testing.",
+      image: {
+        src: "/products/sled/1um-point/hero.jpg",
+        alt: "1.0 µm Point Light Source",
+      },
+      href: "/products/sled/1um-point",
+    },
+    {
+      slug: "2um-point",
+      title: "2.0 µm Point Light Source",
+      shortDescription:
+        "Eye-safe 2.0 µm point light source with micron-level spot positioning, high peak power and rugged environmental performance.",
+      image: {
+        src: "/products/sled/2um-point/hero.jpg",
+        alt: "2.0 µm Point Light Source",
+      },
+      href: "/products/sled/2um-point",
+    },
   ],
 };
 

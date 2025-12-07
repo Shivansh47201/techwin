@@ -41,6 +41,20 @@ export type CategoryData = {
   };
   contactPhone?: string;
   notes?: string;
+  featureMatrix?: {
+    categories: {
+      id: string;
+      name: string;
+      features: {
+        stability: string;
+        noise: string;
+        coherence: string;
+        integration: string;
+        bonus5?: string;
+        bonus6?: string;
+      };
+    }[];
+  };
 };
 
 // ---------------------------------------------------------------------------
@@ -95,7 +109,7 @@ export const sledLightData: CategoryData = {
         "1.0 µm SLED systems deliver wide spectral bandwidth, strong output power and integrated thermal control. Ideal for precision metrology, sensor networks and component inspection where low coherence and stable illumination are required.",
     },
     {
-      id: "point-light-source-1_5um",
+      id: "point-light-source-1-5um",
       name: "1.5 µm Point Light Source",
       shortDescription:
         "Telecom-compatible 1.5 µm SLED modules optimized for fiber-based systems, distributed sensing and long-distance testing.",
@@ -103,7 +117,7 @@ export const sledLightData: CategoryData = {
         "1.5 µm SLED models offer optimal performance for fiber-optic environments, with low attenuation in fiber, stable spectral distribution and narrow power fluctuations—used widely in DAS/DTS, FBG interrogation and telecom research.",
     },
     {
-      id: "point-light-source-2_0um",
+      id: "point-light-source-2-0um",
       name: "2.0 µm Point Light Source",
       shortDescription:
         "Mid-IR 2.0 µm SLED solutions for specialized sensing, gas detection and material analysis with controlled noise and stable broadband output.",
@@ -140,4 +154,69 @@ export const sledLightData: CategoryData = {
 
   notes:
     "SLED products include integrated drive electronics and thermal control. Custom options: fiber connector type, bandwidth trimming, output power levels and calibrated spectral reports. All units are tested for spectral stability and long-term reliability.",
+
+  featureMatrix: {
+    categories: [
+      {
+        id: "sled-1um",
+        name: "1.0 µm SLED Module",
+        features: {
+          stability: "Exceptional spectral stability with integrated thermal control",
+          noise: "Ultra-low speckle and noise for clean imaging",
+          coherence: "Very low coherence length enabling OCT applications",
+          integration: "Compact fiber-coupled package with standard interfaces",
+          bonus5: "High output power with stable beam profile",
+          bonus6: "Extended lifetime exceeding 50,000 operational hours",
+        },
+      },
+      {
+        id: "sled-1.5um",
+        name: "1.5 µm SLED Module",
+        features: {
+          stability: "Telecom-grade stability optimized for fiber networks",
+          noise: "Low noise characteristics for sensitive measurements",
+          coherence: "Controlled coherence for distributed sensing systems",
+          integration: "Seamless compatibility with standard telecom infrastructure",
+          bonus5: "Ideal for distributed acoustic and temperature sensing",
+          bonus6: "Robust performance in field deployments",
+        },
+      },
+      {
+        id: "sled-2um",
+        name: "2.0 µm SLED Module",
+        features: {
+          stability: "Mid-infrared stable emission with robust thermal design",
+          noise: "Optimized noise characteristics for mid-IR applications",
+          coherence: "Low coherence for specialized imaging and sensing",
+          integration: "Compact module suitable for mid-IR platforms",
+          bonus5: "Excellent for gas detection and material analysis",
+          bonus6: "Advanced thermal management for long-term reliability",
+        },
+      },
+      {
+        id: "sled-imaging",
+        name: "High-Performance Imaging SLED",
+        features: {
+          stability: "Ultra-stable spectral output for consistent image quality",
+          noise: "Extremely low speckle for medical and industrial imaging",
+          coherence: "Precision coherence control for resolution optimization",
+          integration: "Purpose-designed for OCT and endoscopy systems",
+          bonus5: "Customizable bandwidth for specific imaging needs",
+          bonus6: "FDA-grade reliability for medical device integration",
+        },
+      },
+      {
+        id: "sled-sensing",
+        name: "Distributed Sensing SLED",
+        features: {
+          stability: "Optimized for DAS/DTS sensing network applications",
+          noise: "Low noise enabling high-sensitivity distributed measurements",
+          coherence: "Precisely controlled for optimal sensor interrogation",
+          integration: "Seamless integration with sensing network infrastructure",
+          bonus5: "Advanced thermal compensation for field stability",
+          bonus6: "Calibrated performance for long-distance deployments",
+        },
+      },
+    ],
+  },
 };

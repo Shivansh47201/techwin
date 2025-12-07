@@ -5,30 +5,58 @@ export const spectralTestingSystem: Product = {
   category: "testing",
 
   meta: {
-    title: "Spectral Testing System | Techwin Laser Measurement Solutions",
+    title: "Spectral Testing System | High-Resolution Laser Spectrum Measurement",
     description:
-      "Techwin Spectral Testing System for precision wavelength and linewidth characterization. Advanced measurement capabilities for laser R&D and production. Based in Hangzhou City. Call +86-13958180450.",
+      "Techwin Spectral Testing System provides precise spectral measurement and analysis for laser center wavelength, linewidth, OSNR, SMSR, and spectral stability. Ideal for R&D, fiber sensing, QC testing, and industrial photonics environments.",
     keywords:
-      "spectral testing, wavelength measurement, linewidth analysis, laser characterization, spectral analysis, Techwin testing",
+      "spectral testing system, wavelength analyzer, linewidth measurement, OSNR analysis, SMSR testing, spectral stability, laser spectrum, Techwin testing",
   },
 
   title: "Spectral Testing System",
-  shortDescription:
-    "Precision spectral characterization system designed for wavelength, linewidth, and spectral purity measurement of narrowband and broadband laser sources with high-resolution analysis and real-time reporting.",
 
-  heroImage: { src: "/products/testing/spectral/hero.jpg",
+  shortDescription:
+    "The Spectral Testing System is designed for precise and comprehensive analysis of laser and light source spectral characteristics. With high-resolution optical spectrum measurement capability, it enables accurate evaluation of key parameters such as center wavelength, linewidth, optical signal-to-noise ratio (OSNR), side-mode suppression ratio (SMSR), and spectral stability. The system integrates advanced spectrometer technology, stable optical path design, and intelligent data processing, ensuring reliable measurements for both laboratory research and industrial testing.",
+
+  heroImage: {
+    src: "/products/testing/spectral/hero.jpg",
     alt: "Spectral Testing System",
   },
 
   galleryImages: [
-      { src: "/testing/spectral/preview.jpg", alt: "Spectral testing system preview" },
-      { src: "/testing/spectral/hero.jpg", alt: "Spectral testing system hero" },
-    ],
+    {
+      src: "/products/testing/spectral/hero.jpg",
+      alt: "Spectral testing system front view",
+    },
+    {
+      src: "/products/testing/spectral/hero.jpg",
+      alt: "Spectral testing system device view",
+    },
+  ],
 
   datasheetUrl: "/products/testing/spectral/datasheet.jpg",
   datasheetImageSrc: "/products/testing/spectral/datasheet.jpg",
   previewImageSrc: "/products/testing/spectral/preview.jpg",
 
+  // ⭐ ROOT-LEVEL FEATURES (from your text)
+  features: [
+    "High-resolution spectral measurement across multiple wavelength bands",
+    "Wide spectral range: visible, near-IR, and mid-IR compatibility",
+    "High optical dynamic range for OSNR, SMSR and weak side-mode measurement",
+    "Stable and reliable performance with optimized optical path design",
+    "Intelligent real-time data processing and automated report generation",
+    "Flexible integration with external optical modules and custom system configurations",
+  ],
+
+  // ⭐ ROOT-LEVEL APPLICATION AREAS (from your text)
+  applicationAreas: [
+    "Laser R&D and manufacturing",
+    "Optical communication testing",
+    "Spectroscopy research",
+    "Wavelength stability monitoring",
+    "Fiber sensing system development",
+  ],
+
+  // ⭐ YOUR SECTIONS — **UNCHANGED EXACTLY AS REQUESTED**
   sections: [
     {
       type: "text",
@@ -80,7 +108,20 @@ export const spectralTestingSystem: Product = {
     },
   ],
 
-  relatedProducts: [],
+  // ⭐ RELATED PRODUCTS – NOW SHOWS
+  relatedProducts: [
+    {
+      slug: "noise",
+      title: "Noise Testing System",
+      shortDescription:
+        "High-precision laser RIN and intensity noise characterization system for narrow-linewidth lasers and semiconductor sources.",
+      image: {
+        src: "/products/testing/noise/hero.jpg",
+        alt: "Noise Testing System",
+      },
+      href: "/products/testing/noise",
+    },
+  ],
 };
 
 export default spectralTestingSystem;

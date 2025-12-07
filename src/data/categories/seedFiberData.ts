@@ -44,6 +44,20 @@ export type CategoryData = {
   };
   contactPhone?: string;
   notes?: string;
+  featureMatrix?: {
+    categories: {
+      id: string;
+      name: string;
+      features: {
+        stability: string;
+        noise: string;
+        coherence: string;
+        integration: string;
+        bonus5?: string;
+        bonus6?: string;
+      };
+    }[];
+  };
 };
 
 export const seedFiberData: CategoryData = {
@@ -170,4 +184,69 @@ export const seedFiberData: CategoryData = {
   contactPhone: "+86-571-88284299",
   notes:
     "Techwin offers customization: wavelength locking, power tuning, phase control, fiber type selection and OEM integration. Each unit is factory-tested for linewidth, stability and environmental robustness.",
+
+  featureMatrix: {
+    categories: [
+      {
+        id: "seed-1um-narrow",
+        name: "1.0 µm Narrow Linewidth",
+        features: {
+          stability: "Ultra-stable single-frequency output ideal for amplifier seeding",
+          noise: "Low relative intensity noise for clean amplification",
+          coherence: "Exceptional coherence enabling precision interferometry",
+          integration: "Compact module compatible with Yb-doped amplifier systems",
+          bonus5: "Perfect foundation for high-power amplification chains",
+          bonus6: "Factory-tested for linewidth and environmental stability",
+        },
+      },
+      {
+        id: "seed-1um-stabilized",
+        name: "1.0 µm Frequency-Stabilized",
+        features: {
+          stability: "Environmentally compensated for long-term wavelength locking",
+          noise: "Optimized noise characteristics for precision systems",
+          coherence: "High coherence with active frequency control",
+          integration: "Easy integration with temperature/environmental monitoring",
+          bonus5: "Ideal for field deployments and remote sensing",
+          bonus6: "Automatic feedback control for maximum stability",
+        },
+      },
+      {
+        id: "seed-1.5um-narrow",
+        name: "1.5 µm Narrow Linewidth",
+        features: {
+          stability: "Telecom-grade stability at 1550 nm for communication systems",
+          noise: "Ultra-low noise optimized for coherent detection",
+          coherence: "High coherence for distributed sensing applications",
+          integration: "Seamless integration with standard telecom fiber infrastructure",
+          bonus5: "Perfect for DAS and distributed fiber sensing networks",
+          bonus6: "Advanced modulation options for complex systems",
+        },
+      },
+      {
+        id: "seed-1.5um-phase",
+        name: "1.5 µm Phase-Modulated",
+        features: {
+          stability: "Stable phase-modulation capability for signal encoding",
+          noise: "Low noise with controlled phase modulation",
+          coherence: "High coherence preserved through modulation",
+          integration: "Easy integration with coherent detection systems",
+          bonus5: "Designed for advanced signal processing applications",
+          bonus6: "Precise control over phase and frequency modulation",
+        },
+      },
+      {
+        id: "seed-2um-single",
+        name: "2.0 µm Single-Frequency",
+        features: {
+          stability: "Mid-infrared single-frequency stability with excellent control",
+          noise: "Low noise architecture for gas sensing applications",
+          coherence: "High coherence for mid-IR precision measurements",
+          integration: "Fiber-coupled package for mid-IR systems",
+          bonus5: "Optimized for gas detection and medical applications",
+          bonus6: "Robust thermal management for continuous operation",
+        },
+      },
+    ],
+  },
 };

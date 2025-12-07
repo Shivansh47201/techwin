@@ -7,34 +7,94 @@ export const sledLightSource: Product = {
   meta: {
     title: "Superluminescent LED (SLED) | Techwin SLED Light Source Systems",
     description:
-      "Techwin Superluminescent LED (SLED) for fiber sensing and optical testing uses from Hangzhou City. Stable broadband output performance. Contact +86-13958180450 today.",
+      "Techwin Superluminescent LED (SLED) for fiber sensing, OCT and optical testing applications. Stable broadband output performance. Contact +86-13958180450 today.",
     keywords:
       "SLED, superluminescent LED, broadband SLED, fiber sensing SLED, OCT light source, Techwin SLED",
   },
 
   title: "Superluminescent LED (SLED)",
-  shortDescription:
-    "Superluminescent LED (SLED) broadband source — low-coherence, stable output for OCT, fiber sensing, metrology and component testing.",
 
-  heroImage: { src: "/products/ase-sources/sled/hero.jpg",
+  shortDescription:
+    "The superluminescent LED (SLED) is a high-brightness broadband light source that combines the wide spectral output of an LED with the high coherence and stability characteristics of a laser. Designed using advanced semiconductor and packaging technology, the SLED delivers low noise, excellent spectral stability, and high optical power. Its compact and reliable structure makes it ideal for precision sensing, imaging, and measurement applications that require stable broadband illumination with minimal spectral ripple.",
+
+  heroImage: {
+    src: "/products/ase-sources/sled/hero.jpg",
     alt: "Superluminescent LED (SLED) Light Source",
   },
 
+  graphImageURL: "/products/ase-sources/sled/graph.jpg",
+  tableImageURL: "/products/ase-sources/sled/table.png",
+
   galleryImages: [
-      { src: "/ase-sources/sled/preview.jpg", alt: "SLED light source preview" },
-      { src: "/ase-sources/sled/hero.jpg", alt: "SLED light source hero" },
-    ],
+    {
+      src: "/products/ase-sources/sled/hero.jpg",
+      alt: "SLED light source front view",
+    },
+    {
+      src: "/products/ase-sources/sled/hero.jpg",
+      alt: "SLED light source module",
+    },
+  ],
 
   datasheetUrl: "/products/ase-sources/sled/datasheet.jpg",
   datasheetImageSrc: "/products/ase-sources/sled/datasheet.jpg",
   previewImageSrc: "/products/ase-sources/sled/preview.jpg",
 
+  // From your Key Features & Application Areas
+  features: [
+    "Broad and smooth spectral output",
+    "High optical power and low noise",
+    "Excellent spectral stability",
+    "Compact and highly reliable design",
+  ],
+
+  applicationAreas: [
+    "Fiber-optic sensing (FBG, interferometric sensing)",
+    "Optical coherence tomography (OCT)",
+    "Precision measurement and metrology",
+    "Biomedical imaging and scientific instrumentation",
+  ],
+
   sections: [
+    {
+      type: "text",
+      heading: "Superluminescent LED (SLED)",
+      image: {
+        src: "/products/ase-sources/sled/hero.jpg",
+        alt: "SLED light source overview",
+      },
+      content:
+        "The superluminescent LED (SLED) is a high-brightness broadband light source that combines the wide spectral output of an LED with the high coherence and stability characteristics of a laser. Designed using advanced semiconductor and packaging technology, the SLED delivers low noise, excellent spectral stability, and high optical power. Its compact and reliable structure makes it ideal for precision sensing, imaging, and measurement applications that require stable broadband illumination with minimal spectral ripple.",
+    },
+
+    {
+      type: "features",
+      heading: "Key Features",
+      bullets: [
+        "Broad and smooth spectral output",
+        "High optical power and low noise",
+        "Excellent spectral stability",
+        "Compact and highly reliable design",
+      ],
+    },
+
+    {
+      type: "features",
+      heading: "Application Areas",
+      bullets: [
+        "Fiber-optic sensing (FBG, interferometric sensing)",
+        "Optical coherence tomography (OCT)",
+        "Precision measurement and metrology",
+        "Biomedical imaging and scientific instrumentation",
+      ],
+    },
+
+    // Existing deeper technical content kept as extra detail
     {
       type: "text",
       heading: "Overview — Superluminescent LED (SLED)",
       image: {
-        src: "/ase-sources/sled-light-source/overview.jpg",
+        src: "/products/ase-sources/sled/hero.jpg",
         alt: "SLED overview",
       },
       content:
@@ -61,9 +121,18 @@ export const sledLightSource: Product = {
         {
           label: "Performance",
           rows: [
-            { name: "Output Power", value: "Model dependent — from mW-level to higher" },
-            { name: "Relative Intensity Noise", value: "Low (application dependent)" },
-            { name: "Coherence Length", value: "Very short — ideal for low-coherence interferometry" },
+            {
+              name: "Output Power",
+              value: "Model dependent — from mW-level to higher",
+            },
+            {
+              name: "Relative Intensity Noise",
+              value: "Low (application dependent)",
+            },
+            {
+              name: "Coherence Length",
+              value: "Very short — ideal for low-coherence interferometry",
+            },
           ],
         },
       ],
@@ -103,20 +172,51 @@ export const sledLightSource: Product = {
     },
   ],
 
+  // All other ASE products as related (except SLED itself)
   relatedProducts: [
     {
-      slug: "sled",
+      slug: "broadband",
       title: "Broadband Light Source",
-      shortDescription: "Wide-spectrum source for optical testing & metrology.",
-      image: { src: "/ase-sources/broadband-thumb.jpg", alt: "Broadband light source" },
-      href: "/ase-sources/broadband-light-source",
+      shortDescription:
+        "Wide-spectrum broadband light source for optical testing, sensing and spectroscopy.",
+      image: {
+        src: "/products/ase-sources/broadband/hero.jpg",
+        alt: "Broadband Light Source",
+      },
+      href: "/products/ase-sources/broadband",
     },
     {
-      slug: "sled",
+      slug: "1um",
       title: "ASE Light Source (1.0 µm)",
-      shortDescription: "ASE source around 1.0 µm for fiber testing and calibration.",
-      image: { src: "/ase-sources/ase-1um-thumb.jpg", alt: "ASE 1.0 µm" },
-      href: "/ase-sources/ase-light-source-1um",
+      shortDescription:
+        "1.0 µm ASE source with optimized ytterbium-doped fiber design for precision testing and sensing.",
+      image: {
+        src: "/products/ase-sources/1um/hero.jpg",
+        alt: "ASE Light Source (1.0 µm)",
+      },
+      href: "/products/ase-sources/1um",
+    },
+    {
+      slug: "1-5um",
+      title: "ASE Light Source (1.5 µm)",
+      shortDescription:
+        "1.5 µm C-band erbium-doped ASE source for optical testing, sensing and spectral analysis.",
+      image: {
+        src: "/products/ase-sources/1-5um/hero.jpg",
+        alt: "ASE Light Source (1.5 µm)",
+      },
+      href: "/products/ase-sources/1-5um",
+    },
+    {
+      slug: "2um",
+      title: "ASE Light Source (2.0 µm)",
+      shortDescription:
+        "2.0 µm thulium-doped ASE source for advanced testing and sensing applications.",
+      image: {
+        src: "/products/ase-sources/2um/hero.jpg",
+        alt: "ASE Light Source (2.0 µm)",
+      },
+      href: "/products/ase-sources/2um",
     },
   ],
 };

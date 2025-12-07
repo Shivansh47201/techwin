@@ -349,30 +349,35 @@ function BlueCard({
 
   return (
     <div className="relative h-full">
-      <motion.button
-        type="button"
-        onMouseMove={handleMove}
-        onMouseLeave={handleLeave}
+      <motion.div
         style={{
           rotateY: ry as any,
           rotateX: rx as any,
           scale: sc as any,
           perspective: 1000,
         }}
-        onClick={onCompare}
-        tabIndex={0}
-        aria-pressed={compareSelected}
         className={`
-          w-full text-left rounded-2xl p-5 md:p-6 h-full min-h-[230px]
+          w-full h-full rounded-2xl p-5 md:p-6 min-h-[230px]
           flex flex-col justify-between
           bg-white
           border
           shadow-[0_16px_40px_rgba(59,154,203,0.25)]
           hover:shadow-[0_22px_55px_rgba(59,154,203,0.38)]
           transition-all duration-300
-          focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3B9ACB]/80
+          cursor-pointer
           ${compareSelected ? "border-[#3B9ACB] bg-blue-50/30 ring-2 ring-[#3B9ACB]" : "border-[#3B9ACB33]"}
         `}
+        onMouseMove={handleMove}
+        onMouseLeave={handleLeave}
+        onClick={onCompare}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onCompare();
+          }
+        }}
       >
         <div className="flex gap-4 items-start">
           <div className="shrink-0 mt-1">
@@ -442,7 +447,7 @@ function BlueCard({
             </div>
           </div>
         )}
-      </motion.button>
+      </motion.div>
     </div>
   );
 }

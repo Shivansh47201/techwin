@@ -13,17 +13,47 @@ export const twoMicronSingleFrequencyFiberLaser: Product = {
   },
 
   title: "2.0 µm Single-Frequency Fiber Laser",
-  shortDescription:
-    "A high-stability 2.0 µm Single-Frequency Fiber Laser engineered for gas sensing, LIDAR, spectroscopy, medical research, atmospheric monitoring and long-term precision applications.",
 
-  heroImage: { src: "/products/single-frequency/2um/hero.jpg",
+  shortDescription:
+    "The 2.0 µm Single-Frequency Fiber Laser is designed for applications requiring stable wavelength performance, narrow linewidth, and long-term operational reliability across scientific, industrial, and sensing environments.",
+
+  heroImage: {
+    src: "/products/single-frequency/2um/hero.jpg",
     alt: "2.0 µm Single-Frequency Fiber Laser",
   },
 
+  graphImageURL: "/products/single-frequency/2um/graph.jpg",
+  tableImageURL: "/products/single-frequency/2um/table.png",
+
+  // High-level bullet features (short, for cards / hero)
+  features: [
+    "Narrow linewidth single-frequency output for precision work",
+    "High frequency stability with minimal drift",
+    "Low noise and high spectral purity",
+    "Compact fiber-based structure with long service life",
+    "Stable performance under temperature and vibration changes",
+  ],
+
+  // High-level application areas (short list)
+  applicationAreas: [
+    "Gas and atmospheric sensing",
+    "Lidar and 3D mapping",
+    "Spectroscopy and scientific instrumentation",
+    "Medical and biomedical research",
+    "Environmental and atmospheric monitoring",
+  ],
+
+  // Gallery – hero image comes last as requested
   galleryImages: [
-      { src: "/products/single-frequency/2um/preview.jpg", alt: "2.0µm single-frequency fiber laser preview" },
-      { src: "/products/single-frequency/2um/hero.jpg", alt: "2.0µm single-frequency fiber laser hero" },
-    ],
+    {
+      src: "/products/single-frequency/2um/hero.jpg",
+      alt: "2.0 µm Single-Frequency Fiber Laser preview",
+    },
+    {
+      src: "/products/single-frequency/2um/hero.jpg",
+      alt: "2.0 µm Single-Frequency Fiber Laser performance graph",
+    },
+  ],
 
   datasheetUrl: "/products/single-frequency/2um/datasheet.jpg",
   datasheetImageSrc: "/products/single-frequency/2um/datasheet.jpg",
@@ -32,25 +62,32 @@ export const twoMicronSingleFrequencyFiberLaser: Product = {
   sections: [
     {
       type: "text",
+      heading: "2.0 µm Single-Frequency Fiber Laser",
+      content:
+        "The 2.0 µm Single-Frequency Fiber Laser category is developed for applications that require stable wavelength performance, narrow linewidth, and dependable long-term operation. This wavelength band offers unique advantages for scientific, industrial, and sensing projects where accuracy, reliability, and compact system design matter.\n\nAs industries move toward higher precision measurements and mid-infrared performance, the demand for laser solutions operating around 2.0 µm has increased steadily. This product range supports users who need stable output at a fixed frequency, minimal noise, and reliable operation in both laboratory and field environments.\n\nThis sub-category page provides a clear understanding of the design, features, applications, and benefits of this wavelength class, helping users select the right system for research, testing, or integration into equipment.",
+    },
+
+    {
+      type: "text",
       heading: "Overview of the 2.0 µm Wavelength Band",
       image: {
-        src: "/single-frequency/2um-overview.jpg",
-        alt: "2.0 µm wavelength overview",
+        src: "/products/single-frequency/2um/overview.jpg",
+        alt: "Overview of the 2.0 µm wavelength band",
       },
       content:
-        "The 2.0 µm wavelength band is used in material processing, free-space communication, atmospheric sensing, and medical research due to its mid-infrared compatibility. Techwin’s 2.0 µm fiber laser delivers narrow and stable spectral output that remains reliable across varying environmental conditions.",
+        "The 2.0 µm region of the optical spectrum is commonly used for material processing, medical research, free-space communication, and atmospheric sensing. Its characteristics allow safe interaction with specific materials while offering strong absorption properties for gases such as CO₂ and water vapor.\n\nA 2.0 µm fiber laser supports these requirements by providing a narrow and stable spectral output that remains consistent even under environmental changes. This wavelength is also suitable for compact and lightweight system integration.",
     },
 
     {
       type: "features",
       heading: "Key Features of 2.0 µm Single-Frequency Fiber Laser Systems",
       bullets: [
-        "Ultra-narrow optical linewidth for precision applications",
-        "Stable single-frequency output with minimal drift",
-        "High signal-to-noise ratio for accurate data acquisition",
-        "Mid-infrared compatibility for gas sensing and spectroscopy",
-        "Compact fiber-based structure with long operational life",
-        "Strong resistance to vibration and temperature variations",
+        "Narrow linewidth output for accurate results in spectroscopy, interferometry, and sensing.",
+        "Stable single-frequency operation with minimal drift over long periods.",
+        "High signal-to-noise ratio with low intensity noise and excellent spectral purity.",
+        "Mid-infrared compatibility for interaction with specific materials and gases.",
+        "Compact, fiber-based structure with long lifespan and low maintenance.",
+        "Temperature and vibration stability for laboratory and field environments.",
       ],
     },
 
@@ -58,101 +95,196 @@ export const twoMicronSingleFrequencyFiberLaser: Product = {
       type: "text",
       heading: "Why Choose This Wavelength Category",
       content:
-        "The 2.0 µm band offers excellent atmospheric transmission, compatibility with mid-infrared optical components, and safe interaction with certain materials. It is ideal for long-term operation, high precision, and applications requiring long coherence length and stable frequency output.",
+        "Choosing a 2.0 µm Single-Frequency Fiber Laser provides access to a wavelength range known for its stability, safety characteristics, and broad application suitability. It is especially preferred in scenarios where:\n\n• Compact mid-IR sources are needed\n• High frequency stability is required\n• Long coherence length is important\n• Reliable 24/7 operation is necessary\n• Lower photon energy is beneficial for certain materials\n\nThe combination of performance and reliability makes this wavelength category a dependable solution for long-term project requirements.",
     },
 
     {
       type: "features",
       heading: "Technical Performance Overview",
       bullets: [
-        "Multiple output power configurations (mW to watt-level options)",
-        "Ultra-narrow linewidth for spectroscopy and interferometry",
-        "Long coherence length and frequency-locking options",
-        "Advanced thermal control mechanisms for stability",
-        "Energy-efficient architecture with low power consumption",
+        "Output power options ranging from milliwatt-level to higher wattage configurations.",
+        "Ultra-narrow optical linewidth for high precision.",
+        "Long coherence length to support interferometric and high-resolution measurements.",
+        "Frequency or wavelength locking options for enhanced stability.",
+        "Excellent thermal control mechanisms to minimize wavelength drift.",
+        "Energy-efficient architecture with low power consumption.",
       ],
-    },
-
-    {
-      type: "text",
-      heading: "Applications of 2.0 µm Single-Frequency Fiber Laser Systems",
-      content:
-        "These systems support advanced gas sensing, LIDAR, spectroscopy, medical research, environmental monitoring, free-space communication, and scientific instrumentation. The stable wavelength and long-term reliability make the 2.0 µm range ideal for laboratory and industrial use.",
     },
 
     {
       type: "features",
-      heading: "Internal Construction & Design",
+      heading: "Applications of 2.0 µm Single-Frequency Fiber Laser Systems",
       bullets: [
-        "Specialized gain fiber for efficient 2.0 µm amplification",
-        "Precision fiber Bragg gratings for frequency stability",
-        "Advanced thermal management to reduce wavelength drift",
-        "Integrated digital control electronics",
-        "Durable housing designed for vibration resistance",
+        "Gas sensing for gases such as methane, water vapor, and CO₂.",
+        "Lidar and 3D mapping systems requiring stable mid-IR transmitters.",
+        "Spectroscopy and precision absorption studies.",
+        "Medical and biomedical research instruments using controlled tissue interaction.",
+        "Environmental and atmospheric monitoring.",
+        "Defense and aerospace free-space communication and detection modules.",
+        "Scientific instrumentation requiring ultra-stable reference sources.",
       ],
     },
 
     {
-      type: "text",
+      type: "features",
+      heading: "Construction and Internal Design",
+      bullets: [
+        "Specialized gain fiber optimized for 2.0 µm pump absorption and amplification.",
+        "Frequency-stabilizing components such as high-quality fiber Bragg gratings.",
+        "Precision thermal management for minimal wavelength drift.",
+        "Integrated digital control electronics for stable and monitored operation.",
+        "Robust housing designed for vibration resistance and easy mounting.",
+      ],
+    },
+
+    {
+      type: "features",
       heading: "Advantages for System Integration",
-      content:
-        "The 2.0 µm series supports plug-and-play integration, compact OEM modules, stable output in dynamic environments, and compatibility with sensing platforms, communication systems, and lab instruments.",
+      bullets: [
+        "Simple plug-and-play installation into existing platforms.",
+        "Clean optical output suitable for direct use in instruments.",
+        "Long-term operational reliability for continuous applications.",
+        "Stable output even in dynamic or changing environments.",
+        "Lightweight and compact designs for OEM and benchtop systems.",
+      ],
     },
 
     {
-      type: "text",
+      type: "features",
       heading: "Comparison with Other Wavelengths",
-      content:
-        "Compared to 1.0 µm and 1.5 µm systems, the 2.0 µm band provides lower scattering, safer interaction with select materials, improved absorption characteristics for certain gases, and broader environmental sensing capabilities.",
+      bullets: [
+        "Lower scattering in specific atmospheric conditions compared to shorter wavelengths.",
+        "Safer interaction with certain materials relative to 1.0 µm sources.",
+        "Better absorption characteristics for targeted gases.",
+        "Broader scientific and environmental sensing capabilities versus 1.0 µm and 1.5 µm bands.",
+      ],
     },
 
     {
-      type: "text",
+      type: "features",
       heading: "Quality, Testing, and Reliability",
-      content:
-        "Every system undergoes stringent testing, including linewidth verification, frequency stability analysis, power consistency measurement, environmental simulation tests, and extended reliability evaluations to ensure optimal performance.",
+      bullets: [
+        "Linewidth verification to confirm narrow spectral output.",
+        "Frequency stability measurement across operating conditions.",
+        "Output power consistency checks under different loads.",
+        "Environmental simulation tests for temperature and vibration.",
+        "Reliability evaluations under extended continuous use.",
+      ],
     },
 
     {
       type: "features",
       heading: "Support and Customization",
       bullets: [
-        "Custom output power options",
-        "OEM module configurations",
-        "Wavelength locking solutions",
-        "Custom connectors and fiber types",
-        "Application-specific tuning",
+        "Custom output power and wavelength options.",
+        "Support for different fiber types and connectors.",
+        "Alternate control configurations and OEM integration.",
+        "Wavelength locking and application-specific tuning options.",
+        "Engineering support from Techwin (Hangzhou City) for custom requirements.",
       ],
-    },
-
-    {
-      type: "text",
-      heading: "Summary",
-      content:
-        "Techwin’s 2.0 µm Single-Frequency Fiber Laser is a dependable solution for research institutions, laboratories, and integrators requiring narrow linewidth, long-term stability, and mid-infrared compatibility. For detailed specifications or engineering support, contact our team.",
     },
   ],
 
+  // All other products in the Single-Frequency Fiber Lasers category except 2um
   relatedProducts: [
     {
-      slug: "2um",
-      title: "1.5 µm Single-Frequency Fiber Laser",
-      shortDescription: "Stable 1550 nm single-frequency performance for sensing and telecom applications.",
+      slug: "ultra-narrow-linewidth",
+      title: "Ultra-Narrow Linewidth Single-Frequency Fiber Laser",
+      shortDescription:
+        "Ultra-stable, ultra-narrow linewidth laser source for the most demanding precision applications.",
       image: {
-        src: "/single-frequency/1-5um-hero.jpg",
-        alt: "1.5 µm Single-Frequency Laser",
+        src: "products/single-frequency/narrow-linewidth/hero.jpg",
+        alt: "Ultra-Narrow Linewidth Single-Frequency Fiber Laser",
       },
-      href: "/single-frequency/2um/",
+      href: "/products/single-frequency-fiber-lasers/ultra-narrow-linewidth",
     },
     {
-      slug: "2um",
-      title: "1.0 µm Single-Frequency Fiber Laser",
-      shortDescription: "High-stability 1.0 µm wavelength for metrology and coherent applications.",
+      slug: "broadband-low-noise",
+      title: "Broadband Ultra-Low Noise Single-Frequency Fiber Laser",
+      shortDescription:
+        "Single-frequency fiber laser optimized for broadband ultra-low noise performance.",
       image: {
-        src: "/single-frequency/1um-hero.jpg",
+        src: "/products/single-frequency/broadband-low-noise/hero.jpg",
+        alt: "Broadband Ultra-Low Noise Single-Frequency Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/broadband-low-noise",
+    },
+    {
+      slug: "narrow-linewidth",
+      title: "Narrow Linewidth Single-Frequency Fiber Laser",
+      shortDescription:
+        "High-performance narrow linewidth output for precision metrology and sensing.",
+      image: {
+        src: "/products/single-frequency/narrow-linewidth/hero.jpg",
+        alt: "Narrow Linewidth Single-Frequency Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/narrow-linewidth",
+    },
+    {
+      slug: "sensor-stabilized",
+      title: "High-Sensitivity Sensor-Stabilized Laser",
+      shortDescription:
+        "Sensor-stabilized laser source for high-sensitivity detection systems.",
+      image: {
+        src: "/products/single-frequency/sensor-stabilized/hero.jpg",
+        alt: "High-Sensitivity Sensor-Stabilized Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/sensor-stabilized",
+    },
+    {
+      slug: "magnetic-field",
+      title: "Magnetic Field Detection Laser",
+      shortDescription:
+        "Laser source tailored for magnetic field detection and precision sensing.",
+      image: {
+        src: "/products/single-frequency/magnetic-field/hero.jpg",
+        alt: "Magnetic Field Detection Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/magnetic-field",
+    },
+    {
+      slug: "1um",
+      title: "1.0 µm Single-Frequency Fiber Laser",
+      shortDescription:
+        "High-stability 1.0 µm wavelength source for metrology, sensing, and coherent systems.",
+      image: {
+        src: "/products/single-frequency/1um/hero.jpg",
         alt: "1.0 µm Single-Frequency Fiber Laser",
       },
-      href: "/single-frequency/2um/",
+      href: "/products/single-frequency-fiber-lasers/1um",
+    },
+    {
+      slug: "1-5um",
+      title: "1.5 µm Single-Frequency Fiber Laser",
+      shortDescription:
+        "Stable 1.5 µm single-frequency performance for telecom, sensing, and research.",
+      image: {
+        src: "/products/single-frequency/1-5um/hero.jpg",
+        alt: "1.5 µm Single-Frequency Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/1-5um",
+    },
+    {
+      slug: "stabilized",
+      title: "Frequency-Stabilized Fiber Laser (All Wavelengths)",
+      shortDescription:
+        "Frequency-stabilized fiber laser platform covering multiple wavelength configurations.",
+      image: {
+        src: "/products/single-frequency/stabilized/hero.jpg",
+        alt: "Frequency-Stabilized Fiber Laser",
+      },
+      href: "/products/single-frequency-fiber-lasers/stabilized",
+    },
+    {
+      slug: "ultra-low-noise",
+      title: "Ultra-Low Noise Fiber Laser Series",
+      shortDescription:
+        "Ultra-low noise fiber laser series for ultra-sensitive measurement and detection.",
+      image: {
+        src: "/products/single-frequency/ultra-low-noise/hero.jpg",
+        alt: "Ultra-Low Noise Fiber Laser Series",
+      },
+      href: "/products/single-frequency-fiber-lasers/ultra-low-noise",
     },
   ],
 };

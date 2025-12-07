@@ -5,7 +5,8 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
-import { Layers, ChevronRight } from "lucide-react";
+import { Layers, ChevronRight, Sparkles } from "lucide-react";
+import { cn } from '@/lib/utils';
 
 export type UseCase = {
   id?: string;
@@ -25,11 +26,12 @@ type UseCasesGridProps = {
 
 const container: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
+  show: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
 };
+
 const card: Variants = {
-  hidden: { opacity: 0, y: 20, scale: 0.98 },
-  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: [0.2, 0.8, 0.2, 1] } },
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: [0.23, 0.86, 0.39, 0.96] } },
 };
 
 export default function ApplicationUseCasesGrid({
@@ -46,70 +48,116 @@ export default function ApplicationUseCasesGrid({
       whileInView="show"
       viewport={{ once: true, amount: 0.15 }}
       variants={container}
-      className={`py-16 md:py-24 ${isBlue ? "bg-[#3B9ACB] text-white" : "bg-white text-[#0f172a]"}`}
+      className={`py-24 md:py-32 relative overflow-hidden ${isBlue ? "bg-linear-to-br from-[#3B9ACB] via-[#2a7aa6] to-[#1f5a85] text-white" : "bg-linear-to-b from-white via-gray-50 to-white text-gray-900"}`}
       aria-label="use-cases"
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-8">
-        <div className="text-center mb-12">
-            <div className={`text-sm font-semibold uppercase tracking-wider mb-2 ${isBlue ? "text-white/90" : "text-blue-600"}`}>
+      {/* Background decorations */}
+      {isBlue && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-1/3 -right-1/4 w-96 h-96 rounded-full bg-white/5 blur-3xl" />
+          <div className="absolute -bottom-1/4 -left-1/3 w-80 h-80 rounded-full bg-white/8 blur-3xl" />
+        </div>
+      )}
+
+      <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 relative z-10">
+        <motion.div 
+          className="text-center mb-16 md:mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="inline-flex items-center gap-2 mb-4">
+            <Sparkles className={cn('w-4 h-4', isBlue ? 'text-blue-200' : 'text-blue-500')} />
+            <div className={`text-xs md:text-sm font-bold uppercase tracking-widest ${isBlue ? "text-blue-100" : "text-blue-600"}`}>
               Use Cases
             </div>
-            <h3 className={`text-3xl md:text-4xl font-extrabold ${isBlue ? "text-white" : "text-gray-900"}`}>
-              Real-World Applications
-            </h3>
-            <p className={`mt-3 max-w-2xl mx-auto text-lg ${isBlue ? "text-white/80" : "text-gray-600"}`}>
-                Explore how our technology is applied in various fields to achieve groundbreaking results.
-            </p>
-        </div>
+          </div>
+          <h3 className={`text-4xl md:text-5xl font-black tracking-tight mb-4 ${isBlue ? "text-white" : "text-gray-950"}`}>
+            Real-World Applications
+          </h3>
+          <p className={`mx-auto max-w-3xl text-lg md:text-xl leading-relaxed ${isBlue ? "text-blue-100" : "text-gray-700"}`}>
+            Explore how our technology is applied in various fields to achieve groundbreaking results.
+          </p>
+        </motion.div>
 
-        <div className={`grid grid-cols-1 sm:grid-cols-2 gap-8 ${gridCols}`}>
+        <div className={`grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10 lg:gap-12 ${gridCols}`}>
           {useCases.map((u, i) => (
             <motion.div
               key={u.id ?? `${u.title}-${i}`}
               variants={card}
-              whileHover={{ y: -8, scale: 1.03 }}
-              className={`relative group block rounded-2xl p-6 overflow-hidden transition-transform ${
-                isBlue ? "bg-gradient-to-br from-white/10 to-white/5 border border-white/20" : "bg-gradient-to-br from-gray-50 to-white border border-gray-100"
-              }`}
+              whileHover={{ y: -12, scale: 1.04 }}
+              className="group relative h-full"
             >
-              {/* Glowing border effect */}
-              <div className="absolute inset-[-1px] rounded-2xl border-2 border-transparent group-hover:border-blue-500/50 transition-all duration-300 group-hover:shadow-2xl group-hover:shadow-blue-500/20"></div>
+              <div className={`relative h-full p-8 md:p-10 rounded-3xl overflow-hidden backdrop-blur-sm transition-all duration-300 border ${
+                isBlue 
+                  ? "bg-white/10 border-white/20 hover:bg-white/15 hover:border-white/40 shadow-xl hover:shadow-2xl" 
+                  : "bg-white border-gray-100 hover:border-blue-300 shadow-lg hover:shadow-2xl"
+              }`}>
+                {/* Gradient overlay on hover */}
+                <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl ${
+                  isBlue
+                    ? 'bg-linear-to-br from-white/5 to-white/2'
+                    : 'bg-linear-to-br from-blue-50 to-white'
+                }`} />
 
-              {/* Decorative blobs */}
-              <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute -right-10 -top-10 w-48 h-48 rounded-full bg-gradient-to-br from-white/10 to-transparent blur-3xl opacity-50 transform-gpu group-hover:scale-125 transition-transform duration-500" />
-              </div>
+                {/* Decorative corner blobs */}
+                <div className="absolute inset-0 pointer-events-none rounded-3xl overflow-hidden">
+                  <div className={`absolute -right-12 -top-12 w-48 h-48 rounded-full blur-3xl opacity-40 group-hover:opacity-60 transition-opacity duration-500 ${
+                    isBlue ? 'bg-white/10' : 'bg-blue-200/30'
+                  }`} />
+                  <div className={`absolute -left-8 -bottom-8 w-40 h-40 rounded-full blur-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-500 ${
+                    isBlue ? 'bg-white/8' : 'bg-blue-100/20'
+                  }`} />
+                </div>
 
-              <div className="relative z-10">
-                <div className="flex items-start gap-5">
-                  <div className="flex-shrink-0">
-                    <div
-                      className={`w-16 h-16 rounded-xl flex items-center justify-center shadow-inner ${isBlue ? "bg-white/10 text-white" : "bg-blue-100 text-blue-600"}`}
-                    >
-                      {u.icon ? <span className="text-3xl" dangerouslySetInnerHTML={{ __html: u.icon }} /> : <Layers className="w-8 h-8" />}
+                <div className="relative z-10">
+                  {/* Icon */}
+                  <div className="mb-6">
+                    <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center font-bold text-2xl transition-all duration-300 group-hover:scale-110 ${
+                      isBlue 
+                        ? "bg-white/20 text-white group-hover:bg-white/30" 
+                        : "bg-blue-100 text-[#3B9ACB] group-hover:bg-blue-200"
+                    } shadow-lg`}>
+                      {u.icon ? <span dangerouslySetInnerHTML={{ __html: u.icon }} /> : <Layers className="w-8 h-8 md:w-10 md:h-10" />}
                     </div>
                   </div>
 
-                  <div className="flex-1">
-                    <h4 className={`text-xl font-bold mb-2 ${isBlue ? "text-white" : "text-gray-900"}`}>{u.title}</h4>
-                    <p className={`text-sm leading-relaxed ${isBlue ? "text-white/80" : "text-gray-600"} line-clamp-3`}>{u.summary}</p>
+                  {/* Content */}
+                  <div className="mb-6">
+                    <h4 className={`text-xl md:text-2xl font-black mb-3 leading-tight ${isBlue ? "text-white" : "text-gray-950"}`}>
+                      {u.title}
+                    </h4>
+                    <p className={`text-sm md:text-base leading-relaxed ${isBlue ? "text-white/80" : "text-gray-700"}`}>
+                      {u.summary}
+                    </p>
                   </div>
-                </div>
-                
-                <div className="mt-5 flex items-center justify-between">
+
+                  {/* Footer */}
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4 border-t border-white/10">
                     <Link
                       href={u.href ?? "#"}
-                      className={`group/link inline-flex items-center gap-2 text-sm font-semibold transition ${
-                        isBlue ? "text-white hover:text-white" : "text-blue-600 hover:text-blue-700"
+                      className={`inline-flex items-center gap-2 font-bold text-sm md:text-base transition-all duration-300 group/link ${
+                        isBlue 
+                          ? "text-white hover:gap-4" 
+                          : "text-[#3B9ACB] hover:text-blue-700 hover:gap-4"
                       }`}
                     >
                       <span>Learn More</span>
-                      <ChevronRight className="w-4 h-4 transition-transform group-hover/link:translate-x-1" />
+                      <ChevronRight className="w-4 h-4 md:w-5 md:h-5 transition-all duration-300" />
                     </Link>
 
-                    {u.stat && <div className={`text-sm font-medium py-1 px-3 rounded-full ${isBlue ? "bg-white/10" : "bg-blue-100 text-blue-800"}`}>{u.stat}</div>}
+                    {u.stat && (
+                      <div className={`text-xs md:text-sm font-bold py-2 px-4 rounded-full whitespace-nowrap transition-all duration-300 ${
+                        isBlue 
+                          ? "bg-white/20 text-white" 
+                          : "bg-blue-100 text-blue-700"
+                      }`}>
+                        {u.stat}
+                      </div>
+                    )}
+                  </div>
                 </div>
-
               </div>
             </motion.div>
           ))}

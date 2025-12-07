@@ -26,6 +26,7 @@ import { laserTestingData } from "@/data/categories/laserTestingData";
 import { sledLightData } from "@/data/categories/sledLightData";
 import { seedFiberData } from "@/data/categories/seedFiberData";
 import { pointLightSourceData } from "@/data/categories/pointLightSourceData";
+import FeatureMatrix from "../../../components/category/FeatureMatrix";
 
 // Map slug -> data (single source)
 const CATEGORY_MAP: Record<string, CategoryData> = {
@@ -106,6 +107,7 @@ export default async function CategoryPage({ params }: Props) {
     counters,
     trustLogos,
     specGroups,
+    featureMatrix,
   } = data as CategoryData;
 
   return (
@@ -115,9 +117,14 @@ export default async function CategoryPage({ params }: Props) {
 
       <section className="py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-6">
-          <KeyFeatures items={keyFeatures} />
+          <KeyFeatures items={keyFeatures} featureMatrix={featureMatrix} subCategories={subCategories} />
         </div>
       </section>
+            {/* <section className="py-12 md:py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <FeatureMatrix items={keyFeatures} />
+        </div>
+      </section> */}
 
       <section className="py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-6">

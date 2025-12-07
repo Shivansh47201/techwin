@@ -5,6 +5,7 @@ import path from "path";
 
 // Ensure this API route is treated as static during an "output: export" build.
 export const dynamic = "force-static";
+export const revalidate = false;
 
 // Serve the generated static products JSON when available. This keeps
 // the /api/products route compatible with static HTML export and avoids

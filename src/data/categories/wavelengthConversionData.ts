@@ -45,6 +45,20 @@ export type CategoryData = {
   };
   contactPhone?: string;
   notes?: string;
+  featureMatrix?: {
+    categories: {
+      id: string;
+      name: string;
+      features: {
+        stability: string;
+        noise: string;
+        coherence: string;
+        integration: string;
+        bonus5?: string;
+        bonus6?: string;
+      };
+    }[];
+  };
 };
 
 // -------------------------------------------------------------
@@ -170,4 +184,69 @@ export const wavelengthConversionData: CategoryData = {
 
   notes:
     "Custom wavelength, power, beam quality and packaging options available. All units pass linewidth, power and stability tests before shipping. Contact Techwin for integration support and OEM builds.",
+
+  featureMatrix: {
+    categories: [
+      {
+        id: "wc-193nm",
+        name: "193 nm Deep-UV",
+        features: {
+          stability: "Stable deep-UV output for advanced lithography processes",
+          noise: "Low noise enabling precision photochemistry applications",
+          coherence: "High beam quality for micro-fabrication requirements",
+          integration: "Specialized optics for UV system integration",
+          bonus5: "Extreme UV wavelength for semiconductor processing",
+          bonus6: "Advanced thermal management for continuous UV generation",
+        },
+      },
+      {
+        id: "wc-266nm",
+        name: "266 nm UV",
+        features: {
+          stability: "Stable 266 nm output optimized for spectroscopy",
+          noise: "Ultra-low noise for precision Raman and fluorescence",
+          coherence: "High coherence for scientific research applications",
+          integration: "Easy integration with spectroscopy platforms",
+          bonus5: "Perfect for UV fluorescence and forensic analysis",
+          bonus6: "Customizable output for various research needs",
+        },
+      },
+      {
+        id: "wc-355nm",
+        name: "355 nm UV",
+        features: {
+          stability: "Balanced UV stability for industrial micromachining",
+          noise: "Low noise characteristics for precision marking",
+          coherence: "High beam quality for detailed micromachining",
+          integration: "Compact module for micromachining systems",
+          bonus5: "Ideal for PCB marking and medical device processing",
+          bonus6: "Robust design for continuous industrial operation",
+        },
+      },
+      {
+        id: "wc-532nm",
+        name: "532 nm Green",
+        features: {
+          stability: "Stable green laser output for alignment applications",
+          noise: "Low noise suitable for imaging and detection",
+          coherence: "High coherence enabling precision holography",
+          integration: "Easy integration with optical laboratory setups",
+          bonus5: "Perfect for biological imaging and fluorescence excitation",
+          bonus6: "Customizable power levels for diverse applications",
+        },
+      },
+      {
+        id: "wc-780nm",
+        name: "780 nm Near-IR",
+        features: {
+          stability: "Stable 780 nm output for atomic physics experiments",
+          noise: "Ultra-low noise for quantum optics applications",
+          coherence: "Exceptional coherence for precision experiments",
+          integration: "Specialized optics for rubidium atom systems",
+          bonus5: "Ideal for optical pumping and atomic traps",
+          bonus6: "Advanced frequency stabilization options available",
+        },
+      },
+    ],
+  },
 };

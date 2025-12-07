@@ -3,6 +3,7 @@ import React from "react";
 import type { Metadata } from "next";
 import rawData, { applications as namedApplications, type Application } from "@/data/Application/index";
 import ApplicationDetailHero from "@/components/application/detail/ApplicationDetailHero";
+import ApplicationWhiteHero from "@/components/application/detail/ApplicationWhiteHero";
 import ApplicationOverviewStrip from "@/components/application/detail/ApplicationOverviewStrip";
 import ApplicationFeatureBlock from "@/components/application/detail/ApplicationFeatureBlock";
 import ApplicationSubSection from "@/components/application/detail/ApplicationSubSection";
@@ -37,14 +38,49 @@ if (process.env.NODE_ENV === "development") {
 
 // generateStaticParams for SSG
 export async function generateStaticParams() {
-  return applicationList.filter((a) => a && typeof a.slug === "string").map((a) => ({ slug: a.slug }));
+  const params: { slug: string }[] = [];
+  
+  applicationList.forEach((a) => {
+    if (a && typeof a.slug === "string") {
+      // Add the main slug
+      params.push({ slug: a.slug });
+      
+      // Add all aliases
+      if (Array.isArray(a.aliases)) {
+        a.aliases.forEach((alias) => {
+          if (typeof alias === "string") {
+            params.push({ slug: alias });
+          }
+        });
+      }
+    }
+  });
+  
+  return params;
 }
 
 // Metadata
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = (await params) ?? {};
   const slug = String(resolvedParams.slug ?? "");
-  const app = applicationList.find((a) => a.slug === slug);
+  
+  // Search by slug and aliases
+  const findBySlug = (s: string) => {
+    const norm = (x: string) => String(x ?? "").toLowerCase().replace(/^\/+|\/+$/g, "");
+    const normalizedSlug = norm(s);
+    
+    // 1. Exact slug match
+    const exactMatch = applicationList.find((a) => a && norm(a.slug) === normalizedSlug);
+    if (exactMatch) return exactMatch;
+    
+    // 2. Alias match
+    const aliasMatch = applicationList.find((a) => a && a.aliases && a.aliases.map(norm).includes(normalizedSlug));
+    if (aliasMatch) return aliasMatch;
+    
+    return null;
+  };
+  
+  const app = findBySlug(slug);
   if (!app) return { title: "Application" };
   const title = app.title ?? app.name ?? app.heroTitle ?? "Application";
   return {
@@ -260,10 +296,19 @@ export default async function Page({ params }: PageProps) {
     console.log("[apps] rendering app:", { slug: app.slug, title: app.title, sections: app.sections?.length });
   }
 
-  // renderers
+  // renderers with empty content filtering
   const renderSection = (section: any, idx: number) => {
+    // Skip sections with no meaningful content
+    const hasContent = section.title || section.body || (section.bullets && section.bullets.length > 0) || section.image;
+    if (!hasContent) return null;
+
     const background = idx % 2 === 0 ? "blue" : "white";
+    
     if (section.type === "feature" || section.type === "media") {
+      // Skip if only title exists with no other content
+      if (!section.body && !section.bullets?.length && !section.image && section.subtitle) {
+        return null;
+      }
       return (
         <ApplicationFeatureBlock
           key={idx}
@@ -279,17 +324,27 @@ export default async function Page({ params }: PageProps) {
         />
       );
     }
+    
     if (section.type === "subsections" || section.type === "bullets") {
+      // Skip if no bullets
+      if (!section.bullets || section.bullets.length === 0) return null;
       return (
         <ApplicationSubSection key={idx} title={section.title} bullets={section.bullets} background={background as "blue" | "white"} />
       );
     }
+    
     if (section.type === "gallery") {
-      return <ApplicationGalleryCarousel key={idx} items={section.items || []} background={background as "blue" | "white"} />;
+      // Skip if no items
+      if (!section.items || section.items.length === 0) return null;
+      return <ApplicationGalleryCarousel key={idx} items={section.items} background={background as "blue" | "white"} />;
     }
+    
     if (section.type === "timeline") {
-      return <ApplicationProcessTimeline key={idx} steps={section.steps || []} background={background as "blue" | "white"} />;
+      // Skip if no steps
+      if (!section.steps || section.steps.length === 0) return null;
+      return <ApplicationProcessTimeline key={idx} steps={section.steps} background={background as "blue" | "white"} />;
     }
+    
     return <ApplicationFeatureBlock key={idx} title={section.title} body={section.body} image={coerceImage(section.image)} background={background as "blue" | "white"} />;
   };
 
@@ -297,7 +352,12 @@ export default async function Page({ params }: PageProps) {
     <main>
       <ApplicationDetailHero title={app.title} tagline={app.tagline} kicker={app.kicker} image={coerceImage(app.heroImage)} ctas={app.ctas} />
 
-      <ApplicationOverviewStrip stats={app.overviewStats || []} ctaLabel={app.ctaPrimary ?? "Talk to expert"} ctaHref={app.ctaPrimaryHref ?? "#"} image={coerceImage(app.overviewImage)} background="blue" />
+      <ApplicationWhiteHero 
+        title={app.original?.whiteHeroTitle ?? `Why ${app.title}`}
+        description={app.original?.whiteHeroDescription}
+      />
+
+      {/* <ApplicationOverviewStrip stats={app.overviewStats || []} ctaLabel={app.ctaPrimary ?? "Talk to expert"} ctaHref={app.ctaPrimaryHref ?? "#"} image={coerceImage(app.overviewImage)} background="blue" /> */}
 
       <div>
         {Array.isArray(app.sections) && app.sections.map((section, idx) => renderSection(section, idx))}
