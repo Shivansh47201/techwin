@@ -93,6 +93,7 @@ export const singleFrequencyData: CategoryData = {
     "Customizable control and modulation options",
   ],
 
+<<<<<<< HEAD
 subCategories: [
   {
     id: "1um",
@@ -188,6 +189,70 @@ subCategories: [
       "Broadband fiber laser series delivering ultra-low noise, wide spectral output and high stability for spectroscopy, metrology, coherent detection and optical sensing.",
   }
 ],
+=======
+  subCategories: [
+    {
+      id: "1um",
+      name: "1.0 µm Single-Frequency Fiber Laser",
+      shortDescription:
+        "1.0 µm single-frequency fiber laser with ultra-narrow linewidth for Yb-doped amplifier seeding, interferometry, and precision sensing applications.",
+    },
+    {
+      id: "1-5um",
+      name: "1.5 µm Single-Frequency Fiber Laser",
+      shortDescription:
+        "1.5 µm (1550 nm) single-frequency fiber laser optimized for telecommunications, coherent detection, and distributed fiber sensing systems.",
+    },
+    {
+      id: "2um",
+      name: "2.0 µm Single-Frequency Fiber Laser",
+      shortDescription:
+        "2.0 µm single-frequency fiber laser for mid-infrared applications in sensing, spectroscopy, and materials processing.",
+    },
+    {
+      id: "ultra-narrow-linewidth",
+      name: "Ultra-Narrow Linewidth Fiber Laser",
+      shortDescription:
+        "Hz-level ultra-narrow linewidth single-frequency fiber laser delivering exceptional coherence, phase stability, and spectral purity for scientific, industrial, sensing, and quantum applications.",
+    },
+    {
+      id: "narrow-linewidth",
+      name: "Narrow Linewidth Fiber Laser",
+      shortDescription:
+        "kHz-level narrow-linewidth single-frequency fiber laser with high spectral purity and low phase noise for precision measurement and coherent systems.",
+    },
+    {
+      id: "sensor-stabilized",
+      name: "High-Sensitivity Sensor-Stabilized Fiber Laser",
+      shortDescription:
+        "Frequency-stabilized fiber laser optimized for precision fiber sensing, distributed sensing networks and high-sensitivity detection applications.",
+    },
+    {
+      id: "magnetic-field",
+      name: "Magnetic Field Detection Laser",
+      shortDescription:
+        "Specialized single-frequency fiber laser engineered for magnetic field sensing and detection with high sensitivity and stability.",
+    },
+    {
+      id: "stabilized",
+      name: "Frequency-Stabilized Fiber Laser",
+      shortDescription:
+        "Environmentally compensated frequency-stabilized laser for long-term wavelength stability in laboratory and field environments.",
+    },
+    {
+      id: "ultra-low-noise",
+      name: "Ultra-Low Noise Fiber Laser Series",
+      shortDescription:
+        "Ultra-low noise single-frequency fiber lasers optimized for precision measurement, quantum applications and high-resolution sensing systems.",
+    },
+    {
+      id: "broadband-low-noise",
+      name: "Broadband Ultra-Low Noise Fiber Laser",
+      shortDescription:
+        "Broadband fiber laser series delivering ultra-low noise, wide spectral output and high stability for spectroscopy, metrology, coherent detection and optical sensing.",
+    },
+  ],
+>>>>>>> origin/main
 
   technicalBenefits: [
     "Linewidth: Ultra-narrow (Hz → kHz) for maximum coherence",

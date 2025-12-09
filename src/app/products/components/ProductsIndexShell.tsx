@@ -68,7 +68,11 @@ function inferBandKeyFromTitle(title: string): string {
   return "_other";
 }
 
+<<<<<<< HEAD
 /** Band key → simple label */
+=======
+/** Band key → heading text */
+>>>>>>> origin/main
 function bandLabelFromKey(key: string): string {
   switch (key) {
     case "1um":
@@ -77,6 +81,7 @@ function bandLabelFromKey(key: string): string {
       return "1.5 µm";
     case "2um":
       return "2.0 µm";
+<<<<<<< HEAD
     default:
       return "Other";
   }
@@ -95,6 +100,16 @@ const CATEGORY_COLUMN_CONFIG = [
 ];
 
 // Band order inside category
+=======
+    case "_other":
+      return "Other wavelengths";
+    default:
+      return key;
+  }
+}
+
+// Column order: 1.0µm → 1.5µm → 2.0µm → others
+>>>>>>> origin/main
 const BAND_ORDER = ["1um", "1_5um", "2um"];
 
 function sortBands(aKey: string, bKey: string) {
@@ -111,6 +126,7 @@ function sortBands(aKey: string, bKey: string) {
   return aKey.localeCompare(bKey);
 }
 
+<<<<<<< HEAD
 type ColumnBand = {
   key: string;
   label: string;
@@ -212,11 +228,47 @@ const ProductsIndexShell: React.FC<Props> = ({ catalog }) => {
       }
 
       const col = map.get(cat.categorySlug)!;
+=======
+const ProductsIndexShell: React.FC<Props> = ({ catalog }) => {
+  /**
+   * GLOBAL GROUPING:
+   * band (1um / 1.5um / 2um / other)
+   *   -> categories (Single-frequency module, High-power narrow-linewidth...)
+   *     -> products
+   */
+  const bands = useMemo(() => {
+    type BandCategory = {
+      categorySlug: string;
+      categoryTitle: string;
+      products: CatalogProduct[];
+    };
+
+    type BandBucket = {
+      key: string;
+      label: string;
+      categories: BandCategory[];
+    };
+
+    const bandMap = new Map<
+      string,
+      {
+        label: string;
+        categories: Map<string, BandCategory>;
+      }
+    >();
+
+    (catalog || []).forEach((cat) => {
+      const catTitle = formatCategoryTitle(
+        cat.categorySlug,
+        cat.categoryTitle
+      );
+>>>>>>> origin/main
 
       (cat.products || []).forEach((p) => {
         const bandKey = inferBandKeyFromTitle(p.title);
         const bandLabel = bandLabelFromKey(bandKey);
 
+<<<<<<< HEAD
         if (!col.bands.has(bandKey)) {
           col.bands.set(bandKey, { label: bandLabel, products: [] });
         }
@@ -267,6 +319,67 @@ const ProductsIndexShell: React.FC<Props> = ({ catalog }) => {
         0
       ),
     [catalog]
+=======
+        if (!bandMap.has(bandKey)) {
+          bandMap.set(bandKey, {
+            label: bandLabel,
+            categories: new Map(),
+          });
+        }
+
+        const bandBucket = bandMap.get(bandKey)!;
+
+        if (!bandBucket.categories.has(cat.categorySlug)) {
+          bandBucket.categories.set(cat.categorySlug, {
+            categorySlug: cat.categorySlug,
+            categoryTitle: catTitle,
+            products: [],
+          });
+        }
+
+        bandBucket.categories.get(cat.categorySlug)!.products.push(p);
+      });
+    });
+
+    const bandArray: BandBucket[] = Array.from(bandMap.entries()).map(
+      ([key, value]) => ({
+        key,
+        label: value.label,
+        categories: Array.from(value.categories.values()).map((c) => ({
+          ...c,
+          products: c.products.sort((a, b) =>
+            a.title.localeCompare(b.title)
+          ),
+        })),
+      })
+    );
+
+    // sort bands 1.0µm → 1.5µm → 2.0µm → others
+    bandArray.sort((a, b) => sortBands(a.key, b.key));
+
+    // sort categories alphabetically inside band
+    bandArray.forEach((band) => {
+      band.categories.sort((a, b) =>
+        a.categoryTitle.localeCompare(b.categoryTitle)
+      );
+    });
+
+    return bandArray;
+  }, [catalog]);
+
+  const totalProducts = useMemo(
+    () =>
+      bands.reduce(
+        (sum, band) =>
+          sum +
+          band.categories.reduce(
+            (s, c) => s + c.products.length,
+            0
+          ),
+        0
+      ),
+    [bands]
+>>>>>>> origin/main
   );
 
   return (
@@ -284,12 +397,21 @@ const ProductsIndexShell: React.FC<Props> = ({ catalog }) => {
             Product Center
           </p>
           <h2 className="text-lg md:text-xl font-semibold text-slate-900">
+<<<<<<< HEAD
             Structured index of all laser products.
           </h2>
           <p className="text-[11px] sm:text-xs text-slate-500 max-w-xl">
             Left column lists featured models; other columns group products by
             family (single-frequency, seed, high-power, etc.) and wavelength
             band inside each family — similar to a catalog table view.
+=======
+            Wavelength-wise index of all laser products.
+          </h2>
+          <p className="text-[11px] sm:text-xs text-slate-500 max-w-xl">
+            Columns are global wavelength bands: all 1.0 µm products together,
+            then 1.5 µm, then 2.0 µm. Inside each band, models are grouped by
+            product family.
+>>>>>>> origin/main
           </p>
         </div>
 
@@ -297,17 +419,27 @@ const ProductsIndexShell: React.FC<Props> = ({ catalog }) => {
           <span className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white/80 px-3 py-1 shadow-sm">
             <span className="h-1.5 w-1.5 rounded-full bg-[#3B9ACB]" />
             <span className="uppercase tracking-[0.18em] text-slate-500">
+<<<<<<< HEAD
               Family view
             </span>
           </span>
           <span className="text-slate-500">
             {familiesWithProducts.length} families ·{" "}
             <span className="font-semibold text-slate-800">{totalModels}</span>{" "}
+=======
+              Band view
+            </span>
+          </span>
+          <span className="text-slate-500">
+            {bands.length} bands ·{" "}
+            <span className="font-semibold text-slate-800">{totalProducts}</span>{" "}
+>>>>>>> origin/main
             models
           </span>
         </div>
       </div>
 
+<<<<<<< HEAD
       {/* GRID: Featured + category columns (screenshot style) */}
       <div className="relative mt-2 grid gap-x-14 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
         {/* Featured products column */}
@@ -363,6 +495,60 @@ const ProductsIndexShell: React.FC<Props> = ({ catalog }) => {
                   </ul>
                 </div>
               ))}
+=======
+      {/* GRID: 1.0µm | 1.5µm | 2.0µm | Others */}
+      <div className="relative mt-2 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {bands.map((band) => (
+          <div
+            key={band.key}
+            className="min-w-0 rounded-2xl border border-slate-100 bg-white/80 p-4 shadow-[0_10px_25px_rgba(15,23,42,0.04)]"
+          >
+            {/* Band heading: 1.0 µm, 1.5 µm, 2.0 µm */}
+            <div className="flex items-center justify-between gap-2 mb-3">
+              <h3 className="text-sm md:text-base font-semibold text-slate-900">
+                {band.label}
+              </h3>
+              <span className="text-[10px] px-2 py-0.5 rounded-full border border-slate-200 bg-slate-50 text-slate-500">
+                {band.categories.reduce(
+                  (s, c) => s + c.products.length,
+                  0
+                )}{" "}
+                models
+              </span>
+            </div>
+
+            {/* Category sections inside band */}
+            {band.categories.map((cat, catIndex) => (
+              <div
+                key={cat.categorySlug}
+                className={catIndex > 0 ? "mt-4 pt-3 border-t border-dashed border-slate-100" : "mt-2"}
+              >
+                {/* Category title visible & clear */}
+                <div className="flex items-center gap-2 mb-1.5">
+                  <div className="h-1 w-4 rounded-full bg-[#3B9ACB]/60" />
+                  <div className="text-[11px] uppercase tracking-[0.16em] text-slate-500">
+                    {cat.categoryTitle}
+                  </div>
+                </div>
+
+                <ul className="space-y-1.5 text-xs md:text-sm leading-relaxed">
+                  {cat.products.map((p) => (
+                    <li key={p.slug} className="truncate">
+                      <a
+                        href={`/products/${cat.categorySlug}/${p.slug}`}
+                        className="group inline-flex items-baseline gap-1 max-w-full transition-transform duration-150 hover:translate-x-[1px]"
+                      >
+                        <span className="mt-[3px] h-[3px] w-[3px] rounded-full bg-slate-300 group-hover:bg-[#3B9ACB] flex-shrink-0" />
+                        <span className="truncate text-slate-700 group-hover:text-[#3B9ACB] group-hover:underline underline-offset-[3px] decoration-slate-300">
+                          {p.title}
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+>>>>>>> origin/main
           </div>
         ))}
       </div>

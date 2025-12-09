@@ -5,9 +5,15 @@ import { aseLightSource2um } from "./ase-sources/2um-ase";
 import { broadbandLightSource } from "./ase-sources/broadband";
 import { sledLightSource } from "./ase-sources/sled-ase";
 
+<<<<<<< HEAD
 import { polarizationMaintainingFiberAmplifier } from "./fiber-amplifiers/pm";
 import { highPowerFiberAmplifier } from "./fiber-amplifiers/high-power";
 import { fiberAmplifierModules } from "./fiber-amplifiers/modules";
+=======
+import { polarizationMaintainingFiberAmplifier } from "./Fiber-Amplifiers/polarization-maintaining-fiber-amplifier";
+import { highPowerFiberAmplifier } from "./Fiber-Amplifiers/high-power-fiber-amplifier";
+import { fiberAmplifierModules } from "./Fiber-Amplifiers/fiber-amplifier-modules";
+>>>>>>> origin/main
 
 import { kilowattLevelFiberLaserCombustionDiagnostics } from "./high-power/kilowatt";
 import { highPowerCWSingleFrequencyFiberLaser1um } from "./high-power/1um-cw";
@@ -29,6 +35,7 @@ import { pointLightSource1um } from "./sled/1um-point";
 import { pointLightSource1p5um } from "./sled/1-5um-point";
 import { pointLightSource2um } from "./sled/2um-point";
 
+<<<<<<< HEAD
 import { oneMicronNarrowLinewidthSeedLaser } from "./Seed-Lasers/1um-narrow";
 import { oneMicronFrequencyStabilizedSeedLaser } from "./Seed-Lasers/1um-stabilized";
 import { ultraLowNoiseSeedLaser } from "./Seed-Lasers/1um-ultra-low-noise";
@@ -38,6 +45,18 @@ import { twoMicronSingleFrequencySeedLaser } from "./Seed-Lasers/2um-single";
 import { twoMicronPhaseModulatedFiberSeedSource } from "./Seed-Lasers/2um-phase";
 import { oneMicronIndustrialSingleFrequencySeedSource } from "./Seed-Lasers/1um-industrial";
 import { oneMicronHighReliabilitySingleFrequencySeedSource } from "./Seed-Lasers/1um-high-reliability";
+=======
+import { oneMicronSingleFrequencyFiberLaser } from "./Single-Frequency-Fiber-Lasers/1.0um-single-frequency-fiber-laser";
+import { onePointFiveMicronSingleFrequencyFiberLaser } from "./Single-Frequency-Fiber-Lasers/1.5um-single-frequency-fiber-laser";
+import { twoMicronSingleFrequencyFiberLaser } from "./Single-Frequency-Fiber-Lasers/2.0um-single-frequency-fiber-laser";
+import { highSensitivitySensorStabilizedFiberLaser } from "./Single-Frequency-Fiber-Lasers/high-sensitivity-sensor-stabilized-fiber-laser";
+import { magneticFieldDetectionLaser } from "./Single-Frequency-Fiber-Lasers/magnetic-field-detection-laser";
+import { frequencyStabilizedFiberLaser } from "./Single-Frequency-Fiber-Lasers/frequency-stabilized-fiber-laser";
+import { broadbandUltraLowNoise } from "./Single-Frequency-Fiber-Lasers/broadband-ultra-low-noise-fiber-laser";
+import {ultraNarrowLinewidth} from "./Single-Frequency-Fiber-Lasers/ultra-narrow-linewidth";
+import {narrowLinewidth} from "./Single-Frequency-Fiber-Lasers/narrow-linewidth";
+import {ultraLowNoiseFiberLaserSeries} from "./Single-Frequency-Fiber-Lasers/ultra-low-noise";
+>>>>>>> origin/main
 
 
 import { oneMicronSingleFrequencyFiberLaser } from "./single-frequency/1um";
@@ -78,6 +97,7 @@ export const PRODUCT_MAP: Record<string, any> = {
   "sled-ase": sledLightSource,
 
   // Fiber Amplifiers
+<<<<<<< HEAD
   "pm": polarizationMaintainingFiberAmplifier,
   "high-power": highPowerFiberAmplifier,
   "modules": fiberAmplifierModules,
@@ -98,6 +118,19 @@ export const PRODUCT_MAP: Record<string, any> = {
   "2um-cw": highPowerCWSingleFrequencyFiberLaser2um,
   lidar: longDistanceHighResolutionLidarFiberLaser,
 
+=======
+  "polarization-maintaining-fiber-amplifier": polarizationMaintainingFiberAmplifier,
+  "high-power-fiber-amplifier": highPowerFiberAmplifier,
+  "fiber-amplifier-modules": fiberAmplifierModules,
+
+  // High-Power Fiber Lasers
+  "kilowatt-level-fiber-laser-combustion-diagnostics": kilowattLevelFiberLaserCombustionDiagnostics,
+  "high-power-cw-single-frequency-fiber-laser-1um": highPowerCWSingleFrequencyFiberLaser1um,
+  "high-power-cw-single-frequency-fiber-laser-1.5um": highPowerCWSingleFrequencyFiberLaser1_5um,
+  "high-power-cw-single-frequency-fiber-laser-1-5um": highPowerCWSingleFrequencyFiberLaser1_5um,
+  "high-power-cw-single-frequency-fiber-laser-2um": highPowerCWSingleFrequencyFiberLaser2um,
+  "long-distance-high-resolution-lidar-fiber-laser": longDistanceHighResolutionLidarFiberLaser,
+>>>>>>> origin/main
 
   // Point Light Sources
   "1um-point": pointLightSource1um,
@@ -117,6 +150,7 @@ export const PRODUCT_MAP: Record<string, any> = {
 
   // Single-Frequency Fiber Lasers
   // Map both filename-based keys and slug-based keys for lookup flexibility
+<<<<<<< HEAD
   "1um": oneMicronSingleFrequencyFiberLaser,
   "1-5um": onePointFiveMicronSingleFrequencyFiberLaser,
   "2um": twoMicronSingleFrequencyFiberLaser,
@@ -133,6 +167,28 @@ export const PRODUCT_MAP: Record<string, any> = {
   "2um-high-reliability": twoMicronHighReliabilitySingleFrequencyFiberLaser,
   "2um-industrial": twoMicronIndustrialSingleFrequencyFiberLaser,
   "compact": compactSingleFrequencyFiberLaser,
+=======
+  "1.0um-single-frequency-fiber-laser": oneMicronSingleFrequencyFiberLaser,
+  "1um": oneMicronSingleFrequencyFiberLaser,
+  "1.5um-single-frequency-fiber-laser": onePointFiveMicronSingleFrequencyFiberLaser,
+  "1-5um": onePointFiveMicronSingleFrequencyFiberLaser,
+  "2.0um-single-frequency-fiber-laser": twoMicronSingleFrequencyFiberLaser,
+  "2um": twoMicronSingleFrequencyFiberLaser,
+  "ultra-narrow-linewidth-fiber-laser": ultraNarrowLinewidth,
+  "ultra-narrow-linewidth": ultraNarrowLinewidth,
+  "ultra-low-noise-fiber-laser-series": ultraLowNoiseFiberLaserSeries,
+  "ultra-low-noise": ultraLowNoiseFiberLaserSeries,
+  "narrow-linewidth-fiber-laser": narrowLinewidth,   
+  "narrow-linewidth": narrowLinewidth,    
+  "high-sensitivity-sensor-stabilized-fiber-laser": highSensitivitySensorStabilizedFiberLaser,
+  "sensor-stabilized": highSensitivitySensorStabilizedFiberLaser,
+  "magnetic-field-detection-laser": magneticFieldDetectionLaser,
+  "magnetic-field": magneticFieldDetectionLaser,
+  "frequency-stabilized-fiber-laser": frequencyStabilizedFiberLaser,
+  "stabilized": frequencyStabilizedFiberLaser,
+  "broadband-ultra-low-noise-fiber-laser": broadbandUltraLowNoise,
+  "broadband-low-noise": broadbandUltraLowNoise,
+>>>>>>> origin/main
 
   // Testing Systems
   "spectral": spectralTesting,

@@ -49,6 +49,7 @@
       "categoryImage": "/category/Broadband-ASE-Sources.jpg",
       "products": [
         {
+<<<<<<< HEAD
           "slug": "1-5um-ase",
           "title": "ASE Light Source (1.5 µm)"
         },
@@ -58,6 +59,17 @@
         },
         {
           "slug": "2um-ase",
+=======
+          "slug": "ase-light-source-1-5um",
+          "title": "ASE Light Source (1.5 µm)"
+        },
+        {
+          "slug": "ase-light-source-1um",
+          "title": "ASE Light Source (1.0 µm)"
+        },
+        {
+          "slug": "ase-light-source-2um",
+>>>>>>> origin/main
           "title": "ASE Light Source (2.0 µm)"
         },
         {
@@ -65,7 +77,11 @@
           "title": "Broadband Light Source"
         },
         {
+<<<<<<< HEAD
           "slug": "sled-ase",
+=======
+          "slug": "sled-light-source",
+>>>>>>> origin/main
           "title": "Superluminescent LED (SLED)"
         }
       ]
@@ -76,6 +92,7 @@
       "categoryImage": "/category/Fiber-Amplifier.jpg",
       "products": [
         {
+<<<<<<< HEAD
           "slug": "high-power",
           "title": "High-Power Fiber Amplifier"
         },
@@ -85,6 +102,17 @@
         },
         {
           "slug": "pm",
+=======
+          "slug": "fiber-amplifier-modules",
+          "title": "Fiber Amplifier Modules"
+        },
+        {
+          "slug": "high-power-fiber-amplifier",
+          "title": "High-Power Fiber Amplifier"
+        },
+        {
+          "slug": "polarization-maintaining-fiber-amplifier",
+>>>>>>> origin/main
           "title": "Polarization-Maintaining Fiber Amplifier"
         }
       ]
@@ -95,6 +123,7 @@
       "categoryImage": "/category/High-Power-Single-Frequency-Fiber-Lasers.jpg",
       "products": [
         {
+<<<<<<< HEAD
           "slug": "1-5um-0-2w",
           "title": "1.5μm High-Power Single-Frequency Laser (0.2–2W)"
         },
@@ -148,11 +177,31 @@
         },
         {
           "slug": "lidar",
+=======
+          "slug": "high-power-cw-single-frequency-fiber-laser-1-5um",
+          "title": "High-Power CW Single-Frequency Fiber Laser (1.5 µm)"
+        },
+        {
+          "slug": "high-power-cw-single-frequency-fiber-laser-1um",
+          "title": "High-Power CW Single-Frequency Fiber Laser (1.0 µm)"
+        },
+        {
+          "slug": "high-power-cw-single-frequency-fiber-laser-2um",
+          "title": "High-Power CW Single-Frequency Fiber Laser (2.0 µm)"
+        },
+        {
+          "slug": "kilowatt-level-fiber-laser-combustion-diagnostics",
+          "title": "Kilowatt-Level Fiber Laser for Combustion Diagnostics"
+        },
+        {
+          "slug": "long-distance-high-resolution-lidar-fiber-laser",
+>>>>>>> origin/main
           "title": "Long-Distance High-Resolution LiDAR Fiber Laser"
         }
       ]
     },
     {
+<<<<<<< HEAD
       "categorySlug": "single-frequency",
       "categoryTitle": "Single-Frequency Fiber Lasers",
       "categoryImage": "/category/Single-Frequency-Fiber-Lasers.jpg",
@@ -180,6 +229,70 @@
         {
           "slug": "2um-industrial",
           "title": "2.0μm Industrial Single-Frequency Fiber Laser"
+=======
+      "categorySlug": "seed-lasers",
+      "categoryTitle": "Seed Lasers",
+      "categoryImage": "/category/High-Precision-Seed-Fiber-Lasers.jpg",
+      "products": [
+        {
+          "slug": "1-0um-frequency-stabilized-seed-laser",
+          "title": "1.0 µm Frequency-Stabilized Seed Laser"
+        },
+        {
+          "slug": "1-0um-narrow-linewidth-seed-laser",
+          "title": "1.0 µm Narrow Linewidth Seed Laser"
+        },
+        {
+          "slug": "1-0um-ultra-low-noise-seed-laser",
+          "title": "1.0 µm Ultra-Low Noise Seed Laser"
+        },
+        {
+          "slug": "1-5um-narrow-linewidth-seed-laser",
+          "title": "1.5 µm Narrow Linewidth Seed Laser"
+        },
+        {
+          "slug": "1-5um-phase-modulated-seed-laser",
+          "title": "1.5 µm Phase-Modulated Seed Laser"
+        },
+        {
+          "slug": "2-0um-phase-modulated-fiber-seed-source",
+          "title": "2.0 µm Phase-Modulated Fiber Seed Source"
+        },
+        {
+          "slug": "2-0um-single-frequency-seed-laser",
+          "title": "2.0 µm Single-Frequency Seed Laser"
+        }
+      ]
+    },
+    {
+      "categorySlug": "single-frequency-fiber-lasers",
+      "categoryTitle": "Single Frequency Fiber Lasers",
+      "categoryImage": "/category/Single-Frequency-Fiber-Lasers.jpg",
+      "products": [
+        {
+          "slug": "1-0um-single-frequency-fiber-laser",
+          "title": "1.0 µm Single-Frequency Fiber Laser"
+        },
+        {
+          "slug": "1-5um-single-frequency-fiber-laser",
+          "title": "1.5 µm Single-Frequency Fiber Laser"
+        },
+        {
+          "slug": "2-0um-single-frequency-fiber-laser",
+          "title": "2.0 µm Single-Frequency Fiber Laser"
+        },
+        {
+          "slug": "broadband-ultra-low-noise-fiber-laser",
+          "title": "Broadband Ultra-Low Noise Single-Frequency Fiber Laser"
+        },
+        {
+          "slug": "frequency-stabilized-fiber-laser",
+          "title": "Frequency-Stabilized Fiber Laser (All Wavelengths)"
+        },
+        {
+          "slug": "high-sensitivity-sensor-stabilized-fiber-laser",
+          "title": "High-Sensitivity Sensor-Stabilized Fiber Laser"
+>>>>>>> origin/main
         },
         {
           "slug": "2um",
@@ -202,6 +315,7 @@
           "title": "Narrow Linewidth Single-Frequency Fiber Laser"
         },
         {
+<<<<<<< HEAD
           "slug": "sensor-stabilized",
           "title": "High-Sensitivity Sensor-Stabilized Fiber Laser"
         },
@@ -210,6 +324,8 @@
           "title": "Frequency-Stabilized Fiber Laser (All Wavelengths)"
         },
         {
+=======
+>>>>>>> origin/main
           "slug": "ultra-low-noise",
           "title": "Ultra-Low Noise Fiber Laser Series"
         },
@@ -259,6 +375,7 @@
       "categoryImage": "/category/Wavelength-Conversion-Laser-Solutions-High-Precision-Performance.jpg",
       "products": [
         {
+<<<<<<< HEAD
           "slug": "193nm",
           "title": "193 nm Wavelength Conversion Laser"
         },
@@ -281,6 +398,49 @@
         {
           "slug": "795nm",
           "title": "795 nm Wavelength Conversion Laser"
+=======
+          "slug": "193nm-wavelength-conversion-laser",
+          "title": "193 nm Wavelength Conversion Laser"
+        },
+        {
+          "slug": "266nm-wavelength-conversion-laser",
+          "title": "266 nm Wavelength Conversion Laser"
+        },
+        {
+          "slug": "355nm-wavelength-conversion-laser",
+          "title": "355 nm Wavelength Conversion Laser"
+        },
+        {
+          "slug": "532nm-wavelength-conversion-laser",
+          "title": "532 nm Wavelength Conversion Laser"
+        },
+        {
+          "slug": "780nm-wavelength-conversion-laser",
+          "title": "780 nm Wavelength Conversion Laser"
+        },
+        {
+          "slug": "795nm-wavelength-conversion-laser",
+          "title": "795 nm Wavelength Conversion Laser"
+        }
+      ]
+    },
+    {
+      "categorySlug": "point-light-sources",
+      "categoryTitle": "Point Light Sources",
+      "categoryImage": "/category/Point-Light-Source-Solutions.jpg",
+      "products": [
+        {
+          "slug": "point-light-source-1-5um",
+          "title": "1.5 µm Point Light Source"
+        },
+        {
+          "slug": "point-light-source-1um",
+          "title": "1.0 µm Point Light Source"
+        },
+        {
+          "slug": "point-light-source-2-0um",
+          "title": "2.0 µm Point Light Source"
+>>>>>>> origin/main
         }
       ]
     }

@@ -282,7 +282,11 @@ export default function KeyFeatures({
           <div className="md:col-span-4">
             <div className="rounded-2xl border border-slate-200 bg-white shadow-[0_10px_30px_rgba(15,23,42,0.06)] p-2 sm:p-3 md:p-3">
               <div className="flex items-center justify-between mb-2 px-1">
+<<<<<<< HEAD
                 <span className="text-[11px] sm:text-xs font-medium text-slate-500">
+=======
+                <span className="text-xs font-medium text-slate-500">
+>>>>>>> origin/main
                   {isUsingMatrix ? matrixCategories.length : normalized.length} engineered capabilities
                 </span>
                 <span className="hidden md:inline-flex text-[11px] text-slate-400">
@@ -290,7 +294,11 @@ export default function KeyFeatures({
                 </span>
               </div>
 
+<<<<<<< HEAD
               <div className="flex md:flex-col gap-1 overflow-x-auto md:overflow-visible pb-2 md:pb-1 hide-scrollbar">
+=======
+              <div className="flex md:flex-col gap-1 overflow-x-auto md:overflow-visible pb-1 hide-scrollbar">
+>>>>>>> origin/main
                 {isUsingMatrix
                   ? matrixCategories.map((cat, idx) => {
                       const isActive = cat.id === activeId;
@@ -299,7 +307,11 @@ export default function KeyFeatures({
                           key={cat.id}
                           type="button"
                           onClick={() => handleTabClick(cat.id)}
+<<<<<<< HEAD
                           className={`group flex items-center justify-between md:justify-start whitespace-nowrap rounded-xl px-2 sm:px-3 py-2 md:px-3.5 md:py-2.5 text-[11px] sm:text-xs md:text-sm border transition-all ${
+=======
+                          className={`group flex items-center justify-between md:justify-start whitespace-nowrap rounded-xl px-3 py-2 md:px-3.5 md:py-2.5 text-xs md:text-sm border transition-all ${
+>>>>>>> origin/main
                             isActive
                               ? "bg-[#3B9ACB]/10 border-[#3B9ACB]/50 text-[#3B9ACB] shadow-sm"
                               : "bg-white border-transparent text-slate-600 hover:bg-slate-50 hover:border-slate-200"
@@ -352,7 +364,11 @@ export default function KeyFeatures({
                           key={feat.id}
                           type="button"
                           onClick={() => handleTabClick(feat.id!)}
+<<<<<<< HEAD
                           className={`group flex items-center justify-between md:justify-start whitespace-nowrap rounded-xl px-2 sm:px-3 py-2 md:px-3.5 md:py-2.5 text-[11px] sm:text-xs md:text-sm border transition-all ${
+=======
+                          className={`group flex items-center justify-between md:justify-start whitespace-nowrap rounded-xl px-3 py-2 md:px-3.5 md:py-2.5 text-xs md:text-sm border transition-all ${
+>>>>>>> origin/main
                             isActive
                               ? "bg-[#3B9ACB]/10 border-[#3B9ACB]/50 text-[#3B9ACB] shadow-sm"
                               : "bg-white border-transparent text-slate-600 hover:bg-slate-50 hover:border-slate-200"
@@ -426,13 +442,18 @@ export default function KeyFeatures({
                 {/* badge */}
                 <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-2 sm:px-3 py-1 text-[10px] sm:text-[11px] font-medium text-slate-500 mb-2 sm:mb-3">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#3B9ACB]" />
+<<<<<<< HEAD
                   <span className="truncate">
+=======
+                  <span>
+>>>>>>> origin/main
                     {isUsingMatrix
                       ? `${activeCategory?.name} – Capability #${activeIndex}`
                       : `Focused capability #${activeIndex}`}
                   </span>
                 </div>
 
+<<<<<<< HEAD
                 <div className="flex flex-col gap-2 sm:gap-3 md:gap-4">
                   {isUsingMatrix && activeCategory ? (
                     <>
@@ -441,12 +462,26 @@ export default function KeyFeatures({
                           {activeCategory.name}
                         </h3>
                         <p className="mt-1 sm:mt-2 text-[11px] sm:text-xs text-slate-500">
+=======
+                <div className="flex flex-col gap-3 md:gap-4">
+                  {isUsingMatrix && activeCategory ? (
+                    <>
+                      <div>
+                        <h3 className="text-lg md:text-xl font-semibold tracking-[-0.01em] text-slate-900">
+                          {activeCategory.name}
+                        </h3>
+                        <p className="mt-2 text-xs text-slate-500">
+>>>>>>> origin/main
                           Performance metrics and technical specifications
                         </p>
                       </div>
 
                       {/* Feature type selector */}
+<<<<<<< HEAD
                       <div className={`grid gap-1.5 sm:gap-2 ${
+=======
+                      <div className={`grid gap-2 ${
+>>>>>>> origin/main
                         featureTypes.length <= 3 ? 'grid-cols-3' :
                         featureTypes.length <= 4 ? 'grid-cols-4' :
                         featureTypes.length <= 5 ? 'grid-cols-5' :
@@ -462,7 +497,11 @@ export default function KeyFeatures({
                             <button
                               key={fType}
                               onClick={() => setActiveFeatureType(fType)}
+<<<<<<< HEAD
                               className={`relative px-2 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[10px] sm:text-xs font-semibold transition-all duration-200 border-2 overflow-hidden group ${
+=======
+                              className={`relative px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 border-2 overflow-hidden group ${
+>>>>>>> origin/main
                                 isActiveFeature
                                   ? `bg-linear-to-br ${colorClass} text-white border-transparent shadow-lg`
                                   : "bg-white border-slate-200 text-slate-600 hover:border-slate-300 hover:shadow-sm"
@@ -478,22 +517,38 @@ export default function KeyFeatures({
                       </div>
 
                       {/* Feature content */}
+<<<<<<< HEAD
                       <div className="mt-3 sm:mt-4 rounded-2xl bg-slate-50/80 border border-slate-200 px-3 sm:px-4 py-3 sm:py-4 md:px-5 md:py-5">
                         <h4 className="text-[10px] sm:text-xs font-semibold tracking-[0.16em] uppercase text-slate-500 mb-1 sm:mb-2">
                           {getFeatureLabel(activeFeatureType, activeCategory.features[activeFeatureType as keyof typeof activeCategory.features])}
                         </h4>
                         <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
+=======
+                      <div className="mt-4 rounded-2xl bg-slate-50/80 border border-slate-200 px-4 py-4 md:px-5 md:py-5">
+                        <h4 className="text-xs font-semibold tracking-[0.16em] uppercase text-slate-500 mb-2">
+                          {getFeatureLabel(activeFeatureType, activeCategory.features[activeFeatureType as keyof typeof activeCategory.features])}
+                        </h4>
+                        <p className="text-sm text-slate-700 leading-relaxed">
+>>>>>>> origin/main
                           {activeCategory.features[activeFeatureType as keyof typeof activeCategory.features] ||
                             "Feature details not available"}
                         </p>
                       </div>
 
                       {/* All features grid */}
+<<<<<<< HEAD
                       <div className="mt-4 sm:mt-6">
                         <h4 className="text-[10px] sm:text-xs font-semibold tracking-[0.16em] uppercase text-slate-500 mb-2 sm:mb-3">
                           All Performance Metrics
                         </h4>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+=======
+                      <div className="mt-6">
+                        <h4 className="text-xs font-semibold tracking-[0.16em] uppercase text-slate-500 mb-3">
+                          All Performance Metrics
+                        </h4>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+>>>>>>> origin/main
                           {featureTypes.map((fType) => {
                             const colorClass = getFeatureColor(fType);
                             const featureValue = activeCategory.features[fType as keyof typeof activeCategory.features];
@@ -502,16 +557,27 @@ export default function KeyFeatures({
                             return (
                               <div
                                 key={fType}
+<<<<<<< HEAD
                                 className="relative group p-2 sm:p-3 rounded-xl bg-linear-to-br from-white to-slate-50 border-2 border-slate-100 hover:border-slate-200 transition-all hover:shadow-md overflow-hidden"
+=======
+                                className="relative group p-3 rounded-xl bg-linear-to-br from-white to-slate-50 border-2 border-slate-100 hover:border-slate-200 transition-all hover:shadow-md overflow-hidden"
+>>>>>>> origin/main
                               >
                                 {/* Colored accent bar */}
                                 <div className={`absolute top-0 left-0 w-1 h-full bg-linear-to-b ${colorClass}`} />
                                 
                                 <div className="pl-2">
+<<<<<<< HEAD
                                   <p className="text-[10px] sm:text-xs font-semibold text-slate-700 mb-1">
                                     {label}
                                   </p>
                                   <p className="text-[10px] sm:text-xs text-slate-600 line-clamp-3 leading-relaxed">
+=======
+                                  <p className="text-xs font-semibold text-slate-700 mb-1">
+                                    {label}
+                                  </p>
+                                  <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">
+>>>>>>> origin/main
                                     {featureValue || "N/A"}
                                   </p>
                                 </div>
@@ -523,6 +589,7 @@ export default function KeyFeatures({
                     </>
                   ) : activeItem ? (
                     <>
+<<<<<<< HEAD
                       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-3">
                         <div className="flex items-start gap-2 sm:gap-3">
                           {activeItem.icon && (
@@ -532,23 +599,46 @@ export default function KeyFeatures({
                           )}
                           <div className="min-w-0">
                             <h3 className="text-base sm:text-lg md:text-xl font-semibold tracking-[-0.01em] text-slate-900">
+=======
+                      <div className="flex flex-wrap items-start justify-between gap-3">
+                        <div className="flex items-start gap-3">
+                          {activeItem.icon && (
+                            <div className="hidden sm:flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-[#3B9ACB]">
+                              {activeItem.icon}
+                            </div>
+                          )}
+                          <div>
+                            <h3 className="text-lg md:text-xl font-semibold tracking-[-0.01em] text-slate-900">
+>>>>>>> origin/main
                               {activeItem.title || getLabel(activeItem, 0)}
                             </h3>
                           </div>
                         </div>
 
+<<<<<<< HEAD
                         <div className="mt-2 sm:mt-0 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-2 sm:px-3 py-1 text-[10px] sm:text-[11px] text-slate-500 shrink-0">
+=======
+                        <div className="mt-2 md:mt-0 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-[11px] text-slate-500">
+>>>>>>> origin/main
                           <span className="h-1 w-6 rounded-full bg-[#3B9ACB]/30" />
                           <span>Lab-ready specification</span>
                         </div>
                       </div>
 
                       {activeItem.details && (
+<<<<<<< HEAD
                         <div className="mt-3 sm:mt-4 rounded-2xl bg-slate-50/80 border border-slate-200 px-3 sm:px-4 py-3 sm:py-4 md:px-5 md:py-5">
                           <h4 className="text-[10px] sm:text-xs font-semibold tracking-[0.16em] uppercase text-slate-500 mb-1 sm:mb-2">
                             Technical context
                           </h4>
                           <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+=======
+                        <div className="mt-4 rounded-2xl bg-slate-50/80 border border-slate-200 px-4 py-4 md:px-5 md:py-5">
+                          <h4 className="text-xs font-semibold tracking-[0.16em] uppercase text-slate-500 mb-2">
+                            Technical context
+                          </h4>
+                          <p className="text-sm sm:text-sm text-slate-600 leading-relaxed">
+>>>>>>> origin/main
                             {activeItem.details}
                           </p>
                         </div>
@@ -557,7 +647,11 @@ export default function KeyFeatures({
                   ) : null}
                 </div>
 
+<<<<<<< HEAD
                 <div className="mt-3 sm:mt-5 pt-3 sm:pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 sm:gap-3 text-[10px] sm:text-[11px] text-slate-500"></div>
+=======
+                <div className="mt-5 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-[11px] text-slate-500"></div>
+>>>>>>> origin/main
               </motion.div>
             </div>
           </div>

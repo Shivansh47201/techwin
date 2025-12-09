@@ -234,6 +234,7 @@ relatedProducts: [
     },
     href: "/products/seed-lasers/2um-phase",
   },
+<<<<<<< HEAD:src/data/products/Seed-Lasers/1-5um-narrow.ts
   {
   slug: "1um-industrial",
   title: "1.0μm Industrial Single-Frequency Seed Source",
@@ -256,6 +257,8 @@ relatedProducts: [
   },
   href: "/products/seed-lasers/1um-high-reliability",
 },
+=======
+>>>>>>> origin/main:src/data/products/Seed-Lasers/1.5um-narrow-linewidth-seed-laser.ts
 ]
 
 };

@@ -112,7 +112,11 @@ export const pointLightSourceData: CategoryData = {
         "1.0 µm SLED systems deliver wide spectral bandwidth, strong output power and integrated thermal control. Ideal for precision metrology, sensor networks and component inspection where low coherence and stable illumination are required.",
     },
     {
+<<<<<<< HEAD
       id: "1-5um-point",
+=======
+      id: "point-light-source-1-5um",
+>>>>>>> origin/main
       name: "1.5 µm Point Light Source",
       shortDescription:
         "Telecom-compatible 1.5 µm SLED modules optimized for fiber-based systems, distributed sensing and long-distance testing.",
@@ -120,7 +124,11 @@ export const pointLightSourceData: CategoryData = {
         "1.5 µm SLED models offer optimal performance for fiber-optic environments, with low attenuation in fiber, stable spectral distribution and narrow power fluctuations—used widely in DAS/DTS, FBG interrogation and telecom research.",
     },
     {
+<<<<<<< HEAD
       id: "2um-point",
+=======
+      id: "point-light-source-2-0um",
+>>>>>>> origin/main
       name: "2.0 µm Point Light Source",
       shortDescription:
         "Mid-IR 2.0 µm SLED solutions for specialized sensing, gas detection and material analysis with controlled noise and stable broadband output.",
