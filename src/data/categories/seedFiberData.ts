@@ -44,6 +44,20 @@ export type CategoryData = {
   };
   contactPhone?: string;
   notes?: string;
+  featureMatrix?: {
+    categories: {
+      id: string;
+      name: string;
+      features: {
+        stability: string;
+        noise: string;
+        coherence: string;
+        integration: string;
+        bonus5?: string;
+        bonus6?: string;
+      };
+    }[];
+  };
 };
 
 export const seedFiberData: CategoryData = {
@@ -63,7 +77,7 @@ export const seedFiberData: CategoryData = {
     breadcrumb: [
       { label: "Home", href: "/" },
       { label: "Products", href: "/products" },
-      { label: "Seed Fiber Lasers", href: "/seed-fiber-lasers" },
+      { label: "Seed Fiber Lasers", href: "/seed-fiber" },
     ],
     ctaPrimary: { label: "Request Quote", href: "/contact" },
     ctaSecondary: { label: "Download Brochure", href: "/downloads/seed-laser-brochure.pdf" },
@@ -84,64 +98,82 @@ export const seedFiberData: CategoryData = {
     "Modulation options: phase, frequency, amplitude",
   ],
 
-  subCategories: [
-    {
-      id: "1.0um-narrow-linewidth-seed-laser",
-      name: "1.0 µm Narrow Linewidth Seed Laser",
-      shortDescription:
-        "Stable single-frequency 1.0 µm seed laser with ultra-narrow linewidth for coherent communication and precision measurement.",
-      details:
-        "Provides stable single-frequency output at 1.0 µm with ultra-narrow linewidth and low phase noise—ideal for Yb-doped amplifier seeding, interferometry and laboratory/industrial measurement systems.",
-    },
-    {
-      id: "1.0um-frequency-stabilized-seed-laser",
-      name: "1.0 µm Frequency-Stabilized Seed Laser",
-      shortDescription:
-        "Environmentally compensated frequency-stabilized 1.0 µm seed laser for long-term wavelength stability.",
-      details:
-        "Designed for systems needing long-term wavelength stability using temperature/environmental control, frequently used in fiber sensing, optical metrology and coherent LiDAR setups.",
-    },
-    {
-      id: "1.0um-ultra-low-noise-seed-laser",
-      name: "1.0 µm Ultra-Low Noise Seed Laser",
-      shortDescription:
-        "Ultra-low RIN 1.0 µm seed laser providing high spectral purity for precision frequency systems.",
-      details:
-        "Optimized for very low RIN and spectral purity—suitable for optical clocks, precision interferometry and high-end metrology.",
-    },
-    {
-      id: "1.5um-narrow-linewidth-seed-laser",
-      name: "1.5 µm Narrow Linewidth Seed Laser",
-      shortDescription:
-        "1.5 µm narrow-linewidth seed laser for communications research, DAS and high-resolution spectroscopy.",
-      details:
-        "Operates with high wavelength stability and narrow spectral width—ideal for telecom research, distributed acoustic sensing (DAS) and precise spectroscopy.",
-    },
-    {
-      id: "1.5um-phase-modulated-seed-laser",
-      name: "1.5 µm Phase-Modulated Seed Laser",
-      shortDescription:
-        "Phase-modulation capable 1.5 µm seed laser for encoding and coherent detection systems.",
-      details:
-        "Provides phase modulation capability for signal encoding and advanced coherent detection used in communication networks and sensing systems.",
-    },
-    {
-      id: "2.0um-single-frequency-seed-laser",
-      name: "2.0 µm Single-Frequency Seed Laser",
-      shortDescription:
-        "Stable single-frequency 2.0 µm seed source for mid-IR sensing, gas detection and specialty OEM systems.",
-      details:
-        "Delivers single-frequency emission at 2.0 µm with ultra-stable wavelength performance—suited for gas sensing, medical lasers and mid-IR instrumentation.",
-    },
-    {
-      id: "2.0um-phase-modulated-fiber-seed-source",
-      name: "2.0 µm Phase-Modulated Fiber Seed Source",
-      shortDescription:
-        "Phase-modulated 2.0 µm seed source for adaptive optics, lidar and specialized research.",
-      details:
-        "Enables controlled phase modulation at 2.0 µm while maintaining low noise and narrow linewidth—useful in lidar research and scientific experiments.",
-    },
-  ],
+subCategories: [
+  {
+    id: "1um-narrow",
+    name: "1.0 µm Narrow Linewidth Seed Laser",
+    shortDescription:
+      "Stable single-frequency 1.0 µm seed laser with ultra-narrow linewidth for coherent communication and precision measurement.",
+    details:
+      "Provides stable single-frequency output at 1.0 µm with ultra-narrow linewidth and low phase noise—ideal for Yb-doped amplifier seeding, interferometry and laboratory/industrial measurement systems.",
+  },
+  {
+    id: "1um-stabilized",
+    name: "1.0 µm Frequency-Stabilized Seed Laser",
+    shortDescription:
+      "Environmentally compensated frequency-stabilized 1.0 µm seed laser for long-term wavelength stability.",
+    details:
+      "Designed for systems needing long-term wavelength stability using temperature/environmental control, frequently used in fiber sensing, optical metrology and coherent LiDAR setups.",
+  },
+  {
+    id: "1um-ultra-low-noise",
+    name: "1.0 µm Ultra-Low Noise Seed Laser",
+    shortDescription:
+      "Ultra-low RIN 1.0 µm seed laser providing high spectral purity for precision frequency systems.",
+    details:
+      "Optimized for very low RIN and spectral purity—suitable for optical clocks, precision interferometry and high-end metrology.",
+  },
+
+  {
+    id: "1um-industrial",
+    name: "1.0µm Industrial Single-Frequency Seed Source",
+    shortDescription:
+      "Industrial-grade 1.0µm seed source with robust all-fiber construction and narrow-linewidth output.",
+    details:
+      "Engineered for industrial, manufacturing and OEM platforms requiring stable single-frequency emission, reliable thermal performance and consistent long-term operation in demanding environments.",
+  },
+  {
+    id: "1um-high-reliability",
+    name: "1.0µm High-Reliability Single-Frequency Seed Source",
+    shortDescription:
+      "High-reliability seed module with exceptional frequency stability and polarization-maintaining fiber output.",
+    details:
+      "Designed for systems requiring continuous duty operation, phase-stable optical output and dependable wavelength control—ideal for lidar, coherent detection, sensing platforms and scientific instrumentation.",
+  },
+
+  {
+    id: "1-5um-narrow",
+    name: "1.5 µm Narrow Linewidth Seed Laser",
+    shortDescription:
+      "1.5 µm narrow-linewidth seed laser for communications research, DAS and high-resolution spectroscopy.",
+    details:
+      "Operates with high wavelength stability and narrow spectral width—ideal for telecom research, distributed acoustic sensing (DAS) and precise spectroscopy.",
+  },
+  {
+    id: "1-5um-phase",
+    name: "1.5 µm Phase-Modulated Seed Laser",
+    shortDescription:
+      "Phase-modulation capable 1.5 µm seed laser for encoding and coherent detection systems.",
+    details:
+      "Provides phase modulation capability for signal encoding and advanced coherent detection used in communication networks and sensing systems.",
+  },
+  {
+    id: "2um-single",
+    name: "2.0 µm Single-Frequency Seed Laser",
+    shortDescription:
+      "Stable single-frequency 2.0 µm seed source for mid-IR sensing, gas detection and specialty OEM systems.",
+    details:
+      "Delivers single-frequency emission at 2.0 µm with ultra-stable wavelength performance—suited for gas sensing, medical lasers and mid-IR instrumentation.",
+  },
+  {
+    id: "2um-phase",
+    name: "2.0 µm Phase-Modulated Fiber Seed Source",
+    shortDescription:
+      "Phase-modulated 2.0 µm seed source for adaptive optics, lidar and specialized research.",
+    details:
+      "Enables controlled phase modulation at 2.0 µm while maintaining low noise and narrow linewidth—useful in lidar research and scientific experiments.",
+  },
+],
 
   technicalBenefits: [
     "Linewidth: Ultra-narrow (Hz → kHz) for precision applications",
@@ -170,4 +202,69 @@ export const seedFiberData: CategoryData = {
   contactPhone: "+86-571-88284299",
   notes:
     "Techwin offers customization: wavelength locking, power tuning, phase control, fiber type selection and OEM integration. Each unit is factory-tested for linewidth, stability and environmental robustness.",
+
+  featureMatrix: {
+    categories: [
+      {
+        id: "seed-1um-narrow",
+        name: "1.0 µm Narrow Linewidth",
+        features: {
+          stability: "Ultra-stable single-frequency output ideal for amplifier seeding",
+          noise: "Low relative intensity noise for clean amplification",
+          coherence: "Exceptional coherence enabling precision interferometry",
+          integration: "Compact module compatible with Yb-doped amplifier systems",
+          bonus5: "Perfect foundation for high-power amplification chains",
+          bonus6: "Factory-tested for linewidth and environmental stability",
+        },
+      },
+      {
+        id: "seed-1um-stabilized",
+        name: "1.0 µm Frequency-Stabilized",
+        features: {
+          stability: "Environmentally compensated for long-term wavelength locking",
+          noise: "Optimized noise characteristics for precision systems",
+          coherence: "High coherence with active frequency control",
+          integration: "Easy integration with temperature/environmental monitoring",
+          bonus5: "Ideal for field deployments and remote sensing",
+          bonus6: "Automatic feedback control for maximum stability",
+        },
+      },
+      {
+        id: "seed-1.5um-narrow",
+        name: "1.5 µm Narrow Linewidth",
+        features: {
+          stability: "Telecom-grade stability at 1550 nm for communication systems",
+          noise: "Ultra-low noise optimized for coherent detection",
+          coherence: "High coherence for distributed sensing applications",
+          integration: "Seamless integration with standard telecom fiber infrastructure",
+          bonus5: "Perfect for DAS and distributed fiber sensing networks",
+          bonus6: "Advanced modulation options for complex systems",
+        },
+      },
+      {
+        id: "seed-1.5um-phase",
+        name: "1.5 µm Phase-Modulated",
+        features: {
+          stability: "Stable phase-modulation capability for signal encoding",
+          noise: "Low noise with controlled phase modulation",
+          coherence: "High coherence preserved through modulation",
+          integration: "Easy integration with coherent detection systems",
+          bonus5: "Designed for advanced signal processing applications",
+          bonus6: "Precise control over phase and frequency modulation",
+        },
+      },
+      {
+        id: "seed-2um-single",
+        name: "2.0 µm Single-Frequency",
+        features: {
+          stability: "Mid-infrared single-frequency stability with excellent control",
+          noise: "Low noise architecture for gas sensing applications",
+          coherence: "High coherence for mid-IR precision measurements",
+          integration: "Fiber-coupled package for mid-IR systems",
+          bonus5: "Optimized for gas detection and medical applications",
+          bonus6: "Robust thermal management for continuous operation",
+        },
+      },
+    ],
+  },
 };

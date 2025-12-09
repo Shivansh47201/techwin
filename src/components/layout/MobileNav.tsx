@@ -69,7 +69,7 @@ export default function MobileNav({ onClose }: MobileNavProps) {
     setIsSearching(true);
     searchTimeoutRef.current = setTimeout(async () => {
       try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`);
+        const res = await fetch(`/api/search-static?q=${encodeURIComponent(searchQuery)}`);
         const data = await res.json();
         setSearchResults(data.results || []);
         setShowSearchDropdown(true);
@@ -96,20 +96,24 @@ export default function MobileNav({ onClose }: MobileNavProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-60 bg-white text-gray-900">
-      <div className="flex justify-between items-center p-4 border-b">
-        <h2 className="text-lg font-semibold">Menu</h2>
-        <button onClick={onClose} aria-label="Close menu">
-          <X className="h-6 w-6" />
+    <div className="fixed inset-0 z-60 bg-white text-gray-900 flex flex-col overflow-hidden">
+      {/* Header */}
+      <div className="flex justify-between items-center px-4 py-3 border-b border-gray-200 bg-white shrink-0">
+        <h2 className="text-lg font-bold text-[#3B9ACB]">Menu</h2>
+        <button onClick={onClose} aria-label="Close menu" className="p-1 hover:bg-gray-100 rounded transition-colors">
+          <X className="h-6 w-6 text-gray-600" />
         </button>
       </div>
-      <div className="p-4">
+
+      {/* Search Bar */}
+      <div className="px-4 py-3 border-b border-gray-100 bg-gray-50 shrink-0">
         <div className="relative">
           <input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search..."
-            className="w-full rounded-full border border-gray-300 px-4 py-2 text-sm"
+            onFocus={() => searchQuery.trim() && setShowSearchDropdown(true)}
+            placeholder="Search products..."
+            className="w-full rounded-full border border-gray-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#3B9ACB] focus:border-transparent transition-all"
           />
           {showSearchDropdown && (
             <SearchDropdown
@@ -121,76 +125,83 @@ export default function MobileNav({ onClose }: MobileNavProps) {
           )}
         </div>
       </div>
-      <nav className="p-4 overflow-y-auto h-full">
-        <div className="space-y-4">
-          <Link href="/" className="block py-2" onClick={onClose}>
-            Home
-          </Link>
-          <Link href="/about" className="block py-2" onClick={onClose}>
-            About Us
+
+      {/* Navigation */}
+      <nav className="flex-1 overflow-y-auto px-4 py-4">
+        <div className="space-y-1">
+          {/* Home */}
+          <Link href="/" className="block px-4 py-3 rounded-lg hover:bg-[#EAF6FC] text-gray-800 font-medium transition-colors" onClick={onClose}>
+            🏠 Home
           </Link>
 
-          <div>
+          {/* About */}
+          <Link href="/about" className="block px-4 py-3 rounded-lg hover:bg-[#EAF6FC] text-gray-800 font-medium transition-colors" onClick={onClose}>
+            ℹ️ About Us
+          </Link>
+
+          {/* Applications */}
+          <div className="my-2">
             <button
               onClick={() => setOpenApplicationCategory(!openApplicationCategory)}
-              className="w-full flex justify-between items-center py-2"
+              className="w-full flex justify-between items-center px-4 py-3 rounded-lg hover:bg-[#EAF6FC] text-gray-800 font-medium transition-colors"
             >
-              <span>Applications</span>
+              <span>🎯 Applications</span>
               <ChevronDown
-                className={`h-5 w-5 transition-transform ${
+                className={`h-5 w-5 text-[#3B9ACB] transition-transform ${
                   openApplicationCategory ? "rotate-180" : ""
                 }`}
               />
             </button>
             {openApplicationCategory && (
-              <div className="pl-4 border-l">
+              <div className="mt-1 pl-4 border-l-2 border-[#3B9ACB]/30 space-y-1">
                 {applications.map((app) => (
                   <Link
                     key={app.slug}
                     href={`/application/${app.slug}`}
-                    className="block py-2 text-sm"
+                    className="block px-4 py-2 text-sm text-gray-700 rounded hover:bg-[#D4E9F7] transition-colors"
                     onClick={onClose}
                   >
-                    {app.name}
+                    • {app.name}
                   </Link>
                 ))}
               </div>
             )}
           </div>
 
-          <div>
-            <h3 className="text-lg font-semibold py-2">Products</h3>
-            <div className="space-y-2">
+          {/* Products */}
+          <div className="my-2">
+            <h3 className="px-4 py-2 text-sm font-bold text-[#3B9ACB] uppercase tracking-wider">📦 Products</h3>
+            <div className="space-y-1">
               {productCategories.map((category) => (
                 <div key={category.slug}>
                   <button
                     onClick={() => toggleProductCategory(category.slug)}
-                    className="w-full flex justify-between items-center py-2"
+                    className="w-full flex justify-between items-center px-4 py-2.5 rounded-lg hover:bg-[#EAF6FC] text-gray-800 font-medium text-sm transition-colors"
                   >
                     <span>{category.title}</span>
                     <ChevronDown
-                      className={`h-5 w-5 transition-transform ${
+                      className={`h-4 w-4 text-[#3B9ACB] transition-transform ${
                         openProductCategory === category.slug ? "rotate-180" : ""
                       }`}
                     />
                   </button>
                   {openProductCategory === category.slug && (
-                    <div className="pl-4 border-l">
+                    <div className="mt-1 ml-4 pl-3 border-l-2 border-[#3B9ACB]/30 space-y-1">
                       <Link
                         href={`/products/${category.slug}`}
-                        className="block py-2 text-sm font-semibold"
+                        className="block px-4 py-2 text-sm font-semibold text-[#3B9ACB] rounded hover:bg-[#D4E9F7] transition-colors"
                         onClick={onClose}
                       >
-                        All {category.title}
+                        View All
                       </Link>
                       {category.children.map((child) => (
                         <Link
                           key={child.slug}
                           href={`/products/${category.slug}/${child.slug}`}
-                          className="block py-2 text-sm"
+                          className="block px-4 py-2 text-sm text-gray-700 rounded hover:bg-[#D4E9F7] transition-colors"
                           onClick={onClose}
                         >
-                          {child.title}
+                          ▸ {child.title}
                         </Link>
                       ))}
                     </div>
@@ -200,17 +211,23 @@ export default function MobileNav({ onClose }: MobileNavProps) {
             </div>
           </div>
 
-          <Link href="/contact" className="block py-2" onClick={onClose}>
-            Contact
+          {/* Contact */}
+          <Link href="/contact" className="block px-4 py-3 rounded-lg hover:bg-[#EAF6FC] text-gray-800 font-medium transition-colors my-2" onClick={onClose}>
+            📞 Contact
           </Link>
+
+          {/* Divider */}
+          <div className="border-t border-gray-200 my-3"></div>
+
+          {/* Request Quote Button */}
           <button
             onClick={() => {
               openModal();
-              onClose(); // Close mobile menu
+              onClose();
             }}
-            className="block py-2 w-full text-left"
+            className="w-full px-4 py-3 rounded-lg bg-[#3B9ACB] text-white font-semibold transition-all hover:bg-[#2D87B7] active:scale-95 flex items-center justify-center gap-2"
           >
-            Request Quote
+            ⭐ Request Quote
           </button>
         </div>
       </nav>

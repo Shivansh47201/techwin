@@ -74,23 +74,23 @@ const points = [
 
 export default function WhyChooseTechwin() {
   return (
-    <section className="py-20 bg-white text-[#08263b]">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-12 sm:py-20 bg-white text-[#08263b]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.25 }}
           variants={fadeUp}
-          className="text-center max-w-3xl mx-auto mb-12"
+          className="text-center max-w-3xl mx-auto mb-8 sm:mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-[#3087C0]">Why Choose Techwin</h2>
-          <p className="mt-4 text-lg text-slate-700 leading-relaxed">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#3087C0]">Why Choose Techwin</h2>
+          <p className="mt-4 text-base sm:text-lg text-slate-700 leading-relaxed">
             Choosing Techwin means partnering with a Fiber Laser Manufacturer that values precision,
             stability, and reliability. Our client-first approach ensures every project is handled with technical precision and professional integrity.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {points.map((item, idx) => (
             <motion.div
               key={idx}

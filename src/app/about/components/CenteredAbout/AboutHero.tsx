@@ -76,7 +76,7 @@ export default function AboutHero({
       </div>
 
       {/* -------------------- CONTENT -------------------- */}
-      <div className="max-w-4xl mx-auto text-center px-6 pt-28 pb-24 md:pt-36 md:pb-32">
+      <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 pt-20 pb-16 sm:pt-28 md:pt-36 md:pb-32">
 
         <motion.div
           initial="hidden"
@@ -88,7 +88,7 @@ export default function AboutHero({
           <motion.h1
             id="about-title"
             variants={fadeUp}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mt-5"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mt-5"
           >
             About Us — Techwin
           </motion.h1>
@@ -96,7 +96,7 @@ export default function AboutHero({
           {/* H2 */}
           <motion.h2
             variants={fadeUp}
-            className="text-lg md:text-xl font-semibold mt-2"
+            className="text-base sm:text-lg md:text-xl font-semibold mt-2"
           >
             Leading Fiber Laser Manufacturer
           </motion.h2>
@@ -104,7 +104,7 @@ export default function AboutHero({
           {/* Paragraph */}
           <motion.p
             variants={fadeUp}
-            className="max-w-2xl mx-auto text-base md:text-lg text-white/90 leading-relaxed"
+            className="max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-white/90 leading-relaxed"
           >
             Techwin is a trusted Fiber Laser Manufacturer based in Hangzhou City, China, specializing in advanced optical and photonic technologies. With years of industry expertise, Techwin has become one of the most respected names in high-precision laser solutions, providing innovative, reliable, and energy-efficient systems for clients across the globe.
           </motion.p>
@@ -112,7 +112,7 @@ export default function AboutHero({
           {/* Highlights */}
           <motion.div
             variants={fadeUp}
-            className="flex flex-col sm:flex-row justify-center items-center gap-3 mt-6"
+            className="flex flex-col sm:flex-row justify-center items-center gap-2 mt-6"
           >
             {[
               'Serving 30+ countries',
@@ -121,7 +121,7 @@ export default function AboutHero({
             ].map((t) => (
               <div
                 key={t}
-                className="px-4 py-2 text-sm font-medium bg-white/10 backdrop-blur-sm border border-white/20 rounded-full shadow-md"
+                className="px-3 py-2 text-xs sm:text-sm font-medium bg-white/10 backdrop-blur-sm border border-white/20 rounded-full shadow-md"
               >
                 {t}
               </div>
@@ -129,17 +129,17 @@ export default function AboutHero({
           </motion.div>
 
           {/* CTA Buttons */}
-          <motion.div variants={fadeUp} className="mt-8 flex flex-wrap justify-center gap-4">
+          <motion.div variants={fadeUp} className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-3">
             <button
               onClick={openQuote}
-              className="px-6 py-3 rounded-lg bg-[#3087C0] text-white font-medium shadow-lg hover:brightness-110 focus:ring-2 focus:ring-white"
+              className="w-full sm:w-auto px-6 py-3 rounded-lg bg-[#3087C0] text-white font-medium shadow-lg hover:brightness-110 focus:ring-2 focus:ring-white"
             >
               Request Quote
             </button>
 
             <Link
               href="/products"
-              className="px-6 py-3 rounded-lg border border-white text-white font-medium hover:bg-white/10 focus:ring-2 focus:ring-white"
+              className="w-full sm:w-auto px-6 py-3 rounded-lg border border-white text-white font-medium hover:bg-white/10 focus:ring-2 focus:ring-white text-center"
             >
               View Products
             </Link>

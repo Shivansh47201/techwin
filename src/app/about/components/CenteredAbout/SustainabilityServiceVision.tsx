@@ -243,20 +243,20 @@ export default function SustainabilityServiceVision() {
   };
 
   return (
-    <section className="py-20 bg-[#3087C0] text-white">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="border border-slate-200/20 rounded-2xl shadow-lg p-6 md:p-8 bg-white/10 backdrop-blur-sm">
+    <section className="py-12 sm:py-20 bg-[#3087C0] text-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="border border-slate-200/20 rounded-2xl shadow-lg p-4 sm:p-6 md:p-8 bg-white/10 backdrop-blur-sm">
           {/* Tabs (centered) */}
           <div ref={containerRef} className="relative">
-            <div className="flex justify-center">
-              <div className="inline-flex gap-4">
+            <div className="flex justify-center flex-wrap">
+              <div className="inline-flex gap-2 sm:gap-4 flex-wrap sm:flex-nowrap justify-center">
                 {TABS.map((tab, idx) => (
                   <button
                     key={tab.id}
                     ref={(el) => { btnRefs.current[idx] = el; }} // void return, TS-safe
                     onClick={() => setActive(tab.id)}
                     aria-pressed={active === tab.id}
-                    className={`px-6 py-3 rounded-full text-sm md:text-base font-medium transition-all duration-200 cursor-pointer`}
+                    className={`px-3 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm md:text-base font-medium transition-all duration-200 cursor-pointer whitespace-nowrap`}
                     style={
                       active === tab.id
                         ? {
@@ -289,7 +289,7 @@ export default function SustainabilityServiceVision() {
           </div>
 
           {/* Main grid: left (heading/content) + right (card) */}
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+          <div className="mt-8 sm:mt-10 grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-start">
             {/* Left column */}
             <div className="md:col-span-7">
               <AnimatePresence mode="wait">
@@ -300,16 +300,16 @@ export default function SustainabilityServiceVision() {
                   exit={contentAnim.exit}
                   transition={{ duration: 0.38 }}
                 >
-                  <h2 className="text-3xl md:text-4xl font-extrabold text-white leading-tight">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-tight">
                     {contentById[active].heading}
                   </h2>
 
-                  <div className="mt-5 text-gray-200 space-y-4 max-w-2xl">
+                  <div className="mt-5 text-gray-200 space-y-4 max-w-2xl text-sm sm:text-base">
                     {contentById[active].body}
                   </div>
 
-                  <div className="mt-6 flex items-center gap-4">
-                    <div className="flex gap-3">
+                  <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
                       {contentById[active].ctas}
                     </div>
                   </div>
@@ -323,7 +323,7 @@ export default function SustainabilityServiceVision() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45 }}
-                className="rounded-2xl p-6 bg-linear-to-br from-white to-[#f8fbfd] border border-[#eaf6ff] shadow-lg"
+                className="rounded-2xl p-4 sm:p-6 bg-linear-to-br from-white to-[#f8fbfd] border border-[#eaf6ff] shadow-lg"
               >
                 {contentById[active].rightCard}
               </motion.div>

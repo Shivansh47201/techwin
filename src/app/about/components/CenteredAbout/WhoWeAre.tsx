@@ -49,11 +49,11 @@ export default function WhoWeAre({
   }, [onTrigger]);
 
   return (
-    <section aria-labelledby="who-we-are-heading" className="py-12 md:py-20 bg-[#3087C0]">
-      <div className="max-w-6xl mx-auto px-6">
+    <section aria-labelledby="who-we-are-heading" className="py-8 sm:py-12 md:py-20 bg-[#3087C0]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         <CometCard className="rounded-2xl bg-white" hoverScale={1.0} hoverZ={0} rotateDepth={0} translateDepth={0} glareEnabled={false}>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
 
             {/* IMAGE COLUMN */}
             <div className="lg:col-span-6">
@@ -61,7 +61,7 @@ export default function WhoWeAre({
                 initial="idle"
                 animate={triggered ? 'play' : 'idle'}
                 variants={imageGlowVariants}
-                className="relative rounded-xl overflow-hidden w-full h-[360px] md:h-[420px] lg:h-[480px]"
+                className="relative rounded-xl overflow-hidden w-full h-[280px] sm:h-[360px] md:h-[420px] lg:h-[480px]"
               >
                 <Image
                   src={imageSrc}
@@ -105,11 +105,11 @@ export default function WhoWeAre({
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') handleTrigger();
                 }}
-                className="cursor-pointer select-none p-6 md:p-8"
+                className="cursor-pointer select-none p-4 sm:p-6 md:p-8"
               >
                 <h3
                   id="who-we-are-heading"
-                  className="text-2xl md:text-3xl font-semibold text-[#3087C0]"
+                  className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#3087C0]"
                 >
                   Who We Are
                 </h3>
@@ -132,13 +132,13 @@ export default function WhoWeAre({
                   )}
                 </div>
 
-                <div className="mt-6 flex gap-3">
+                <div className="mt-6 flex flex-col sm:flex-row gap-3">
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       handleTrigger();
                     }}
-                    className="px-4 py-2 rounded-md bg-[#3087C0] text-white font-medium"
+                    className="px-4 py-2 rounded-md bg-[#3087C0] text-white font-medium text-center"
                   >
                     Learn More
                   </button>
@@ -148,7 +148,7 @@ export default function WhoWeAre({
                       e.stopPropagation();
                       window.location.href = '/contact';
                     }}
-                    className="px-4 py-2 rounded-md border border-[#3087C0] text-[#3087C0] bg-white"
+                    className="px-4 py-2 rounded-md border border-[#3087C0] text-[#3087C0] bg-white text-center"
                   >
                     Contact Sales
                   </button>

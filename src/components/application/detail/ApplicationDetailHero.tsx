@@ -128,14 +128,7 @@ const PrimaryHero: React.FC<HeroProps> = ({ title, tagline, kicker, image, ctas 
                         <span className="relative z-10 flex items-center gap-2">Talk to an Expert <ChevronRight className="w-4 h-4" /></span>
                       </button>
                     </Link>
-                    <Link href="#specs">
-                      <button className="group relative px-6 py-3 rounded-xl bg-white/10 border border-white/25 text-white font-semibold">
-                        <span className="relative z-10 flex items-center gap-2">
-                          Download Spec
-                          <Download className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                        </span>
-                        </button>
-                    </Link>
+                
                   </>
                 )}
               </div>

@@ -150,37 +150,9 @@ const ProductDetailHero: React.FC<HeroProps> = ({
 
   return (
     <>
-      {breadcrumbs?.length > 0 && (
-        <div
-          className="w-full bg-white border-b"
-          style={{ borderColor: "#e6eef4", paddingTop: "var(--site-header-height, 64px)" }}
-        >
-          <div className="max-w-7xl mx-auto px-6 md:px-8 py-4">
-            <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm">
-              {breadcrumbs.map((crumb, idx) => (
-                <div key={idx} className="flex items-center gap-2">
-                  {idx < breadcrumbs.length - 1 && crumb.href ? (
-                    <Link href={crumb.href} className="text-slate-600 hover:text-[#0ea5c9] transition-colors">
-                      {crumb.label}
-                    </Link>
-                  ) : (
-                    <span
-                      className={idx === breadcrumbs.length - 1 ? "font-semibold" : "text-slate-600"}
-                      style={idx === breadcrumbs.length - 1 ? { color: PRIMARY } : {}}
-                    >
-                      {crumb.label}
-                    </span>
-                  )}
-                  {idx < breadcrumbs.length - 1 && <span className="text-slate-400">/</span>}
-                </div>
-              ))}
-            </nav>
-          </div>
-        </div>
-      )}
 
       <section className="relative w-full bg-white overflow-hidden" aria-labelledby="product-hero-title">
-        <div className="py-16 md:py-20">
+        <div className="py-15 md:py-18">
           <div className="max-w-7xl mx-auto px-6 md:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               {/* LEFT: Title + Description + lists */}
@@ -278,8 +250,8 @@ const ProductDetailHero: React.FC<HeroProps> = ({
                     }}
                   >
                     {/* decorative background glows */}
-                    <div className="pointer-events-none absolute -top-12 -left-16 w-60 h-60 rounded-full blur-3xl bg-gradient-to-tr from-[#2aa7d6]/30 to-[#216a9b]/10 opacity-90 transform -rotate-12" />
-                    <div className="pointer-events-none absolute -bottom-12 -right-16 w-72 h-72 rounded-full blur-3xl bg-gradient-to-br from-[#00a9e0]/20 to-[#3b82f6]/10 opacity-80" />
+                    <div className="pointer-events-none absolute -top-12 -left-16 w-60 h-60 rounded-full blur-3xl bg-linear-to-tr from-[#2aa7d6]/30 to-[#216a9b]/10 opacity-90 transform -rotate-12" />
+                    <div className="pointer-events-none absolute -bottom-12 -right-16 w-72 h-72 rounded-full blur-3xl bg-linear-to-br from-[#00a9e0]/20 to-[#3b82f6]/10 opacity-80" />
                     {/* slides */}
                     {images.length > 0 ? (
                       images.map((img, i) => {
@@ -333,7 +305,7 @@ const ProductDetailHero: React.FC<HeroProps> = ({
                                   priority={isActive || isPrev}
                                 />
                                 {/* subtle overlay and depth */}
-                                <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent to-black/5 opacity-60 mix-blend-overlay" />
+                                <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-transparent to-black/5 opacity-60 mix-blend-overlay" />
                               </div>
                             </div>
                           </div>

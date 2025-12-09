@@ -40,7 +40,7 @@ export const spectroscopyApplication: ApplicationDetail = {
   heroTagline:
     "Engineered for high spectral purity, narrow linewidth performance and stable optical output for spectroscopy and advanced photonics research.",
   heroImage: {
-    src: "/applications/Spectroscopy-and-Photonics.jpg",
+    src: "/applications/Spectroscopy & Photonics.jpg",
     alt: "Spectroscopy & Photonics",
   },
   heroIntro:

@@ -26,18 +26,19 @@ import { laserTestingData } from "@/data/categories/laserTestingData";
 import { sledLightData } from "@/data/categories/sledLightData";
 import { seedFiberData } from "@/data/categories/seedFiberData";
 import { pointLightSourceData } from "@/data/categories/pointLightSourceData";
+import FeatureMatrix from "../../../components/category/FeatureMatrix";
 
 // Map slug -> data (single source)
 const CATEGORY_MAP: Record<string, CategoryData> = {
-  "single-frequency-fiber-lasers": singleFrequencyData,
-  "high-power-fiber-lasers": highPowerData,
-  "broadband-ase-sources": broadbandAseData,
-  "wavelength-conversion-lasers": wavelengthConversionData,
+  "single-frequency": singleFrequencyData,
+  "high-power": highPowerData,
+  "ase-sources": broadbandAseData,
+  "wavelength-conversion": wavelengthConversionData,
   "fiber-amplifiers": fiberAmplifierData,
-  "testing-systems": laserTestingData,
+  "testing": laserTestingData,
   "sled-light-sources": sledLightData,
   "seed-lasers": seedFiberData,
-  "point-light-sources": pointLightSourceData,
+  "sled": pointLightSourceData,
 };
 
 type Props = { params: Promise<{ category: string }> | { category: string } };
@@ -106,6 +107,7 @@ export default async function CategoryPage({ params }: Props) {
     counters,
     trustLogos,
     specGroups,
+    featureMatrix,
   } = data as CategoryData;
 
   return (
@@ -115,9 +117,14 @@ export default async function CategoryPage({ params }: Props) {
 
       <section className="py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-6">
-          <KeyFeatures items={keyFeatures} />
+          <KeyFeatures items={keyFeatures} featureMatrix={featureMatrix} subCategories={subCategories} />
         </div>
       </section>
+            {/* <section className="py-12 md:py-16">
+        <div className="max-w-6xl mx-auto px-6">
+          <FeatureMatrix items={keyFeatures} />
+        </div>
+      </section> */}
 
       <section className="py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-6">

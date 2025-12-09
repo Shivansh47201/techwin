@@ -100,7 +100,7 @@ export default function ContactPage() {
                   <span className="text-xs text-slate-600">Phone</span>
                   <input
                     className="rounded-xl px-4 py-3 bg-white border"
-                    placeholder="+91 98765 43210"
+                    placeholder=" +1 (555) 123-4567"
                     style={{ borderColor: "rgba(48,135,192,0.18)" }}
                   />
                 </div>
@@ -190,6 +190,7 @@ export default function ContactPage() {
                     <div className="font-medium">Contact</div>
                     {/* <div>Franks Chow — Mobile: <a href="tel:+8613958180450" className="underline">+86-13958180450</a></div> */}
                     <div>Tel: <a href="tel:+8657188284299" className="underline">+86-57188284299</a></div>
+                     <div>Whatsapp: <a href="tel:+8613958180450" className="underline">+86-13958180450</a></div>
                   </div>
                 </li>
 
@@ -201,7 +202,7 @@ export default function ContactPage() {
                       <a href="mailto:techwinchina@gmail.com" className="underline">techwinchina@gmail.com</a>,{" "}
                       <a href="mailto:sales@techwin-china.com" className="underline">sales@techwin-china.com</a>
                     </div>
-                    <div className="text-xs text-slate-600">WeChat: +86-57188284299</div>
+                  
                   </div>
                 </li>
 

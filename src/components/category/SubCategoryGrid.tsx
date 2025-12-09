@@ -272,69 +272,6 @@ export default function SubCategoryGrid({
                               <span>View details</span>
                             </button>
                           )}
-
-                          {item.datasheet ? (
-                            <a
-                              href={item.datasheet}
-                              className="inline-flex items-center gap-2 rounded-full px-3.5 py-2 border border-slate-200 bg-slate-50 text-slate-800 text-xs md:text-sm font-medium hover:bg-slate-100 transition"
-                              aria-label={`Download datasheet for ${item.name}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <svg
-                                width="14"
-                                height="14"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                aria-hidden
-                              >
-                                <path
-                                  d="M12 3v12"
-                                  stroke="currentColor"
-                                  strokeWidth="1.6"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                                <path
-                                  d="M8 11l4 4 4-4"
-                                  stroke="currentColor"
-                                  strokeWidth="1.6"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                                <path
-                                  d="M21 21H3"
-                                  stroke="currentColor"
-                                  strokeWidth="1.6"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                              </svg>
-                              <span>Datasheet</span>
-                            </a>
-                          ) : (
-                            <button
-                              onClick={() => setOpenItem(item)}
-                              className="inline-flex items-center gap-2 rounded-full px-3.5 py-2 border border-slate-200 bg-white text-slate-800 text-xs md:text-sm font-medium hover:bg-slate-50 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-200"
-                            >
-                              <svg
-                                width="14"
-                                height="14"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                aria-hidden
-                              >
-                                <path
-                                  d="M12 5v14M5 12h14"
-                                  stroke="currentColor"
-                                  strokeWidth="1.6"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                              </svg>
-                              <span>More info</span>
-                            </button>
-                          )}
                         </div>
 
                         {/* bottom meta row */}

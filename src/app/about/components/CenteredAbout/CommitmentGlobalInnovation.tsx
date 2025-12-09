@@ -174,23 +174,23 @@ export default function StickyScrollReveal({
   }, []);
 
   return (
-    <section className="py-24 bg-[#3087C0] text-white" ref={containerRef}>
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="py-12 sm:py-24 bg-[#3087C0] text-white" ref={containerRef}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         {/* 🔵 OUTER GLOW + BORDER WRAPPER */}
         <div className="relative rounded-3xl p-3">
           <div className="absolute inset-0 rounded-3xl bg-[#3087C0]/15 blur-2xl -z-10"></div>
 
-          <div className="rounded-3xl border border-[#3087C0]/25 bg-white shadow-xl backdrop-blur-sm p-6">
+          <div className="rounded-3xl border border-[#3087C0]/25 bg-white shadow-xl backdrop-blur-sm p-4 sm:p-6">
 
             {/* GRID */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-start">
 
               {/* Sticky image */}
               <div className="hidden md:block md:col-span-5">
                 <div className="sticky top-28">
                   <div className="rounded-2xl overflow-hidden bg-[#f8fbfd] border border-[#e6f8ff] shadow-lg">
-                    <div className="relative aspect-4/5 w-full h-[560px]">
+                    <div className="relative aspect-4/5 w-full h-[400px] sm:h-[560px]">
                       {sections.map((s, i) => (
                         <motion.div
                           key={s.id}
@@ -237,10 +237,10 @@ export default function StickyScrollReveal({
                 <div className="space-y-20 py-6">
                   {sections.map((s, idx) => (
                     <article key={s.id} data-idx={idx} className="scroll-mt-28">
-                      <h3 className="text-2xl md:text-3xl font-semibold text-[#3087C0] mb-6">
+                      <h3 className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#3087C0] mb-6">
                         {s.title}
                       </h3>
-                      <p className="text-lg text-slate-700 leading-relaxed max-w-[70ch]">
+                      <p className="text-base sm:text-lg text-slate-700 leading-relaxed max-w-[70ch]">
                         {s.body}
                       </p>
                     </article>
@@ -253,7 +253,7 @@ export default function StickyScrollReveal({
               {/* MOBILE Image */}
               <div className="md:hidden col-span-12 mt-6">
                 <div className="rounded-2xl overflow-hidden bg-[#f8fbfd] border border-[#e6f8ff] shadow-lg">
-                  <div className="relative aspect-video w-full h-[260px]">
+                  <div className="relative aspect-video w-full h-[200px] sm:h-[260px]">
                     <Image
                       src={sections[activeIndex].image}
                       alt={sections[activeIndex].title}

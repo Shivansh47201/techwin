@@ -44,10 +44,24 @@ export type CategoryData = {
   };
   contactPhone?: string;
   notes?: string;
+  featureMatrix?: {
+    categories: {
+      id: string;
+      name: string;
+      features: {
+        stability: string;
+        noise: string;
+        coherence: string;
+        integration: string;
+        bonus5?: string;
+        bonus6?: string;
+      };
+    }[];
+  };
 };
 
 export const laserTestingData: CategoryData = {
-  url: "/products/testing-systems",
+  url: "/products/testing",
 
   metaTitle:
     "Laser Testing and Measurement Systems in Hangzhou City| Techwin China",
@@ -64,7 +78,7 @@ export const laserTestingData: CategoryData = {
     breadcrumb: [
       { label: "Home", href: "/" },
       { label: "Products", href: "/products" },
-      { label: "Laser Testing Systems", href: "/laser-testing-systems" },
+      { label: "Laser Testing Systems", href: "/products/testing" },
     ],
     ctaPrimary: { label: "Request Quote", href: "/contact" },
     ctaSecondary: { label: "Download Testing Brochure", href: "/downloads/laser-testing-brochure.pdf" },
@@ -87,7 +101,7 @@ export const laserTestingData: CategoryData = {
 
   subCategories: [
     {
-      id: "spectral-testing-system",
+      id: "spectral",
       name: "Spectral Testing System",
       shortDescription:
         "High-resolution spectral analyzer for linewidth, wavelength drift and frequency stability measurements.",
@@ -95,7 +109,7 @@ export const laserTestingData: CategoryData = {
         "Designed for laboratories and production lines that require precise wavelength and frequency measurement. Key functions include accurate wavelength measurement, linewidth and spectral purity verification, long-term frequency drift monitoring, mode-hopping detection and compatibility with fiber and free-space inputs.",
     },
     {
-      id: "noise-testing-system",
+      id: "noise",
       name: "Noise Testing System",
       shortDescription:
         "Dedicated noise tester for relative intensity noise, phase noise and long-term power stability analysis.",
@@ -133,4 +147,69 @@ export const laserTestingData: CategoryData = {
 
   notes:
     "Our testing systems are engineered and supported from Hangzhou City. Each instrument is supplied with calibration options, software reporting tools and service support. For pricing, technical datasheets, or customization, contact our engineering team.",
+
+  featureMatrix: {
+    categories: [
+      {
+        id: "test-spectral",
+        name: "Spectral Testing System",
+        features: {
+          stability: "Stable internal reference for accurate wavelength measurements",
+          noise: "High-resolution detection of frequency drift and mode-hopping",
+          coherence: "Precise linewidth and spectral purity verification",
+          integration: "Flexible fiber-coupled and free-space configurations",
+          bonus5: "Real-time data visualization with exportable test reports",
+          bonus6: "Traceable calibration and production-grade reliability",
+        },
+      },
+      {
+        id: "test-noise",
+        name: "Noise Testing System",
+        features: {
+          stability: "Stable measurement platform for long-term noise characterization",
+          noise: "Wide-band detection for RIN and phase noise analysis",
+          coherence: "Preserves measurement accuracy across frequency domains",
+          integration: "Simple setup with standard connectors and interfaces",
+          bonus5: "Environmental stress testing capabilities for reliability verification",
+          bonus6: "Fast acquisition and automated reporting for QA workflows",
+        },
+      },
+      {
+        id: "test-combined",
+        name: "Combined Spectral & Noise",
+        features: {
+          stability: "Simultaneous multi-parameter measurement for comprehensive analysis",
+          noise: "Integrated detection of both spectral and noise characteristics",
+          coherence: "Complete laser performance verification in single test",
+          integration: "Unified platform with centralized data management",
+          bonus5: "Production-line ready with automated pass/fail criteria",
+          bonus6: "Customizable test protocols for specific laser types",
+        },
+      },
+      {
+        id: "test-lidar",
+        name: "LiDAR System Verification",
+        features: {
+          stability: "Calibration platform for LiDAR transmitter verification",
+          noise: "Frequency stability testing for LiDAR performance validation",
+          coherence: "Coherence measurement for ranging accuracy verification",
+          integration: "Specialized setup for LiDAR-specific test protocols",
+          bonus5: "Field-calibration capability for remote deployment",
+          bonus6: "Advanced analysis for Doppler and ranging performance",
+        },
+      },
+      {
+        id: "test-quantum",
+        name: "Quantum Applications Testing",
+        features: {
+          stability: "Ultra-stable measurement platform for quantum research",
+          noise: "Extreme low-noise detection for quantum-grade specifications",
+          coherence: "Phase stability measurement for quantum experiments",
+          integration: "Specialized interfaces for quantum laboratory setups",
+          bonus5: "Advanced analysis tools for quantum optics measurements",
+          bonus6: "Custom reporting for research publication requirements",
+        },
+      },
+    ],
+  },
 };

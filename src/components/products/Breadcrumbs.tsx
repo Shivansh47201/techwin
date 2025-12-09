@@ -18,14 +18,14 @@ export type BreadcrumbsProps = {
 
 const PRIMARY = "#3B9ACB";
 
-export default function Breadcrumbs({ items = [], className = "" }: BreadcrumbsProps) {
+export default function Breadcrumbs({
+  items = [],
+  className = "",
+}: BreadcrumbsProps) {
   if (!items.length) return null;
 
   return (
-    <nav
-      aria-label="Breadcrumb"
-      className={`w-full py-3 ${className}`}
-    >
+    <nav aria-label="Breadcrumb" className={`w-full py-3 ${className}`}>
       <motion.ol
         className="flex flex-wrap items-center gap-1 text-sm"
         initial={{ opacity: 0, y: 4 }}
@@ -37,27 +37,27 @@ export default function Breadcrumbs({ items = [], className = "" }: BreadcrumbsP
 
           return (
             <li key={idx} className="flex items-center gap-1">
-              {item.href && !isLast ? (
+              {/* NOT LAST ITEM */}
+              {!isLast && item.href ? (
                 <Link
                   href={item.href}
-                  className="font-medium"
-                  style={{ color: PRIMARY }}
+                  className="font-medium  text-black/50 hover:underline underline-offset-4 hover:decoration-[3px]"
+                  style={{ textDecorationColor: PRIMARY }}
                 >
                   {item.label}
                 </Link>
               ) : (
-                <span
-                  className="font-semibold"
-                  style={{ color: PRIMARY }}
-                >
+                // LAST (ACTIVE) ITEM
+                <span className="font-semibold" style={{ color: PRIMARY }}>
                   {item.label}
                 </span>
               )}
 
+              {/* Divider */}
               {!isLast && (
                 <ChevronRight
                   size={16}
-                  style={{ color: PRIMARY, opacity: 0.6 }}
+                  style={{ color: "#aaa", opacity: 0.6 }}
                 />
               )}
             </li>

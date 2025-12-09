@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 
 export default function AboutFinalStatement() {
   return (
-    <section className="py-14 bg-white">
-      <div className="max-w-[1100px] mx-auto px-4">
+    <section className="py-8 sm:py-14 bg-white">
+      <div className="max-w-[1100px] mx-auto px-3 sm:px-4">
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -25,18 +25,18 @@ export default function AboutFinalStatement() {
 
           {/* TEXT */}
           <div className="text-center space-y-3">
-            <h2 className="text-2xl md:text-3xl font-bold text-[#08263b]">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#08263b]">
               Techwin — Advancing Precision Through Innovation & Reliability
             </h2>
 
-            <p className="text-base md:text-lg text-slate-700 leading-relaxed max-w-[80%] mx-auto">
+            <p className="text-sm sm:text-base md:text-lg text-slate-700 leading-relaxed max-w-[85%] mx-auto">
               Techwin continues to uphold its reputation as a reliable optoelectronic
               technology manufacturer — combining innovation, precision, and quality
               into every laser system. With advanced R&D and global outreach, we support
               professionals seeking dependable optical solutions.
             </p>
 
-            <p className="text-base text-slate-700 leading-relaxed max-w-[70%] mx-auto">
+            <p className="text-sm sm:text-base text-slate-700 leading-relaxed max-w-[90%] mx-auto">
               For more information or to request a quote, contact us at 
               <span className="font-semibold text-[#3087C0]"><a href="tel:+8657188284299">+86-57188284299</a> </span>
               or visit our facility in Hangzhou City.
@@ -44,12 +44,12 @@ export default function AboutFinalStatement() {
           </div>
 
           {/* BUTTONS */}
-          <div className="mt-5 flex flex-wrap justify-center gap-3">
+          <div className="mt-5 flex flex-col sm:flex-row flex-wrap justify-center gap-3">
             <a
               href="/contact"
               className="
-                px-5 py-2.5 rounded-xl bg-[#3087C0] 
-                text-white text-sm md:text-base font-semibold 
+                w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#3087C0] 
+                text-white text-sm md:text-base font-semibold text-center
                 shadow hover:shadow-lg hover:brightness-110 
                 transition duration-200
               "
@@ -62,9 +62,9 @@ export default function AboutFinalStatement() {
                 window.dispatchEvent(new CustomEvent('openRequestQuote'))
               }
               className="
-                px-5 py-2.5 rounded-xl border border-[#3087C0]
+                w-full sm:w-auto px-5 py-2.5 rounded-xl border border-[#3087C0]
                 text-[#3087C0] bg-white 
-                text-sm md:text-base font-medium
+                text-sm md:text-base font-medium text-center
                 hover:bg-[#f0f8ff]
                 transition duration-200
               "

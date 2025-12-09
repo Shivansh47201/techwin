@@ -13,6 +13,25 @@ import { runInNewContext } from "vm";
 let _cachedProducts: any = null;
 let _cachedPaths: { category: string; product: string }[] | null = null;
 
+function extractTitleFromTypeScriptFile(filePath: string): string | null {
+  try {
+    const content = fs.readFileSync(filePath, "utf8");
+    // Look for root-level title (exactly 2 spaces indentation within the object literal)
+    // First, find all matches and filter for root level
+    const lines = content.split("\n");
+    for (const line of lines) {
+      // Match lines that start with 2 spaces, then "title:"
+      const match = line.match(/^  title\s*:\s*["']([^"']+)["']/);
+      if (match && match[1]) {
+        return match[1];
+      }
+    }
+  } catch (err) {
+    // Fallback to null
+  }
+  return null;
+}
+
 function findProductsDir(): string | null {
   let dir = process.cwd();
   for (let i = 0; i < 6; i++) {
@@ -70,14 +89,24 @@ export function getAllProducts(): { categorySlug: string; categoryTitle?: string
           // try to load metadata (meta.json inside folder or product.json)
           let title = slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
           try {
-            const folderMeta = f.isDirectory() ? path.join(categoryPath, rawName, "meta.json") : null;
-            const fileMeta = path.join(categoryPath, rawName + ".json");
-            if (folderMeta && fs.existsSync(folderMeta)) {
-              const meta = JSON.parse(fs.readFileSync(folderMeta, "utf8"));
-              if (meta?.title) title = meta.title;
-            } else if (fs.existsSync(fileMeta)) {
-              const meta = JSON.parse(fs.readFileSync(fileMeta, "utf8"));
-              if (meta?.title) title = meta.title;
+            // First try to extract from TypeScript files
+            if (!f.isDirectory() && (f.name.endsWith(".ts") || f.name.endsWith(".tsx"))) {
+              const filePath = path.join(categoryPath, f.name);
+              const extractedTitle = extractTitleFromTypeScriptFile(filePath);
+              if (extractedTitle) {
+                title = extractedTitle;
+              }
+            } else {
+              // Then try meta.json inside folder or product.json
+              const folderMeta = f.isDirectory() ? path.join(categoryPath, rawName, "meta.json") : null;
+              const fileMeta = path.join(categoryPath, rawName + ".json");
+              if (folderMeta && fs.existsSync(folderMeta)) {
+                const meta = JSON.parse(fs.readFileSync(folderMeta, "utf8"));
+                if (meta?.title) title = meta.title;
+              } else if (fs.existsSync(fileMeta)) {
+                const meta = JSON.parse(fs.readFileSync(fileMeta, "utf8"));
+                if (meta?.title) title = meta.title;
+              }
             }
           } catch (err) {
             // ignore errors reading meta files
@@ -432,7 +461,7 @@ export async function getProductData(category: string, productSlug: string) {
         // Pass-through fields useful for the UI that may appear in product files
         tableCsvUrl: raw.tableCsvUrl || raw.tableCSVUrl || raw.tableCsv || undefined,
         tableData: raw.tableData || undefined,
-        tableImageUrl: raw.tableImageUrl || undefined,
+        tableImageURL: raw.tableImageURL || raw.tableImageUrl || undefined,
         graphImageURL: raw.graphImageURL || raw.graphImageUrl || raw.graphImage || undefined,
         // Feature lists often used by the hero component
         features: Array.isArray(raw.features) ? raw.features : undefined,

@@ -19,9 +19,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Techwin",
   description: "Techwin — World-class Single-Frequency Fiber Laser Solutions",
-  // Base URL used for resolving open graph / twitter image URLs during metadata generation.
-  // Set NEXT_PUBLIC_METADATA_BASE in your environment to your production site URL.
-  metadataBase: new URL(process.env.NEXT_PUBLIC_METADATA_BASE || "http://localhost:3000"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_METADATA_BASE || "http://localhost:3001"),
+  icons: {
+    icon: { url: "/favicon.ico", type: "image/png" },
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

@@ -16,21 +16,21 @@ const navLinks = [
 const productCategories = [
   {
     title: "Single-Frequency Fiber Lasers",
-    href: "/products/single-frequency-fiber-lasers",
+    href: "/products/single-frequency",
   },
   { title: "Seed Lasers", href: "/products/seed-lasers" },
   {
     title: "High-Power Fiber Lasers",
-    href: "/products/high-power-fiber-lasers",
+    href: "/products/high-power",
   },
   {
     title: "Wavelength Conversion Lasers",
-    href: "/products/wavelength-conversion-lasers",
+    href: "/products/wavelength-conversion",
   },
-  { title: "Broadband & ASE Sources", href: "/products/broadband-ase-sources" },
+  { title: "Broadband & ASE Sources", href: "/products/ase-sources" },
   { title: "Fiber Amplifiers", href: "/products/fiber-amplifiers" },
-  { title: "Testing Systems", href: "/products/testing-systems" },
-  { title: "SLED Light Sources", href: "/products/point-light-sources" },
+  { title: "Testing Systems", href: "/products/testing" },
+  { title: "SLED Light Sources", href: "/products/sled" },
 ];
 
 export default function Footer() {

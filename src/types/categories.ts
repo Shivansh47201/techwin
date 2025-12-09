@@ -91,6 +91,20 @@ export type CategoryData = {
   faqs?: { q: string; a: string }[];
   downloads?: { label: string; href: string; type?: string }[];
   specGroups?: { label: string; rows: { name: string; value: string }[] }[];
+  featureMatrix?: {
+    categories: {
+      id: string;
+      name: string;
+      features: {
+        stability: string;
+        noise: string;
+        coherence: string;
+        integration: string;
+        bonus5?: string;
+        bonus6?: string;
+      };
+    }[];
+  };
 };
 
 export interface ProductImage {
@@ -168,6 +182,8 @@ export interface FrontendProduct {
   
   // datasheet preview image (980 × 320) - separate from datasheetUrl
   datasheetImageSrc?: string | ProductImage;
+  features?: string[];
+  applicationAreas?: string[];
 
   sections: ProductSection[];
   relatedProducts?: {
@@ -181,7 +197,11 @@ export interface FrontendProduct {
   // optional product-level assets
   tableCsvUrl?: string;
   graphImageURL?: string;
+  tableImageURL?: string;
+
+  
 }
+
 
 // Alias for clarity
 export type Product = FrontendProduct;

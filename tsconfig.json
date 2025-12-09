@@ -30,6 +30,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "src/data/categories/singleFrequencyData.ts", "src/components/products/ProductGraphsAndTableSection.tsx"  ],
+, "src/data/categories/singleFrequencyData.ts", "src/components/products/ProductGraphsAndTableSection.tsx", "src/data/products/ase-sources/ase-light-source-1.5um"  ],
   "exclude": ["node_modules"]
 }

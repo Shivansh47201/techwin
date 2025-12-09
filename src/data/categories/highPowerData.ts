@@ -44,11 +44,25 @@ export type CategoryData = {
   // optional: notes, support contact
   contactPhone?: string;
   notes?: string;
+  featureMatrix?: {
+    categories: {
+      id: string;
+      name: string;
+      features: {
+        stability: string;
+        noise: string;
+        coherence: string;
+        integration: string;
+        bonus5?: string;
+        bonus6?: string;
+      };
+    }[];
+  };
 };
 
 // highPowerData.ts
 export const highPowerData: CategoryData = {
-  url: "/products/high-power-fiber-lasers",
+  url: "/products/high-power",
   metaTitle: "High Power Single-Frequency Fiber Lasers | Techwin Industrial Manufacturer",
   metaDescription:
     "Techwin manufactures high power single-frequency fiber lasers in Hangzhou City. Call +86-13958180450 for reliable industrial laser exporter solutions and global delivery.",
@@ -62,7 +76,7 @@ export const highPowerData: CategoryData = {
     breadcrumb: [
       { label: "Home", href: "/" },
       { label: "Products", href: "/products" },
-      { label: "High-Power Fiber Lasers", href: "/high-power-fiber-lasers" },
+      { label: "High-Power Fiber Lasers", href: "/products/high-power" },
     ],
     ctaPrimary: { label: "Request Quote", href: "/contact" },
     ctaSecondary: { label: "Download Datasheet", href: "/downloads/high-power-datasheet.pdf", external: false },
@@ -85,7 +99,7 @@ export const highPowerData: CategoryData = {
 
   subCategories: [
     {
-      id: "kilowatt-level-fiber-laser-combustion-diagnostics",
+      id: "kilowatt",
       name: "Kilowatt-Level Fiber Laser for Combustion Diagnostics",
       shortDescription:
         "High-power CW/kilowatt fiber laser optimized for combustion and plasma diagnostics with stable continuous output for real-time analysis.",
@@ -93,39 +107,115 @@ export const highPowerData: CategoryData = {
         "Designed for high-temperature measurement and real-time observation of combustion phenomena. Provides stable continuous power and thermal control to enable precision analysis of dynamic flame characteristics.",
     },
     {
-      id: "high-power-cw-single-frequency-fiber-laser-1um",
-      name: "High-Power CW Single-Frequency Fiber Laser (1.0 µm)",
+      id: "1um-cw",
+      name: "(1.0 µm) High-Power CW Single-Frequency Fiber Laser",
       shortDescription:
         "Versatile high-power 1.0 µm single-frequency system for interferometry, remote sensing, and industrial research.",
       details:
         "Narrow linewidth and low RIN make it suitable for high-resolution interferometry, seeding amplifiers, and long-range sensing platforms.",
     },
     {
-      id: "high-power-cw-single-frequency-fiber-laser-1-5um",
-      name: "High-Power CW Single-Frequency Fiber Laser (1.5 µm)",
+      id: "1-5um-cw",
+      name: "(1.5 µm) High-Power CW Single-Frequency Fiber Laser",
       shortDescription:
         "High-power 1.5 µm single-frequency source tailored for telecom-grade and distributed sensing systems.",
       details:
         "Optimized for 1550 nm ecosystems: communications research, frequency standards and distributed sensing with robust thermal and spectral stability.",
     },
     {
-      id: "high-power-cw-single-frequency-fiber-laser-2um",
-      name: "High-Power CW Single-Frequency Fiber Laser (2.0 µm)",
+      id: "2um-cw",
+      name: "(2.0 µm) High-Power CW Single-Frequency Fiber Laser",
       shortDescription:
         "Mid-IR single-frequency high-power laser for gas detection, environmental monitoring and specialty industrial use.",
       details:
         "Provides strong absorption characteristics useful in gas sensing, material inspection and defense applications requiring mid-IR wavelengths.",
     },
     {
-      id: "long-distance-high-resolution-lidar-fiber-laser",
+      id: "lidar",
       name: "Long-Distance High-Resolution LiDAR Fiber Laser",
       shortDescription:
         "High-stability laser source engineered for long-range, high-resolution LiDAR and remote mapping systems.",
       details:
         "Delivers narrow linewidth and excellent power stability to maximize detection range and resolution in geospatial and airborne LiDAR systems.",
     },
-  ],
 
+    /* ———————————————— NEW HIGH-POWER SUB-SERIES ———————————————— */
+
+    {
+      id: "1um-0-2w",
+      name: "1.0μm High-Power Single-Frequency Laser (0.2–2W)",
+      shortDescription:
+        "Low-to-medium power 1.0μm laser for sensing, interferometry and coherent light platforms.",
+      details:
+        "Engineered for narrow linewidth output and precision operation in interferometry, frequency reference, prototype sensing and laboratory R&D applications.",
+    },
+    {
+      id: "1um-2-20w",
+      name: "1.0μm High-Power Single-Frequency Laser (2–20W)",
+      shortDescription:
+        "Medium-range 1.0μm power class for long-distance detection and high-stability measurement tasks.",
+      details:
+        "Supports coherent detection, ranging, optical measurement and distributed sensing platforms with stable output and low phase noise.",
+    },
+    {
+      id: "1um-20-500w",
+      name: "1.0μm High-Power Single-Frequency Laser (20–500W)",
+      shortDescription:
+        "High-power 1.0μm class for industrial integration, research-grade processing and precision systems.",
+      details:
+        "Designed for demanding industrial and scientific environments where long-term single-frequency stability and strong optical efficiency are critical.",
+    },
+
+    {
+      id: "1-5um-0-2w",
+      name: "1.5μm High-Power Single-Frequency Laser (0.2–2W)",
+      shortDescription:
+        "Eye-safe narrow-linewidth 1.5μm platform for interferometry, lab sensing and telecom-grade optical evaluation.",
+      details:
+        "Ideal for distributed sensing, coherent communication testing and long-duration laboratory integration with stable mid-IR spectral profiles.",
+    },
+    {
+      id: "1-5um-2-20w",
+      name: "1.5μm High-Power Single-Frequency Laser (2–20W)",
+      shortDescription:
+        "Medium-power 1.5μm design for coherent communication, distributed sensing and atmospheric testing.",
+      details:
+        "Offers strong wavelength stability for long-range sensing, telecom-grade experiments and photonics research requiring extended stability.",
+    },
+    {
+      id: "1-5um-20-120w",
+      name: "1.5μm High-Power Single-Frequency Laser (20–120W)",
+      shortDescription:
+        "High-power 1.5μm single-frequency laser for industrial, telecom and long-distance field deployments.",
+      details:
+        "Provides robust thermal performance and clean spectral operation required in precise distributed sensing, lidar and atmospheric study systems.",
+    },
+
+    {
+      id: "2um-0-05-2w",
+      name: "2.0μm High-Power Single-Frequency Laser (0.05–2W)",
+      shortDescription:
+        "Ultra-stable low-power 2.0μm platform for spectroscopy, environmental gas sensing and controlled R&D.",
+      details:
+        "Designed for molecular spectroscopy, atmospheric monitoring and precision evaluation needing accurate narrow-linewidth mid-IR wavelengths.",
+    },
+    {
+      id: "2um-2-20w",
+      name: "2.0μm High-Power Single-Frequency Laser (2–20W)",
+      shortDescription:
+        "Medium-power mid-IR source suitable for atmospheric lidar, gas analytics, and precision long-distance optical systems.",
+      details:
+        "Combines stable spectral output with scalable power for coherent detection, lidar development, environmental analysis and infrared materials research.",
+    },
+    {
+      id: "2um-20-500w",
+      name: "2.0μm High-Power Single-Frequency Laser (20–500W)",
+      shortDescription:
+        "Industrial-grade high-power 2.0μm system for processing, advanced sensing and precision measurement environments.",
+      details:
+        "Fiber-based architecture ensures efficient delivery, strong beam quality and reliable long-term output for mid-IR research and engineered instrumentation.",
+    },
+  ],
   technicalBenefits: [
     "Stable single-longitudinal-mode operation for ultra-narrow linewidth performance",
     "Low phase and intensity noise enabling coherent detection and Doppler measurement",
@@ -153,4 +243,69 @@ export const highPowerData: CategoryData = {
   contactPhone: "+86-571-88284299",
   notes:
     "Customization available: output power (W → kW), wavelength selection, narrow linewidth tuning, rack/bench configurations and integrated monitoring solutions.",
+
+  featureMatrix: {
+    categories: [
+      {
+        id: "hp-1um",
+        name: "High-Power 1.0 µm CW",
+        features: {
+          stability: "Excellent power stability with minimal output drift for long operations",
+          noise: "Low phase and intensity noise enabling coherent detection",
+          coherence: "Single-frequency operation with exceptional spectral purity",
+          integration: "Scalable from watt-class to multi-kilowatt industrial systems",
+          bonus5: "Ideal for industrial laser processing and remote sensing",
+          bonus6: "Customizable output power with rack-mountable designs",
+        },
+      },
+      {
+        id: "hp-1.5um",
+        name: "High-Power 1.5 µm CW",
+        features: {
+          stability: "Telecommunications-grade power stability at 1550 nm",
+          noise: "Ultra-low noise for coherent communication systems",
+          coherence: "High spectral purity for long-distance coherent detection",
+          integration: "Seamless integration with telecom ecosystem and infrastructure",
+          bonus5: "Optimized for distributed sensing and coherent LiDAR",
+          bonus6: "Advanced thermal management for continuous kilowatt operation",
+        },
+      },
+      {
+        id: "hp-2um",
+        name: "High-Power 2.0 µm CW",
+        features: {
+          stability: "Mid-infrared power stability with robust thermal control",
+          noise: "Low noise architecture for precision sensing applications",
+          coherence: "High coherence for advanced mid-IR measurement systems",
+          integration: "Compact module designs for industrial and research systems",
+          bonus5: "Ideal for gas detection and material processing",
+          bonus6: "Efficient thermal management ensuring maximum lifetime",
+        },
+      },
+      {
+        id: "hp-lidar",
+        name: "LiDAR Fiber Laser",
+        features: {
+          stability: "Exceptional frequency stability for long-range measurements",
+          noise: "Ultra-low phase noise enabling precision Doppler detection",
+          coherence: "Maximum coherence for extended measurement range",
+          integration: "Compact, light-weight design for airborne and mobile systems",
+          bonus5: "Optimized for high-resolution geospatial mapping",
+          bonus6: "Advanced beam control and modulation capabilities",
+        },
+      },
+      {
+        id: "hp-kilowatt",
+        name: "Kilowatt-Level",
+        features: {
+          stability: "Kilowatt-class power with superior long-term stability",
+          noise: "Controlled noise characteristics suitable for high-power applications",
+          coherence: "Narrow linewidth preserved at maximum power output",
+          integration: "Industrial-grade packaging with advanced thermal management",
+          bonus5: "Perfect for combustion diagnostics and plasma research",
+          bonus6: "Robust protection and monitoring for continuous deployment",
+        },
+      },
+    ],
+  },
 };

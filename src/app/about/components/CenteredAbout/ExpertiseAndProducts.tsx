@@ -17,7 +17,7 @@ export default function ExpertiseAndProducts() {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#3087C0]/10 rounded-full blur-[140px]" />
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 space-y-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-12 sm:space-y-20">
 
         {/* ========== BLOCK 1 – EXPERTISE ========== */}
         <div className="relative">
@@ -28,28 +28,28 @@ export default function ExpertiseAndProducts() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.3 }}
-            className="relative bg-white/70 backdrop-blur-xl border border-[#3087C0]/20 shadow-xl rounded-3xl p-10"
+            className="relative bg-white/70 backdrop-blur-xl border border-[#3087C0]/20 shadow-xl rounded-3xl p-6 sm:p-10"
           >
             {/* Header */}
             <motion.h2
               variants={fadeUp}
-              className="text-3xl md:text-4xl font-bold text-[#3087C0] text-center"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#3087C0] text-center"
             >
               Our Expertise in Optoelectronic Technology
             </motion.h2>
 
-            <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="mt-8 sm:mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10">
 
               {/* LEFT DESCRIPTION */}
               <motion.div variants={fadeUp}>
-                <p className="text-lg leading-relaxed text-slate-700">
+                <p className="text-base sm:text-lg leading-relaxed text-slate-700">
                   Techwin is a forward-thinking optoelectronic technology manufacturer integrating
                   research, development, and production into one streamlined process. With advanced
                   optical simulation tools, precision fiber components, and world-class engineering,
                   every system meets international laboratory and industrial standards.
                 </p>
 
-                <p className="mt-6 text-lg leading-relaxed text-slate-700">
+                <p className="mt-6 text-base sm:text-lg leading-relaxed text-slate-700">
                   Our engineering team specializes in photonics, optoelectronics, and laser physics.
                   From R&D to testing to after-sales support, every stage is handled with strict
                   quality control — ensuring sub-Hz stability, narrow linewidth, and long-term
@@ -106,12 +106,12 @@ export default function ExpertiseAndProducts() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.3 }}
-            className="relative bg-white/70 backdrop-blur-xl border border-[#3087C0]/20 shadow-xl rounded-3xl p-10"
+            className="relative bg-white/70 backdrop-blur-xl border border-[#3087C0]/20 shadow-xl rounded-3xl p-6 sm:p-10"
           >
             {/* Header */}
             <motion.h2
               variants={fadeUp}
-              className="text-3xl md:text-4xl font-bold text-[#3087C0] text-center"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#3087C0] text-center"
             >
               Our Core Product Line
             </motion.h2>
@@ -119,7 +119,7 @@ export default function ExpertiseAndProducts() {
             {/* Grid */}
             <motion.div
               variants={fadeUp}
-              className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8"
+              className="mt-8 sm:mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8"
             >
 
               {/* CARD 1 */}
@@ -166,7 +166,7 @@ export default function ExpertiseAndProducts() {
             {/* Closing */}
             <motion.p
               variants={fadeUp}
-              className="text-lg mt-10 text-center text-slate-700"
+              className="text-base sm:text-lg mt-8 sm:mt-10 text-center text-slate-700"
             >
               Trusted worldwide for spectroscopy, coherent detection, LiDAR, atomic physics, and advanced sensing.
             </motion.p>
