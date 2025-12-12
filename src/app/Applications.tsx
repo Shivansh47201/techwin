@@ -25,7 +25,7 @@ type Props = {
 
 export default function Applications({
   heading = "Applications & Solutions",
-  subheading = "Real-world use cases where Techwin lasers deliver measurable impact",
+  subheading = "Explore real-world applications where Techwin lasers deliver measurable results, higher precision, and reliable performance across advanced industrial and scientific environments.",
   cards,
 }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);

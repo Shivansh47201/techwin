@@ -64,9 +64,9 @@ export const seedFiberData: CategoryData = {
   url: "/products/seed-lasers",
 
   metaTitle:
-    "Techwin – High-Precision Seed Fiber Laser Manufacturer in Hangzhou City",
+    "High-Precision Seed Fiber Laser Manufacturer in Hangzhou City",
   metaDescription:
-    "Techwin – High-Precision Seed Fiber Lasers Manufacturer in Hangzhou City. Call +86-13958180450 for reliable 1 micron, 1.5 micron, and 2.0 µm seed laser solutions worldwide.",
+    "High-Precision Seed Fiber Lasers Manufacturer in Hangzhou City. Call +86-13958180450 for reliable 1 micron, 1.5 micron, and 2.0 µm seed laser solutions worldwide.",
 
   hero: {
     title: "High-Precision Seed Fiber Lasers",

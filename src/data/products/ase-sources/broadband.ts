@@ -197,11 +197,7 @@ export const broadbandLightSource: Product = {
   // All other ASE products as related (except broadband itself)
   relatedProducts: [
     {
-<<<<<<< HEAD:src/data/products/ase-sources/broadband.ts
       slug: "1um-ase",
-=======
-      slug: "1um",
->>>>>>> origin/main:src/data/products/Broadband-ASE-Sources/broadband-light-source.ts
       title: "ASE Light Source (1.0 µm)",
       shortDescription:
         "1.0 µm ASE source with optimized ytterbium-doped fiber design for precision testing and sensing.",
@@ -209,17 +205,10 @@ export const broadbandLightSource: Product = {
         src: "/products/ase-sources/1um/hero.jpg",
         alt: "ASE Light Source (1.0 µm)",
       },
-<<<<<<< HEAD:src/data/products/ase-sources/broadband.ts
       href: "/products/ase-sources/1um-ase",
     },
     {
       slug: "1-5um-ase",
-=======
-      href: "/products/ase-sources/1um",
-    },
-    {
-      slug: "1-5um",
->>>>>>> origin/main:src/data/products/Broadband-ASE-Sources/broadband-light-source.ts
       title: "ASE Light Source (1.5 µm)",
       shortDescription:
         "1.5 µm C-band erbium-doped ASE source for optical testing, sensing and spectral analysis.",
@@ -227,17 +216,10 @@ export const broadbandLightSource: Product = {
         src: "/products/ase-sources/1-5um/hero.jpg",
         alt: "ASE Light Source (1.5 µm)",
       },
-<<<<<<< HEAD:src/data/products/ase-sources/broadband.ts
       href: "/products/ase-sources/1-5um-ase",
     },
     {
       slug: "2um-ase",
-=======
-      href: "/products/ase-sources/1-5um",
-    },
-    {
-      slug: "2um",
->>>>>>> origin/main:src/data/products/Broadband-ASE-Sources/broadband-light-source.ts
       title: "ASE Light Source (2.0 µm)",
       shortDescription:
         "2.0 µm thulium-doped ASE source for advanced testing and sensing applications.",
@@ -245,17 +227,10 @@ export const broadbandLightSource: Product = {
         src: "/products/ase-sources/2um/hero.jpg",
         alt: "ASE Light Source (2.0 µm)",
       },
-<<<<<<< HEAD:src/data/products/ase-sources/broadband.ts
       href: "/products/ase-sources/2um-ase",
     },
     {
       slug: "sled-ase",
-=======
-      href: "/products/ase-sources/2um",
-    },
-    {
-      slug: "sled",
->>>>>>> origin/main:src/data/products/Broadband-ASE-Sources/broadband-light-source.ts
       title: "Superluminescent LED (SLED)",
       shortDescription:
         "High-brightness SLED broadband source for OCT, sensing and precision metrology.",
@@ -263,11 +238,7 @@ export const broadbandLightSource: Product = {
         src: "/products/ase-sources/sled/hero.jpg",
         alt: "Superluminescent LED (SLED)",
       },
-<<<<<<< HEAD:src/data/products/ase-sources/broadband.ts
       href: "/products/ase-sources/sled-ase",
-=======
-      href: "/products/ase-sources/sled",
->>>>>>> origin/main:src/data/products/Broadband-ASE-Sources/broadband-light-source.ts
     },
   ],
 };

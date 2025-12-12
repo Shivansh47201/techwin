@@ -94,14 +94,14 @@ export default function ProductFamilies({
                 </div>
 
                 {/* text content */}
-                <div className="p-4 md:p-5 flex flex-col flex-grow">
-                  <div className="flex-grow">
+                <div className="p-4 md:p-5 flex flex-col grow">
+                  <div className="grow">
                     <h3 className="text-lg font-semibold mb-2 text-[#111827]">{p.title}</h3>
                     <p className="text-sm text-gray-600 line-clamp-2">{p.short}</p>
                   </div>
                   <div className="mt-4">
                     <span
-                      className="inline-block rounded-full bg-[var(--color-primary)] text-white text-sm px-4 py-2 font-medium"
+                      className="inline-block rounded-full bg-primary text-white text-sm px-4 py-2 font-medium"
                     >
                       View More
                     </span>
@@ -117,7 +117,7 @@ export default function ProductFamilies({
           <div className="text-center mt-12">
             <Link
               href="/products"
-              className="inline-block bg-white text-[var(--color-primary)] font-semibold px-6 py-2.5 rounded-full shadow-md hover:bg-white/90 transition"
+              className="inline-block bg-white text-primary font-semibold px-6 py-2.5 rounded-full shadow-md hover:bg-white/90 transition"
             >
               See All Products
             </Link>

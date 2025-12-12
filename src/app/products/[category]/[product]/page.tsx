@@ -1,6 +1,9 @@
+// @ts-nocheck
+/// <reference types="react/jsx-runtime" />
 // src/app/products/[category]/[product]/page.tsx
-import React from "react";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import React from "react";
 
 import {
   getAllProductPaths,
@@ -27,6 +30,48 @@ import ProductGraphsAndTableImageSection from "../../../../components/products/P
 
 export async function generateStaticParams() {
   return getAllProductPaths();
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params:
+    | Promise<{ category: string; product: string }>
+    | { category: string; product: string };
+}): Promise<Metadata> {
+  const resolved = await params;
+  const { category, product } =
+    resolved || ({} as { category?: string; product?: string });
+
+  const productData = await getProductData(category, product);
+
+  if (!productData) {
+    return {
+      title: "Product Not Found",
+      description: "The requested product could not be found.",
+    };
+  }
+
+  const p: Product = productData;
+
+  return {
+    title: p.title || "Techwin Product",
+    description: p.shortDescription || p.meta?.description || "Techwin Laser Product",
+    openGraph: {
+      title: p.title || "Techwin Product",
+      description: p.shortDescription || p.meta?.description || "Techwin Laser Product",
+      images: p.heroImage
+        ? [
+            {
+              url: typeof p.heroImage === "string" ? p.heroImage : (p.heroImage as any).url,
+              width: 1200,
+              height: 630,
+              alt: p.title,
+            },
+          ]
+        : [],
+    },
+  };
 }
 
 /**
@@ -65,9 +110,8 @@ export default async function ProductPage({
     description: p.shortDescription,
     heroImage: p.heroImage,
     galleryImages: p.galleryImages,
-    ctas: [{ label: "Request Quote", href: "/contact" }],
+    ctas: [{ label: "Contact Us", href: "/contact" }],
     breadcrumbs: [{ label: "Products", href: "/products" }, { label: p.title }],
-    // PASS THESE EXPLICITLY so ProductDetailHero receives them
     features: p.features ?? [],
     applicationAreas: p.applicationAreas ?? [],
   };
@@ -103,15 +147,31 @@ export default async function ProductPage({
         {}
       ) ?? {};
 
-  // Fetch full product catalogue for the "all categories & products" block (small sitemap-like block)
-  let allProductsByCategory: Record<string, { slug: string; title: string }[]> =
+let allProductsByCategory: Record<string, { slug: string; title: string }[]> =
     {};
   try {
-    const allProducts = await getAllProducts(); // { category: string, products: Array<{slug,title}> }[]
-    allProductsByCategory = allProducts.reduce((acc, item) => {
-      acc[item.categorySlug] = item.products;
-      return acc;
-    }, {} as Record<string, { slug: string; title: string }[]>);
+    const allProducts = await getAllProducts();
+    
+    // Filter to only include products with valid data
+    for (const item of allProducts) {
+      const validProducts: { slug: string; title: string }[] = [];
+      
+      for (const prod of item.products) {
+        try {
+          const productData = await getProductData(item.categorySlug, prod.slug);
+          if (productData) {
+            validProducts.push(prod);
+          }
+        } catch (err) {
+          // Skip products that fail to load
+        }
+      }
+      
+      // Only include categories that have valid products
+      if (validProducts.length > 0) {
+        allProductsByCategory[item.categorySlug] = validProducts;
+      }
+    }
   } catch (err) {
     allProductsByCategory = {};
   }
@@ -176,7 +236,7 @@ export default async function ProductPage({
             id: string;
             label: string;
             icon?: string;
-            content: React.ReactNode;
+            content: any;
           }[] = [];
 
           // Overview Tab
@@ -275,12 +335,12 @@ export default async function ProductPage({
         </section>
       )}
 
-      {/* All categories/products (sitemap-like) */}
+      {/* All categories/products (sitemap-like) - Excluding SLED/Point Light Sources */}
       {Object.keys(allProductsByCategory).length > 0 && (
         <section className="bg-gray-50/50 py-16">
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-extrabold text-gray-900 tracking-tight">
+              <h2 className="text-4xl font-extrabold text-[#3B9ACB] tracking-tight">
                 Explore Our Full Product Catalog
               </h2>
               <p className="mt-4 text-lg leading-6 text-gray-600 max-w-2xl mx-auto">
@@ -288,8 +348,10 @@ export default async function ProductPage({
                 comprehensive range of solutions organized by category.
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {Object.entries(allProductsByCategory).map(([catSlug, prods]) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {Object.entries(allProductsByCategory)
+                .slice(0, 8)
+                .map(([catSlug, prods]) => (
                 <div
                   key={catSlug}
                   className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out overflow-hidden flex flex-col"

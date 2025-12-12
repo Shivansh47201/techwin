@@ -139,14 +139,12 @@ export default function Footer() {
             </div>
 
             {/* Follow Us (placed under contact) */}
-            <div className="mt-6 md:mt-8 w-full md:w-auto">
-              {/* keep this left for all breakpoints */}
+            {/* <div className="mt-6 md:mt-8 w-full md:w-auto">
+             
               <p className="text-sm text-white/90 mb-3 text-left">
                 Connect with us
               </p>
 
-              <div className="flex items-center gap-3 justify-start">
-                {/* Buttons use white background with brand-colored icons */}
                 <Link
                   href="https://www.facebook.com"
                   target="_blank"
@@ -198,8 +196,8 @@ export default function Footer() {
                 >
                   <Youtube className="h-5 w-5" style={{ color: "#FF0000" }} />
                 </Link>
-              </div>
-            </div>
+           
+            </div> */}
           </div>
         </div>
 

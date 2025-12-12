@@ -25,7 +25,6 @@ import { fiberAmplifierData } from "@/data/categories/fiberAmplifierData";
 import { laserTestingData } from "@/data/categories/laserTestingData";
 import { sledLightData } from "@/data/categories/sledLightData";
 import { seedFiberData } from "@/data/categories/seedFiberData";
-import { pointLightSourceData } from "@/data/categories/pointLightSourceData";
 import FeatureMatrix from "../../../components/category/FeatureMatrix";
 
 // Map slug -> data (single source)
@@ -36,9 +35,8 @@ const CATEGORY_MAP: Record<string, CategoryData> = {
   "wavelength-conversion": wavelengthConversionData,
   "fiber-amplifiers": fiberAmplifierData,
   "testing": laserTestingData,
-  "sled-light-sources": sledLightData,
+  "sled": sledLightData,
   "seed-lasers": seedFiberData,
-  "sled": pointLightSourceData,
 };
 
 type Props = { params: Promise<{ category: string }> | { category: string } };

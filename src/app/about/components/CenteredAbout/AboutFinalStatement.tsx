@@ -1,8 +1,10 @@
 'use client';
 
 import { motion } from "framer-motion";
+import { useRequestQuote } from "@/context/RequestQuoteContext";
 
 export default function AboutFinalStatement() {
+  const { openModal } = useRequestQuote();
   return (
     <section className="py-8 sm:py-14 bg-white">
       <div className="max-w-[1100px] mx-auto px-3 sm:px-4">
@@ -58,9 +60,7 @@ export default function AboutFinalStatement() {
             </a>
 
             <button
-              onClick={() =>
-                window.dispatchEvent(new CustomEvent('openRequestQuote'))
-              }
+              onClick={openModal}
               className="
                 w-full sm:w-auto px-5 py-2.5 rounded-xl border border-[#3087C0]
                 text-[#3087C0] bg-white 

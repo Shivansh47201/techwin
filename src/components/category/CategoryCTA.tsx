@@ -5,6 +5,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Phone, Mail, Send, ArrowRight } from "lucide-react";
 import Button from "@/components/common/Button";
+import { useRequestQuote } from "@/context/RequestQuoteContext";
 
 export type CTAButton = { label: string; href: string; external?: boolean };
 
@@ -40,6 +41,12 @@ export default function CategoryCTA({
   contactEmail,
   className = "",
 }: CategoryCTAProps) {
+  const { openModal } = useRequestQuote();
+  
+  const handleRequestQuote = (e: React.MouseEvent) => {
+    e.preventDefault();
+    openModal();
+  };
   return (
     <section aria-labelledby="category-cta-heading" className={`py-16 md:py-20 ${className}`}>
       <div className="max-w-5xl mx-auto px-6">
@@ -100,20 +107,32 @@ export default function CategoryCTA({
             </motion.p>
             
             {/* Buttons */}
-            <motion.div variants={itemVariants} className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-sm">
+            <motion.div variants={itemVariants} className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
               <Button
                 as="a"
-                href={cta.primary.href}
+                href="#"
+                onClick={handleRequestQuote}
                 size="lg"
-                className="w-full justify-center bg-white! text-[#3B9ACB]! font-semibold hover:bg-[#3B9ACB]! hover:text-white! transition-colors duration-200 group"
-                {...(cta.primary.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                className="w-full sm:w-auto justify-center bg-white! text-[#3B9ACB]! font-semibold hover:bg-[#3B9ACB]! hover:text-white! transition-colors duration-200 group cursor-pointer"
               >
                 <span>{cta.primary.label}</span>
                 <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
+              {cta.secondary && (
+                <Button
+                  as="a"
+                  href={cta.secondary.href}
+                  size="lg"
+                  className="w-full sm:w-auto justify-center bg-white/20! text-white! font-semibold hover:bg-white/30! transition-colors duration-200 group border border-white/30"
+                  {...(cta.secondary.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                >
+                  <span>{cta.secondary.label}</span>
+                  <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              )}
             </motion.div>
 
-            {/* Contact Info */}
+            {/* Contact Info
             <motion.div variants={itemVariants} className="mt-8 pt-6 border-t border-white/20 w-full max-w-xs flex flex-col items-center justify-center gap-3 text-sm">
                 {contactPhone && (
                   <a href={`tel:${contactPhone}`} className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors">
@@ -127,7 +146,7 @@ export default function CategoryCTA({
                     <span>{contactEmail}</span>
                   </a>
                 )}
-            </motion.div>
+            </motion.div> */}
           </div>
         </motion.div>
       </div>

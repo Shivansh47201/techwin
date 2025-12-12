@@ -115,11 +115,8 @@ export const fiberAmplifierData: CategoryData = {
         "High-power amplifiers provide significant power scaling while ensuring low noise and robust reliability. Features include excellent thermal control, low back-reflection sensitivity and compatibility with narrow-linewidth seed lasers — applicable to free-space communication, remote sensing, LiDAR and industrial beam delivery.",
     },
     {
-<<<<<<< HEAD
+
       id: "modules",
-=======
-      id: "fiber-amplifier-modules",
->>>>>>> origin/main
       name: "Fiber Amplifier Modules",
       shortDescription:
         "Compact amplifier modules for OEM integration, labs and instrumentation.",

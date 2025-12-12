@@ -20,11 +20,8 @@ export default async function ProductsPage() {
   );
 
   return (
-<<<<<<< HEAD
     <main className="min-h-screen bg-linear-to-b from-[#f7faff] via-[#eef3fb] to-[#f4f7fb] text-slate-900">
-=======
-    <main className="min-h-screen bg-gradient-to-b from-[#f7faff] via-[#eef3fb] to-[#f4f7fb] text-slate-900">
->>>>>>> origin/main
+
       {/* Top band */}
       <div className="border-b border-slate-200 bg-white/80 backdrop-blur-xl shadow-sm">
         <div className="max-w-7xl mx-auto px-5 py-2 flex items-center justify-between gap-3 text-[11px] sm:text-xs">
@@ -32,11 +29,11 @@ export default async function ProductsPage() {
             <span className="uppercase tracking-[0.22em] text-slate-400">
               PRODUCT CENTER
             </span>
-<<<<<<< HEAD
+
             <span className="h-px w-6 bg-slate-300" />
-=======
-            <span className="h-[1px] w-6 bg-slate-300" />
->>>>>>> origin/main
+
+            <span className="h-px w-6 bg-slate-300" />
+
             <span className="hidden sm:inline text-slate-500">
               Techwin Global Laser Product Index
             </span>

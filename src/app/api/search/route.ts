@@ -16,28 +16,20 @@ export type SearchResult = {
 };
 
 // The real implementation lives in `src/app/_api/search/route.ts` so that
-// static export isn't blocked. During development (or if explicitly
-// enabled via env), proxy to that implementation so local `next dev` shows
-// real search results. For static builds we still return an empty array so
-// `next export` can complete.
+// static export isn't blocked. Always use the real implementation.
 export async function GET(request?: NextRequest) {
   try {
-    // Use the real API when running in dev or when forced via env var
-    const useReal = process.env.NODE_ENV !== "production" || process.env.USE_REAL_API === "1";
-    if (useReal) {
-      // Dynamically import to avoid bundling the server-only implementation
-      // into static builds.
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const mod = await import("@/app/_api/search/route");
-      if (mod && typeof mod.GET === "function") {
-        return await mod.GET(request as NextRequest);
-      }
+    // Always use the real API implementation
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const mod = await import("@/app/_api/search/route");
+    if (mod && typeof mod.GET === "function") {
+      return await mod.GET(request as NextRequest);
     }
   } catch (err) {
     // ignore and fall back to empty
   }
 
-  // Return empty results for static export build-time checks.
+  // Return empty results fallback.
   const results: SearchResult[] = [];
   return NextResponse.json({ results });
 }

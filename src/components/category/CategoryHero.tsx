@@ -69,10 +69,8 @@ export default function CategoryHero({
     tagline?.trim() ||
     "Ultra-narrow linewidth fiber lasers engineered for research-grade stability, industrial reliability, and high-coherence optical performance. Designed for interferometry, sensing, metrology, and advanced photonics applications where precision cannot be compromised.";
 
-  const breadcrumbToRender =
-    breadcrumb.length > 0 && breadcrumb[breadcrumb.length - 1].label?.trim() === title?.trim()
-      ? breadcrumb.slice(0, breadcrumb.length - 1)
-      : breadcrumb;
+  // Show full breadcrumb as-is without filtering
+  const breadcrumbToRender = breadcrumb;
 
   // FIX APPLIED HERE
   const renderCta = (cta: CTA | undefined, isPrimary: boolean) => {

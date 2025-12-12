@@ -1,8 +1,15 @@
 // src/app/applications/page.tsx
 
 import React from "react";
+import type { Metadata } from "next";
 import ApplicationsPage from "@/components/application/listing/ApplicationsPage";
 import type { ApplicationSummary } from "@/components/application/listing/ApplicationCard";
+
+export const metadata: Metadata = {
+  title: "Fiber Laser Applications | Techwin Solutions",
+  description:
+    "Discover fiber laser applications from Techwin: LiDAR systems, quantum technology, optical sensing, gravitational waves, communications, biomedical, spectroscopy, material processing and more.",
+};
 
 // NOTE: yahi data tumne pehle share kiya tha (name, URL, title, keywords)
 const applications: ApplicationSummary[] = [

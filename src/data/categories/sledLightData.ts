@@ -62,7 +62,7 @@ export type CategoryData = {
 // ---------------------------------------------------------------------------
 
 export const sledLightData: CategoryData = {
-  url: "/products/sled-light-sources",
+  url: "/products/sled",
 
   metaTitle:
     "Super luminescent LED (SLED) Light Source Solutions | Techwin China",
@@ -78,7 +78,7 @@ export const sledLightData: CategoryData = {
     breadcrumb: [
       { label: "Home", href: "/" },
       { label: "Products", href: "/products" },
-      { label: "SLED Light Sources", href: "/sled-light-sources" },
+      { label: "SLED Light Sources", href: "/sled" },
     ],
     ctaPrimary: { label: "Request Quote", href: "/contact" },
     ctaSecondary: { label: "Download SLED Brochure", href: "/downloads/sled-brochure.pdf" },
@@ -101,7 +101,7 @@ export const sledLightData: CategoryData = {
 
   subCategories: [
     {
-      id: "point-light-source-1um",
+      id: "1um-point",
       name: "1.0 µm Point Light Source",
       shortDescription:
         "Broadband 1.0 µm SLED modules for fiber sensing, OCT and lab testing with high output and stable spectral profile.",
@@ -109,7 +109,7 @@ export const sledLightData: CategoryData = {
         "1.0 µm SLED systems deliver wide spectral bandwidth, strong output power and integrated thermal control. Ideal for precision metrology, sensor networks and component inspection where low coherence and stable illumination are required.",
     },
     {
-      id: "point-light-source-1-5um",
+      id: "1-5um-point",
       name: "1.5 µm Point Light Source",
       shortDescription:
         "Telecom-compatible 1.5 µm SLED modules optimized for fiber-based systems, distributed sensing and long-distance testing.",
@@ -117,7 +117,7 @@ export const sledLightData: CategoryData = {
         "1.5 µm SLED models offer optimal performance for fiber-optic environments, with low attenuation in fiber, stable spectral distribution and narrow power fluctuations—used widely in DAS/DTS, FBG interrogation and telecom research.",
     },
     {
-      id: "point-light-source-2-0um",
+      id: "2um-point",
       name: "2.0 µm Point Light Source",
       shortDescription:
         "Mid-IR 2.0 µm SLED solutions for specialized sensing, gas detection and material analysis with controlled noise and stable broadband output.",

@@ -1,3 +1,4 @@
+// src/components/products/RequestQuote.tsx
 "use client";
 import React, { useState, ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -40,6 +41,7 @@ export default function RequestQuote({ productTitle, productSlug, onSubmit }: Re
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // <-- UPDATED submit logic: sends to /api/request-quote and handles response
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email) {
@@ -50,24 +52,53 @@ export default function RequestQuote({ productTitle, productSlug, onSubmit }: Re
 
     const payload = {
       product: productTitle ?? productSlug ?? "Not specified",
-      ...formData,
+      name: formData.name,
+      company: formData.company,
+      email: formData.email,
+      phone: formData.phone,
+      message: formData.message,
+      honeypot: "", // keep empty for anti-spam
     };
 
     try {
+      // If parent passed an onSubmit callback, prefer that (keeps backwards compatibility)
       if (onSubmit) {
         await onSubmit(payload);
-      } else {
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        setDone(true);
+        setFormData({ name: "", company: "", email: "", phone: "", message: "" });
+        return;
       }
+
+      const res = await fetch("/api/request-quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        // try to read error message
+        let errMsg = "Network error";
+        try {
+          const json = await res.json();
+          errMsg = json?.error || JSON.stringify(json);
+        } catch (e) {
+          errMsg = await res.text().catch(() => "Network error");
+        }
+        throw new Error(errMsg);
+      }
+
+      // success
       setDone(true);
-    } catch (err) {
-      console.error(err);
-      alert("Failed to submit your request. Please try again later.");
+      setFormData({ name: "", company: "", email: "", phone: "", message: "" });
+    } catch (err: any) {
+      console.error("Request quote submit error:", err);
+      alert(typeof err === "string" ? err : err?.message || "Failed to submit your request. Please try again later.");
     } finally {
       setSending(false);
     }
   };
-  
+  // end updated submit logic -->
+
   const resetForm = () => {
     setDone(false);
     setFormData({ name: "", company: "", email: "", phone: "", message: "" });

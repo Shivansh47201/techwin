@@ -1,7 +1,7 @@
 // src/components/category/KeyFeatures.tsx
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { motion, Variants } from "framer-motion";
 
 export type FeatureItemObj = {
@@ -14,7 +14,6 @@ export type FeatureItemObj = {
 
 export type FeatureItem = string | FeatureItemObj;
 
-// Sub Category Item for display
 export interface SubCategoryItemObj {
   id?: string;
   name: string;
@@ -22,7 +21,6 @@ export interface SubCategoryItemObj {
   details?: string;
 }
 
-// Feature Matrix types
 export interface FeatureMatrixCategory {
   id: string;
   name: string;
@@ -51,6 +49,7 @@ type Props = {
 
 const WRAPPER = "max-w-7xl mx-auto px-4 sm:px-6";
 const SECTION = "py-8 sm:py-12 md:py-16";
+const PRIMARY = "#3B9ACB";
 
 const sectionVariants: Variants = {
   hidden: { opacity: 0, y: 12 },
@@ -59,60 +58,6 @@ const sectionVariants: Variants = {
     y: 0,
     transition: { duration: 0.45, ease: [0.22, 0.9, 0.3, 1] },
   },
-};
-
-const getFeatureIcon = (featureType: string): React.ReactNode => {
-  switch (featureType) {
-    case "stability":
-      return (
-        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M13 10V3L4 14h7v7l9-11h-7z" />
-        </svg>
-      );
-    case "noise":
-      return (
-        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 1C6.48 1 2 5.48 2 11s4.48 10 10 10 10-4.48 10-10S17.52 1 12 1zm-2 15l-5-5 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9z" />
-        </svg>
-      );
-    case "coherence":
-      return (
-        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" />
-        </svg>
-      );
-    case "integration":
-      return (
-        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-        </svg>
-      );
-    default:
-      return (
-        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-        </svg>
-      );
-  }
-};
-
-const getFeatureColor = (featureType: string): string => {
-  switch (featureType) {
-    case "stability":
-      return "from-blue-400 to-blue-600 text-blue-600";
-    case "noise":
-      return "from-green-400 to-green-600 text-green-600";
-    case "coherence":
-      return "from-purple-400 to-purple-600 text-purple-600";
-    case "integration":
-      return "from-orange-400 to-orange-600 text-orange-600";
-    case "bonus5":
-      return "from-pink-400 to-pink-600 text-pink-600";
-    case "bonus6":
-      return "from-indigo-400 to-indigo-600 text-indigo-600";
-    default:
-      return "from-slate-400 to-slate-600 text-slate-600";
-  }
 };
 
 const getFeatureLabel = (featureType: string, featureValue?: string): string => {
@@ -126,7 +71,6 @@ const getFeatureLabel = (featureType: string, featureValue?: string): string => 
     case "integration":
       return "Easy Integration";
     case "bonus5":
-      // Extract meaningful label from feature value if it's the first few words
       if (featureValue) {
         const words = featureValue.split(" ");
         return words.slice(0, 2).join(" ");
@@ -149,19 +93,16 @@ export default function KeyFeatures({
   subCategories = [],
   interactive = true,
 }: Props) {
-  // If featureMatrix is provided, use it; otherwise fall back to items
-  const hasFeatureMatrix = featureMatrix && featureMatrix.categories && featureMatrix.categories.length > 0;
+  const hasFeatureMatrix =
+    featureMatrix && featureMatrix.categories && featureMatrix.categories.length > 0;
 
   const matrixCategories = useMemo<FeatureMatrixCategory[]>(() => {
     if (hasFeatureMatrix) {
-      // If we have subCategories, combine them with featureMatrix
       if (subCategories && subCategories.length > 0) {
-        // Create a map of featureMatrix by index
         const featureMatrixCategories = featureMatrix!.categories;
-        
-        // Combine subCategories with featureMatrix, cycling through if needed
         return subCategories.map((subCat, index) => {
-          const featureData = featureMatrixCategories[index % featureMatrixCategories.length];
+          const featureData =
+            featureMatrixCategories[index % featureMatrixCategories.length];
           return {
             id: subCat.id || `sub-cat-${index}`,
             name: subCat.name,
@@ -174,7 +115,6 @@ export default function KeyFeatures({
     return [];
   }, [featureMatrix, hasFeatureMatrix, subCategories]);
 
-  // normalize items (for backward compatibility)
   const normalized = useMemo<FeatureItemObj[]>(
     () =>
       items
@@ -196,24 +136,30 @@ export default function KeyFeatures({
   const [activeId, setActiveId] = useState<string>("");
   const [activeFeatureType, setActiveFeatureType] = useState<string>("stability");
 
-  // Initialize activeId when data is ready
-  React.useEffect(() => {
-    if (hasFeatureMatrix && matrixCategories.length > 0 && !activeId) {
-      setActiveId(matrixCategories[0].id);
-    } else if (!hasFeatureMatrix && normalized.length > 0 && !activeId) {
-      setActiveId(normalized[0].id!);
-    }
-  }, [matrixCategories, normalized, activeId, hasFeatureMatrix]);
-
-  if (!hasFeatureMatrix && !normalized.length) return null;
-
   const isUsingMatrix = hasFeatureMatrix && matrixCategories.length > 0;
+
+  // ensure a valid default active id is always set (prevents blank UI)
+  useEffect(() => {
+    if (isUsingMatrix) {
+      if (matrixCategories.length > 0) {
+        setActiveId((prev) => (prev ? prev : matrixCategories[0].id));
+      }
+    } else {
+      if (normalized.length > 0) {
+        setActiveId((prev) => (prev ? prev : normalized[0].id!));
+      }
+    }
+  }, [isUsingMatrix, matrixCategories, normalized]);
+
   const activeCategory = isUsingMatrix
     ? matrixCategories.find((c) => c.id === activeId) ?? matrixCategories[0]
     : null;
+
   const activeItem = !isUsingMatrix
     ? normalized.find((f) => f.id === activeId) ?? normalized[0]
     : null;
+
+  if (!isUsingMatrix && !normalized.length) return null;
 
   const handleTabClick = (id: string) => {
     if (!interactive) return;
@@ -224,27 +170,22 @@ export default function KeyFeatures({
   const getLabel = (feat: FeatureItemObj, index: number) => {
     if (feat.title && feat.title.trim().length > 0) return feat.title;
     const raw = feat.text || "";
-    return raw.length > 42
-      ? raw.slice(0, 42) + "…"
-      : raw || `Feature ${index + 1}`;
+    return raw.length > 42 ? raw.slice(0, 42) + "…" : raw || `Feature ${index + 1}`;
   };
 
   const activeIndex = isUsingMatrix
-    ? matrixCategories.findIndex((c) => c.id === activeId) + 1
-    : normalized.findIndex((f) => f.id === activeId) + 1;
+    ? Math.max(0, matrixCategories.findIndex((c) => c.id === activeId)) + 1
+    : Math.max(0, normalized.findIndex((f) => f.id === activeId)) + 1;
 
-  // Get all feature types to display - only include bonus features if they have values
+  // feature types for selector (use available bonus fields)
   const featureTypes: string[] = ["stability", "noise", "coherence", "integration"];
   if (activeCategory?.features?.bonus5) featureTypes.push("bonus5");
   if (activeCategory?.features?.bonus6) featureTypes.push("bonus6");
 
   return (
-    <section
-      className={`${SECTION} bg-slate-50`}
-      aria-label="Key features"
-    >
+    <section className={`${SECTION} bg-slate-50`} aria-label="Key features">
       <div className={WRAPPER}>
-        {/* Header */}
+        {/* header */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -252,25 +193,48 @@ export default function KeyFeatures({
           variants={sectionVariants}
           className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 sm:gap-4 mb-6 sm:mb-8"
         >
-          <div>
-            <div className="inline-flex items-center gap-2 mb-2">
-              <span className="h-1.5 w-8 rounded-full bg-[#3B9ACB]/20" />
-              <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
-                Feature matrix
-              </span>
+          <div className="flex items-center gap-4 w-full md:w-auto justify-between">
+            <div>
+              <div className="inline-flex items-center gap-2 mb-2">
+                <span className="h-1.5 w-8 rounded-full bg-[#3B9ACB]/20" />
+                <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+                  Feature matrix
+                </span>
+              </div>
+              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-[-0.02em] text-[#3B9ACB]">
+                Engineered features that matter in the lab
+              </h2>
             </div>
-            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-[-0.02em] text-[#3B9ACB]">
-              Engineered features that matter in the lab
-            </h2>
+
+            {/* mobile compact action / count (keeps layout tidy) */}
+            <div className="md:hidden">
+              <button
+                type="button"
+                onClick={() => {
+                  // small convenience: jump to next item for quick preview on mobile
+                  if (isUsingMatrix && matrixCategories.length > 1) {
+                    const idx = matrixCategories.findIndex((c) => c.id === activeId);
+                    setActiveId(matrixCategories[(idx + 1) % matrixCategories.length].id);
+                  } else if (!isUsingMatrix && normalized.length > 1) {
+                    const idx = normalized.findIndex((f) => f.id === activeId);
+                    setActiveId(normalized[(idx + 1) % normalized.length].id!);
+                  }
+                }}
+                aria-label="Toggle preview"
+                className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-white/10 border border-white/20 text-white text-sm font-medium"
+              >
+                <span className="text-xs font-semibold">
+                  {isUsingMatrix ? `${matrixCategories.length} items` : `${normalized.length} items`}
+                </span>
+                <span className="inline-block w-5 h-5 rounded-full bg-white/10 text-xs text-white flex items-center justify-center">›</span>
+              </button>
+            </div>
           </div>
-          <p className="max-w-md text-xs text-slate-500">
-            Compare the most critical performance aspects of this laser
-            family – stability, noise, coherence and integration – in a
-            clean, tab-based view.
-          </p>
+
+          
         </motion.div>
 
-        {/* Tab layout */}
+        {/* grid: left (tabs) + right (panel) */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -278,380 +242,210 @@ export default function KeyFeatures({
           variants={sectionVariants}
           className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6"
         >
-          {/* Tabs */}
+          {/* left: categories / tabs */}
           <div className="md:col-span-4">
-            <div className="rounded-2xl border border-slate-200 bg-white shadow-[0_10px_30px_rgba(15,23,42,0.06)] p-2 sm:p-3 md:p-3">
+            <div className="rounded-2xl border border-slate-200 bg-white p-2 sm:p-3 shadow-sm">
               <div className="flex items-center justify-between mb-2 px-1">
-<<<<<<< HEAD
                 <span className="text-[11px] sm:text-xs font-medium text-slate-500">
-=======
-                <span className="text-xs font-medium text-slate-500">
->>>>>>> origin/main
                   {isUsingMatrix ? matrixCategories.length : normalized.length} engineered capabilities
                 </span>
-                <span className="hidden md:inline-flex text-[11px] text-slate-400">
-                  Select to view details
-                </span>
+                <span className="hidden md:inline-flex text-[11px] text-slate-400">Select to view details</span>
               </div>
 
-<<<<<<< HEAD
-              <div className="flex md:flex-col gap-1 overflow-x-auto md:overflow-visible pb-2 md:pb-1 hide-scrollbar">
-=======
-              <div className="flex md:flex-col gap-1 overflow-x-auto md:overflow-visible pb-1 hide-scrollbar">
->>>>>>> origin/main
-                {isUsingMatrix
-                  ? matrixCategories.map((cat, idx) => {
-                      const isActive = cat.id === activeId;
-                      return (
-                        <button
-                          key={cat.id}
-                          type="button"
-                          onClick={() => handleTabClick(cat.id)}
-<<<<<<< HEAD
-                          className={`group flex items-center justify-between md:justify-start whitespace-nowrap rounded-xl px-2 sm:px-3 py-2 md:px-3.5 md:py-2.5 text-[11px] sm:text-xs md:text-sm border transition-all ${
-=======
-                          className={`group flex items-center justify-between md:justify-start whitespace-nowrap rounded-xl px-3 py-2 md:px-3.5 md:py-2.5 text-xs md:text-sm border transition-all ${
->>>>>>> origin/main
-                            isActive
-                              ? "bg-[#3B9ACB]/10 border-[#3B9ACB]/50 text-[#3B9ACB] shadow-sm"
-                              : "bg-white border-transparent text-slate-600 hover:bg-slate-50 hover:border-slate-200"
-                          }`}
-                        >
-                          <div className="flex items-center gap-2 min-w-0">
-                            <span
-                              className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold ${
-                                isActive
-                                  ? "bg-[#3B9ACB] text-white"
-                                  : "bg-slate-100 text-slate-500"
-                              }`}
-                            >
-                              {idx + 1}
-                            </span>
-                            <span className="truncate">{cat.name}</span>
-                          </div>
+              {/* desktop: vertical list */}
+              <div className="hidden md:flex md:flex-col gap-2">
+                {(isUsingMatrix ? matrixCategories : normalized).map((entry: any, idx: number) => {
+                  const id = isUsingMatrix ? entry.id : entry.id;
+                  const label = isUsingMatrix ? entry.name : getLabel(entry, idx);
+                  const isActive = id === activeId;
+                  return (
+                    <button
+                      key={id}
+                      onClick={() => handleTabClick(id)}
+                      className={`flex items-center justify-between rounded-xl px-3 py-2 text-sm transition-all border ${
+                        isActive
+                          ? "bg-[#3B9ACB]/10 border-[#3B9ACB]/50 text-[#3B9ACB] shadow-sm"
+                          : "bg-white border-transparent text-slate-600 hover:bg-slate-50 hover:border-slate-200"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        <span className={`flex h-6 w-6 items-center justify-center rounded-full text-[12px] font-semibold ${isActive ? "bg-[#3B9ACB] text-white" : "bg-slate-100 text-slate-700"}`}>
+                          {idx + 1}
+                        </span>
+                        <span className="truncate">{label}</span>
+                      </div>
+                      <span className={`hidden md:inline-flex items-center justify-center h-5 w-5 rounded-full text-[10px] border ${isActive ? "border-[#3B9ACB]/40 text-[#3B9ACB]" : "border-slate-200 text-slate-400"}`}>
+                        ⋯
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
 
-                          <span
-                            className={`ml-2 hidden md:inline-flex h-5 w-5 items-center justify-center rounded-full text-[10px] border ${
-                              isActive
-                                ? "border-[#3B9ACB]/40 text-[#3B9ACB]"
-                                : "border-slate-200 text-slate-400 group-hover:border-slate-300"
-                            }`}
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="w-2.5 h-2.5"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                            >
-                              <path
-                                d="M8 5h11M8 12h8M8 19h5M5 5h.01M5 12h.01M5 19h.01"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </span>
-                        </button>
-                      );
-                    })
-                  : normalized.map((feat, idx) => {
-                      const isActive = feat.id === activeId;
-                      const label = getLabel(feat, idx);
-
-                      return (
-                        <button
-                          key={feat.id}
-                          type="button"
-                          onClick={() => handleTabClick(feat.id!)}
-<<<<<<< HEAD
-                          className={`group flex items-center justify-between md:justify-start whitespace-nowrap rounded-xl px-2 sm:px-3 py-2 md:px-3.5 md:py-2.5 text-[11px] sm:text-xs md:text-sm border transition-all ${
-=======
-                          className={`group flex items-center justify-between md:justify-start whitespace-nowrap rounded-xl px-3 py-2 md:px-3.5 md:py-2.5 text-xs md:text-sm border transition-all ${
->>>>>>> origin/main
-                            isActive
-                              ? "bg-[#3B9ACB]/10 border-[#3B9ACB]/50 text-[#3B9ACB] shadow-sm"
-                              : "bg-white border-transparent text-slate-600 hover:bg-slate-50 hover:border-slate-200"
-                          }`}
-                        >
-                          <div className="flex items-center gap-2 min-w-0">
-                            <span
-                              className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold ${
-                                isActive
-                                  ? "bg-[#3B9ACB] text-white"
-                                  : "bg-slate-100 text-slate-500"
-                              }`}
-                            >
-                              {idx + 1}
-                            </span>
-                            <span className="truncate">{label}</span>
-                          </div>
-
-                          <span
-                            className={`ml-2 hidden md:inline-flex h-5 w-5 items-center justify-center rounded-full text-[10px] border ${
-                              isActive
-                                ? "border-[#3B9ACB]/40 text-[#3B9ACB]"
-                                : "border-slate-200 text-slate-400 group-hover:border-slate-300"
-                            }`}
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="w-2.5 h-2.5"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                            >
-                              <path
-                                d="M8 5h11M8 12h8M8 19h5M5 5h.01M5 12h.01M5 19h.01"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </span>
-                        </button>
-                      );
-                    })}
+              {/* mobile: horizontal pill scroller */}
+              <div className="md:hidden -mx-2 px-2 overflow-x-auto hide-scrollbar">
+                <div className="flex gap-3 items-center py-2">
+                  {(isUsingMatrix ? matrixCategories : normalized).map((entry: any, idx: number) => {
+                    const id = isUsingMatrix ? entry.id : entry.id;
+                    const label = isUsingMatrix ? entry.name : getLabel(entry, idx);
+                    const isActive = id === activeId;
+                    return (
+                      <button
+                        key={id}
+                        onClick={() => handleTabClick(id)}
+                        className={`flex-shrink-0 inline-flex items-center gap-3 px-3.5 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
+                          isActive ? "bg-[#3B9ACB] text-white shadow-md" : "bg-white text-[#3B9ACB] border border-[#3B9ACB]/20"
+                        }`}
+                        type="button"
+                        aria-pressed={isActive}
+                      >
+                        <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-[12px] font-semibold ${isActive ? "bg-white text-[#3B9ACB]" : "bg-[#e6f7ff] text-[#3B9ACB]"}`}>
+                          {idx + 1}
+                        </span>
+                        <span className="truncate max-w-[11rem]">{label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Active panel */}
+          {/* right: active panel */}
           <div className="md:col-span-8">
-            <div className="relative h-full rounded-2xl border border-slate-200 bg-white shadow-[0_18px_55px_rgba(15,23,42,0.12)] px-3 sm:px-5 py-4 sm:py-5 md:px-7 md:py-7 overflow-hidden">
-              {/* soft gradients */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute -right-12 -top-16 w-48 h-48 rounded-full bg-[#3B9ACB]/10 blur-3xl"
-              />
-              <div
-                aria-hidden
-                className="pointer-events-none absolute -left-10 bottom-0 w-52 h-40 rounded-full bg-sky-200/30 blur-3xl"
-              />
+            <div className="relative rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 shadow-lg overflow-hidden">
+              {/* decorative gradients */}
+              <div aria-hidden className="pointer-events-none absolute -right-12 -top-16 w-48 h-48 rounded-full bg-[#3B9ACB]/8 blur-3xl" />
+              <div aria-hidden className="pointer-events-none absolute -left-10 bottom-0 w-52 h-40 rounded-full bg-sky-200/30 blur-3xl" />
 
               <motion.div
                 key={`${activeId}-${activeFeatureType}`}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.35,
-                  ease: [0.22, 0.9, 0.3, 1],
-                }}
+                transition={{ duration: 0.32, ease: [0.22, 0.9, 0.3, 1] }}
                 className="relative z-10"
               >
-                {/* badge */}
-                <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-2 sm:px-3 py-1 text-[10px] sm:text-[11px] font-medium text-slate-500 mb-2 sm:mb-3">
+                <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-2 py-1 text-[11px] font-medium text-slate-500 mb-3">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#3B9ACB]" />
-<<<<<<< HEAD
-                  <span className="truncate">
-=======
-                  <span>
->>>>>>> origin/main
+                  <span className="truncate inline-block max-w-[60%]">
                     {isUsingMatrix
-                      ? `${activeCategory?.name} – Capability #${activeIndex}`
+                      ? `${activeCategory?.name ?? ""} – Capability #${activeIndex}`
                       : `Focused capability #${activeIndex}`}
                   </span>
                 </div>
 
-<<<<<<< HEAD
-                <div className="flex flex-col gap-2 sm:gap-3 md:gap-4">
-                  {isUsingMatrix && activeCategory ? (
-                    <>
-                      <div>
-                        <h3 className="text-base sm:text-lg md:text-xl font-semibold tracking-[-0.01em] text-slate-900">
-                          {activeCategory.name}
-                        </h3>
-                        <p className="mt-1 sm:mt-2 text-[11px] sm:text-xs text-slate-500">
-=======
-                <div className="flex flex-col gap-3 md:gap-4">
-                  {isUsingMatrix && activeCategory ? (
-                    <>
-                      <div>
-                        <h3 className="text-lg md:text-xl font-semibold tracking-[-0.01em] text-slate-900">
-                          {activeCategory.name}
-                        </h3>
-                        <p className="mt-2 text-xs text-slate-500">
->>>>>>> origin/main
-                          Performance metrics and technical specifications
-                        </p>
-                      </div>
-
-                      {/* Feature type selector */}
-<<<<<<< HEAD
-                      <div className={`grid gap-1.5 sm:gap-2 ${
-=======
-                      <div className={`grid gap-2 ${
->>>>>>> origin/main
-                        featureTypes.length <= 3 ? 'grid-cols-3' :
-                        featureTypes.length <= 4 ? 'grid-cols-4' :
-                        featureTypes.length <= 5 ? 'grid-cols-5' :
-                        'grid-cols-6'
-                      }`}>
-                        {featureTypes.map((fType) => {
-                          const isActiveFeature = fType === activeFeatureType;
-                          const featureValue = activeCategory.features[fType as keyof typeof activeCategory.features];
-                          const label = getFeatureLabel(fType, featureValue);
-                          const colorClass = getFeatureColor(fType);
-
-                          return (
-                            <button
-                              key={fType}
-                              onClick={() => setActiveFeatureType(fType)}
-<<<<<<< HEAD
-                              className={`relative px-2 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[10px] sm:text-xs font-semibold transition-all duration-200 border-2 overflow-hidden group ${
-=======
-                              className={`relative px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 border-2 overflow-hidden group ${
->>>>>>> origin/main
-                                isActiveFeature
-                                  ? `bg-linear-to-br ${colorClass} text-white border-transparent shadow-lg`
-                                  : "bg-white border-slate-200 text-slate-600 hover:border-slate-300 hover:shadow-sm"
-                              }`}
-                            >
-                              {!isActiveFeature && (
-                                <span className={`absolute inset-0 bg-linear-to-br ${colorClass} opacity-0 group-hover:opacity-5 transition-opacity`} />
-                              )}
-                              <span className="relative">{label}</span>
-                            </button>
-                          );
-                        })}
-                      </div>
-
-                      {/* Feature content */}
-<<<<<<< HEAD
-                      <div className="mt-3 sm:mt-4 rounded-2xl bg-slate-50/80 border border-slate-200 px-3 sm:px-4 py-3 sm:py-4 md:px-5 md:py-5">
-                        <h4 className="text-[10px] sm:text-xs font-semibold tracking-[0.16em] uppercase text-slate-500 mb-1 sm:mb-2">
-                          {getFeatureLabel(activeFeatureType, activeCategory.features[activeFeatureType as keyof typeof activeCategory.features])}
-                        </h4>
-                        <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
-=======
-                      <div className="mt-4 rounded-2xl bg-slate-50/80 border border-slate-200 px-4 py-4 md:px-5 md:py-5">
-                        <h4 className="text-xs font-semibold tracking-[0.16em] uppercase text-slate-500 mb-2">
-                          {getFeatureLabel(activeFeatureType, activeCategory.features[activeFeatureType as keyof typeof activeCategory.features])}
-                        </h4>
-                        <p className="text-sm text-slate-700 leading-relaxed">
->>>>>>> origin/main
-                          {activeCategory.features[activeFeatureType as keyof typeof activeCategory.features] ||
-                            "Feature details not available"}
-                        </p>
-                      </div>
-
-                      {/* All features grid */}
-<<<<<<< HEAD
-                      <div className="mt-4 sm:mt-6">
-                        <h4 className="text-[10px] sm:text-xs font-semibold tracking-[0.16em] uppercase text-slate-500 mb-2 sm:mb-3">
-                          All Performance Metrics
-                        </h4>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-=======
-                      <div className="mt-6">
-                        <h4 className="text-xs font-semibold tracking-[0.16em] uppercase text-slate-500 mb-3">
-                          All Performance Metrics
-                        </h4>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
->>>>>>> origin/main
-                          {featureTypes.map((fType) => {
-                            const colorClass = getFeatureColor(fType);
-                            const featureValue = activeCategory.features[fType as keyof typeof activeCategory.features];
-                            const label = getFeatureLabel(fType, featureValue);
-                            
-                            return (
-                              <div
-                                key={fType}
-<<<<<<< HEAD
-                                className="relative group p-2 sm:p-3 rounded-xl bg-linear-to-br from-white to-slate-50 border-2 border-slate-100 hover:border-slate-200 transition-all hover:shadow-md overflow-hidden"
-=======
-                                className="relative group p-3 rounded-xl bg-linear-to-br from-white to-slate-50 border-2 border-slate-100 hover:border-slate-200 transition-all hover:shadow-md overflow-hidden"
->>>>>>> origin/main
-                              >
-                                {/* Colored accent bar */}
-                                <div className={`absolute top-0 left-0 w-1 h-full bg-linear-to-b ${colorClass}`} />
-                                
-                                <div className="pl-2">
-<<<<<<< HEAD
-                                  <p className="text-[10px] sm:text-xs font-semibold text-slate-700 mb-1">
-                                    {label}
-                                  </p>
-                                  <p className="text-[10px] sm:text-xs text-slate-600 line-clamp-3 leading-relaxed">
-=======
-                                  <p className="text-xs font-semibold text-slate-700 mb-1">
-                                    {label}
-                                  </p>
-                                  <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">
->>>>>>> origin/main
-                                    {featureValue || "N/A"}
-                                  </p>
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </>
-                  ) : activeItem ? (
-                    <>
-<<<<<<< HEAD
-                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-3">
-                        <div className="flex items-start gap-2 sm:gap-3">
-                          {activeItem.icon && (
-                            <div className="hidden sm:flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-[#3B9ACB] shrink-0">
-                              {activeItem.icon}
-                            </div>
-                          )}
-                          <div className="min-w-0">
-                            <h3 className="text-base sm:text-lg md:text-xl font-semibold tracking-[-0.01em] text-slate-900">
-=======
-                      <div className="flex flex-wrap items-start justify-between gap-3">
-                        <div className="flex items-start gap-3">
-                          {activeItem.icon && (
-                            <div className="hidden sm:flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 text-[#3B9ACB]">
-                              {activeItem.icon}
-                            </div>
-                          )}
-                          <div>
-                            <h3 className="text-lg md:text-xl font-semibold tracking-[-0.01em] text-slate-900">
->>>>>>> origin/main
-                              {activeItem.title || getLabel(activeItem, 0)}
-                            </h3>
-                          </div>
-                        </div>
-
-<<<<<<< HEAD
-                        <div className="mt-2 sm:mt-0 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-2 sm:px-3 py-1 text-[10px] sm:text-[11px] text-slate-500 shrink-0">
-=======
-                        <div className="mt-2 md:mt-0 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-[11px] text-slate-500">
->>>>>>> origin/main
-                          <span className="h-1 w-6 rounded-full bg-[#3B9ACB]/30" />
-                          <span>Lab-ready specification</span>
-                        </div>
-                      </div>
-
-                      {activeItem.details && (
-<<<<<<< HEAD
-                        <div className="mt-3 sm:mt-4 rounded-2xl bg-slate-50/80 border border-slate-200 px-3 sm:px-4 py-3 sm:py-4 md:px-5 md:py-5">
-                          <h4 className="text-[10px] sm:text-xs font-semibold tracking-[0.16em] uppercase text-slate-500 mb-1 sm:mb-2">
-                            Technical context
-                          </h4>
-                          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-=======
-                        <div className="mt-4 rounded-2xl bg-slate-50/80 border border-slate-200 px-4 py-4 md:px-5 md:py-5">
-                          <h4 className="text-xs font-semibold tracking-[0.16em] uppercase text-slate-500 mb-2">
-                            Technical context
-                          </h4>
-                          <p className="text-sm sm:text-sm text-slate-600 leading-relaxed">
->>>>>>> origin/main
-                            {activeItem.details}
-                          </p>
-                        </div>
-                      )}
-                    </>
-                  ) : null}
+                {/* title + intro */}
+                <div>
+                  <h3 className="text-base sm:text-lg md:text-xl font-semibold text-slate-900">
+                    {isUsingMatrix ? activeCategory?.name : activeItem?.title ?? getLabel(activeItem!, 0)}
+                  </h3>
+                  <p className="mt-1 sm:mt-2 text-[12px] text-slate-500">
+                    {isUsingMatrix
+                      ? "Performance metrics and technical specifications across key dimensions like stability, noise, coherence and integration."
+                      : "Key capability within this product family."}
+                  </p>
                 </div>
 
-<<<<<<< HEAD
-                <div className="mt-3 sm:mt-5 pt-3 sm:pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 sm:gap-3 text-[10px] sm:text-[11px] text-slate-500"></div>
-=======
-                <div className="mt-5 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-[11px] text-slate-500"></div>
->>>>>>> origin/main
+                {/* feature type selector:
+                    - mobile: horizontal scroller (PRIMARY styling)
+                    - md+: grid with PRIMARY active pill
+                */}
+                <div className="mt-4">
+                  {/* desktop grid */}
+                  <div className="hidden md:grid gap-2"
+                    style={{
+                      gridTemplateColumns:
+                        featureTypes.length <= 3
+                          ? "repeat(3, minmax(0,1fr))"
+                          : featureTypes.length <= 4
+                          ? "repeat(4, minmax(0,1fr))"
+                          : featureTypes.length <= 5
+                          ? "repeat(5, minmax(0,1fr))"
+                          : "repeat(6, minmax(0,1fr))",
+                    }}
+                  >
+                    {featureTypes.map((fType) => {
+                      const isActiveFeature = fType === activeFeatureType;
+                      const label = getFeatureLabel(fType, activeCategory?.features?.[fType as keyof FeatureMatrixCategory["features"]]);
+                      return (
+                        <button
+                          key={fType}
+                          onClick={() => setActiveFeatureType(fType)}
+                          className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all border-2 ${
+                            isActiveFeature ? "bg-[#3B9ACB] text-white border-transparent shadow-lg" : "bg-white text-[#3B9ACB] border-[#3B9ACB]/20"
+                          }`}
+                          type="button"
+                          aria-pressed={isActiveFeature}
+                        >
+                          {label}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* mobile scroller */}
+                  <div className="md:hidden -mx-2 px-2 overflow-x-auto hide-scrollbar mt-1">
+                    <div className="flex gap-3 items-center py-2">
+                      {featureTypes.map((fType) => {
+                        const isActiveFeature = fType === activeFeatureType;
+                        const label = getFeatureLabel(fType, activeCategory?.features?.[fType as keyof FeatureMatrixCategory["features"]]);
+                        return (
+                          <button
+                            key={fType}
+                            onClick={() => setActiveFeatureType(fType)}
+                            className={`flex-shrink-0 inline-flex items-center gap-3 px-3 py-2 rounded-full text-sm font-semibold transition-all whitespace-nowrap ${
+                              isActiveFeature ? "bg-[#3B9ACB] text-white shadow-md" : "bg-white text-[#3B9ACB] border border-[#3B9ACB]/20"
+                            }`}
+                            type="button"
+                            aria-pressed={isActiveFeature}
+                          >
+                            <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-[12px] font-semibold ${isActiveFeature ? "bg-white text-[#3B9ACB]" : "bg-[#e6f7ff] text-[#3B9ACB]"}`}>
+                              ●
+                            </span>
+                            <span className="truncate max-w-[12rem]">{label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                {/* details panel for active feature */}
+                <div className="mt-4 rounded-2xl bg-slate-50/80 border border-slate-200 px-4 py-4">
+                  <h4 className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 mb-2">
+                    {getFeatureLabel(activeFeatureType, activeCategory?.features?.[activeFeatureType as keyof FeatureMatrixCategory["features"]])}
+                  </h4>
+                  <p className="text-sm text-slate-700 leading-relaxed">
+                    {isUsingMatrix
+                      ? activeCategory?.features[activeFeatureType as keyof FeatureMatrixCategory["features"]] ?? "Feature details not available"
+                      : activeItem?.details ?? activeItem?.text ?? "Feature details not available"}
+                  </p>
+                </div>
+
+                {/* grid with all metrics */}
+                {isUsingMatrix && (
+                  <div className="mt-4">
+                    <h4 className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 mb-2">All Performance Metrics</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {featureTypes.map((fType) => (
+                        <div key={fType} className="relative p-3 rounded-xl bg-white border border-slate-100 shadow-sm">
+                          <p className="text-[11px] font-semibold text-slate-700 mb-1">{getFeatureLabel(fType, activeCategory?.features?.[fType as keyof FeatureMatrixCategory["features"]])}</p>
+                          <p className="text-[12px] text-slate-600 leading-relaxed">
+                            {activeCategory?.features?.[fType as keyof FeatureMatrixCategory["features"]] ?? "N/A"}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* footer */}
+                <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-slate-500">
+                  <div className="flex items-center justify-between">
+                    {/* <span>Interactive comparison for quick decision-making.</span>
+                    <span className="hidden sm:inline">Tap a metric to read detailed impact.</span> */}
+                  </div>
+                </div>
               </motion.div>
             </div>
           </div>

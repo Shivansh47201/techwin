@@ -10,7 +10,7 @@ import { wavelengthConversionData } from "@/data/categories/wavelengthConversion
 import { broadbandAseData } from "@/data/categories/broadbandAseData";
 import { fiberAmplifierData } from "@/data/categories/fiberAmplifierData";
 import { laserTestingData } from "@/data/categories/laserTestingData";
-import { pointLightSourceData } from "@/data/categories/pointLightSourceData";
+import { sledLightData } from "@/data/categories/sledLightData";
 import { applications } from "@/data/Application/applications";
 import { SearchDropdown } from "@/components/common/SearchDropdown";
 import type { SearchResult } from "@/app/api/search/route";
@@ -24,7 +24,7 @@ const categoryTitleMap = [
   { title: "Broadband & ASE Sources", data: broadbandAseData },
   { title: "Fiber Amplifiers", data: fiberAmplifierData },
   { title: "Testing Systems", data: laserTestingData },
-  { title: "Point Light Sources", data: pointLightSourceData },
+  { title: "SLED Light Sources", data: sledLightData },
 ];
 
 const productCategories = categoryTitleMap.map((item) => {
@@ -36,7 +36,7 @@ const productCategories = categoryTitleMap.map((item) => {
     image: item.data?.hero?.image || "",
     children: (item.data?.subCategories || []).map((subCat) => ({
       title: subCat.name,
-      slug: subCat.id ?? subCat.slug ?? "",
+      slug: subCat.id ?? "",
     })),
   };
 });
@@ -69,7 +69,7 @@ export default function MobileNav({ onClose }: MobileNavProps) {
     setIsSearching(true);
     searchTimeoutRef.current = setTimeout(async () => {
       try {
-        const res = await fetch(`/api/search-static?q=${encodeURIComponent(searchQuery)}`);
+        const res = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`);
         const data = await res.json();
         setSearchResults(data.results || []);
         setShowSearchDropdown(true);

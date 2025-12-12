@@ -112,35 +112,35 @@ export default function SubCategoryGrid({
 
       <div className={WRAPPER}>
         {/* Header strip */}
-        <header className="mb-8 md:mb-10">
+        <header className="mb-6 sm:mb-8 md:mb-10">
           <div className="inline-flex items-center gap-2 mb-3">
             <span className="h-1.5 w-10 rounded-full bg-white/80" />
-            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/90">
+            <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-white/90">
               Product families
             </span>
           </div>
 
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 md:gap-4">
             <div>
               {/* heading primary blue on white card theme → yahan white, neeche cards white */}
-              <h2 className="text-2xl md:text-3xl lg:text-[2.3rem] font-semibold leading-tight tracking-[-0.02em] text-white">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-[2.3rem] font-semibold leading-tight tracking-[-0.02em] text-white">
                 {heading}
               </h2>
               {/* subtitle light */}
-              <p className="mt-3 text-sm md:text-base text-blue-50/95 max-w-3xl">
+              <p className="mt-2 sm:mt-3 text-xs sm:text-sm md:text-base text-blue-50/95 max-w-3xl">
                 {subtitle}
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3 text-xs md:text-sm">
+            <div className="flex flex-wrap items-center gap-2 text-[10px] sm:text-xs md:text-sm">
               {/* product families pill – white bg, primary text */}
-              <span className="inline-flex items-center gap-2 rounded-full bg-white border border-white/60 px-3 py-1.5 text-[#3B9ACB]">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white border border-white/60 px-2.5 sm:px-3 py-1 sm:py-1.5 text-[#3B9ACB]">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                 <span>{items.length} product families</span>
               </span>
 
               {/* Datasheets pill */}
-              <span className="inline-flex items-center gap-2 rounded-full bg-white border border-white/60 px-3 py-1.5 text-[#3B9ACB]">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white border border-white/60 px-2.5 sm:px-3 py-1 sm:py-1.5 text-[#3B9ACB]">
                 <span className="h-1 w-6 rounded-full bg-[#3B9ACB]/25" />
                 <span>Datasheets &amp; quick specs available</span>
               </span>
@@ -155,7 +155,7 @@ export default function SubCategoryGrid({
           viewport={{ once: true, amount: 0.15 }}
           variants={listVariants}
         >
-          <div className={`grid ${gridCols} gap-6`}>
+          <div className={`grid ${gridCols} gap-4 sm:gap-5 md:gap-6`}>
             {items.map((item, idx) => {
               const slug = item.id ?? normalizeSlug(item.name);
               // try to find a matching product object (some product entries live under src/data/products)
@@ -184,7 +184,7 @@ export default function SubCategoryGrid({
                   >
                     <div className="flex flex-col h-full">
                       {/* Thumb */}
-                      <div className="relative w-full h-44 rounded-xl overflow-hidden mb-4">
+                      <div className="relative w-full h-32 sm:h-40 md:h-44 rounded-xl overflow-hidden mb-4">
                         <Image
                           src={
                             // prefer a product hero image (if available), else fall back to item.image or fallbackImage
@@ -216,10 +216,10 @@ export default function SubCategoryGrid({
 
                       {/* Content */}
                       <div className="flex-1 flex flex-col">
-                        <h3 className="text-base md:text-lg font-semibold text-slate-900 tracking-[-0.01em]">
+                        <h3 className="text-sm sm:text-base md:text-lg font-semibold text-slate-900 tracking-[-0.01em]">
                           {item.name}
                         </h3>
-                        <p className="mt-2 text-sm text-slate-600 flex-1">
+                        <p className="mt-2 text-xs sm:text-sm text-slate-600 flex-1">
                           {item.shortDescription}
                         </p>
 
@@ -292,16 +292,7 @@ export default function SubCategoryGrid({
         </motion.div>
 
         {/* Micro footer chips */}
-        <div className="mt-9 flex flex-wrap items-center gap-3 text-xs md:text-sm text-blue-50/95">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/15 border border-white/25 px-3 py-1.5">
-            <span className="font-semibold text-white">Catalog view</span>
-            <span>Browse and compare all models quickly.</span>
-          </div>
-          <div className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 px-3 py-1.5">
-            <span className="font-semibold text-white">Need guidance?</span>
-            <span>Pair this grid with a contact CTA below.</span>
-          </div>
-        </div>
+
       </div>
 
       {/* Modal */}
@@ -311,20 +302,20 @@ export default function SubCategoryGrid({
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
-            className="fixed inset-0 z-50 flex items-center justify-center p-6"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
             onClick={() => setOpenItem(null)}
           >
             <div className="absolute inset-0 bg-black/55 backdrop-blur-sm" />
 
             <motion.div
-              className="relative z-10 max-w-4xl w-full bg-white rounded-2xl shadow-[0_32px_80px_rgba(15,23,42,0.6)] overflow-hidden"
+              className="relative z-10 max-w-4xl w-full mx-auto bg-white rounded-2xl shadow-[0_32px_80px_rgba(15,23,42,0.6)] overflow-hidden max-h-[90vh] overflow-y-auto"
               initial={{ opacity: 0, y: 18, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 8, scale: 0.98 }}
               transition={{ duration: 0.26 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="grid grid-cols-1 md:grid-cols-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 auto-rows-max">
                 {(() => {
                   const openSlug = openItem.id ?? normalizeSlug(openItem.name);
                   const openProduct = PRODUCT_MAP[openSlug];
@@ -332,7 +323,7 @@ export default function SubCategoryGrid({
                   const modalImageAlt = openProduct?.heroImage?.alt ?? openItem.imageAlt ?? `${openItem.name} — Techwin`;
 
                   return (
-                    <div className="relative h-56 md:h-auto md:min-h-80">
+                    <div className="relative h-48 sm:h-56 md:h-auto md:min-h-80">
                       <Image
                         src={modalImageSrc}
                         alt={modalImageAlt}
@@ -357,15 +348,15 @@ export default function SubCategoryGrid({
                     </div>
                   );
                 })()}
-                <div className="p-6 md:p-8 flex flex-col">
+                <div className="p-4 sm:p-6 md:p-8 flex flex-col">
                   <h3
                     id="modal-title"
-                    className="text-lg md:text-xl font-semibold text-slate-900 tracking-[-0.01em]"
+                    className="text-base sm:text-lg md:text-xl font-semibold text-slate-900 tracking-[-0.01em]"
                   >
                     {openItem.name}
                   </h3>
 
-                  <p className="mt-3 text-sm text-slate-700">
+                  <p className="mt-3 text-xs sm:text-sm text-slate-700">
                     {openItem.details ?? openItem.shortDescription}
                   </p>
 

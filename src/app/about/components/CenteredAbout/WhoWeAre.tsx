@@ -133,7 +133,7 @@ export default function WhoWeAre({
                 </div>
 
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                  <button
+                  {/* <button
                     onClick={(e) => {
                       e.stopPropagation();
                       handleTrigger();
@@ -141,22 +141,20 @@ export default function WhoWeAre({
                     className="px-4 py-2 rounded-md bg-[#3087C0] text-white font-medium text-center"
                   >
                     Learn More
-                  </button>
+                  </button> */}
 
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       window.location.href = '/contact';
                     }}
-                    className="px-4 py-2 rounded-md border border-[#3087C0] text-[#3087C0] bg-white text-center"
+                    className="px-4 py-2 rounded-md bg-[#3087C0] text-white font-medium text-center"
                   >
                     Contact Sales
                   </button>
                 </div>
 
-                <div className="mt-3 text-xs text-slate-500">
-                  Tap to activate the effect
-                </div>
+
               </div>
             </div>
           </div>

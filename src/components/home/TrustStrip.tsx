@@ -83,8 +83,8 @@ export default function TrustStrip(props: {
     el.style.animationPlayState = isPaused ? "paused" : "running";
   }, [isPaused]);
 
-  // duplicate logos for seamless loop
-  const loopLogos = logos.length < 6 ? [...logos, ...logos] : logos;
+  // duplicate logos for seamless loop (ensure we have enough for continuous scroll)
+  const loopLogos = [...logos, ...logos, ...logos];
 
   // prepare display value for counters
   function displayValue(c: { value: string | number }, idx: number) {
@@ -175,7 +175,7 @@ export default function TrustStrip(props: {
             >
               <div
                 ref={trackRef}
-                style={{ animation: "trustScroll 22s linear infinite" }}
+                style={{ animation: "trustScroll 20s linear infinite" }}
                 className="flex gap-8 items-center p-3"
               >
                 {loopLogos.map((l, i) => (
@@ -185,6 +185,7 @@ export default function TrustStrip(props: {
                       alt={l.alt || l.id}
                       width={120}
                       height={48}
+                      priority={i < 4}
                       style={{ width: "auto", height: "auto" }}
                       className="object-contain"
                     />

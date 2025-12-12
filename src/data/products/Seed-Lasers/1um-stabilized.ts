@@ -190,53 +190,6 @@ export const oneMicronFrequencyStabilizedSeedLaser: Product = {
         alt: "1.0 µm Ultra-Low Noise Seed Laser",
       },
       href: "/products/seed-lasers/1um-ultra-low-noise",
-<<<<<<< HEAD:src/data/products/Seed-Lasers/1um-stabilized.ts
-=======
-    },
-    {
-      slug: "1-5um-narrow",
-      title: "1.5 µm Narrow Linewidth Seed Laser",
-      shortDescription:
-        "1.5 µm ultra-narrow linewidth seed laser with 100 Hz-level linewidth for high-precision sensing and quantum technologies.",
-      image: {
-        src: "/products/seed-lasers/1-5um-narrow/hero.jpg",
-        alt: "1.5 µm Narrow Linewidth Seed Laser",
-      },
-      href: "/products/seed-lasers/1-5um-narrow",
-    },
-    {
-      slug: "1-5um-phase",
-      title: "1.5 µm Phase-Modulated Seed Laser",
-      shortDescription:
-        "1.5 µm phase-modulated seed laser with tunable phase, ultra-low phase noise, and high power stability.",
-      image: {
-        src: "/products/seed-lasers/1-5um-phase/hero.jpg",
-        alt: "1.5 µm Phase-Modulated Seed Laser",
-      },
-      href: "/products/seed-lasers/1-5um-phase",
-    },
-    {
-      slug: "2um-single",
-      title: "2.0 µm Single-Frequency Seed Laser",
-      shortDescription:
-        "2.0 µm DBR single-frequency seed laser for quantum information, lidar, and high-resolution spectroscopy.",
-      image: {
-        src: "/products/seed-lasers/2um-single/hero.jpg",
-        alt: "2.0 µm Single-Frequency Seed Laser",
-      },
-      href: "/products/seed-lasers/2um-single",
-    },
-    {
-      slug: "2um-phase",
-      title: "2.0 µm Phase-Modulated Fiber Seed Source",
-      shortDescription:
-        "2.0 µm phase-modulated fiber seed source with mid-IR output, advanced phase modulation, and fully fiberized design.",
-      image: {
-        src: "/products/seed-lasers/2um-phase/hero.jpg",
-        alt: "2.0 µm Phase-Modulated Fiber Seed Source",
-      },
-      href: "/products/seed-lasers/2um-phase",
->>>>>>> origin/main:src/data/products/Seed-Lasers/1.0um-frequency-stabilized-seed-laser.ts
     },
     {
       slug: "1-5um-narrow",

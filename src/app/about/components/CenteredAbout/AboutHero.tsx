@@ -1,14 +1,13 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import { motion, type Variants } from 'framer-motion';
+import { useRequestQuote } from '@/context/RequestQuoteContext';
 
 type Props = {
   backgroundImage?: string;
   backgroundVideo?: string;
   overlayDarkness?: number;
-  onRequestQuote?: () => void;
 };
 
 const fadeUp: Variants = {
@@ -24,12 +23,8 @@ export default function AboutHero({
   backgroundImage = '/techwin-company/techwin-building.jpg',
   backgroundVideo = '/videos/about-hero-video.webm',
   overlayDarkness = 0.45, // darker overlay for readable white text
-  onRequestQuote,
 }: Props) {
-  const openQuote = () => {
-    if (onRequestQuote) return onRequestQuote();
-    window.dispatchEvent(new CustomEvent('openRequestQuote'));
-  };
+  const { openModal } = useRequestQuote();
 
   return (
     <header
@@ -131,18 +126,11 @@ export default function AboutHero({
           {/* CTA Buttons */}
           <motion.div variants={fadeUp} className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-3">
             <button
-              onClick={openQuote}
+              onClick={openModal}
               className="w-full sm:w-auto px-6 py-3 rounded-lg bg-[#3087C0] text-white font-medium shadow-lg hover:brightness-110 focus:ring-2 focus:ring-white"
             >
               Request Quote
             </button>
-
-            <Link
-              href="/products"
-              className="w-full sm:w-auto px-6 py-3 rounded-lg border border-white text-white font-medium hover:bg-white/10 focus:ring-2 focus:ring-white text-center"
-            >
-              View Products
-            </Link>
           </motion.div>
         </motion.div>
       </div>

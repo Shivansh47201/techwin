@@ -31,7 +31,7 @@ export default function SearchClient() {
 
       try {
         const res = await fetch(
-          `/api/search-static?q=${encodeURIComponent(trimmed)}`
+          `/api/search?q=${encodeURIComponent(trimmed)}`
         );
         const data = await res.json();
         const apiResults: SearchResult[] = data.results || [];

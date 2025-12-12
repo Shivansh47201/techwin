@@ -13,7 +13,6 @@ import { wavelengthConversionData } from "@/data/categories/wavelengthConversion
 import { broadbandAseData } from "@/data/categories/broadbandAseData";
 import { fiberAmplifierData } from "@/data/categories/fiberAmplifierData";
 import { laserTestingData } from "@/data/categories/laserTestingData";
-import { pointLightSourceData } from "@/data/categories/pointLightSourceData";
 import { sledLightData } from "@/data/categories/sledLightData";
 import { PRODUCT_MAP } from "@/data/products";
 
@@ -43,7 +42,6 @@ const DATA_CATEGORIES = [
   broadbandAseData,
   fiberAmplifierData,
   laserTestingData,
-  pointLightSourceData,
   sledLightData,
 ];
 
@@ -106,7 +104,7 @@ function Card({ product, href }: { product: ProductCard; href: string }) {
 
           <div className="mt-auto pt-4">
             {/* Present a visual CTA but it's not a nested link (card itself is the link) */}
-            <span className="inline-block bg-[var(--color-primary)] text-white font-medium text-xs sm:text-sm px-3 py-1.5 rounded">
+            <span className="inline-block bg-primary text-white font-medium text-xs sm:text-sm px-3 py-1.5 rounded">
               Learn More
             </span>
           </div>
@@ -198,7 +196,7 @@ export default function ProductFamilies({
           <div className="text-center mt-12">
             <Link
               href="/products"
-              className="inline-block bg-white text-[var(--color-primary)] font-semibold px-6 py-2.5 rounded-full shadow-md hover:bg-white/90 transition"
+              className="inline-block bg-white text-primary font-semibold px-6 py-2.5 rounded-full shadow-md hover:bg-white/90 transition"
             >
               See All Products
             </Link>
