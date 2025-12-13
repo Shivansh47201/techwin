@@ -4,9 +4,7 @@ export function safeImageSrc(src?: string | null) {
     // normalize and encode
     let s = String(src);
 
-    // If data references omit the `/products` prefix (e.g. 
-    // "/single-frequency/..."), prefix with `/products` so paths
-    // map to `public/products/...` where our images live.
+
     const knownProductRoots = [
       "/single-frequency",
       "/seed-lasers",

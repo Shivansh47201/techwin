@@ -13,23 +13,25 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
+    "plugins": [{ "name": "next" }],
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "types": ["node"]
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/global.d.ts",       
+    "src/global.d.ts",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
-, "src/data/categories/singleFrequencyData.ts", "src/components/products/ProductGraphsAndTableSection.tsx", "src/data/products/ase-sources/ase-light-source-1.5um"  ],
+    "**/*.mts",
+    "src/data/categories/singleFrequencyData.ts",
+    "src/components/products/ProductGraphsAndTableSection.tsx",
+    "src/data/products/ase-sources/ase-light-source-1.5um"
+  ],
   "exclude": ["node_modules"]
 }

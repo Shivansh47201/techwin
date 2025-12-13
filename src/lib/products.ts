@@ -202,7 +202,6 @@ export async function getProductData(category: string, productSlug: string) {
     }
     if (startIdx === -1) return null;
 
-    // Walk the source from startIdx to find matching closing brace, handling strings/comments.
     let i = startIdx;
     let depth = 0;
     let inSingle = false;
