@@ -4,7 +4,6 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// helper to get recipients array from env
 function getRecipients(): string[] {
   const raw = process.env.TO_EMAILS || process.env.TO_EMAIL || "";
   return raw.split(",").map(s => s.trim()).filter(Boolean);
