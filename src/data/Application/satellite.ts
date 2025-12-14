@@ -33,7 +33,7 @@ export const satelliteApplication: ApplicationDetail = {
   url: "/application/satellite",
   name: "Satellite Communication",
   heroImage: {
-    src: "/applications/Satellite Communication.jpg",
+    src: "/applications/satellite-communication.jpg",
     alt: "Satellite Communication",
   },
   metaTitle:

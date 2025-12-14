@@ -40,7 +40,7 @@ export const gravitationalWaveApplication: ApplicationDetail = {
   heroTagline:
     "Ultra-stable, narrow-linewidth and low-noise fiber laser sources engineered for interferometric gravitational wave detection systems.",
   heroImage: {
-    src: "/applications/Gravitational Wave Detection.jpg",
+    src: "/applications/gravitational-wave-detection.jpg",
     alt: "Gravitational Wave Detection",
   },
   heroIntro:

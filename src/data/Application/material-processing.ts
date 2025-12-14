@@ -40,7 +40,7 @@ export const materialProcessingApplication: ApplicationDetail = {
   heroTagline:
     "Precision-focused, stable and high-efficiency fiber lasers built for industrial cutting, welding, drilling, engraving, and surface treatment workflows.",
   heroImage: {
-    src: "/applications/Material Processing.jpg",
+    src: "/applications/material-processing.jpg",
     alt: "Material Processing",
   },
   heroIntro:

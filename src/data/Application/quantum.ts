@@ -41,7 +41,7 @@ export const quantumApplication: ApplicationDetail = {
   heroTagline:
     "Ultra-stable, narrow-linewidth and low-noise fiber lasers engineered for advanced quantum optics, sensing, metrology and communication systems.",
   heroImage: {
-    src: "/applications/Quantum Technology.jpg",
+    src: "/applications/quantum-technology.jpg",
     alt: "Quantum Technology",
   },
   heroIntro:

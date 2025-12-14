@@ -41,7 +41,7 @@ export const biomedicalApplication: ApplicationDetail = {
   heroTagline:
     "Biomedical and medical laser systems provide controlled, stable optical output for diagnostics, imaging, treatment devices and life-science research tools.",
   heroImage: {
-    src: "/applications/Biomedical & Diagnostics.jpg",
+    src: "/applications/biomedical-diagnostics.jpg",
     alt: "Biomedical & Diagnostics",
   },
   heroIntro:

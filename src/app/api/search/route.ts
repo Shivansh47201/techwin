@@ -1,9 +1,10 @@
-// Minimal placeholder for static export: real search API is moved to src/app/_api
+// Search API endpoint - must be dynamic to accept query parameters
 import { NextResponse, type NextRequest } from "next/server";
 
-// For static HTML export ensure this route is treated as static by default
-export const dynamic = "force-static";
-export const revalidate = false;
+// IMPORTANT: This must be dynamic, not static!
+// The route needs to accept query parameters for search to work
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 // Shared type for search results used by client components
 export type SearchResult = {
@@ -15,21 +16,21 @@ export type SearchResult = {
   category?: string;
 };
 
-// The real implementation lives in `src/app/_api/search/route.ts` so that
-// static export isn't blocked. Always use the real implementation.
-export async function GET(request?: NextRequest) {
+// The real implementation lives in `src/app/_api/search/route.ts`
+// This wrapper ensures the route is treated as dynamic
+export async function GET(request: NextRequest) {
   try {
-    // Always use the real API implementation
+    // Call the real API implementation
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const mod = await import("@/app/_api/search/route");
     if (mod && typeof mod.GET === "function") {
-      return await mod.GET(request as NextRequest);
+      return await mod.GET(request);
     }
   } catch (err) {
-    // ignore and fall back to empty
+    console.error("Search API error:", err);
   }
 
-  // Return empty results fallback.
+  // Return empty results fallback
   const results: SearchResult[] = [];
   return NextResponse.json({ results });
 }

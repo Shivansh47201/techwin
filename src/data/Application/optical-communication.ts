@@ -43,7 +43,7 @@ export const opticalCommunicationApplication: ApplicationDetail = {
   heroTagline:
     "High-stability, narrow-linewidth fiber lasers engineered for advanced optical communication, data transmission, and networking systems.",
   heroImage: {
-    src: "/applications/Optical Communication.jpg",
+    src: "/applications/optical-communication.jpg",
     alt: "Optical Communication",
   },
   heroIntro:

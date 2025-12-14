@@ -40,7 +40,7 @@ export const lidarApplication: ApplicationDetail = {
   heroTagline:
     "Engineered for accuracy, long-range detection, and stable optical performance in modern LiDAR sensing platforms.",
   heroImage: {
-    src: "/applications/LiDAR Systems.jpg",
+    src: "/applications/lidar-systems.jpg",
     alt: "LiDAR Systems",
   },
   heroIntro:

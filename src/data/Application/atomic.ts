@@ -42,7 +42,7 @@ export const atomicApplication: ApplicationDetail = {
   heroIntro:
     "Atomic-level studies demand optical sources that deliver stable power, narrow linewidth, and reliable long-term performance. Precise light control directly influences measurement accuracy, repeatability, and experimental reliability.",
   heroImage: {
-    src: "/applications/Atomic Physics Research.jpg",
+    src: "/applications/atomic-physics-research.jpg",
     alt: "Atomic Physics Research",
   },
 

@@ -41,7 +41,7 @@ export const sensingApplication: ApplicationDetail = {
   heroTagline:
     "High-stability, narrow-linewidth fiber lasers engineered for advanced optical sensing, structural monitoring, and distributed measurement systems.",
   heroImage: {
-    src: "/applications/Fiber Optic Sensing.jpg",
+    src: "/applications/fiber-optic-sensing.jpg",
     alt: "Fiber Optic Sensing",
   },
   heroIntro:

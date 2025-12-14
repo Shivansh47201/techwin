@@ -41,7 +41,7 @@ export const communicationApplication: ApplicationDetail = {
   heroIntro:
     "Reliable and stable light sources play a central role in optical communication. Our fiber lasers deliver narrow linewidth, low noise, and long-term wavelength stability for DWDM, coherent detection, and high-capacity links.",
   heroImage: {
-    src: "/applications/Optical Communication.jpg",
+    src: "/applications/optical-communication.jpg",
     alt: "Optical Communication",
   },
 
