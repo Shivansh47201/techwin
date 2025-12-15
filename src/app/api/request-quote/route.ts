@@ -1,8 +1,5 @@
-// src/app/api/request-quote/route.ts
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 function getRecipients(): string[] {
   const raw = process.env.TO_EMAILS || process.env.TO_EMAIL || "";
@@ -11,6 +8,19 @@ function getRecipients(): string[] {
 
 export async function POST(req: Request) {
   try {
+    const apiKey = process.env.RESEND_API_KEY;
+
+    if (!apiKey) {
+      console.error("RESEND_API_KEY missing");
+      return NextResponse.json(
+        { error: "Email service not configured" },
+        { status: 500 }
+      );
+    }
+
+    // ✅ Lazy init (SAFE at build time)
+    const resend = new Resend(apiKey);
+
     const body = await req.json();
     const {
       name,
@@ -24,17 +34,25 @@ export async function POST(req: Request) {
     } = body as any;
 
     // Basic validation
-    if (honeypot) return NextResponse.json({ error: "Spam detected" }, { status: 400 });
+    if (honeypot) {
+      return NextResponse.json({ error: "Spam detected" }, { status: 400 });
+    }
+
     if (!name || !email || (!message && !product && !productInterest)) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
     }
 
     const recipients = getRecipients();
     if (!recipients.length) {
-      return NextResponse.json({ error: "No recipient configured" }, { status: 500 });
+      return NextResponse.json(
+        { error: "No recipient configured" },
+        { status: 500 }
+      );
     }
 
-    // Build HTML body
     const html = `
       <h2>New Quote / Request Submission</h2>
       <p><strong>Name:</strong> ${name}</p>
@@ -44,12 +62,12 @@ export async function POST(req: Request) {
       <p><strong>Product / Interest:</strong> ${product || productInterest || "N/A"}</p>
       <p><strong>Message:</strong><br/>${(message || "").replace(/\n/g, "<br/>")}</p>
       <hr/>
-      <p>Sent from website contact form</p>
+      <p>Sent from website request-quote form</p>
     `;
 
     await resend.emails.send({
-      from: process.env.FROM_EMAIL!,
-      to: recipients, // array supported
+      from: process.env.FROM_EMAIL || "onboarding@resend.dev",
+      to: recipients,
       subject: `Quote Request from ${name} — ${product || productInterest || "General"}`,
       html,
     });
@@ -57,6 +75,9 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error("request-quote error:", err);
-    return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to send email" },
+      { status: 500 }
+    );
   }
 }
