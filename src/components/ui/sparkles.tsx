@@ -1,9 +1,7 @@
 "use client";
 import React, { useId, useMemo } from "react";
 import { useEffect, useState } from "react";
-import Particles, { initParticlesEngine } from "@tsparticles/react";
 import type { Container, SingleOrMultiple } from "@tsparticles/engine";
-import { loadSlim } from "@tsparticles/slim";
 import { cn } from "@/lib/utils";
 import { motion, useAnimation } from "motion/react";
 
@@ -30,12 +28,20 @@ export const SparklesCore = (props: ParticlesProps) => {
     particleDensity,
   } = props;
   const [init, setInit] = useState(false);
+  const [ParticlesComp, setParticlesComp] = useState<any | null>(null);
   useEffect(() => {
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine);
-    }).then(() => {
-      setInit(true);
-    });
+    let canceled = false;
+    (async () => {
+      const mod = await import('@tsparticles/react');
+      const slim = await import('@tsparticles/slim');
+      mod.initParticlesEngine(async (engine: any) => {
+        await slim.loadSlim(engine);
+      }).then(() => {
+        if (!canceled) setInit(true);
+      });
+      if (!canceled) setParticlesComp(() => mod.default || mod);
+    })();
+    return () => { canceled = true };
   }, []);
   const controls = useAnimation();
 
@@ -53,8 +59,8 @@ export const SparklesCore = (props: ParticlesProps) => {
   const generatedId = useId();
   return (
     <motion.div animate={controls} className={cn("opacity-0", className)}>
-      {init && (
-        <Particles
+      {init && ParticlesComp && (
+        <ParticlesComp
           id={id || generatedId}
           className={cn("h-full w-full")}
           particlesLoaded={particlesLoaded}

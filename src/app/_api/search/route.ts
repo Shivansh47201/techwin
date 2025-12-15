@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
         slug: app.slug,
         description: app.short,
         image: app.image,
-        url: `/application/${app.slug}`,
+        url: `/application/${app.slug}/`,
       });
     }
   }
@@ -54,7 +54,7 @@ export async function GET(request: NextRequest) {
         type: "category",
         title: categoryTitle,
         slug: category.categorySlug,
-        url: `/products/${category.categorySlug}`,
+        url: `/products/${category.categorySlug}/`,
       });
     }
 
@@ -69,7 +69,7 @@ export async function GET(request: NextRequest) {
           title: product.title,
           slug: product.slug,
           category: categoryTitle,
-          url: `/products/${category.categorySlug}/${product.slug}`,
+          url: `/products/${category.categorySlug}/${product.slug}/`,
         });
       }
     }

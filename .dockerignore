@@ -1,0 +1,9 @@
+.git
+node_modules
+out
+.next/cache
+**/node_modules
+**/.next/cache
+.env*
+*.log
+*.tgz

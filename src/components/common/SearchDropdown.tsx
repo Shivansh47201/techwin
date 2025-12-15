@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Search, X } from "lucide-react";
 import type { SearchResult } from "@/app/api/search/route";
@@ -19,7 +19,16 @@ export function SearchDropdown({
   results,
   onResultClick,
 }: SearchDropdownProps) {
+  const router = useRouter();
+  
   if (!query) return null;
+
+  const handleResultClick = (url: string) => {
+    // Call the parent callback to clear search state
+    onResultClick?.();
+    // Then navigate
+    router.push(url);
+  };
 
   const groupedResults = {
     applications: results.filter((r) => r.type === "application"),
@@ -47,12 +56,13 @@ export function SearchDropdown({
               </div>
               <div className="divide-y">
                 {groupedResults.applications.map((result) => (
-                  <Link
+                  <button
                     key={result.url}
-                    href={result.url}
-                    onClick={onResultClick}
+                    type="button"
+                    onClick={() => handleResultClick(result.url)}
+                    className="w-full text-left hover:bg-[#EAF6FC] transition-colors"
                   >
-                    <div className="px-4 py-3 hover:bg-[#EAF6FC] transition-colors cursor-pointer flex gap-3">
+                    <div className="px-4 py-3 cursor-pointer flex gap-3">
                       {result.image && (
                         <div className="h-12 w-12 shrink-0 rounded overflow-hidden">
                           <img
@@ -74,7 +84,7 @@ export function SearchDropdown({
                         </div>
                       </div>
                     </div>
-                  </Link>
+                  </button>
                 ))}
               </div>
             </div>
@@ -88,12 +98,13 @@ export function SearchDropdown({
               </div>
               <div className="divide-y">
                 {groupedResults.categories.map((result) => (
-                  <Link
+                  <button
                     key={result.url}
-                    href={result.url}
-                    onClick={onResultClick}
+                    type="button"
+                    onClick={() => handleResultClick(result.url)}
+                    className="w-full text-left hover:bg-[#EAF6FC] transition-colors"
                   >
-                    <div className="px-4 py-3 hover:bg-[#EAF6FC] transition-colors cursor-pointer flex gap-3">
+                    <div className="px-4 py-3 cursor-pointer flex gap-3">
                       {result.image && (
                         <div className="h-12 w-12 shrink-0 rounded overflow-hidden">
                           <img
@@ -113,7 +124,7 @@ export function SearchDropdown({
                         <div className="text-xs text-gray-500">Category</div>
                       </div>
                     </div>
-                  </Link>
+                  </button>
                 ))}
               </div>
             </div>
@@ -127,12 +138,13 @@ export function SearchDropdown({
               </div>
               <div className="divide-y">
                 {groupedResults.products.map((result) => (
-                  <Link
+                  <button
                     key={result.url}
-                    href={result.url}
-                    onClick={onResultClick}
+                    type="button"
+                    onClick={() => handleResultClick(result.url)}
+                    className="w-full text-left hover:bg-[#EAF6FC] transition-colors"
                   >
-                    <div className="px-4 py-3 hover:bg-[#EAF6FC] transition-colors cursor-pointer flex gap-4">
+                    <div className="px-4 py-3 cursor-pointer flex gap-4">
                       {result.image && (
                         <div className="h-14 w-14 shrink-0 relative">
                           <Image
@@ -153,7 +165,7 @@ export function SearchDropdown({
                         </div>
                       </div>
                     </div>
-                  </Link>
+                  </button>
                 ))}
               </div>
             </div>

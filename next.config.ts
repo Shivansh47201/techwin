@@ -1,4 +1,7 @@
 import type { NextConfig } from "next";
+import withBundleAnalyzer from '@next/bundle-analyzer';
+
+const withAnalyzer = withBundleAnalyzer({ enabled: process.env.ANALYZE === 'true' });
 
 const nextConfig: NextConfig = {
   // Enable the React compiler (Next.js 15+)
@@ -11,6 +14,9 @@ const nextConfig: NextConfig = {
   
  
   // output: "export",
+  // Produce a standalone server bundle so deployment images contain
+  // only the runtime and required files (smaller footprint on server)
+  output: "standalone",
 
   images: {
     unoptimized: true,
@@ -31,7 +37,7 @@ const nextConfig: NextConfig = {
   productionBrowserSourceMaps: false,
 };
 
-export default nextConfig;
+export default withAnalyzer(nextConfig);
 
 
 
