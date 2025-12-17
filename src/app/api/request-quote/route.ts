@@ -1,27 +1,10 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
-
-function getRecipients(): string[] {
-  const raw = process.env.TO_EMAILS || process.env.TO_EMAIL || "";
-  return raw.split(",").map(s => s.trim()).filter(Boolean);
-}
+import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
   try {
-    const apiKey = process.env.RESEND_API_KEY;
-
-    if (!apiKey) {
-      console.error("RESEND_API_KEY missing");
-      return NextResponse.json(
-        { error: "Email service not configured" },
-        { status: 500 }
-      );
-    }
-
-    // ✅ Lazy init (SAFE at build time)
-    const resend = new Resend(apiKey);
-
     const body = await req.json();
+
     const {
       name,
       company,
@@ -33,50 +16,64 @@ export async function POST(req: Request) {
       honeypot,
     } = body as any;
 
-    // Basic validation
+    // 🛡️ Spam check
     if (honeypot) {
       return NextResponse.json({ error: "Spam detected" }, { status: 400 });
     }
 
-    if (!name || !email || (!message && !product && !productInterest)) {
+    // Basic validation
+    if (!name || !email || (!product && !productInterest && !message)) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
       );
     }
 
-    const recipients = getRecipients();
-    if (!recipients.length) {
-      return NextResponse.json(
-        { error: "No recipient configured" },
-        { status: 500 }
-      );
-    }
+    // SMTP Transporter
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT),
+      secure: false, // TLS
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
+
+    const interest = product || productInterest || "General";
 
     const html = `
-      <h2>New Quote / Request Submission</h2>
+      <h2>New Request Quote Submission</h2>
+
       <p><strong>Name:</strong> ${name}</p>
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Phone:</strong> ${phone || "N/A"}</p>
       <p><strong>Company:</strong> ${company || "N/A"}</p>
-      <p><strong>Product / Interest:</strong> ${product || productInterest || "N/A"}</p>
-      <p><strong>Message:</strong><br/>${(message || "").replace(/\n/g, "<br/>")}</p>
+      <p><strong>Product Interest:</strong> ${interest}</p>
+
+      <p><strong>Message:</strong><br/>
+        ${(message || "N/A").replace(/\n/g, "<br/>")}
+      </p>
+
       <hr/>
-      <p>Sent from website request-quote form</p>
+      <p style="font-size:12px;color:#666">
+        Sent from website Request Quote form
+      </p>
     `;
 
-    await resend.emails.send({
-      from: process.env.FROM_EMAIL || "onboarding@resend.dev",
-      to: recipients,
-      subject: `Quote Request from ${name} — ${product || productInterest || "General"}`,
+    await transporter.sendMail({
+      from: `"${process.env.MAIL_FROM_NAME}" <${process.env.MAIL_FROM_EMAIL}>`,
+      to: process.env.MAIL_TO_EMAIL,
+      replyTo: email,
+      subject: `Quote Request – ${name} (${interest})`,
       html,
     });
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error("request-quote error:", err);
+    console.error("SMTP request-quote error:", err);
     return NextResponse.json(
-      { error: "Failed to send email" },
+      { error: "Failed to send quote request" },
       { status: 500 }
     );
   }
