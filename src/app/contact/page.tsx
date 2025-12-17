@@ -126,7 +126,7 @@ export default function ContactPage() {
               </h2>
 
               <p className="text-sm text-slate-700 mt-1">
-                Fill the form and our team will get back within 1–2 business days.
+                Fill the form and our team will get back within 24 hours.
               </p>
 
               {/* ---------------- FORM WITH LOGIC ---------------- */}
