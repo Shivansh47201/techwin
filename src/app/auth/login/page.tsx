@@ -7,8 +7,8 @@ import { LogIn, AlertCircle, Eye, EyeOff } from "lucide-react";
 const PRIMARY_COLOR = "#3B9ACB";
 
 // ✅ ENV (browser-safe)
-const ADMIN_USERNAME = process.env.NEXT_PUBLIC_ADMIN_USERNAME;
-const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
 export default function AdminLoginPage() {
   const router = useRouter();
