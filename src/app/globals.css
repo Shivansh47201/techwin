@@ -181,3 +181,29 @@ section { scroll-margin-top: 96px; }
   opacity: 0 !important;
   pointer-events: none !important;
 }
+
+/* ---------- Basic Prose (typography) fallbacks ---------- */
+/* If Tailwind's typography plugin isn't active, provide readable defaults */
+.prose {
+  color: #0f172a; /* slate-900 */
+  font-size: 1.0625rem; /* 17px */
+  line-height: 1.8;
+}
+/* Ensure paragraphs are normal weight; preserve bold/italic from editor */
+.prose p { margin: 1.05rem 0; font-weight: 400; }
+.prose strong, .prose b { font-weight: 700; }
+.prose em, .prose i { font-style: italic; }
+.prose h1, .prose h2, .prose h3, .prose h4 { color: #0f172a; margin-top: 1.4rem; margin-bottom: .6rem; font-weight: 700; }
+.prose h1 { font-size: 1.8rem; }
+.prose h2 { font-size: 1.5rem; }
+.prose h3 { font-size: 1.25rem; }
+.prose img { max-width: 100%; height: auto; border-radius: 0.5rem; display: block; margin: 1rem 0; }
+.prose a { color: var(--color-primary); text-decoration: underline; }
+.prose blockquote { border-left: 4px solid rgba(15,23,42,0.06); padding: .6rem 1rem; color: #0b1220; background: rgba(15,23,42,0.02); border-radius: .375rem; }
+.prose ul, .prose ol { margin: 1rem 0 1rem 1.25rem; }
+.prose pre { background: #0b1220; color: #f8fafc; padding: 1rem; border-radius: .5rem; overflow: auto; }
+.prose code { background: rgba(15,23,42,0.04); padding: .15rem .35rem; border-radius: .25rem; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Helvetica Neue", monospace; }
+
+/* Slightly tighten hero spacing for visual balance */
+.bg-slate-900 .max-w-6xl { padding-top: 3.25rem; padding-bottom: 3.25rem; }
+

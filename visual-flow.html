@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Techwin Website Flow — Interactive Demo</title>
+  <style>
+    body{font-family:Inter,system-ui,Segoe UI,Helvetica,Arial;margin:0;background:#f7fafc;color:#0b2540}
+    .wrap{display:grid;grid-template-columns:1fr 360px;gap:18px;max-width:1200px;margin:28px auto;padding:18px}
+    .card{background:#fff;border-radius:12px;padding:16px;box-shadow:0 6px 18px rgba(10,25,47,0.06)}
+    h1{font-size:20px;margin:0 0 8px;color:#0b4f7a}
+    #diagram{min-height:540px}
+    #info{overflow:auto;height:540px}
+    .meta{font-size:13px;color:#375a7f;margin-bottom:10px}
+    .btn{display:inline-block;padding:8px 12px;border-radius:8px;background:#3087C0;color:#fff;text-decoration:none;margin:6px 4px}
+    .node-title{font-weight:600;margin-bottom:6px}
+    .hint{font-size:13px;color:#627d95}
+    pre{background:#0b2540;color:#e6f1fb;padding:12px;border-radius:8px;overflow:auto}
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Interactive Website Flow</h1>
+      <div class="meta">Click any node to see details (designed for non-technical clients).</div>
+      <div id="diagram" class="card">
+        <div class="mermaid">
+flowchart LR
+  %% Public area
+  H(Home)
+  P(Products)
+  A(Applications)
+  B(Blog)
+  C(Contact)
+
+  %% Discovery path
+  H --> P
+  P --> Cat(Category)
+  Cat --> PD(Product_Detail)
+  PD --> DS[Datasheet_Download]
+  PD --> Q(Request_Quote)
+
+  %% Conversion path
+  Q --> Confirm(Confirmation)
+  Confirm --> Save(Save_Request)
+  Save --> Notify(Notify_Sales)
+
+  %% Admin
+  Save --> AdminUI(Admin_Dashboard)
+  AdminUI --> Leads_List(Leads_List)
+  Leads_List --> Lead_Detail(Lead_Detail)
+  Lead_Detail --> Assign_Rep(Assign_Rep)
+  Lead_Detail --> Update_Status(Update_Status)
+  Leads_List --> Export_CSV(Export_CSV)
+  Assign_Rep --> Notify_Sales
+  Notify_Sales --> Sales(Sales_Followup)
+  Sales --> Close(Status_Closed)
+  AdminUI --> Auth(Authentication)
+
+  C --> Q
+  H --> A
+  H --> B
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <a class="btn" id="exportBtn">Export PNG</a>
+        <a class="btn" id="openMermaid">Open Mermaid Source</a>
+        <span class="hint">Open this file in any browser and click nodes. Use Export to capture for slides.</span>
+      </div>
+    </div>
+
+    <aside class="card" id="info">
+      <div id="details">
+        <div class="node-title">Welcome</div>
+        <div>Click a node on the flowchart to view a plain‑language description of the step, touches, and desired client outcomes.</div>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    mermaid.initialize({ startOnLoad:true, theme: 'default' });
+
+    const nodeInfo = {
+      'Home': { title: 'Home', body: 'Hero section, key product highlights and primary call-to-action encouraging visitors to explore products or request a quote.' },
+      'Products': { title: 'Products', body: 'Overview of product families with filters (wavelength, power, application). Quick links to category pages.' },
+      'Category': { title: 'Category', body: 'Category listing with product cards, short specs, thumbnails, and direct actions: Compare / Request Quote.' },
+      'Product_Detail': { title: 'Product Detail', body: 'Detailed specifications, high-resolution images, downloadable datasheet and mechanical drawing, and prominent Request Quote CTA.' },
+      'Datasheet_Download': { title: 'Datasheet Download', body: 'Datasheet and drawings served as PDF. Track downloads to assist lead qualification.' },
+      'Request_Quote': { title: 'Request Quote', body: 'Structured form capturing contact info, technical requirements, timeline and attachments for accurate quoting.' },
+      'Confirmation': { title: 'Confirmation', body: 'On submit: display confirmation message, reference ID and expected response time (e.g., 1 business day).' },
+      'Save_Request': { title: 'Save Request', body: 'Persist the submission to the backend (demo: JSON file; production: DB or CRM).' },
+      'Notify_Sales': { title: 'Notify Sales', body: 'Trigger notifications (email/Slack/webhook) to sales and attach submission details.' },
+      'Admin_Dashboard': { title: 'Admin Dashboard', body: 'Protected UI: overview with quick metrics (new leads, pending, open), recent activity and access to the Leads list. Includes Product management (add/edit/remove products) and Blog management (add posts from URL or create content).' },
+      'Leads_List': { title: 'Leads List', body: 'Table view showing all incoming quote requests with columns: ID, name, company, product, timeline, status, createdAt. Filters: date range, status, product, assigned rep.' },
+      'Lead_Detail': { title: 'Lead Detail', body: 'Full submission details, attached files link, notes timeline, assigned rep, and actions: Assign, Change status, Export, Add internal note.' },
+      'Assign_Rep': { title: 'Assign Rep', body: 'Assign a sales engineer or rep with email notification and optional follow-up task creation.' },
+      'Update_Status': { title: 'Update Status', body: 'Change lead state (new → contacted → quoted → closed). Status updates logged with timestamp and user.' },
+      'Export_CSV': { title: 'Export CSV', body: 'Export filtered lead list to CSV for CRM import or offline processing.' },
+      'Auth': { title: 'Authentication', body: 'Admin access protected via SSO (recommended) or API key; only authorized users can view/update leads.' },
+      'Sales_Followup': { title: 'Sales Follow-up', body: 'Sales rep reviews the lead, engages the client, prepares formal quote and updates lead status.' },
+      'Applications': { title: 'Applications', body: 'Use-cases and case studies demonstrating product results and ROI for client trust.' },
+      'Blog': { title: 'Blog', body: 'Technical articles and application notes for SEO and to educate prospects.' },
+      'Status_Closed': { title: 'Closed', body: 'Final lead state: quoted, won or lost — recorded for reporting.' }
+    };
+
+    function setDetails(key){
+      const info = nodeInfo[key] || { title: key, body: 'No details available.' };
+      document.getElementById('details').innerHTML = `<div class="node-title">${info.title}</div><div>${info.body}</div>`;
+    }
+
+    // attach click handlers after Mermaid renders
+    window.addEventListener('load', ()=>{
+      // small delay to ensure svg is present
+      setTimeout(()=>{
+        const svg = document.querySelector('#diagram svg');
+        if(!svg) return;
+        const nodes = svg.querySelectorAll('g.node');
+        nodes.forEach(g=>{
+          g.style.cursor = 'pointer';
+          g.addEventListener('click', ()=>{
+            // collect displayed text (handles multi-tspan)
+            const texts = Array.from(g.querySelectorAll('text')).map(t => t.textContent || '').join(' ').trim();
+            if(!texts) return;
+            const displayed = texts.replace(/\s+/g,' ').trim();
+
+            const normalize = (s='') => String(s).toLowerCase().replace(/[^a-z0-9]/g,'')
+
+            // direct exact match
+            let key = null
+            if (nodeInfo[displayed]) key = displayed
+
+            // try normalized match against node keys
+            if(!key){
+              const dispNorm = normalize(displayed)
+              for(const k of Object.keys(nodeInfo)){
+                if(normalize(k) === dispNorm){ key = k; break }
+                if(normalize(k.replace(/_/g,' ')) === dispNorm){ key = k; break }
+              }
+            }
+
+            // fallback heuristics
+            if(!key){
+              const first = displayed.split(' ')[0]
+              const heur = {
+                'home':'Home','products':'Products','category':'Category','product':'Product_Detail','productdetail':'Product_Detail',
+                'datasheet':'Datasheet_Download','request':'Request_Quote','confirm':'Confirmation','save':'Save_Request',
+                'admin':'Admin_Dashboard','leads':'Leads_List','sales':'Sales_Followup'
+              }
+              key = heur[first.toLowerCase()] || displayed
+            }
+
+            setDetails(key)
+          })
+        })
+      },300);
+    });
+
+    // Export PNG
+    document.getElementById('exportBtn').addEventListener('click', async ()=>{
+      const svg = document.querySelector('#diagram svg');
+      if(!svg) return alert('Diagram not found');
+      const serializer = new XMLSerializer();
+      const svgStr = serializer.serializeToString(svg);
+      const canvas = document.createElement('canvas');
+      canvas.width = svg.viewBox.baseVal.width || 1200;
+      canvas.height = svg.viewBox.baseVal.height || 800;
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      img.onload = ()=>{
+        ctx.fillStyle='#ffffff'; ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.drawImage(img,0,0);
+        const png = canvas.toDataURL('image/png');
+        const a = document.createElement('a'); a.href = png; a.download = 'techwin-flow.png'; a.click();
+      };
+      img.src = 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svgStr);
+    });
+
+    document.getElementById('openMermaid').addEventListener('click', ()=>{
+      const source = document.querySelector('.mermaid').textContent;
+      const w = window.open('','_blank');
+      w.document.write('<pre>'+source.replace(/</g,'&lt;')+'</pre>');
+    });
+  </script>
+</body>
+</html>

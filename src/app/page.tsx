@@ -8,37 +8,8 @@ import TrustStrip from "@/components/trust/TrustStrip";
 import TechHighlights from "../components/specs/TechHighlights";
 import RequestQuoteButton from "@/components/quote/RequestQuoteButton";
 
-import { singleFrequencyData } from "@/data/categories/singleFrequencyData";
-import { seedFiberData } from "@/data/categories/seedFiberData";
-import { highPowerData } from "@/data/categories/highPowerData";
-import { wavelengthConversionData } from "@/data/categories/wavelengthConversionData";
-import { broadbandAseData } from "@/data/categories/broadbandAseData";
-import { fiberAmplifierData } from "@/data/categories/fiberAmplifierData";
-import { laserTestingData } from "@/data/categories/laserTestingData";
-import { sledLightData } from "@/data/categories/sledLightData";
-
 import { applications as originalApplications } from "@/data/applications";
-import type { ProductCard } from "../components/products/ProductFamilies";
 import type { AppCard } from "./Applications";
-
-const categoryData = [
-  singleFrequencyData,
-  seedFiberData,
-  highPowerData,
-  wavelengthConversionData,
-  broadbandAseData,
-  fiberAmplifierData,
-  laserTestingData,
-  sledLightData,
-];
-
-const productFamilies: ProductCard[] = categoryData.map((cat) => ({
-  id: cat.url,
-  title: (cat.intro && cat.intro.heading) || cat.title || "Product Category",
-  short: (cat.hero && cat.hero.tagline) || cat.tagline || "",
-  img: (cat.hero && cat.hero.image) || cat.image || "",
-  href: cat.url,
-}));
 
 const adaptedApplications: AppCard[] = originalApplications.map((app: any) => {
   // support multiple shapes: heroImage {src}, image string, or fallback
@@ -69,7 +40,6 @@ export default function HomePage() {
         ]}
       />
       <ProductFamilies
-        products={productFamilies}
         heading="Product Families"
         subheading="Explore our main product lines — single-frequency lasers, seed lasers, high-power sources and more."
         showSeeAllButton={false}

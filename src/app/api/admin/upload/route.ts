@@ -3,23 +3,19 @@
 // Note: For production, use cloud storage (Cloudinary, AWS S3, etc.)
 
 import { NextResponse } from "next/server";
+import path from "path";
 
 export async function POST(req: Request) {
   try {
+    const { writeFile, mkdir } = await import("fs/promises");
+
     const formData = await req.formData();
-    const file = formData.get("file") as File;
-    const slug = formData.get("slug") as string;
+    const file = formData.get("file") as File | null;
+    const slug = (formData.get("slug") as string) || null;
 
     if (!file) {
       return NextResponse.json(
         { success: false, message: "No file provided" },
-        { status: 400 }
-      );
-    }
-
-    if (!slug) {
-      return NextResponse.json(
-        { success: false, message: "No slug provided" },
         { status: 400 }
       );
     }
@@ -41,43 +37,44 @@ export async function POST(req: Request) {
       );
     }
 
-    // Create filename: slug + timestamp + original extension
-    const ext = file.name.split(".").pop() || "jpg";
-    const timestamp = Date.now();
-    const randomStr = Math.random().toString(36).substring(2, 8);
-    const filename = `${slug}-${timestamp}-${randomStr}.${ext}`;
+    // Buffer the file
+    const buffer = Buffer.from(await file.arrayBuffer());
 
-    // TODO: For production, implement cloud storage upload:
-    // Options:
-    // 1. Cloudinary - https://cloudinary.com
-    // 2. AWS S3 - https://aws.amazon.com/s3
-    // 3. Firebase Storage - https://firebase.google.com/products/storage
-    // 4. Vercel Blob - https://vercel.com/storage/blob
-    // 5. Local file system with proper validation
-    
-    // Example Cloudinary implementation:
-    // const formData2 = new FormData();
-    // formData2.append("file", file);
-    // formData2.append("upload_preset", process.env.CLOUDINARY_PRESET);
-    // const res = await fetch(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_NAME}/image/upload`, {
-    //   method: "POST",
-    //   body: formData2,
-    // });
-    // const data = await res.json();
-    // return NextResponse.json({
-    //   success: true,
-    //   url: data.secure_url,
-    //   filename,
-    // });
+    // Determine upload folder: per-slug, or temp
+    const uploadDir = slug
+      ? path.join(process.cwd(), "public/uploads/blogs", slug)
+      : path.join(process.cwd(), "public/uploads/tmp");
 
-    // For now, return a placeholder URL
-    const publicUrl = `/uploads/${filename}`;
+    await mkdir(uploadDir, { recursive: true });
+
+    // Safe filename
+    const safeName = file.name.replace(/[^a-z0-9._-]/gi, "-");
+    const fileName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}-${safeName}`;
+    const filePath = path.join(uploadDir, fileName);
+
+    // Save original
+    await writeFile(filePath, buffer);
+
+    // Try to create a webp optimized variant if `sharp` is installed
+    let webpUrl: string | undefined = undefined;
+    try {
+      const sharp = (await import("sharp")).default;
+      const webpName = fileName.replace(/\.[^.]+$/, ".webp");
+      const webpPath = path.join(uploadDir, webpName);
+      await sharp(buffer).resize({ width: 1600, withoutEnlargement: true }).toFormat("webp", { quality: 80 }).toFile(webpPath);
+      webpUrl = slug ? `/uploads/blogs/${slug}/${webpName}` : `/uploads/tmp/${webpName}`;
+    } catch (e) {
+      // sharp not available or conversion failed — ignore
+    }
+
+    const publicUrl = slug ? `/uploads/blogs/${slug}/${fileName}` : `/uploads/tmp/${fileName}`;
 
     return NextResponse.json({
       success: true,
       url: publicUrl,
-      filename,
-      message: "Image prepared for upload (implement cloud storage for production)",
+      webp: webpUrl,
+      filename: fileName,
+      message: "Image uploaded successfully",
     });
   } catch (error: any) {
     console.error("Upload error:", error);

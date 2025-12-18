@@ -11,6 +11,7 @@ import {
   getH2Headings,
   getH3Headings,
   extractImages,
+  extractImageObjects,
   extractInternalLinks,
   extractExternalLinks,
   calculateReadingTime,
@@ -119,11 +120,38 @@ export async function POST(req: Request) {
 
     // Extract metadata from content
     const headings = extractHeadings(body.content);
-    const images = extractImages(body.content);
+    const imageObjects = extractImageObjects(body.content);
+    const images = imageObjects.map((i) => i.url);
     const wordCount = countWords(body.content);
     const readingTime = calculateReadingTime(body.content);
     const internalLinks = extractInternalLinks(body.content);
     const externalLinks = extractExternalLinks(body.content);
+
+    // Validate / normalize canonical: if provided and not absolute or starting with /, prefix https://
+    if (body.canonical && !body.canonical.startsWith("http") && !body.canonical.startsWith("/")) {
+      body.canonical = `https://${body.canonical}`;
+    }
+
+    // Handle publishing / scheduling
+    const now = new Date();
+    let published = body.published ?? false;
+    let publishedAt: Date | null = null;
+
+    if (body.publishedAt) {
+      const d = new Date(body.publishedAt);
+      if (!isNaN(d.getTime())) {
+        publishedAt = d;
+        // If scheduled in future, keep published=false
+        if (d <= now) {
+          published = true;
+        } else {
+          published = false;
+        }
+      }
+    } else {
+      // If explicitly publishing now
+      if (published) publishedAt = now;
+    }
 
     // Create post with auto-extracted metadata
     const post = await Post.create({
@@ -154,8 +182,10 @@ export async function POST(req: Request) {
       externalLinks: externalLinks,
       
       // Images
-      images: images.map((url) => ({
-        url,
+      images: imageObjects.map((img) => ({
+        url: img.url,
+        alt: img.alt || "",
+        title: img.title || "",
         uploadedAt: new Date(),
       })),
       
@@ -164,8 +194,8 @@ export async function POST(req: Request) {
       readingTime,
       
       // Publishing
-      published: body.published ?? false,
-      publishedAt: body.published ? new Date() : null,
+      published: published,
+      publishedAt: publishedAt,
     });
 
     return NextResponse.json(

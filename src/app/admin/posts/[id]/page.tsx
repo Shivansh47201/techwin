@@ -2,16 +2,7 @@
 
 /**
  * app/admin/posts/[id]/page.tsx
- *
- * Polished, attractive Edit Post page that uses src/components/admin/BlogEditor.
- * - Color scheme: primary = #3B9ACB, white background, black copy
- * - Responsive two-column layout (editor + sidebar)
- * - Loads post data from /api/admin/posts/[id] and passes it to BlogEditor
- * - Shows skeleton / loading UI while fetching
- *
- * Notes:
- * - This is a client component (uses fetch on client + router).
- * - Requires BlogEditor at src/components/admin/BlogEditor.tsx (already created).
+ * Final, fixed Edit Post page
  */
 
 import React, { useEffect, useState } from "react";
@@ -34,294 +25,199 @@ type PostPayload = {
   updatedAt?: string;
 };
 
-export default function EditPostPageClient() {
+export default function EditPostPage() {
   const router = useRouter();
-  const params = useParams();
-  const id = params?.id as string;
+  const { id } = useParams<{ id: string }>();
 
   const [post, setPost] = useState<PostPayload | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  /* -----------------------------------------------------------
+     Load post
+  ------------------------------------------------------------ */
   useEffect(() => {
     if (!id) return;
-    let mounted = true;
 
-    async function load() {
-      setLoading(true);
-      setError(null);
+    async function loadPost() {
       try {
+        setLoading(true);
         const res = await fetch(`/api/admin/posts/${id}`);
         const data = await res.json();
+
         if (!res.ok) {
           throw new Error(data?.message || "Failed to load post");
         }
-        if (mounted) setPost(data.post);
+
+        setPost(data.post); // ✅ correct
       } catch (err: any) {
         console.error(err);
-        if (mounted) setError(err.message || "Error loading post");
+        setError(err.message || "Error loading post");
       } finally {
-        if (mounted) setLoading(false);
+        setLoading(false);
       }
     }
 
-    load();
-    return () => {
-      mounted = false;
-    };
+    loadPost();
   }, [id]);
 
-  function handleSaved(result: any) {
-    // After saving, go back to posts list (or stay on edit)
+  function handleSaved() {
     router.push("/admin/posts");
   }
 
-  // Loading skeleton
+  /* -----------------------------------------------------------
+     Loading
+  ------------------------------------------------------------ */
   if (loading) {
     return (
-      <div style={{ minHeight: "60vh", background: "#fff", color: "#000" }}>
-        <header style={{ background: PRIMARY, padding: 24, color: "#fff" }}>
-          <div className="max-w-6xl mx-auto">
-            <h1 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>
-              Loading post...
-            </h1>
-          </div>
-        </header>
-
-        <main className="max-w-6xl mx-auto p-6">
-          <div className="animate-pulse space-y-4">
-            <div style={{ height: 22, width: "50%", background: "#e6f4fb", borderRadius: 6 }} />
-            <div style={{ height: 14, width: "35%", background: "#f1f7fb", borderRadius: 6 }} />
-            <div style={{ height: 360, width: "100%", background: "#f7fbfd", borderRadius: 8 }} />
-          </div>
-        </main>
+      <div style={{ paddingTop: 96 }}>
+        <p className="p-6">Loading post…</p>
       </div>
     );
   }
 
-  if (error) {
+  /* -----------------------------------------------------------
+     Error
+  ------------------------------------------------------------ */
+  if (error || !post) {
     return (
-      <div style={{ minHeight: "60vh", background: "#fff", color: "#000" }}>
-        <header style={{ background: PRIMARY, padding: 24, color: "#fff" }}>
-          <div className="max-w-6xl mx-auto">
-            <h1 style={{ margin: 0, fontSize: 20, fontWeight: 700 }}>Edit Post</h1>
-          </div>
-        </header>
-
-        <main className="max-w-6xl mx-auto p-6">
-          <div style={{ padding: 24, borderRadius: 8, background: "#fff", border: "1px solid #fee" }}>
-            <p style={{ color: "#b00", margin: 0 }}>Error: {error}</p>
-            <div style={{ marginTop: 12 }}>
-              <button
-                onClick={() => router.refresh()}
-                style={{
-                  background: PRIMARY,
-                  color: "#fff",
-                  padding: "8px 12px",
-                  borderRadius: 8,
-                  border: "none",
-                }}
-              >
-                Retry
-              </button>
-              <Link href="/admin/posts" style={{ marginLeft: 12 }}>
-                ← Back to posts
-              </Link>
-            </div>
-          </div>
-        </main>
+      <div style={{ paddingTop: 96 }}>
+        <p className="p-6 text-red-600">Error: {error}</p>
+        <Link href="/admin/posts" className="p-6 underline">
+          ← Back to posts
+        </Link>
       </div>
     );
   }
 
+  /* -----------------------------------------------------------
+     Page
+  ------------------------------------------------------------ */
   return (
-    <div style={{ background: "#ffffff", minHeight: "100vh", color: "#000" }}>
+    <div
+      style={{
+        background: "#fff",
+        minHeight: "100vh",
+        color: "#000",
+        paddingTop: 96, // ✅ avoids navbar overlap
+      }}
+    >
       {/* Header */}
       <header
         style={{
           background: PRIMARY,
           color: "#fff",
-          padding: "28px 20px",
+          padding: "26px 20px",
           boxShadow: "0 2px 6px rgba(0,0,0,0.06)",
         }}
       >
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div>
             <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700 }}>
-              Edit: {post?.title ?? "Post"}
+              Edit Post
             </h1>
             <p style={{ margin: 0, opacity: 0.95 }}>
-              Update content, images and metadata for this post.
+              Update content and publish changes
             </p>
           </div>
 
-          <nav aria-label="breadcrumb" style={{ textAlign: "right" }}>
-            <Link
-              href="/admin/posts"
-              style={{
-                color: "#fff",
-                textDecoration: "underline",
-                opacity: 0.95,
-              }}
-            >
-              ← Back to posts
-            </Link>
-          </nav>
+          <Link
+            href="/admin/posts"
+            style={{ color: "#fff", textDecoration: "underline" }}
+          >
+            ← Back to posts
+          </Link>
         </div>
       </header>
 
-      {/* Main layout */}
-      <main className="max-w-6xl mx-auto p-6">
+      {/* Main */}
+      <main className="max-w-7xl mx-auto p-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Editor column */}
-          <section className="lg:col-span-8">
+          {/* Editor (WIDER) */}
+          <section className="lg:col-span-9">
             <div
               style={{
                 border: `1px solid ${PRIMARY}`,
                 borderRadius: 12,
-                overflow: "hidden",
                 background: "#fff",
+                overflow: "hidden",
               }}
               className="shadow-sm"
             >
-              <div style={{ height: 6, background: PRIMARY, width: "100%" }} />
-              <div className="p-6">
-                <div className="mb-4">
-                  <h2 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>Article</h2>
-                  <p style={{ margin: 0, color: "#333" }}>
-                    Edit title, content, tags and cover image. Changes are saved when you click Save or Publish.
-                  </p>
-                </div>
+              <div style={{ height: 6, background: PRIMARY }} />
 
-                {/* BlogEditor in edit mode */}
-                <BlogEditor mode="edit" initial={post ?? undefined} postId={post?._id} onSaved={handleSaved} />
+              <div className="p-6">
+                <h2 style={{ margin: 0, fontSize: 18, fontWeight: 700 }}>
+                  Article
+                </h2>
+                <p style={{ color: "#333", marginBottom: 16 }}>
+                  Edit title, content, SEO and cover image.
+                </p>
+
+                {/* ✅ Correct props */}
+                <BlogEditor
+                  mode="edit"
+                  postId={post._id}
+                  initial={post}
+                  onSaved={handleSaved}
+                />
               </div>
             </div>
           </section>
 
           {/* Sidebar */}
-          <aside className="lg:col-span-4">
+          <aside className="lg:col-span-3">
             <div
               style={{
                 borderRadius: 12,
                 border: "1px solid #e6eef6",
-                padding: 18,
-                background: "#fff",
-                boxShadow: "0 2px 8px rgba(59,154,203,0.06)",
-              }}
-            >
-              <h3 style={{ marginTop: 0, fontSize: 16, fontWeight: 700 }}>Post details</h3>
-
-              <div style={{ marginTop: 8 }}>
-                <strong>Slug</strong>
-                <div style={{ marginTop: 6, color: "#333" }}>{post?.slug}</div>
-              </div>
-
-              <div style={{ marginTop: 12 }}>
-                <strong>Published</strong>
-                <div style={{ marginTop: 6 }}>{post?.published ? "Yes" : "No"}</div>
-              </div>
-
-              <div style={{ marginTop: 12 }}>
-                <strong>Last updated</strong>
-                <div style={{ marginTop: 6 }}>
-                  {post?.updatedAt ? new Date(post.updatedAt).toLocaleString() : "—"}
-                </div>
-              </div>
-
-              <div style={{ marginTop: 18 }}>
-                <button
-                  onClick={() => router.push("/admin/posts")}
-                  style={{
-                    width: "100%",
-                    background: "#fff",
-                    color: PRIMARY,
-                    border: `2px solid ${PRIMARY}`,
-                    padding: "10px 12px",
-                    borderRadius: 8,
-                    fontWeight: 700,
-                    cursor: "pointer",
-                  }}
-                >
-                  Back to posts
-                </button>
-              </div>
-
-              <div style={{ marginTop: 12, padding: 12, borderRadius: 8, background: "#f9fcff" }}>
-                <strong style={{ color: "#0b3b4d" }}>Quick actions</strong>
-                <div style={{ marginTop: 8, display: "flex", gap: 8 }}>
-                  <button
-                    onClick={() => {
-                      // quick publish toggle (simple)
-                      // For safety, navigate to the edit and use BlogEditor publish button
-                      router.push(`/admin/posts/${post?._id}`);
-                    }}
-                    style={{
-                      flex: 1,
-                      padding: "8px 10px",
-                      borderRadius: 8,
-                      border: `1px solid ${PRIMARY}`,
-                      background: "#fff",
-                      color: PRIMARY,
-                      fontWeight: 700,
-                      cursor: "pointer",
-                    }}
-                  >
-                    Open editor
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Extra card: preview */}
-            <div
-              style={{
-                marginTop: 16,
-                borderRadius: 12,
                 padding: 16,
                 background: "#fff",
-                border: "1px solid #f0f6fb",
               }}
               className="shadow-sm"
             >
-              <h4 style={{ margin: 0, fontSize: 14, fontWeight: 700 }}>Preview</h4>
+              <h3 style={{ marginTop: 0, fontSize: 15, fontWeight: 700 }}>
+                Post Info
+              </h3>
 
-              {post?.coverImage ? (
-                <div style={{ marginTop: 10 }}>
-                  <img
-                    src={post.coverImage}
-                    alt="cover"
-                    style={{ width: "100%", height: 140, objectFit: "cover", borderRadius: 8 }}
-                  />
-                </div>
-              ) : (
-                <div
-                  style={{
-                    marginTop: 10,
-                    width: "100%",
-                    height: 140,
-                    borderRadius: 8,
-                    background: "#f3f7fa",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "#667",
-                  }}
-                >
-                  No cover image
-                </div>
-              )}
+              <div className="mt-3">
+                <strong>Slug</strong>
+                <div className="text-sm text-gray-700">{post.slug}</div>
+              </div>
 
-              <div style={{ marginTop: 12 }}>
-                <h5 style={{ margin: "6px 0 4px", fontSize: 16 }}>{post?.title}</h5>
-                <p style={{ margin: 0, color: "#444" }}>{post?.excerpt}</p>
+              <div className="mt-3">
+                <strong>Status</strong>
+                <div className="text-sm">
+                  {post.published ? "Published" : "Draft"}
+                </div>
+              </div>
+
+              <div className="mt-3">
+                <strong>Updated</strong>
+                <div className="text-sm">
+                  {post.updatedAt
+                    ? new Date(post.updatedAt).toLocaleString()
+                    : "—"}
+                </div>
+              </div>
+
+              <div className="mt-4">
                 <a
-                  href={`/posts/${post?.slug}`}
+                  href={`/blog/${post.slug}`}
                   target="_blank"
                   rel="noreferrer"
-                  style={{ display: "inline-block", marginTop: 10, color: PRIMARY, textDecoration: "none" }}
+                  style={{
+                    display: "block",
+                    textAlign: "center",
+                    padding: "8px",
+                    borderRadius: 8,
+                    background: PRIMARY,
+                    color: "#fff",
+                    fontWeight: 700,
+                    textDecoration: "none",
+                  }}
                 >
-                  View on site →
+                  View Live →
                 </a>
               </div>
             </div>

@@ -80,11 +80,39 @@ export function extractLinks(html: string): LinkData[] {
  */
 export function extractImages(html: string): string[] {
   const images: string[] = [];
-  const imgRegex = /<img[^>]*src=["']([^"']+)["'][^>]*>/gi;
+  const imgRegex = /<img([^>]*?)src=["']([^"']+)["']([^>]*)>/gi;
   let match;
 
   while ((match = imgRegex.exec(html)) !== null) {
-    images.push(match[1]);
+    // match[2] === src, capture alt if present
+    const src = match[2];
+    images.push(src);
+  }
+
+  return images;
+}
+
+/**
+ * Extract image objects including alt/title/caption from HTML
+ */
+export function extractImageObjects(html: string): Array<{ url: string; alt?: string; title?: string; caption?: string }> {
+  const images: Array<{ url: string; alt?: string; title?: string; caption?: string }> = [];
+  const imgRegex = /<img([^>]*?)src=["']([^"']+)["']([^>]*)>/gi;
+  let match;
+
+  while ((match = imgRegex.exec(html)) !== null) {
+    const attrs = (match[1] + ' ' + match[3]).trim();
+    const url = match[2];
+    const altMatch = attrs.match(/alt=["']([^"']*)["']/i);
+    const titleMatch = attrs.match(/title=["']([^"']*)["']/i);
+    const captionMatch = attrs.match(/data-caption=["']([^"']*)["']/i);
+
+    images.push({
+      url,
+      alt: altMatch ? altMatch[1] : undefined,
+      title: titleMatch ? titleMatch[1] : undefined,
+      caption: captionMatch ? captionMatch[1] : undefined,
+    });
   }
 
   return images;

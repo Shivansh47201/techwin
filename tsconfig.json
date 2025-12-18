@@ -44,7 +44,7 @@
     "src/data/categories/singleFrequencyData.ts",
     "src/components/products/ProductGraphsAndTableSection.tsx",
     "src/data/products/ase-sources/ase-light-source-1.5um"
-  ],
+, "test-mail.js"  ],
   "exclude": [
     "node_modules"
   ]

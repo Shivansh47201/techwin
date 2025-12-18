@@ -1,0 +1,6 @@
+{
+  "analyticsId": "",
+  "robotsTxt": "User-agent: *\nAllow: /\nSitemap: http://localhost:3000/sitemap.xml",
+  "sitemapEnabled": true,
+  "includePostsInSitemap": true
+}

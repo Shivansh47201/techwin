@@ -122,11 +122,11 @@ const PostSchema = new Schema<IPost>(
     // SEO & Meta - Complete
     seoTitle: {
       type: String,
-      maxlength: 60,
+      maxlength: 70,
     },
     seoDescription: {
       type: String,
-      maxlength: 160,
+      maxlength: 170,
     },
     seoKeywords: {
       type: [String],
