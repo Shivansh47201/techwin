@@ -245,7 +245,7 @@ let allProductsByCategory: Record<string, { slug: string; title: string }[]> =
             label: "Overview",
             icon: "overview",
             content: (
-              <p className="text-lg leading-relaxed">{p.shortDescription}</p>
+              <p className="text-lg leading-relaxed text-white">{p.shortDescription}</p>
             ),
           });
 
@@ -287,7 +287,7 @@ let allProductsByCategory: Record<string, { slug: string; title: string }[]> =
               label: "Applications",
               icon: "applications",
               content: (
-                <div className="space-y-4">
+                <div className="space-y-4 text-white">
                   <p>{applicationsSection.content}</p>
                   <ul className="list-disc pl-5 space-y-2">
                     {applicationsSection.bullets?.map(

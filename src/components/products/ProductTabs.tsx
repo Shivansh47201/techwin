@@ -104,7 +104,7 @@ export default function ProductTabs({
                         onClick={() => setActiveTab(tab.id)}
                         className={cn(
                           "relative flex-1 inline-flex items-center justify-center gap-2 px-3 py-2.5 text-sm md:text-base font-medium transition-colors duration-300 focus:outline-none rounded-full",
-                          activeTab === tab.id ? "text-white" : "text-gray-300 hover:text-white"
+                          activeTab === tab.id ? "text-white" : "text-white hover:text-white"
                         )}
                         aria-pressed={activeTab === tab.id}
                       >
