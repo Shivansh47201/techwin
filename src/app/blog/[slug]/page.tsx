@@ -207,7 +207,10 @@ export default async function BlogPage({ params }: Props) {
     .lean();
 
   const contentFirstH1 = extractFirstH1(post.content || "") || null;
-  const displayTitle = post.title && !/^my blog$/i.test(post.title) ? post.title : (contentFirstH1 || post.title);
+  // Prefer explicit post.h1 (saved from editor or title fallback). If not present, use the title, otherwise fall back to the first H1 found in content.
+  const displayTitle = (post.h1 && post.h1.trim())
+    ? post.h1.trim()
+    : (post.title && !/^my blog$/i.test(post.title) ? post.title : (contentFirstH1 || post.title));
 
   return (
     <article className="min-h-screen bg-white text-slate-900 selection:bg-[#3B9ACB] selection:text-white">

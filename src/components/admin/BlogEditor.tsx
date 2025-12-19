@@ -120,6 +120,17 @@ function toLocalISOString(date: Date) {
   );
 }
 
+// Extract the first H1 text from HTML content (if any)
+function getContentH1(html: string) {
+  try {
+    const m = html.match(/<h1[^>]*>(.*?)<\/h1>/i);
+    if (m && m[1]) {
+      return m[1].replace(/<[^>]*>/g, "").trim();
+    }
+  } catch (e) {}
+  return undefined;
+}
+
 // --- Components ---
 
 const ToolbarButton = ({
@@ -173,6 +184,9 @@ const EditorToolbar = ({
   saveSelection,
   restoreSelection,
   selectedImage,
+  isImageHover = false,
+  isResizing = false,
+  isAltModalOpen = false,
   updateImageWidth,
   openLinkModal,
   openAltModal,
@@ -192,6 +206,9 @@ const EditorToolbar = ({
   saveSelection: () => void;
   restoreSelection: () => void;
   selectedImage: HTMLImageElement | null;
+  isImageHover: boolean;
+  isResizing: boolean;
+  isAltModalOpen: boolean;
   updateImageWidth: (width: string) => void;
   openLinkModal: () => void;
   openAltModal: () => void;
@@ -536,8 +553,8 @@ const EditorToolbar = ({
         </label>
       </div>
 
-      {/* Floating Image Toolbar */}
-      {selectedImage && (
+      {/* Floating Image Toolbar (visible while image is selected, resizing, hovered, or ALT modal open) */}
+      {selectedImage && (isImageHover || isResizing || isAltModalOpen || true) && (
         <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 flex items-center gap-2 pl-2 pr-1 py-1.5 bg-white border border-slate-200 shadow-xl rounded-full animate-in fade-in slide-in-from-bottom-4">
           <Scaling size={16} style={{ color: BRAND_COLOR }} className="ml-2" />
           <span className="text-xs font-bold text-slate-500 w-20 text-center border-r border-slate-200 pr-2">
@@ -704,6 +721,8 @@ export default function BlogEditor({
   const [isSiteSettingsOpen, setIsSiteSettingsOpen] = useState(false);
   const [siteAnalyticsId, setSiteAnalyticsId] = useState("");
   const [siteRobots, setSiteRobots] = useState("");
+  // Analytics input is locked by default in the editor; enable editing explicitly
+  const [analyticsEditable, setAnalyticsEditable] = useState(false);
 
   const editorRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -720,6 +739,9 @@ export default function BlogEditor({
   } | null>(null);
   const [currentFontSize, setCurrentFontSize] = React.useState<number>(16);
   const [fontInput, setFontInput] = React.useState<string>("16");
+
+  const [isImageHover, setIsImageHover] = useState(false); // track hover state for selected image
+  const imageHoverCleanupRef = useRef<() => void | null>(null); // cleanup listeners when image changes
 
   const paperRef = useRef<HTMLDivElement>(null);
   const [overlayStyle, setOverlayStyle] = useState<React.CSSProperties>({});
@@ -757,15 +779,38 @@ export default function BlogEditor({
       if (selectedImage.parentElement)
         resizeObserver.observe(selectedImage.parentElement);
 
+      // Attach hover listeners to control overlay visibility
+      const onEnter = () => setIsImageHover(true);
+      const onLeave = () => setIsImageHover(false);
+      selectedImage.addEventListener("mouseenter", onEnter);
+      selectedImage.addEventListener("mouseleave", onLeave);
+
+      // Store cleanup so we can remove when selection changes
+      imageHoverCleanupRef.current = () => {
+        try {
+          selectedImage.removeEventListener("mouseenter", onEnter);
+          selectedImage.removeEventListener("mouseleave", onLeave);
+        } catch (e) {}
+      };
+
       return () => {
         selectedImage.onload = null;
         window.removeEventListener("resize", updateOverlay);
         if (scrollContainer)
           scrollContainer.removeEventListener("scroll", updateOverlay);
         resizeObserver.disconnect();
+        if (imageHoverCleanupRef.current) {
+          imageHoverCleanupRef.current();
+          imageHoverCleanupRef.current = null;
+        }
       };
     } else {
       setOverlayStyle({});
+      setIsImageHover(false);
+      if (imageHoverCleanupRef.current) {
+        imageHoverCleanupRef.current();
+        imageHoverCleanupRef.current = null;
+      }
     }
   }, [selectedImage, containerRef]);
 
@@ -777,11 +822,15 @@ export default function BlogEditor({
         if (!res.ok) return;
         const json = await res.json();
         setSiteAnalyticsId(json.settings?.analyticsId || "");
+
+        // Compute a friendly default sitemap: prefer NEXT_PUBLIC_SITE_URL if available,
+        // otherwise use a relative path so we don't force a specific domain.
+        const envSite = (process.env.NEXT_PUBLIC_SITE_URL || "").replace(/\/$/, "");
+        const defaultSitemap = envSite ? `${envSite}/sitemap.xml` : "/sitemap.xml";
+
         setSiteRobots(
           json.settings?.robotsTxt ||
-            `User-agent: *\nAllow: /\nSitemap: ${
-              process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
-            }/sitemap.xml`
+            `User-agent: *\nAllow: /\nSitemap: ${defaultSitemap}`
         );
       } catch (err) {
         console.warn("Failed to load site settings", err);
@@ -1095,36 +1144,64 @@ export default function BlogEditor({
     }
   };
 
+  // Find an image either from the currently selectedImage or from the DOM selection
+  const findImageFromSelectionOrCurrent = () => {
+    if (selectedImage) return selectedImage;
+    try {
+      const sel = window.getSelection();
+      if (!sel || sel.rangeCount === 0) return null;
+      const range = sel.getRangeAt(0);
+      const container = range.commonAncestorContainer as HTMLElement | null;
+      if (container) {
+        const imgInRange = container.querySelector && (container.querySelector('img') as HTMLImageElement | null);
+        if (imgInRange) return imgInRange;
+      }
+
+      const startNode = range.startContainer;
+      const elNode = startNode && (startNode.nodeType === Node.TEXT_NODE ? (startNode.parentElement as HTMLElement | null) : (startNode as HTMLElement | null));
+      if (!elNode) return null;
+
+      const direct = elNode.tagName === 'IMG' ? (elNode as HTMLImageElement) : (elNode.closest ? (elNode.closest('img') as HTMLImageElement | null) : null);
+      if (direct) return direct;
+    } catch (e) {}
+    return null;
+  };
+
   const updateAltText = () => {
-    if (selectedImage && editorRef.current) {
-      try {
-        selectedImage.alt = altText;
-        selectedImage.setAttribute("alt", altText);
-      } catch (e) {}
-
-      // Also sync to the image element inside the editor (by src match or reference)
-      try {
-        const imgs = Array.from(
-          editorRef.current.querySelectorAll("img")
-        ) as HTMLImageElement[];
-        for (const img of imgs) {
-          if (
-            img === selectedImage ||
-            (selectedImage.src && img.getAttribute("src") === selectedImage.src)
-          ) {
-            img.alt = altText;
-            img.setAttribute("alt", altText);
-            break;
-          }
-        }
-      } catch (e) {}
-
-      // Force UI refresh for image toolbar
-      setSelectedImageVersion((v) => v + 1);
-      setAltText("");
+    const img = findImageFromSelectionOrCurrent();
+    if (!img || !editorRef.current) {
+      // Nothing to update
       setIsAltModalOpen(false);
-      updateCounts();
+      return;
     }
+
+    try {
+      img.alt = altText;
+      img.setAttribute("alt", altText);
+    } catch (e) {}
+
+    // Also sync to all image elements in the editor that match the src (covers duplicates)
+    try {
+      const imgs = Array.from(editorRef.current.querySelectorAll("img")) as HTMLImageElement[];
+      for (const other of imgs) {
+        if (other === img || (img.src && other.getAttribute("src") === img.src)) {
+          other.alt = altText;
+          other.setAttribute("alt", altText);
+        }
+      }
+    } catch (e) {}
+
+    // Force a small DOM refresh to ensure contentEditable reflects the attribute change
+    try {
+      // Re-assign innerHTML to itself to force a reflow without changing content
+      editorRef.current.innerHTML = editorRef.current.innerHTML;
+    } catch (e) {}
+
+    // Update UI and close modal
+    setSelectedImageVersion((v) => v + 1);
+    setAltText("");
+    setIsAltModalOpen(false);
+    updateCounts();
   };
 
   const handleSlugChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -1152,27 +1229,131 @@ export default function BlogEditor({
       saveSelection();
     };
 
-    const handleSelectionEvent = (e: Event) => {
-      const target = e.target as HTMLElement;
-      if (target.tagName === "IMG") {
-        setSelectedImage(target as HTMLImageElement);
-      } else {
-        if (el.contains(target) && target.tagName !== "IMG") {
-          setSelectedImage(null);
+    // Detect an <img> from a DOM node or selection range
+    const detectImageFromNodeOrRange = (node: Node | null) => {
+      try {
+        if (!node) return null;
+        // If node is text, consider its parent element
+        const elNode = node.nodeType === Node.TEXT_NODE ? (node.parentElement as HTMLElement | null) : (node as HTMLElement | null);
+        if (!elNode) return null;
+
+        // 1) If node is or is inside an <img>
+        const direct = elNode.tagName === 'IMG' ? (elNode as HTMLImageElement) : (elNode.closest ? (elNode.closest('img') as HTMLImageElement | null) : null);
+        if (direct) return direct;
+
+        return null;
+      } catch (e) {
+        return null;
+      }
+    };
+
+    const detectImageFromSelection = () => {
+      try {
+        const sel = window.getSelection();
+        if (!sel || sel.rangeCount === 0) return null;
+        const range = sel.getRangeAt(0);
+
+        // If selection contains an IMG element directly
+        const container = range.commonAncestorContainer as HTMLElement | null;
+        if (container) {
+          const imgInRange = container.querySelector && (container.querySelector('img') as HTMLImageElement | null);
+          if (imgInRange) return imgInRange;
         }
+
+        // Check startContainer or endContainer for images
+        const startImg = detectImageFromNodeOrRange(range.startContainer);
+        if (startImg) return startImg;
+        const endImg = detectImageFromNodeOrRange(range.endContainer);
+        if (endImg) return endImg;
+
+        return null;
+      } catch (e) {
+        return null;
+      }
+    };
+
+    const handleSelectionEvent = (e: Event) => {
+      const target = e.target as HTMLElement | null;
+      let img: HTMLImageElement | null = null;
+
+      // Prefer direct target/closest
+      try {
+        if (target) {
+          img = target.tagName === 'IMG' ? (target as HTMLImageElement) : (target.closest ? (target.closest('img') as HTMLImageElement | null) : null);
+        }
+      } catch (err) {
+        img = null;
+      }
+
+      // If nothing found, inspect selection
+      if (!img) img = detectImageFromSelection();
+
+      if (img && el.contains(img)) {
+        // If user pressed the mouse (mousedown/click/pointerdown), make sure caret/selection is set to the image node
+        try {
+          const range = document.createRange();
+          range.selectNode(img);
+          const sel = window.getSelection();
+          sel?.removeAllRanges();
+          sel?.addRange(range);
+          // Save selection explicitly so restoreSelection and editor toolbar logic works
+          saveSelection();
+        } catch (err) {
+          // noop
+        }
+
+        // When selecting the image via click/mousedown/pointerdown, ensure hover state is set so the toolbar appears immediately
+        // and re-assert selection in the next tick to avoid accidental clearing by other selection events.
+        setSelectedImage(img);
+        setIsImageHover(true);
+        setTimeout(() => {
+          try {
+            if (editorRef.current && editorRef.current.contains(img)) {
+              setSelectedImage(img);
+              setIsImageHover(true);
+              saveSelection();
+            }
+          } catch (e) {}
+        }, 0);
+      } else {
+        setSelectedImage(null);
+        setIsImageHover(false);
+      }
+
+      handleSelectionChange();
+      updateCounts();
+    };
+
+    const handleSelectionImageChange = () => {
+      try {
+        const img = detectImageFromSelection();
+        if (img && el.contains(img)) {
+          setSelectedImage(img);
+          setIsImageHover(true);
+        } else {
+          setSelectedImage(null);
+          setIsImageHover(false);
+        }
+      } catch (e) {
+        setSelectedImage(null);
+        setIsImageHover(false);
       }
       handleSelectionChange();
       updateCounts();
     };
 
-    el.addEventListener("click", handleSelectionEvent);
-    el.addEventListener("keyup", handleSelectionEvent);
-    document.addEventListener("selectionchange", handleSelectionChange);
+    // Listen on pointerdown/mousedown (early), click and keyboard navigation
+    el.addEventListener('pointerdown', handleSelectionEvent);
+    el.addEventListener('mousedown', handleSelectionEvent);
+    el.addEventListener('click', handleSelectionEvent);
+    el.addEventListener('keyup', handleSelectionEvent);
+    document.addEventListener('selectionchange', handleSelectionImageChange);
 
     return () => {
-      el.removeEventListener("click", handleSelectionEvent);
-      el.removeEventListener("keyup", handleSelectionEvent);
-      document.removeEventListener("selectionchange", handleSelectionChange);
+      el.removeEventListener('mousedown', handleSelectionEvent);
+      el.removeEventListener('click', handleSelectionEvent);
+      el.removeEventListener('keyup', handleSelectionEvent);
+      document.removeEventListener('selectionchange', handleSelectionImageChange);
     };
   }, [checkActiveStates, updateCounts, saveSelection]);
 
@@ -1339,6 +1520,13 @@ export default function BlogEditor({
           ? new Date(publishedAtState).toISOString()
           : null;
 
+        // Choose h1: prefer content H1, otherwise use the post title (ensures Untitled Post becomes H1)
+        const contentH1 = getContentH1(contentHtml);
+        const finalH1 = contentH1 || title.trim();
+
+        // For drafts, set metaImage to cover if available (so UI that prefers metaImage shows it)
+        const metaImage = coverUrl || imagesPayload[0]?.url || "";
+
         const payload = {
           title: title.trim(),
           slug: finalSlug,
@@ -1346,6 +1534,8 @@ export default function BlogEditor({
           content: contentHtml,
           coverImage: coverUrl,
           coverImageAlt: coverAlt,
+          metaImage,
+          h1: finalH1,
           published: false,
           publishedAt: publishedAtPayload,
           seoTitle: seoTitle || title,
@@ -1368,7 +1558,7 @@ export default function BlogEditor({
         if (!res.ok) throw new Error(data.message || "Failed to save draft");
 
         setLastSaved(new Date());
-        if (onSaved) onSaved(data);
+        if (onSaved) onSaved(data.post || data);
       } catch (err: any) {
         console.error("Draft Save Error:", err);
         setErrorMsg(err.message || "Error saving draft");
@@ -1386,6 +1576,10 @@ export default function BlogEditor({
         ? new Date(publishedAtState).toISOString()
         : null;
 
+      // Determine an h1 value to send on initial publish save (prefer content H1 otherwise title)
+      const publishContentH1 = getContentH1(contentHtml);
+      const publishH1 = publishContentH1 || title.trim();
+
       const initialPayload = {
         title: title.trim(),
         slug: finalSlug,
@@ -1393,6 +1587,7 @@ export default function BlogEditor({
         content: contentHtml, // Contains blob: URLs
         coverImage: initial?.coverImage || "", // Use existing cover URL
         coverImageAlt: coverAlt,
+        h1: publishH1,
         published: true,
         publishedAt: publishedAtPayload,
         seoTitle: seoTitle || title,
@@ -1413,27 +1608,63 @@ export default function BlogEditor({
         body: JSON.stringify(initialPayload),
       });
 
-      const savedPost = await initialRes.json();
+      const savedJson = await initialRes.json();
       if (!initialRes.ok)
-        throw new Error(savedPost.message || "Initial save failed");
-      
-      currentPostId = savedPost._id;
+        throw new Error(savedJson.message || "Initial save failed");
+
+      // API returns { success:true, post } — accept either wrapper or direct object
+      let savedPostObj = savedJson.post || savedJson;
+      currentPostId = savedPostObj._id || (savedPostObj.id as string) || currentPostId;
+
+      // Fallback: if API didn't return an ID, try to find the post by slug (some environments may not return the object)
+      if (!currentPostId) {
+        try {
+          const searchRes = await fetch(`/api/admin/posts?search=${encodeURIComponent(finalSlug)}&limit=1`);
+          if (searchRes.ok) {
+            const listJson = await searchRes.json();
+            const found = (listJson.posts && listJson.posts[0]) || (Array.isArray(listJson) && listJson[0]);
+            if (found && (found._id || found.id)) {
+              currentPostId = found._id || found.id;
+              savedPostObj = savedPostObj || found;
+            }
+          }
+        } catch (e) {
+          console.warn('Could not find post by slug fallback', e);
+        }
+      }
+
       if (!currentPostId)
         throw new Error("Could not get post ID after initial save.");
-      
-      if (mode === "create" && onSaved) onSaved(savedPost);
+
+      if (mode === "create" && onSaved) onSaved(savedPostObj);
 
 
       // --- Step 3: Upload Images ---
-      let finalCoverUrl = savedPost.coverImage;
+      let finalCoverUrl = (savedPostObj && (savedPostObj.coverImage || "")) || "";
       if (coverFile) {
         finalCoverUrl = await uploadFile(coverFile, finalSlug);
       }
+
       const finalContentHtml = await processContentImages(contentHtml, finalSlug);
+
+      // If there was no explicit cover image, pick the first image from the final content (auto cover)
+      if (!finalCoverUrl) {
+        try {
+          const doc = new DOMParser().parseFromString(finalContentHtml, "text/html");
+          const firstImg = doc.querySelector("img");
+          if (firstImg && firstImg.getAttribute("src")) {
+            finalCoverUrl = firstImg.getAttribute("src") || "";
+          } else if (savedPostObj && (savedPostObj.metaImage || savedPostObj.coverImage)) {
+            finalCoverUrl = savedPostObj.metaImage || savedPostObj.coverImage || "";
+          }
+        } catch (e) {
+          // ignore
+        }
+      }
 
       // --- Step 4: Update Post with Final Image URLs ---
       const hasContentChanged = finalContentHtml !== contentHtml;
-      const hasCoverChanged = finalCoverUrl !== savedPost.coverImage;
+      const hasCoverChanged = finalCoverUrl !== (savedPostObj.coverImage || "");
       
       if (hasContentChanged || hasCoverChanged) {
         const finalImagesPayload = Array.from(
@@ -1442,9 +1673,16 @@ export default function BlogEditor({
           ).body.querySelectorAll("img")
         ).map((img) => ({ url: img.src, alt: img.alt }));
 
+        // Compute final H1 after image processing (prefer content H1 if present)
+        const finalContentH1 = getContentH1(finalContentHtml);
+        const finalH1 = finalContentH1 || title.trim();
+
         const finalPayload = {
           content: finalContentHtml,
           coverImage: finalCoverUrl,
+          // Also set metaImage so site UI (which prefers metaImage) shows the chosen cover
+          metaImage: finalCoverUrl || savedPostObj?.metaImage || savedPostObj?.coverImage || "",
+          h1: finalH1,
           images: finalImagesPayload,
         };
 
@@ -1458,8 +1696,9 @@ export default function BlogEditor({
         const finalData = await finalRes.json();
         if (!finalRes.ok)
           throw new Error(finalData.message || "Failed to update post with images");
-        
-        if (onSaved) onSaved(finalData);
+
+        // finalData may be wrapped — pass the actual post object when available
+        if (onSaved) onSaved(finalData.post || finalData);
       }
 
       setLastSaved(new Date());
@@ -1561,6 +1800,9 @@ export default function BlogEditor({
             saveSelection={saveSelection}
             restoreSelection={restoreSelection}
             selectedImage={selectedImage}
+            isImageHover={isImageHover}
+            isResizing={isResizing}
+            isAltModalOpen={isAltModalOpen}
             updateImageWidth={updateImageWidth}
             openLinkModal={() => {
               saveSelection();
@@ -1871,8 +2113,8 @@ export default function BlogEditor({
                 }}
               />
 
-              {/* Custom Image Resizer Overlay */}
-              {selectedImage && (
+              {/* Custom Image Resizer Overlay (show only when hovering or resizing/alt modal open) */}
+              {(selectedImage && (isImageHover || isResizing || isAltModalOpen)) && (
                 <div
                   style={{
                     ...overlayStyle,
@@ -2031,15 +2273,31 @@ export default function BlogEditor({
 
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">
-                  Google Analytics ID
-                </label>
+                <div className="flex items-center justify-between">
+                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">
+                    Google Analytics ID
+                  </label>
+                  <button
+                    onClick={() => setAnalyticsEditable((v) => !v)}
+                    className="text-xs px-2 py-1 border rounded text-slate-600 hover:bg-slate-50"
+                    title={analyticsEditable ? "Lock analytics ID" : "Edit analytics ID"}
+                  >
+                    {analyticsEditable ? "Lock" : "Edit"}
+                  </button>
+                </div>
+
                 <input
                   value={siteAnalyticsId}
                   onChange={(e) => setSiteAnalyticsId(e.target.value)}
                   placeholder="G-XXXXXXXX or UA-XXXXXXXX"
-                  className="w-full border-2 border-slate-200 rounded-lg px-4 py-2.5 focus:border-blue-400 focus:outline-none transition-colors"
+                  disabled={!analyticsEditable}
+                  className={`w-full border-2 rounded-lg px-4 py-2.5 transition-colors ${
+                    analyticsEditable
+                      ? "border-slate-200 focus:border-blue-400 focus:outline-none"
+                      : "bg-slate-50 border-slate-100 text-slate-400 cursor-not-allowed"
+                  }`}
                 />
+
               </div>
 
               <div>
@@ -2050,9 +2308,12 @@ export default function BlogEditor({
                   rows={6}
                   value={siteRobots}
                   onChange={(e) => setSiteRobots(e.target.value)}
-                  placeholder={`User-agent: *\nAllow: /\nSitemap: https://example.com/sitemap.xml`}
+                  placeholder={`User-agent: *\nAllow: /\nSitemap: ${process.env.NEXT_PUBLIC_SITE_URL ? `${process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, '')}/sitemap.xml` : '/sitemap.xml'}`}
                   className="w-full border-2 border-slate-200 rounded-lg px-4 py-2.5 focus:border-blue-400 focus:outline-none transition-colors resize-none"
                 />
+                <p className="text-xs text-slate-400 mt-1">
+                  Sitemap line is optional — it will default to your configured site URL or a relative <code>/sitemap.xml</code> so you don't have to edit it.
+                </p>
               </div>
 
               <div className="flex gap-3">

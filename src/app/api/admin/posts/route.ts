@@ -170,7 +170,8 @@ export async function POST(req: Request) {
       metaImage: body.coverImage || (images.length > 0 ? images[0] : ""),
       
       // Content structure
-      h1: getMainHeading(headings),
+      // Prefer explicit body.h1, fall back to first H1 from content, otherwise use title
+      h1: body.h1 || getMainHeading(headings) || body.title,
       h2: getH2Headings(headings),
       h3: getH3Headings(headings),
       headings: headings,
