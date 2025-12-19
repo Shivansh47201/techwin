@@ -1,14 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
+import { signOut } from "next-auth/react";
+
 import { useRouter, usePathname } from "next/navigation";
-import { 
-  LayoutDashboard, 
-  Package, 
-  Inbox, 
-  Menu, 
-  X, 
-  LogOut, 
+import {
+  LayoutDashboard,
+  Package,
+  Inbox,
+  Menu,
+  X,
+  LogOut,
   User,
   ChevronRight,
   FileText,
@@ -26,10 +28,24 @@ export default function Sidebar() {
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   const menuItems = [
-    { label: "Dashboard", href: "/admin/dashboard", icon: <LayoutDashboard size={20} /> },
+    {
+      label: "Dashboard",
+      href: "/admin/dashboard",
+      icon: <LayoutDashboard size={20} />,
+    },
     { label: "Blog Posts", href: "/admin/posts", icon: <FileText size={20} /> },
-    { label: "Products", href: "#products", icon: <Package size={20} />, disabled: true },
-    { label: "Inbox", href: "#inbox", icon: <Inbox size={20} />, disabled: true },
+    {
+      label: "Products",
+      href: "#products",
+      icon: <Package size={20} />,
+      disabled: true,
+    },
+    {
+      label: "Inbox",
+      href: "#inbox",
+      icon: <Inbox size={20} />,
+      disabled: true,
+    },
   ];
 
   return (
@@ -55,12 +71,20 @@ export default function Sidebar() {
           {/* Top Section */}
           <div>
             {/* Header / Logo */}
-            <div className={`flex items-center gap-3 px-6 py-8 ${!isOpen && "md:justify-center px-2"}`}>
+            <div
+              className={`flex items-center gap-3 px-6 py-8 ${
+                !isOpen && "md:justify-center px-2"
+              }`}
+            >
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm shadow-inner">
                 <span className="text-xl font-bold text-white">A</span>
               </div>
-              
-              <div className={`transition-all duration-300 ${!isOpen && "md:hidden md:opacity-0"}`}>
+
+              <div
+                className={`transition-all duration-300 ${
+                  !isOpen && "md:hidden md:opacity-0"
+                }`}
+              >
                 <h2 className="text-lg font-bold tracking-wide text-white">
                   ADMIN PANEL
                 </h2>
@@ -72,10 +96,14 @@ export default function Sidebar() {
 
             {/* Menu Items */}
             <nav className="mt-4 px-3">
-              <p className={`mb-3 px-4 text-xs font-semibold uppercase tracking-wider text-blue-100/50 ${!isOpen && "md:hidden"}`}>
+              <p
+                className={`mb-3 px-4 text-xs font-semibold uppercase tracking-wider text-blue-100/50 ${
+                  !isOpen && "md:hidden"
+                }`}
+              >
                 Main Menu
               </p>
-              
+
               <ul className="space-y-2">
                 {menuItems.map((item, index) => {
                   const isActive = pathname === item.href;
@@ -94,7 +122,11 @@ export default function Sidebar() {
                               ? "bg-white/20 text-white shadow-lg backdrop-blur-sm"
                               : "text-blue-50 hover:bg-white/10 hover:text-white"
                           }
-                          ${item.disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"}
+                          ${
+                            item.disabled
+                              ? "cursor-not-allowed opacity-50"
+                              : "cursor-pointer"
+                          }
                           ${!isOpen && "md:justify-center md:px-2"}
                         `}
                       >
@@ -102,16 +134,27 @@ export default function Sidebar() {
                           <div className="absolute left-0 top-1/2 h-8 w-1 -translate-y-1/2 rounded-r-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.6)]" />
                         )}
 
-                        <span className={`relative z-10 transition-transform duration-300 group-hover:scale-110 ${isActive ? "text-white" : "text-blue-100"}`}>
+                        <span
+                          className={`relative z-10 transition-transform duration-300 group-hover:scale-110 ${
+                            isActive ? "text-white" : "text-blue-100"
+                          }`}
+                        >
                           {item.icon}
                         </span>
 
-                        <span className={`whitespace-nowrap font-medium transition-all duration-300 ${!isOpen && "md:hidden md:w-0 md:opacity-0"}`}>
+                        <span
+                          className={`whitespace-nowrap font-medium transition-all duration-300 ${
+                            !isOpen && "md:hidden md:w-0 md:opacity-0"
+                          }`}
+                        >
                           {item.label}
                         </span>
 
                         {isActive && isOpen && (
-                          <ChevronRight size={16} className="ml-auto text-white/70" />
+                          <ChevronRight
+                            size={16}
+                            className="ml-auto text-white/70"
+                          />
                         )}
 
                         {!isOpen && (
@@ -129,25 +172,37 @@ export default function Sidebar() {
 
           {/* Bottom Section */}
           <div className="border-t border-white/10 bg-black/10 px-4 py-4 backdrop-blur-sm">
-            <div className={`flex items-center gap-3 ${!isOpen && "md:justify-center"}`}>
+            <div
+              className={`flex items-center gap-3 ${
+                !isOpen && "md:justify-center"
+              }`}
+            >
               <div className="relative">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/20 text-white shadow-sm ring-2 ring-white/30">
                   <User size={20} />
                 </div>
                 <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-green-400 ring-2 ring-[#3B9ACB]" />
               </div>
-              
-              <div className={`overflow-hidden transition-all duration-300 ${!isOpen && "md:w-0 md:hidden"}`}>
-                <p className="truncate text-sm font-semibold text-white">Administrator</p>
-                <button 
-                  onClick={() => {
-                    localStorage.removeItem("adminSession");
-                    router.push("/auth/login");
+
+              <div
+                className={`overflow-hidden transition-all duration-300 ${
+                  !isOpen && "md:w-0 md:hidden"
+                }`}
+              >
+                <p className="truncate text-sm font-semibold text-white">
+                  Administrator
+                </p>
+                <button
+                  onClick={async () => {
+                    await signOut({
+                      redirect: true,
+                      callbackUrl: "/auth/login",
+                    });
                   }}
-                  className="flex items-center gap-1 text-xs text-blue-200 transition-colors hover:text-white hover:text-red-300 cursor-pointer"
+                  className="flex items-center gap-1 text-xs transition-colors hover:text-red-300 cursor-pointer"
                 >
-                  <LogOut size={12} />
-                  <span>Logout</span>
+                  <LogOut size={12} className="text-white" />
+                  <span className="text-white">Logout</span>
                 </button>
               </div>
             </div>
@@ -162,7 +217,12 @@ export default function Sidebar() {
           ${isOpen ? "left-[265px]" : "left-[65px]"}
         `}
       >
-        <ChevronRight size={18} className={`transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} />
+        <ChevronRight
+          size={18}
+          className={`transition-transform duration-300 ${
+            isOpen ? "rotate-180" : ""
+          }`}
+        />
       </button>
 
       {/* Mobile Overlay */}

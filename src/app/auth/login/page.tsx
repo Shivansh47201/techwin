@@ -1,84 +1,47 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { LogIn, AlertCircle, Eye, EyeOff } from "lucide-react";
 
 const PRIMARY_COLOR = "#3B9ACB";
 
-
-const ADMIN_USERNAME = process.env.NEXT_PUBLIC_ADMIN_USERNAME;
-const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
-
 export default function AdminLoginPage() {
   const router = useRouter();
 
-  const [username, setUsername] = useState("");
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
-  // FOR DEBUGGING ONLY: Log environment variables to check if they are loaded correctly.
-  useEffect(() => {
-    // Make sure to remove this in production.
-    console.log(
-      "DEBUG: NEXT_PUBLIC_ADMIN_USERNAME:",
-      process.env.NEXT_PUBLIC_ADMIN_USERNAME
-    );
-    console.log(
-      "DEBUG: NEXT_PUBLIC_ADMIN_PASSWORD:",
-      process.env.NEXT_PUBLIC_ADMIN_PASSWORD
-    );
-  }, []);
-
-  // ✅ Auto-login if session valid
-  useEffect(() => {
-    const stored = localStorage.getItem("adminSession");
-    if (!stored) return;
-
-    const session = JSON.parse(stored);
-    if (Date.now() < session.expiryTime) {
-      router.push("/admin/dashboard");
-    } else {
-      localStorage.removeItem("adminSession");
-    }
-  }, [router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setLoading(true);
 
-    await new Promise((r) => setTimeout(r, 400));
-
-    if (
-      username === ADMIN_USERNAME &&
-      password === ADMIN_PASSWORD
-    ) {
-      const now = Date.now();
-      const expiryTime = now + 12 * 60 * 60 * 1000; // 12 hours
-
-      localStorage.setItem(
-        "adminSession",
-        JSON.stringify({
-          username,
-          loginTime: now,
-          expiryTime,
-        })
-      );
-
-      router.push("/admin/dashboard");
-    } else {
-      setError("Invalid username or password");
-    }
+    const res = await signIn("credentials", {
+      identifier,
+      password,
+      redirect: false,
+    });
 
     setLoading(false);
+
+    if (res?.error) {
+      setError("Invalid username or password");
+      return;
+    }
+
+   
+    router.push("/admin/dashboard");
   };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8">
+        {/* Header */}
         <div className="text-center mb-8">
           <div
             className="mx-auto mb-4 h-12 w-12 rounded-lg flex items-center justify-center text-white text-xl font-bold"
@@ -94,6 +57,7 @@ export default function AdminLoginPage() {
           </p>
         </div>
 
+        {/* Error */}
         {error && (
           <div className="mb-5 flex items-center gap-2 p-3 rounded-lg bg-red-50 border border-red-200">
             <AlertCircle size={18} className="text-red-600" />
@@ -101,16 +65,18 @@ export default function AdminLoginPage() {
           </div>
         )}
 
+        {/* Form */}
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
             <label className="block text-sm font-semibold mb-2">
-              Username
+              Username / Email
             </label>
             <input
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={identifier}
+              onChange={(e) => setIdentifier(e.target.value)}
               disabled={loading}
+              required
               className="w-full px-4 py-2.5 border rounded-lg outline-none focus:ring-2 focus:ring-blue-200"
             />
           </div>
@@ -125,12 +91,14 @@ export default function AdminLoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
+                required
                 className="w-full px-4 py-2.5 pr-10 border rounded-lg outline-none focus:ring-2 focus:ring-blue-200"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400"
+                tabIndex={-1}
               >
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
@@ -140,10 +108,14 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full mt-4 py-2.5 text-white font-semibold rounded-lg flex items-center justify-center gap-2"
+            className="w-full mt-4 py-2.5 text-white font-semibold rounded-lg flex items-center justify-center gap-2 disabled:opacity-70"
             style={{ backgroundColor: PRIMARY_COLOR }}
           >
-            {loading ? "Signing in..." : <><LogIn size={18}/> Login</>}
+            {loading ? "Signing in..." : (
+              <>
+                <LogIn size={18} /> Login
+              </>
+            )}
           </button>
         </form>
 

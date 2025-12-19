@@ -1,14 +1,5 @@
-"use client";
-
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { redirect } from "next/navigation";
 
 export default function AdminLoginRedirectPage() {
-  const router = useRouter();
-
-  useEffect(() => {
-    router.push("/auth/login");
-  }, [router]);
-
-  return null;
+  redirect("/auth/login");
 }

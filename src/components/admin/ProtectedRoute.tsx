@@ -1,71 +1,30 @@
 "use client";
 
-import React, { useEffect, ReactNode } from "react";
+import React from "react";
+import { useSession } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
 
-interface ProtectedRouteProps {
-  children: ReactNode;
-}
+interface Props { children: React.ReactNode; }
 
-export default function ProtectedRoute({ children }: ProtectedRouteProps) {
+export default function ProtectedRoute({ children }: Props) {
+  const { data: session, status } = useSession();
   const router = useRouter();
   const pathname = usePathname();
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(true);
 
-  useEffect(() => {
-    // Don't protect login pages
-    if (pathname?.includes("/login") || pathname?.includes("/auth")) {
-      setIsAuthenticated(true);
-      setIsLoading(false);
-      return;
+  React.useEffect(() => {
+    // don't protect login pages
+    if (pathname?.includes("/login") || pathname?.includes("/auth")) return;
+
+    // wait while next-auth is loading
+    if (status === "loading") return;
+
+    // if no session, redirect to auth login
+    if (!session) {
+      router.push("/auth/login");
     }
+  }, [status, session, pathname, router]);
 
-    // Check if session exists and is valid
-    const checkSession = () => {
-      const storedSession = localStorage.getItem("adminSession");
-
-      if (!storedSession) {
-        // No session, redirect to login
-        setIsLoading(false);
-        router.push("/admin/login");
-        return;
-      }
-
-      try {
-        const session = JSON.parse(storedSession);
-        const expiryTime = session.expiryTime;
-        const now = Date.now();
-
-        if (now > expiryTime) {
-          // Session expired
-          localStorage.removeItem("adminSession");
-          setIsLoading(false);
-          router.push("/admin/login");
-          return;
-        }
-
-        // Session valid
-        setIsAuthenticated(true);
-        setIsLoading(false);
-      } catch (error) {
-        // Invalid session data
-        localStorage.removeItem("adminSession");
-        setIsLoading(false);
-        router.push("/admin/login");
-        return;
-      }
-    };
-
-    checkSession();
-
-    // Set interval to check session expiry every minute
-    const interval = setInterval(checkSession, 60000);
-
-    return () => clearInterval(interval);
-  }, [router, pathname]);
-
-  if (isLoading) {
+  if (status === "loading") {
     return (
       <div className="flex items-center justify-center h-screen bg-gray-50">
         <div className="text-center">
@@ -76,8 +35,9 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
     );
   }
 
-  if (!isAuthenticated) {
-    return null; // Will redirect in useEffect
+  // while unauthenticated we already redirected in effect; render nothing
+  if (!session && !pathname?.includes("/login") && !pathname?.includes("/auth")) {
+    return null;
   }
 
   return <>{children}</>;

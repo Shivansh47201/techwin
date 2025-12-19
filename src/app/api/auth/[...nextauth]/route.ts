@@ -1,34 +1,37 @@
-import NextAuth from "next-auth";
+import NextAuth, { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 
   providers: [
     CredentialsProvider({
-      name: "Credentials",
+      name: "Admin Credentials",
+
       credentials: {
-        identifier: { label: "Email or Username", type: "text" },
+        identifier: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" },
       },
 
       async authorize(credentials) {
-        const allowedEmail = process.env.ADMIN_EMAIL;
-        const allowedUsername = process.env.ADMIN_USERNAME;
-        const allowedPassword = process.env.ADMIN_PASSWORD;
+        if (!credentials) return null;
 
-        const id = credentials?.identifier;
-        const pw = credentials?.password;
+        const { identifier, password } = credentials;
 
-        if (!id || !pw) return null;
+        const adminUsername = process.env.ADMIN_USERNAME;
+        const adminPassword = process.env.ADMIN_PASSWORD;
 
-        // allow either email or username match
-        const isMatch =
-          (allowedEmail && id === allowedEmail) ||
-          (allowedUsername && id === allowedUsername);
+        if (!adminUsername || !adminPassword) {
+          console.error("Admin credentials not set in env");
+          return null;
+        }
 
-        if (isMatch && pw === allowedPassword) {
-          return { id: "admin", name: "Admin", email: allowedEmail || allowedUsername };
+        if (identifier === adminUsername && password === adminPassword) {
+          return {
+            id: "admin",
+            name: "Admin",
+            email: adminUsername,
+          };
         }
 
         return null;
@@ -36,9 +39,15 @@ const handler = NextAuth({
     }),
   ],
 
-  pages: { signIn: "/admin/login" },
+  pages: {
+    signIn: "/auth/login",
+  },
 
-  session: { strategy: "jwt" },
-});
+  session: {
+    strategy: "jwt",
+  },
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
