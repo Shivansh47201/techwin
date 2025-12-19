@@ -554,7 +554,7 @@ const EditorToolbar = ({
       </div>
 
       {/* Floating Image Toolbar (visible while image is selected, resizing, hovered, or ALT modal open) */}
-      {selectedImage && (isImageHover || isResizing || isAltModalOpen || true) && (
+      {selectedImage && (isImageHover || isResizing || isAltModalOpen) && (
         <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 flex items-center gap-2 pl-2 pr-1 py-1.5 bg-white border border-slate-200 shadow-xl rounded-full animate-in fade-in slide-in-from-bottom-4">
           <Scaling size={16} style={{ color: BRAND_COLOR }} className="ml-2" />
           <span className="text-xs font-bold text-slate-500 w-20 text-center border-r border-slate-200 pr-2">
@@ -658,6 +658,7 @@ export default function BlogEditor({
   // Image helpers moved above JSX so they are available when rendering the image toolbar
   function updateImageWidth(width: string) {
     if (selectedImage) {
+      console.debug("updateImageWidth ->", { width, src: selectedImage.src });
       // Allow growing beyond responsive max-width by clearing it when user explicitly resizes
       try {
         selectedImage.style.maxWidth = "none";
@@ -687,6 +688,8 @@ export default function BlogEditor({
       updateCounts();
       // Force React to re-render UI that depends on selectedImage and allow ResizeObserver to update the overlay
       setSelectedImageVersion((v) => v + 1);
+    } else {
+      console.debug("updateImageWidth called but no selectedImage", { width });
     }
   }
 
@@ -728,6 +731,25 @@ export default function BlogEditor({
   const containerRef = useRef<HTMLDivElement>(null);
   const savedRange = useRef<Range | null>(null);
   const [activeStates, setActiveStates] = useState<Record<string, boolean>>({});
+  // Track the last image the user explicitly clicked — used as a robust fallback when selection is lost
+  const lastClickedImageRef = useRef<HTMLImageElement | null>(null);
+
+  // Helper: resolve the most likely active image for ALT/resize operations
+  const getActiveImage = () => {
+    if (lastClickedImageRef.current) return lastClickedImageRef.current;
+    if (selectedImage) return selectedImage;
+    try {
+      const sel = window.getSelection();
+      if (!sel || sel.rangeCount === 0) return null;
+      const range = sel.getRangeAt(0);
+      const container = range.commonAncestorContainer as HTMLElement | null;
+      if (container) {
+        const imgInRange = container.querySelector && (container.querySelector('img') as HTMLImageElement | null);
+        if (imgInRange) return imgInRange;
+      }
+    } catch (e) {}
+    return null;
+  };
 
   const [isResizing, setIsResizing] = useState(false);
   const resizeRef = useRef<{
@@ -1168,7 +1190,8 @@ export default function BlogEditor({
   };
 
   const updateAltText = () => {
-    const img = findImageFromSelectionOrCurrent();
+    // Prefer the last-clicked image, then selected image, then selection-inspection
+    const img = getActiveImage();
     if (!img || !editorRef.current) {
       // Nothing to update
       setIsAltModalOpen(false);
@@ -1176,6 +1199,7 @@ export default function BlogEditor({
     }
 
     try {
+      console.debug("updateAltText ->", { src: img.src, alt: altText });
       img.alt = altText;
       img.setAttribute("alt", altText);
     } catch (e) {}
@@ -1306,6 +1330,8 @@ export default function BlogEditor({
         // and re-assert selection in the next tick to avoid accidental clearing by other selection events.
         setSelectedImage(img);
         setIsImageHover(true);
+        // Remember this as the last clicked image (robust fallback)
+        lastClickedImageRef.current = img;
         setTimeout(() => {
           try {
             if (editorRef.current && editorRef.current.contains(img)) {
@@ -1318,6 +1344,7 @@ export default function BlogEditor({
       } else {
         setSelectedImage(null);
         setIsImageHover(false);
+        // Do not clear lastClickedImageRef here — we want explicit clicks to persist as a fallback
       }
 
       handleSelectionChange();
@@ -1327,10 +1354,8 @@ export default function BlogEditor({
     const handleSelectionImageChange = () => {
       try {
         const img = detectImageFromSelection();
-        if (img && el.contains(img)) {
-          setSelectedImage(img);
-          setIsImageHover(true);
-        } else {
+        // If selection no longer points at an image, clear the selection state but keep lastClickedImageRef
+        if (!img || !el.contains(img)) {
           setSelectedImage(null);
           setIsImageHover(false);
         }
@@ -1809,8 +1834,10 @@ export default function BlogEditor({
               setIsLinkModalOpen(true);
             }}
             openAltModal={() => {
-              if (selectedImage) {
-                setAltText(selectedImage.alt);
+              // Use the most likely active image when opening the ALT modal
+              const img = getActiveImage();
+              if (img) {
+                setAltText(img.alt || "");
                 setIsAltModalOpen(true);
               }
             }}
