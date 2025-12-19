@@ -4,7 +4,7 @@
 import Image from "next/image";
 import { safeImageSrc } from "@/lib/image";
 import Link from "next/link";
-import { Menu, User, Heart, HelpCircle } from "lucide-react";
+import { Menu, FileText } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -69,7 +69,8 @@ export default function Header() {
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
   const [activeApp, setActiveApp] = useState<any | null>(null);
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const searchContainerRef = useRef<HTMLDivElement>(null);
+  const desktopSearchRef = useRef<HTMLDivElement>(null);
+  const mobileSearchRef = useRef<HTMLDivElement>(null);
 
   // Request Quote context
   const { openModal } = useRequestQuote();
@@ -149,19 +150,38 @@ export default function Header() {
   }, [searchQuery]);
 
   // Click outside to close dropdown
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        searchContainerRef.current &&
-        !searchContainerRef.current.contains(event.target as Node)
-      ) {
-        setShowSearchDropdown(false);
-      }
-    };
-    if (showSearchDropdown)
-      document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [showSearchDropdown]);
+useEffect(() => {
+  const handleClickOutside = (event: MouseEvent) => {
+    const target = event.target as Node;
+
+    if (
+      desktopSearchRef.current &&
+      desktopSearchRef.current.contains(target)
+    ) {
+      return;
+    }
+
+    // Mobile search ke andar click
+    if (
+      mobileSearchRef.current &&
+      mobileSearchRef.current.contains(target)
+    ) {
+      return;
+    }
+
+    setShowSearchDropdown(false);
+  };
+
+  if (showSearchDropdown) {
+    document.addEventListener("click", handleClickOutside, true);
+  }
+
+  return () => {
+    document.removeEventListener("click", handleClickOutside, true);
+  };
+}, [showSearchDropdown]);
+
+
 
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -179,7 +199,10 @@ export default function Header() {
               <Menu className="h-5 w-5 text-[#3B9ACB]" />
             </button>
 
-            <Link href="/" className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <Link
+              href="/"
+              className="flex items-center gap-2 sm:gap-3 shrink-0"
+            >
               <Image
                 src={safeImageSrc("/techwin-logo-rectangle.png")}
                 alt="Techwin Logo"
@@ -191,7 +214,7 @@ export default function Header() {
             </Link>
 
             <div className="hidden sm:flex flex-1">
-              <div className="relative w-full" ref={searchContainerRef}>
+              <div className="relative w-full" ref={desktopSearchRef}>
                 <input
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -221,7 +244,6 @@ export default function Header() {
                     isLoading={isSearching}
                     results={searchResults}
                     onResultClick={() => {
-                      setSearchQuery("");
                       setShowSearchDropdown(false);
                     }}
                   />
@@ -231,29 +253,18 @@ export default function Header() {
 
             <div className="hidden md:flex items-center gap-5 ml-4">
               <Link
-                href="/account"
-                className="flex items-center gap-2 text-sm text-[#3B9ACB] hover:text-[#00527b] transition-colors"
+                href="/blog"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white text-[#3B9ACB] rounded font-medium text-sm hover:bg-[#EAF6FC] transition-colors"
               >
-                <User className="h-4 w-4" /> <span>Profile</span>
-              </Link>
-              <Link
-                href="/wishlist"
-                className="flex items-center gap-2 text-sm text-[#3B9ACB] hover:text-[#00527b] transition-colors"
-              >
-                <Heart className="h-4 w-4" /> <span>Wishlist</span>
-              </Link>
-              <Link
-                href="/help"
-                className="flex items-center gap-2 text-sm text-[#3B9ACB] hover:text-[#00527b] transition-colors"
-              >
-                <HelpCircle className="h-4 w-4" /> <span>Help</span>
+                <FileText className="h-4 w-4" />
+                <span>Blog</span>
               </Link>
             </div>
           </div>
 
           {/* Mobile Search Bar */}
           <div className="sm:hidden px-3 py-2 border-t border-gray-100">
-            <div className="relative w-full" ref={searchContainerRef}>
+            <div className="relative w-full" ref={mobileSearchRef}>
               <input
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -270,7 +281,6 @@ export default function Header() {
                   isLoading={isSearching}
                   results={searchResults}
                   onResultClick={() => {
-                    setSearchQuery("");
                     setShowSearchDropdown(false);
                   }}
                 />
@@ -310,11 +320,8 @@ export default function Header() {
 
                     {/* Product Category - MEGA MENU */}
                     <NavigationMenuItem>
-                      <NavigationMenuTrigger className="px-4 rounded text-sm font-medium text-[#3B9ACB] hover:bg-white hover:text-[#2b99d0]  transition-colors">
-                        {/* text par click = /products */}
-                        <Link href="/products" className="block w-full h-full">
-                          Product Category
-                        </Link>
+                      <NavigationMenuTrigger className="px-4 rounded text-sm font-medium text-[#3B9ACB] hover:bg-white hover:text-[#2b99d0] transition-colors">
+                        Product Category
                       </NavigationMenuTrigger>
                       <NavigationMenuContent className="bg-white p-4 shadow-lg rounded-md">
                         <div className="w-[760px] max-w-full text-[#111]">
@@ -357,7 +364,7 @@ export default function Header() {
                                 )}
 
                               {activeCategory.children &&
-                                activeCategory.children.length > 0 ? (
+                              activeCategory.children.length > 0 ? (
                                 <div className="relative max-h-64 overflow-y-auto pr-2">
                                   <ul className="space-y-1 text-sm">
                                     {activeCategory.children.map(
@@ -436,13 +443,8 @@ export default function Header() {
                     </NavigationMenuItem>
 
                     <NavigationMenuItem>
-                      <NavigationMenuTrigger className="px-4  rounded text-sm font-medium text-[#3B9ACB] hover:bg-white hover:text-[#2b99d0] transition-colors">
-                        <Link
-                          href="/application"
-                          className="block w-full h-full"
-                        >
-                          Application
-                        </Link>
+                      <NavigationMenuTrigger className="px-4 rounded text-sm font-medium text-[#3B9ACB] hover:bg-white hover:text-[#2b99d0] transition-colors">
+                        Application
                       </NavigationMenuTrigger>
 
                       <NavigationMenuContent
@@ -501,17 +503,18 @@ export default function Header() {
                                 Featured
                               </h4>
                               {(activeApp && activeApp.image) ||
-                                activeCategory.image ? (
+                              activeCategory.image ? (
                                 <div className="relative h-36 w-full rounded overflow-hidden border border-gray-100">
                                   <Image
                                     src={safeImageSrc(
                                       (activeApp && activeApp.image) ||
-                                      activeCategory.image
+                                        activeCategory.image
                                     )}
-                                    alt={`Featured for ${activeApp
+                                    alt={`Featured for ${
+                                      activeApp
                                         ? activeApp.name
                                         : activeCategory.title
-                                      }`}
+                                    }`}
                                     fill
                                     sizes="240px"
                                     className="object-cover"
@@ -531,7 +534,7 @@ export default function Header() {
                 </NavigationMenu>
               </div>
 
-            <div className="hidden md:flex items-center gap-3 py-1">
+              <div className="hidden md:flex items-center gap-3 py-1">
                 {/* Previously this was a Link to /request-quote — now it opens the modal via context */}
                 <button
                   type="button"

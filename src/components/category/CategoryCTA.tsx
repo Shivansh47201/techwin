@@ -60,7 +60,8 @@ export default function CategoryCTA({
           {/* Animated Gradient Blobs */}
           <div aria-hidden className="absolute inset-0 -z-10">
             <motion.div 
-              className="absolute top-[-100px] left-[-100px] w-[400px] h-[400px] bg-blue-400/50 rounded-full filter blur-3xl opacity-50"
+              className="hidden sm:block absolute top-[-100px] left-[-100px] w-[400px] h-[400px] bg-blue-400/50 rounded-full filter blur-3xl opacity-50"
+              aria-hidden
               animate={{
                 x: [0, 100, 0, -100, 0],
                 y: [0, -50, 100, -50, 0],
@@ -68,7 +69,8 @@ export default function CategoryCTA({
               transition={{ duration: 30, repeat: Infinity, ease: 'easeInOut' }}
             />
             <motion.div 
-              className="absolute bottom-[-150px] right-[-150px] w-[500px] h-[500px] bg-sky-400/50 rounded-full filter blur-3xl opacity-50"
+              className="hidden sm:block absolute bottom-[-150px] right-[-150px] w-[500px] h-[500px] bg-sky-400/50 rounded-full filter blur-3xl opacity-50"
+              aria-hidden
               animate={{
                 x: [0, -100, 50, 100, 0],
                 y: [0, 80, -50, 40, 0],
@@ -78,7 +80,7 @@ export default function CategoryCTA({
           </div>
 
           {/* Glassmorphic card */}
-          <div className="relative z-10 bg-white/10 backdrop-blur-lg rounded-2xl p-8 md:p-10 text-center flex flex-col items-center border border-white/20">
+          <div className="relative z-10 bg-white/10 backdrop-blur-lg rounded-2xl p-6 md:p-10 text-center flex flex-col items-center border border-white/20">
             {/* Glowing Icon */}
             <motion.div variants={itemVariants} className="mb-6">
                 <motion.div
@@ -97,17 +99,17 @@ export default function CategoryCTA({
             </motion.div>
             
             {/* Heading */}
-            <motion.h2 variants={itemVariants} id="category-cta-heading" className="text-3xl md:text-4xl font-bold text-white">
+            <motion.h2 variants={itemVariants} id="category-cta-heading" className="text-2xl md:text-4xl font-bold text-white">
               {cta.heading ?? "Let's Engineer Your Perfect Setup"}
             </motion.h2>
 
             {/* Description */}
-            <motion.p variants={itemVariants} className="mt-4 text-base md:text-lg text-white/80 max-w-2xl mx-auto">
+            <motion.p variants={itemVariants} className="mt-4 text-sm md:text-base text-white/80 max-w-xl mx-auto">
               Contact our application specialists to get a detailed quote, complete with datasheets and custom options, usually within one business day.
             </motion.p>
             
             {/* Buttons */}
-            <motion.div variants={itemVariants} className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
+            <motion.div variants={itemVariants} className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 w-full">
               <Button
                 as="a"
                 href="#"

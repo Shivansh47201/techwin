@@ -124,11 +124,7 @@ export default async function CategoryPage({ params }: Props) {
         </div>
       </section> */}
 
-      <section className="py-12 md:py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <SubCategoryGrid items={subCategories} categorySlug={slug} />
-        </div>
-      </section>
+      <SubCategoryGrid items={subCategories} categorySlug={slug} />
 
       <section className="py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-6">

@@ -207,3 +207,18 @@ section { scroll-margin-top: 96px; }
 /* Slightly tighten hero spacing for visual balance */
 .bg-slate-900 .max-w-6xl { padding-top: 3.25rem; padding-bottom: 3.25rem; }
 
+/* Custom scrollbar for search dropdown */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #a3aab2;
+}

@@ -6,9 +6,9 @@ import { LogIn, AlertCircle, Eye, EyeOff } from "lucide-react";
 
 const PRIMARY_COLOR = "#3B9ACB";
 
-// ✅ ENV (browser-safe)
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME;
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+
+const ADMIN_USERNAME = process.env.NEXT_PUBLIC_ADMIN_USERNAME;
+const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD;
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -18,6 +18,19 @@ export default function AdminLoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // FOR DEBUGGING ONLY: Log environment variables to check if they are loaded correctly.
+  useEffect(() => {
+    // Make sure to remove this in production.
+    console.log(
+      "DEBUG: NEXT_PUBLIC_ADMIN_USERNAME:",
+      process.env.NEXT_PUBLIC_ADMIN_USERNAME
+    );
+    console.log(
+      "DEBUG: NEXT_PUBLIC_ADMIN_PASSWORD:",
+      process.env.NEXT_PUBLIC_ADMIN_PASSWORD
+    );
+  }, []);
 
   // ✅ Auto-login if session valid
   useEffect(() => {

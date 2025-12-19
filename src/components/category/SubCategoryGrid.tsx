@@ -81,7 +81,7 @@ export default function SubCategoryGrid({
       aria-label="Products and subcategories"
       className={`
         relative
-        overflow-hidden
+        overflow-visible
         ${SECTION_PADDING}
         w-screen left-1/2 -translate-x-1/2
         bg-[#3B9ACB]
@@ -152,7 +152,8 @@ export default function SubCategoryGrid({
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
+          // trigger when a small portion is visible to avoid missed intersections on small screens
+          viewport={{ once: true, amount: 0.02 }}
           variants={listVariants}
         >
           <div className={`grid ${gridCols} gap-4 sm:gap-5 md:gap-6`}>
@@ -198,6 +199,8 @@ export default function SubCategoryGrid({
                           style={{ objectFit: "cover" }}
                           placeholder="blur"
                           blurDataURL="/techwin-company/blur-placeholder.png"
+                          // prioritize the first two thumbnails to speed up first paint on mobile
+                          priority={idx < 2}
                         />
                         <div
                           aria-hidden

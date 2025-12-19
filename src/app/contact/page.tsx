@@ -4,7 +4,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Clock, Users, Wrench, Box } from "lucide-react";
-import QuoteForm from '../../components/QuoteForm'
 
 const PRIMARY = "#3087C0";
 const TEXT_DARK = "#08263b";
@@ -217,16 +216,6 @@ export default function ContactPage() {
               </form>
             </motion.div>
 
-            {/* Request Quote (new) */}
-            <div className="mt-6">
-              <h3 className="text-xl font-semibold" style={{ color: PRIMARY }}>
-                Request a Quote
-              </h3>
-              <p className="text-sm text-slate-700 mt-1">Provide project details for pricing and lead time.</p>
-              <div className="mt-4">
-                <QuoteForm />
-              </div>
-            </div>
 
             {/* Inquiry Cards (unchanged) */}
             <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">

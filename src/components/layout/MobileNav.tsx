@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ChevronDown, X } from "lucide-react";
+import { ChevronDown, X, Home, Info, Grid, Box, Phone, Star, FileText } from "lucide-react";
 import { singleFrequencyData } from "@/data/categories/singleFrequencyData";
 import { seedFiberData } from "@/data/categories/seedFiberData";
 import { highPowerData } from "@/data/categories/highPowerData";
@@ -130,13 +130,15 @@ export default function MobileNav({ onClose }: MobileNavProps) {
       <nav className="flex-1 overflow-y-auto px-4 py-4">
         <div className="space-y-1">
           {/* Home */}
-          <Link href="/" className="block px-4 py-3 rounded-lg hover:bg-[#EAF6FC] text-gray-800 font-medium transition-colors" onClick={onClose}>
-            🏠 Home
+          <Link href="/" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#EAF6FC] text-gray-800 font-medium transition-colors" onClick={onClose}>
+            <Home className="h-4 w-4 text-[#3B9ACB]" />
+            <span>Home</span>
           </Link>
 
           {/* About */}
-          <Link href="/about" className="block px-4 py-3 rounded-lg hover:bg-[#EAF6FC] text-gray-800 font-medium transition-colors" onClick={onClose}>
-            ℹ️ About Us
+          <Link href="/about" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#EAF6FC] text-gray-800 font-medium transition-colors" onClick={onClose}>
+            <Info className="h-4 w-4 text-[#3B9ACB]" />
+            <span>About Us</span>
           </Link>
 
           {/* Applications */}
@@ -145,7 +147,10 @@ export default function MobileNav({ onClose }: MobileNavProps) {
               onClick={() => setOpenApplicationCategory(!openApplicationCategory)}
               className="w-full flex justify-between items-center px-4 py-3 rounded-lg hover:bg-[#EAF6FC] text-gray-800 font-medium transition-colors"
             >
-              <span>🎯 Applications</span>
+              <div className="flex items-center gap-3">
+                <Grid className="h-4 w-4 text-[#3B9ACB]" />
+                <span>Applications</span>
+              </div>
               <ChevronDown
                 className={`h-5 w-5 text-[#3B9ACB] transition-transform ${
                   openApplicationCategory ? "rotate-180" : ""
@@ -170,7 +175,7 @@ export default function MobileNav({ onClose }: MobileNavProps) {
 
           {/* Products */}
           <div className="my-2">
-            <h3 className="px-4 py-2 text-sm font-bold text-[#3B9ACB] uppercase tracking-wider">📦 Products</h3>
+            <h3 className="px-4 py-2 text-sm font-bold text-[#3B9ACB] uppercase tracking-wider flex items-center gap-2"><Box className="h-4 w-4" />Products</h3>
             <div className="space-y-1">
               {productCategories.map((category) => (
                 <div key={category.slug}>
@@ -211,9 +216,16 @@ export default function MobileNav({ onClose }: MobileNavProps) {
             </div>
           </div>
 
+          {/* Blog */}
+          <Link href="/blog" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#EAF6FC] text-gray-800 font-medium transition-colors my-2" onClick={onClose}>
+            <FileText className="h-4 w-4 text-[#3B9ACB]" />
+            <span>Blog</span>
+          </Link>
+
           {/* Contact */}
-          <Link href="/contact" className="block px-4 py-3 rounded-lg hover:bg-[#EAF6FC] text-gray-800 font-medium transition-colors my-2" onClick={onClose}>
-            📞 Contact
+          <Link href="/contact" className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#EAF6FC] text-gray-800 font-medium transition-colors my-2" onClick={onClose}>
+            <Phone className="h-4 w-4 text-[#3B9ACB]" />
+            <span>Contact</span>
           </Link>
 
           {/* Divider */}
@@ -227,7 +239,8 @@ export default function MobileNav({ onClose }: MobileNavProps) {
             }}
             className="w-full px-4 py-3 rounded-lg bg-[#3B9ACB] text-white font-semibold transition-all hover:bg-[#2D87B7] active:scale-95 flex items-center justify-center gap-2"
           >
-            ⭐ Request Quote
+            <Star className="h-4 w-4" />
+            <span>Request Quote</span>
           </button>
         </div>
       </nav>

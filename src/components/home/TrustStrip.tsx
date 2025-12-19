@@ -89,8 +89,18 @@ export default function TrustStrip(props: {
   // prepare display value for counters
   function displayValue(c: { value: string | number }, idx: number) {
     const raw = String(c.value);
+    const digits = raw.replace(/\D/g, "");
     const suffix = raw.replace(/\d/g, "");
-    return /\d/.test(raw) ? `${values[idx] || 0}${suffix}` : raw;
+    const target = digits ? parseInt(digits, 10) : null;
+    const current = values[idx];
+
+    // If the animated value is still 0 (animation not started yet) and we have a target,
+    // show the full target number immediately so live site doesn't show tiny interim values like "1+".
+    if ((current === 0 || current === undefined) && target !== null) {
+      return `${target}${suffix}`;
+    }
+
+    return /\d/.test(raw) ? `${current || 0}${suffix}` : raw;
   }
 
   return (

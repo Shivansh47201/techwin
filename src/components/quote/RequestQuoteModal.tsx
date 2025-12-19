@@ -116,24 +116,24 @@ export default function RequestQuoteModal({ open, onClose }: Props) {
       role="dialog"
       aria-modal="true"
       aria-label="Request Quote"
-      className="fixed inset-0 z-60 flex items-center justify-center px-4 sm:px-6"
+      className="fixed inset-0 z-60 flex items-end sm:items-center justify-center px-4 sm:px-6"
     >
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/45 backdrop-blur-sm" onClick={onClose} />
 
-      <div ref={modalRef} className="relative z-20 max-w-2xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden">
+      <div ref={modalRef} className="relative z-20 w-full max-w-2xl bg-white rounded-t-2xl sm:rounded-2xl shadow-2xl overflow-hidden max-h-[calc(100vh-96px)]">
 
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b">
+        <div className="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 border-b sticky top-0 bg-white z-30">
           <div>
             <h3 className="text-lg font-semibold text-slate-900">Request a Quote</h3>
             <p className="text-sm text-slate-600">Short form — we’ll reply within 1 business day.</p>
           </div>
-          <button onClick={onClose} aria-label="Close" className="p-2 rounded hover:bg-slate-100">✕</button>
+          <button onClick={onClose} aria-label="Close" className="p-3 rounded-md hover:bg-slate-100">✕</button>
         </div>
 
         {/* Body */}
-        <div className="px-6 py-6">
+        <div className="px-4 py-4 sm:px-6 sm:py-6 overflow-y-auto" style={{maxHeight: 'calc(100vh - 160px)'}}> 
 
           {/* Success State */}
           {status === "success" ? (
@@ -146,9 +146,9 @@ export default function RequestQuoteModal({ open, onClose }: Props) {
               <h4 className="text-lg font-semibold">Thanks — we received your request</h4>
               <p className="mt-2 text-sm text-slate-600">Our team will contact you within 24 hours.</p>
 
-              <div className="mt-6 flex justify-center gap-3">
-                <Link href="/contact" className="px-4 py-2 rounded-md bg-white border text-[var(--color-primary)]">Contact page</Link>
-                <button onClick={onClose} className="px-4 py-2 rounded-md bg-[var(--color-primary)] text-white">Done</button>
+              <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
+                <Link href="/contact" className="w-full sm:w-auto px-4 py-2 rounded-md bg-white border text-[var(--color-primary)]">Contact page</Link>
+                <button onClick={onClose} className="w-full sm:w-auto px-4 py-2 rounded-md bg-[var(--color-primary)] text-white">Done</button>
               </div>
             </div>
           ) : (
@@ -223,22 +223,22 @@ export default function RequestQuoteModal({ open, onClose }: Props) {
                 />
               </label>
 
-              <div className="flex items-center justify-between gap-3 pt-2">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
                 <div className="text-xs text-slate-500">
                   By submitting you agree to our <Link href="/privacy-policy" className="underline">privacy policy</Link>.
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)] text-white font-semibold shadow hover:brightness-95 disabled:opacity-60"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)] text-white font-semibold shadow hover:brightness-95 disabled:opacity-60 w-full sm:w-auto justify-center"
                   >
                     {submitting ? "Sending..." : "Send Request"}
                   </button>
 
                   <button type="button" onClick={onClose}
-                    className="px-4 py-2 rounded-full border border-slate-200 text-slate-700">
+                    className="px-4 py-2 rounded-full border border-slate-200 text-slate-700 w-full sm:w-auto">
                     Cancel
                   </button>
                 </div>
