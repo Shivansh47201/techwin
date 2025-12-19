@@ -184,6 +184,7 @@ const EditorToolbar = ({
   saveSelection,
   restoreSelection,
   selectedImage,
+  activeImage,
   isImageHover = false,
   isResizing = false,
   isAltModalOpen = false,
@@ -206,6 +207,7 @@ const EditorToolbar = ({
   saveSelection: () => void;
   restoreSelection: () => void;
   selectedImage: HTMLImageElement | null;
+  activeImage: HTMLImageElement | null;
   isImageHover: boolean;
   isResizing: boolean;
   isAltModalOpen: boolean;
@@ -554,28 +556,29 @@ const EditorToolbar = ({
       </div>
 
       {/* Floating Image Toolbar (visible while image is selected, resizing, hovered, or ALT modal open) */}
-      {selectedImage && (isImageHover || isResizing || isAltModalOpen) && (
-        <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 flex items-center gap-2 pl-2 pr-1 py-1.5 bg-white border border-slate-200 shadow-xl rounded-full animate-in fade-in slide-in-from-bottom-4">
-          <Scaling size={16} style={{ color: BRAND_COLOR }} className="ml-2" />
-          <span className="text-xs font-bold text-slate-500 w-20 text-center border-r border-slate-200 pr-2">
-            {parseInt(selectedImage.style.width || "0") || selectedImage.width}
-            px
-          </span>
+      {(() => {
+        const img = activeImage || selectedImage;
+        if (!img) return null;
+        return (
+          <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 flex items-center gap-2 pl-2 pr-1 py-1.5 bg-white border border-slate-200 shadow-xl rounded-full animate-in fade-in slide-in-from-bottom-4">
+            <Scaling size={16} style={{ color: BRAND_COLOR }} className="ml-2" />
+            <span className="text-xs font-bold text-slate-500 w-20 text-center border-r border-slate-200 pr-2">
+              {parseInt(img.style.width || "0") || img.width}
+              px
+            </span>
 
-          <div className="flex items-center gap-1 px-2 border-r border-slate-200">
-            <button
-              onMouseDown={(e) => {
-                e.preventDefault();
-                const current =
-                  parseInt(
-                    selectedImage.style.width || `${selectedImage.width}`
-                  ) || selectedImage.width;
-                const next = Math.max(50, current - 20);
-                updateImageWidth(`${next}px`);
-              }}
-              className="p-1 hover:bg-slate-100 rounded text-slate-600"
-              title="Decrease Width"
-            >
+            <div className="flex items-center gap-1 px-2 border-r border-slate-200">
+              <button
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  const current =
+                    parseInt(img.style.width || `${img.width}`) || img.width;
+                  const next = Math.max(50, current - 20);
+                  updateImageWidth(`${next}px`);
+                }}
+                className="p-1 hover:bg-slate-100 rounded text-slate-600"
+                title="Decrease Width"
+              >
               <Minus size={14} />
             </button>
 
@@ -583,9 +586,7 @@ const EditorToolbar = ({
               onMouseDown={(e) => {
                 e.preventDefault();
                 const current =
-                  parseInt(
-                    selectedImage.style.width || `${selectedImage.width}`
-                  ) || selectedImage.width;
+                  parseInt(img.style.width || `${img.width}`) || img.width;
                 const next = Math.min(2000, current + 20);
                 updateImageWidth(`${next}px`);
               }}
@@ -629,7 +630,8 @@ const EditorToolbar = ({
             <MessageSquare size={12} /> ALT TEXT
           </button>
         </div>
-      )}
+      );
+      })()}
     </div>
   );
 };
@@ -657,14 +659,15 @@ export default function BlogEditor({
 
   // Image helpers moved above JSX so they are available when rendering the image toolbar
   function updateImageWidth(width: string) {
-    if (selectedImage) {
-      console.debug("updateImageWidth ->", { width, src: selectedImage.src });
+    const img = getActiveImage();
+    if (img) {
+      console.debug("updateImageWidth ->", { width, src: img.src });
       // Allow growing beyond responsive max-width by clearing it when user explicitly resizes
       try {
-        selectedImage.style.maxWidth = "none";
-        selectedImage.style.display = "block";
-        selectedImage.style.width = width;
-        selectedImage.style.height = "auto";
+        img.style.maxWidth = "none";
+        img.style.display = "block";
+        img.style.width = width;
+        img.style.height = "auto";
       } catch (e) {}
 
       // Also try to find the corresponding <img> inside editor and update it
@@ -672,15 +675,12 @@ export default function BlogEditor({
         const imgs = Array.from(
           editorRef.current?.querySelectorAll("img") || []
         ) as HTMLImageElement[];
-        imgs.forEach((img) => {
-          if (
-            img === selectedImage ||
-            (selectedImage.src && img.getAttribute("src") === selectedImage.src)
-          ) {
-            img.style.maxWidth = "none";
-            img.style.display = "block";
-            img.style.width = width;
-            img.style.height = "auto";
+        imgs.forEach((other) => {
+          if (other === img || (img.src && other.getAttribute("src") === img.src)) {
+            other.style.maxWidth = "none";
+            other.style.display = "block";
+            other.style.width = width;
+            other.style.height = "auto";
           }
         });
       } catch (e) {}
@@ -689,7 +689,7 @@ export default function BlogEditor({
       // Force React to re-render UI that depends on selectedImage and allow ResizeObserver to update the overlay
       setSelectedImageVersion((v) => v + 1);
     } else {
-      console.debug("updateImageWidth called but no selectedImage", { width });
+      console.debug("updateImageWidth called but no active image", { width });
     }
   }
 
@@ -1825,6 +1825,7 @@ export default function BlogEditor({
             saveSelection={saveSelection}
             restoreSelection={restoreSelection}
             selectedImage={selectedImage}
+            activeImage={getActiveImage()}
             isImageHover={isImageHover}
             isResizing={isResizing}
             isAltModalOpen={isAltModalOpen}
