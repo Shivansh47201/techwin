@@ -1,15 +1,18 @@
 // app/api/admin/upload/route.ts
-// POST → Upload image file
-// Note: For production, use cloud storage (Cloudinary, AWS S3, etc.)
+// POST → Upload image file (Cloudinary-backed)
 
 import { NextResponse } from "next/server";
-import path from "path";
+import crypto from "crypto";
+import cloudinary from "@/lib/cloudinary";
+import sharp from "sharp";
+
+const MAX_SIZE = 5 * 1024 * 1024; // 5MB
+const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
 
 export async function POST(req: Request) {
   try {
-    const { writeFile, mkdir } = await import("fs/promises");
-
     const formData = await req.formData();
+
     const file = formData.get("file") as File | null;
     const slug = (formData.get("slug") as string) || null;
 
@@ -20,16 +23,13 @@ export async function POST(req: Request) {
       );
     }
 
-    // Validate file is an image
-    if (!file.type.startsWith("image/")) {
+    if (!ALLOWED_TYPES.includes(file.type)) {
       return NextResponse.json(
-        { success: false, message: "File must be an image" },
+        { success: false, message: "Only JPG, PNG and WEBP are allowed." },
         { status: 400 }
       );
     }
 
-    // Max 5MB
-    const MAX_SIZE = 5 * 1024 * 1024;
     if (file.size > MAX_SIZE) {
       return NextResponse.json(
         { success: false, message: "File size exceeds 5MB limit" },
@@ -38,49 +38,42 @@ export async function POST(req: Request) {
     }
 
     // Buffer the file
-    const buffer = Buffer.from(await file.arrayBuffer());
+    const inputBuffer = Buffer.from(await file.arrayBuffer());
 
-    // Determine upload folder: per-slug, or temp
-    const uploadDir = slug
-      ? path.join(process.cwd(), "public/uploads/blogs", slug)
-      : path.join(process.cwd(), "public/uploads/tmp");
+    // Hash for dedup / stable public_id
+    const hash = crypto.createHash("sha256").update(inputBuffer).digest("hex");
 
-    await mkdir(uploadDir, { recursive: true });
-
-    // Safe filename
-    const safeName = file.name.replace(/[^a-z0-9._-]/gi, "-");
-    const fileName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}-${safeName}`;
-    const filePath = path.join(uploadDir, fileName);
-
-    // Save original
-    await writeFile(filePath, buffer);
-
-    // Try to create a webp optimized variant if `sharp` is installed
-    let webpUrl: string | undefined = undefined;
+    // Optimize to webp via sharp (non-blocking if sharp fails)
+    let optimizedBuffer = inputBuffer;
     try {
-      const sharp = (await import("sharp")).default;
-      const webpName = fileName.replace(/\.[^.]+$/, ".webp");
-      const webpPath = path.join(uploadDir, webpName);
-      await sharp(buffer).resize({ width: 1600, withoutEnlargement: true }).toFormat("webp", { quality: 80 }).toFile(webpPath);
-      webpUrl = slug ? `/uploads/blogs/${slug}/${webpName}` : `/uploads/tmp/${webpName}`;
+      optimizedBuffer = await sharp(inputBuffer)
+        .resize({ width: 1600, withoutEnlargement: true })
+        .webp({ quality: 80 })
+        .toBuffer();
     } catch (e) {
-      // sharp not available or conversion failed — ignore
+      // If sharp fails, fall back to original buffer
+      console.warn("sharp optimization failed (continuing with original file)", e);
     }
 
-    const publicUrl = slug ? `/uploads/blogs/${slug}/${fileName}` : `/uploads/tmp/${fileName}`;
+    // Upload to Cloudinary
+    const dataUri = `data:image/webp;base64,${optimizedBuffer.toString("base64")}`;
+    const folder = slug ? `blogs/${slug}` : `tmp`;
+
+    const result = await cloudinary.uploader.upload(dataUri, {
+      folder,
+      public_id: hash,
+      overwrite: false,
+      resource_type: "image",
+    });
 
     return NextResponse.json({
       success: true,
-      url: publicUrl,
-      webp: webpUrl,
-      filename: fileName,
-      message: "Image uploaded successfully",
+      url: result.secure_url,
+      public_id: result.public_id,
+      message: "Uploaded to Cloudinary",
     });
   } catch (error: any) {
-    console.error("Upload error:", error);
-    return NextResponse.json(
-      { success: false, message: error.message || "Upload failed" },
-      { status: 500 }
-    );
+    console.error("Cloudinary upload error:", error);
+    return NextResponse.json({ success: false, message: error.message || "Upload failed" }, { status: 500 });
   }
 }

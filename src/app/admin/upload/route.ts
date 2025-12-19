@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
-import path from "path";
 import crypto from "crypto";
 import sharp from "sharp";
-import { existsSync } from "fs";
-import { mkdir, writeFile } from "fs/promises";
+import cloudinary from "@/lib/cloudinary";
 
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -36,41 +34,36 @@ export async function POST(req: Request) {
       );
     }
 
-    const buffer = Buffer.from(await file.arrayBuffer());
+    // Buffer
+    const inputBuffer = Buffer.from(await file.arrayBuffer());
 
-    // 🔐 Generate hash for duplicate detection
-    const hash = crypto.createHash("sha256").update(buffer).digest("hex");
+    // 🔐 Hash (duplicate-safe)
+    const hash = crypto.createHash("sha256").update(inputBuffer).digest("hex");
 
-    // 📁 Upload directory
-    const uploadDir = path.join(
-      process.cwd(),
-      "public/uploads/blogs",
-      slug
+    // 🔧 Optimize via sharp (optional but recommended)
+    const optimizedBuffer = await sharp(inputBuffer)
+      .resize(1600, 1600, { fit: "inside" })
+      .webp({ quality: 80 })
+      .toBuffer();
+
+    // ☁️ Upload to Cloudinary
+    const result = await cloudinary.uploader.upload(
+      `data:image/webp;base64,${optimizedBuffer.toString("base64")}`,
+      {
+        folder: `blogs/${slug}`,
+        public_id: hash,       // same image → same public_id
+        overwrite: false,      // prevents re-upload
+        resource_type: "image",
+      }
     );
-    await mkdir(uploadDir, { recursive: true });
-
-    // ✅ Optimized filename (hash-based)
-    const fileName = `${hash}.webp`;
-    const filePath = path.join(uploadDir, fileName);
-
-    // 🔁 If already exists, do not re-save
-    if (!existsSync(filePath)) {
-      await sharp(buffer)
-        .resize(1600, 1600, { fit: "inside" }) // max width/height
-        .webp({ quality: 80 }) // compression
-        .toFile(filePath);
-    }
-
-    const publicUrl = `/uploads/blogs/${slug}/${fileName}`;
 
     return NextResponse.json({
       success: true,
-      url: publicUrl,
-      message: "Image uploaded & optimized successfully.",
-      cached: existsSync(filePath),
+      url: result.secure_url,
+      message: "Image uploaded to Cloudinary successfully.",
     });
-  } catch (error: any) {
-    console.error("UPLOAD ERROR:", error);
+  } catch (error) {
+    console.error("CLOUDINARY UPLOAD ERROR:", error);
     return NextResponse.json(
       { success: false, message: "Upload failed." },
       { status: 500 }
