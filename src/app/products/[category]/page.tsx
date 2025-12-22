@@ -10,13 +10,16 @@ import SubCategoryGrid from "@/components/category/SubCategoryGrid";
 import TechnicalBenefits from "@/components/category/TechnicalBenefits";
 import ApplicationsSection from "@/components/category/ApplicationsSection";
 import SpecsTable from "@/components/category/SpecsTable";
-import DatasheetGallery from "@/components/category/DatasheetGallery";
 import FAQ from "@/components/common/FAQ";
-import WhyChooseUs from "@/components/common/WhyChooseUs";
 import CategoryCTA from "@/components/category/CategoryCTA";
- 
-import type { CategoryData } from "@/types/categories";
 
+import type { CategoryData } from "@/types/categories";
+import Category from "@/models/Category";
+import { connectDB } from "@/lib/db";
+
+/* ---------------------------
+   STATIC LEGACY DATA (keep)
+   --------------------------- */
 import { singleFrequencyData } from "@/data/categories/singleFrequencyData";
 import { highPowerData } from "@/data/categories/highPowerData";
 import { broadbandAseData } from "@/data/categories/broadbandAseData";
@@ -25,72 +28,179 @@ import { fiberAmplifierData } from "@/data/categories/fiberAmplifierData";
 import { laserTestingData } from "@/data/categories/laserTestingData";
 import { sledLightData } from "@/data/categories/sledLightData";
 import { seedFiberData } from "@/data/categories/seedFiberData";
-import FeatureMatrix from "../../../components/category/FeatureMatrix";
 
-// Map slug -> data (single source)
+/* ---------------------------
+   Helpers
+   --------------------------- */
+async function getCategoryFromDB(slug: string) {
+  try {
+    await connectDB();
+    return await Category.findOne({
+      slug,
+      status: "published",
+    }).lean();
+  } catch (e) {
+    // swallow DB errors — fallback to static
+    console.error("getCategoryFromDB error:", e);
+    return null;
+  }
+}
+
+/* ---------------------------
+   Static map (legacy)
+   --------------------------- */
 const CATEGORY_MAP: Record<string, CategoryData> = {
   "single-frequency": singleFrequencyData,
   "high-power": highPowerData,
   "ase-sources": broadbandAseData,
   "wavelength-conversion": wavelengthConversionData,
   "fiber-amplifiers": fiberAmplifierData,
-  "testing": laserTestingData,
-  "sled": sledLightData,
+  testing: laserTestingData,
+  sled: sledLightData,
   "seed-lasers": seedFiberData,
 };
 
 type Props = { params: Promise<{ category: string }> | { category: string } };
 
-// Provide static params for export mode (output: 'export')
+/* ---------------------------
+   generateStaticParams
+   - include static slugs
+   - merge published DB slugs (if DB available)
+   --------------------------- */
 export async function generateStaticParams() {
-  try {
-    const fs = await import('fs');
-    const path = await import('path');
-    const file = path.join(process.cwd(), 'public', 'data', 'products.json');
-    if (fs.existsSync(file)) {
-      const raw = fs.readFileSync(file, 'utf8');
-      const data = JSON.parse(raw);
-      if (data && Array.isArray(data.products)) {
-        return data.products.map((c: any) => ({ category: c.categorySlug }));
-      }
-    }
-  } catch (e) {
-    // ignore and fallback
-  }
+  const staticSlugs = Object.keys(CATEGORY_MAP).map((k) => ({ category: k }));
 
-  // fallback: use keys from in-file map
-  return Object.keys(CATEGORY_MAP).map((k) => ({ category: k }));
+  try {
+    await connectDB();
+    const dbCats = await Category.find({ status: "published" })
+      .select("slug")
+      .lean();
+    const dbSlugs = (dbCats || []).map((c: any) => ({ category: c.slug }));
+
+    // merge unique
+    const merged = [...staticSlugs, ...dbSlugs];
+    const unique = Array.from(
+      new Map(merged.map((i) => [i.category, i])).values()
+    );
+    return unique;
+  } catch (e) {
+    // DB not available — fall back to static list
+    return staticSlugs;
+  }
 }
 
-// NOTE: Next may pass `params` as a Promise — unwrap it with await
+/* ---------------------------
+   generateMetadata (hybrid)
+   - prefer DB (published)
+   - fallback to static
+   --------------------------- */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolved = await params;
   const slug = resolved?.category;
-  const data = slug ? CATEGORY_MAP[slug] : null;
 
-  if (!data) {
-    return { title: "Products | Techwin" };
+  if (!slug) return { title: "Products | Techwin" };
+
+  // Try DB first
+  const dbCategory = await getCategoryFromDB(slug);
+
+  if (dbCategory) {
+    const siteBase = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/+$/g, "");
+    const canonicalUrl = dbCategory.canonicalUrl || `${siteBase}/products/${slug}`;
+    
+    return {
+      title: dbCategory.metaTitle || "Products | Techwin",
+      description: dbCategory.metaDescription || "",
+      alternates: {
+        canonical: canonicalUrl,
+      },
+      openGraph: {
+        title: dbCategory.metaTitle || undefined,
+        description: dbCategory.metaDescription || undefined,
+        type: (dbCategory.ogType === "article" ? "article" : "website") as "website" | "article",
+        images: (dbCategory.ogImage || dbCategory.hero?.image)
+          ? [
+              {
+                url: dbCategory.ogImage || dbCategory.hero.image,
+                alt: dbCategory.ogImageAlt || dbCategory.hero.imageAlt || dbCategory.metaTitle,
+              },
+            ]
+          : undefined,
+      },
+    };
   }
 
-  return {
-    title: data.metaTitle,
-    description: data.metaDescription,
-    openGraph: {
-      title: data.metaTitle,
-      description: data.metaDescription,
-      images: data.hero?.image ? [{ url: data.hero.image, alt: data.hero?.imageAlt ?? data.metaTitle }] : undefined,
-    },
-  };
+  // Fallback to static
+  const staticData = CATEGORY_MAP[slug];
+  if (staticData) {
+    return {
+      title: staticData.metaTitle || "Products | Techwin",
+      description: staticData.metaDescription || "",
+      openGraph: {
+        title: staticData.metaTitle || undefined,
+        description: staticData.metaDescription || undefined,
+        images: staticData.hero?.image
+          ? [
+              {
+                url: staticData.hero.image,
+                alt: staticData.hero.imageAlt ?? staticData.metaTitle,
+              },
+            ]
+          : undefined,
+      },
+    };
+  }
+
+  // default
+  return { title: "Products | Techwin" };
 }
 
-// Page component — also async so we can await params safely
+/* ---------------------------
+   Page component (hybrid)
+   - DB first (published)
+   - static fallback
+   --------------------------- */
 export default async function CategoryPage({ params }: Props) {
   const resolved = await params;
   const slug = resolved?.category;
-  const data = slug ? CATEGORY_MAP[slug] : null;
+
+  if (!slug) return notFound();
+
+  // Try DB
+  const dbCategory = await getCategoryFromDB(slug);
+
+  // Normalize DB -> frontend CategoryData shape
+  const data: CategoryData | null = dbCategory
+    ? {
+        url: dbCategory.url ?? `/products/${dbCategory.slug}`,
+        metaTitle: dbCategory.metaTitle ?? "",
+        metaDescription: dbCategory.metaDescription ?? "",
+        hero: dbCategory.hero || {
+          title: dbCategory.metaTitle || "",
+          tagline: "",
+          image: "",
+          imageAlt: "",
+        },
+        intro: dbCategory.intro || { heading: "", description: "" },
+        keyFeatures: dbCategory.keyFeatures ?? [],
+        subCategories: dbCategory.subCategories ?? [],
+        technicalBenefits: dbCategory.technicalBenefits ?? [],
+        applications: dbCategory.applications ?? [],
+        cta: dbCategory.cta || {
+          primary: { label: "Request a Quote", href: "/contact" },
+        },
+        contactPhone: dbCategory.contactPhone,
+        notes: dbCategory.notes,
+        featureMatrix: dbCategory.featureMatrix,
+        faqs: [],
+        downloads: [],
+        trustLogos: undefined,
+        counters: undefined,
+      }
+    : CATEGORY_MAP[slug] ?? null;
 
   if (!data) return notFound();
 
+  // destructure for UI (typesafe defaults)
   const {
     hero,
     intro,
@@ -108,34 +218,69 @@ export default async function CategoryPage({ params }: Props) {
     featureMatrix,
   } = data as CategoryData;
 
+  // Get heading levels from DB or use defaults
+  const headingLevels = dbCategory?.headingLevels || {
+    hero: "h1",
+    intro: "h2",
+    keyFeatures: "h2",
+    subCategories: "h2",
+    technicalBenefits: "h2",
+    applications: "h2",
+    cta: "h2",
+  };
+
+  // Generate Schema.org JSON-LD
+  const schemaData = dbCategory?.schemaData || {
+    "@context": "https://schema.org",
+    "@type": dbCategory?.schemaType || "Product",
+    "name": hero.title || data.metaTitle,
+    "description": intro.description || data.metaDescription,
+    "image": hero.image,
+  };
+
   return (
     <main>
-      <CategoryHero hero={hero} />
-      <CategoryIntro intro={intro} keyFeaturesPreview={keyFeatures?.slice(0, 3)} />
+      {/* Schema.org JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(schemaData),
+        }}
+      />
+      
+      <CategoryHero hero={hero} headingLevel={headingLevels.hero} />
+      <CategoryIntro
+        intro={intro}
+        keyFeaturesPreview={keyFeatures?.slice(0, 3)}
+        headingLevel={headingLevels.intro}
+      />
 
       <section className="py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-6">
-          <KeyFeatures items={keyFeatures} featureMatrix={featureMatrix} subCategories={subCategories} />
+          <KeyFeatures
+            items={keyFeatures}
+            featureMatrix={featureMatrix}
+            subCategories={subCategories}
+            headingLevel={headingLevels.keyFeatures}
+          />
         </div>
       </section>
-            {/* <section className="py-12 md:py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <FeatureMatrix items={keyFeatures} />
-        </div>
-      </section> */}
 
-      <SubCategoryGrid items={subCategories} categorySlug={slug} />
+      <SubCategoryGrid 
+        items={subCategories} 
+        categorySlug={slug} 
+        autoLoad={!subCategories || subCategories.length === 0}
+      />
 
       <section className="py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-6">
-          <TechnicalBenefits items={technicalBenefits} />
+          <TechnicalBenefits items={technicalBenefits} headingLevel={headingLevels.technicalBenefits} />
         </div>
       </section>
 
       <section className="py-12 md:py-16">
         <div className="max-w-6xl mx-auto px-6">
-          {/* FIXED: pass destructured variables, not 'categoryData' */}
-          <ApplicationsSection hero={hero} applications={applications} />
+          <ApplicationsSection hero={hero} applications={applications} headingLevel={headingLevels.applications} />
         </div>
       </section>
 
@@ -147,12 +292,6 @@ export default async function CategoryPage({ params }: Props) {
         </section>
       )}
 
-      {/* <section className="py-12 md:py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <DatasheetGallery downloads={downloads} />
-        </div>
-      </section> */}
-
       {faqs && faqs.length > 0 && (
         <section className="py-12 md:py-16">
           <div className="max-w-6xl mx-auto px-6">
@@ -161,15 +300,9 @@ export default async function CategoryPage({ params }: Props) {
         </section>
       )}
 
-      {/* <section className="py-12 md:py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <WhyChooseUs counters={counters ?? [{ label: "Years", value: "20+" }, { label: "Countries", value: "30+" }]} trustLogos={trustLogos ?? []} />
-        </div>
-      </section> */}
-
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-6">
-          <CategoryCTA cta={cta} contactPhone={contactPhone} />
+          <CategoryCTA cta={cta} contactPhone={contactPhone} headingLevel={headingLevels.cta} />
         </div>
       </section>
     </main>

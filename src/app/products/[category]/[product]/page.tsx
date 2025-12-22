@@ -54,13 +54,23 @@ export async function generateMetadata({
 
   const p: Product = productData;
 
-  return {
-    title: p.title || "Techwin Product",
-    description: p.shortDescription || p.meta?.description || "Techwin Laser Product",
+  const metadata: Metadata = {
+    title: p.meta?.title || p.title || "Techwin Product",
+    description: p.meta?.description || p.shortDescription || "Techwin Laser Product",
     openGraph: {
-      title: p.title || "Techwin Product",
-      description: p.shortDescription || p.meta?.description || "Techwin Laser Product",
-      images: p.heroImage
+      title: p.meta?.title || p.title || "Techwin Product",
+      description: p.meta?.description || p.shortDescription || "Techwin Laser Product",
+      type: (p as any).ogType === "article" ? "article" : "website",
+      images: (p as any).ogImage
+        ? [
+            {
+              url: (p as any).ogImage,
+              width: 1200,
+              height: 630,
+              alt: (p as any).ogImageAlt || p.title,
+            },
+          ]
+        : p.heroImage
         ? [
             {
               url: typeof p.heroImage === "string" ? p.heroImage : (p.heroImage as any).url,
@@ -72,6 +82,19 @@ export async function generateMetadata({
         : [],
     },
   };
+
+  // Include canonical alternate if explicitly set on the product
+  // Always include a canonical: prefer product-level `canonical`, fallback to
+  // site base URL + product path so pages always emit a <link rel="canonical">.
+  try {
+    const siteBase = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/+$/g, "");
+    const defaultCanonical = `${siteBase}/products/${category}/${p.slug}`;
+    metadata.alternates = { canonical: (p.canonical && p.canonical.length > 0) ? p.canonical : defaultCanonical } as any;
+  } catch (err) {
+    if (p.canonical) metadata.alternates = { canonical: p.canonical } as any;
+  }
+
+  return metadata;
 }
 
 /**
@@ -195,8 +218,43 @@ let allProductsByCategory: Record<string, { slug: string; title: string }[]> =
     "/products/Single-Frequency-Fiber-Lasers/ultra-narrow-linewidth.jpg";
   const safeHeroSrcEncoded = safeHeroSrc ? encodeURI(safeHeroSrc) : safeHeroSrc;
 
+  // Build Schema.org JSON-LD
+  const schemaType = (p as any).schemaType || "Product";
+  const schemaData = (p as any).schemaData || {};
+  
+  // Parse schemaData if it's a string
+  let parsedSchemaData = {};
+  if (typeof schemaData === "string") {
+    try {
+      parsedSchemaData = JSON.parse(schemaData);
+    } catch (e) {
+      console.error("Failed to parse schemaData:", e);
+    }
+  } else {
+    parsedSchemaData = schemaData;
+  }
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": schemaType,
+    "name": p.title,
+    "description": p.shortDescription || p.meta?.description || "",
+    "image": resolveImgSrc(p.heroImage) || "",
+    "brand": {
+      "@type": "Brand",
+      "name": "Techwin"
+    },
+    ...parsedSchemaData
+  };
+
   return (
     <main className="bg-white min-h-screen">
+      {/* Schema.org JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+      
       <div className="container mx-auto px-6 pt-40">
         <Breadcrumbs items={crumbs} />
       </div>

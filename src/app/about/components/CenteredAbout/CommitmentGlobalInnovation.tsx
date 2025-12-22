@@ -35,11 +35,13 @@ const DEFAULT_SECTIONS: Section[] = [
 type Props = {
   sections?: Section[];
   usePageScroll?: boolean;
+  headingLevel?: string;
 };
 
 export default function StickyScrollReveal({
   sections = DEFAULT_SECTIONS,
   usePageScroll = false,
+  headingLevel = 'h2',
 }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement | null>(null);

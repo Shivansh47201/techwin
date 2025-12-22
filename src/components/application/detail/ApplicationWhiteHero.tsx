@@ -11,6 +11,7 @@ export type WhiteHeroProps = {
     label: string;
     value: string;
   }>;
+  headingLevel?: string;
 };
 
 const containerVariants: Variants = {
@@ -68,6 +69,7 @@ export default function ApplicationWhiteHero({
   title = "Why Fiber Lasers Fit Your Requirements",
   description = "Fiber-based platforms have become standard due to stability, compactness, and immunity to alignment issues compared to bulk lasers. They support long-term operation without frequent adjustments.",
   stats,
+  headingLevel = "h2",
 }: WhiteHeroProps) {
   return (
     <section className="relative w-full bg-gradient-to-b from-white via-white to-blue-50/30 overflow-hidden">
@@ -98,13 +100,15 @@ export default function ApplicationWhiteHero({
           </motion.div>
 
           {/* Main Title - PRIMARY BLUE COLOR */}
-          <motion.h2
-            variants={titleVariants}
-            className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight mb-8 leading-tight max-w-4xl"
-            style={{ color: "#3B9ACB" }}
-          >
-            {title}
-          </motion.h2>
+          {React.createElement(
+            motion[headingLevel as keyof typeof motion] as any,
+            {
+              variants: titleVariants,
+              className: "text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight mb-8 leading-tight max-w-4xl",
+              style: { color: "#3B9ACB" }
+            },
+            title
+          )}
 
           {/* Description with better styling */}
           <motion.div variants={itemVariants} className="max-w-3xl mb-16">

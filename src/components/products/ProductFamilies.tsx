@@ -1,7 +1,7 @@
 // src/components/products/ProductFamilies.tsx
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -31,6 +31,8 @@ type Props = {
   showSeeAllButton?: boolean;
   // Optional: when provided, show products from this category (category folder slug)
   category?: string;
+  headingLevel?: string;
+  autoLoad?: boolean; // NEW: automatically load products from products.json
 };
 
 // Build products list from category data so URLs and content remain canonical
@@ -120,7 +122,39 @@ export default function ProductFamilies({
   subheading = "Explore our complete range of high-performance laser systems and optical sources.",
   showSeeAllButton = true,
   category,
+  headingLevel = "h2",
+  autoLoad = false,
 }: Props) {
+  const [autoLoadedProducts, setAutoLoadedProducts] = useState<ProductCard[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Auto-load products from products.json if autoLoad is enabled
+  useEffect(() => {
+    if (autoLoad && category) {
+      setIsLoading(true);
+      fetch(`/api/products/category/${category}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success && data.products) {
+            // Convert API response to ProductCard format
+            const cards: ProductCard[] = data.products.map((p: any) => ({
+              id: p.id || p.slug,
+              title: p.name || p.title,
+              short: p.shortDescription || p.details || "",
+              img: p.image,
+              href: `/products/${category}/${p.id || p.slug}`,
+            }));
+            setAutoLoadedProducts(cards);
+          }
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error auto-loading products:", error);
+          setIsLoading(false);
+        });
+    }
+  }, [autoLoad, category]);
+
   // Grid appearance settings — change gridSize to adjust cell size
   const gridSize = 48; // px (cell size)
   const lineColor = "rgba(255,255,255,0.06)"; // faint line color
@@ -172,15 +206,38 @@ export default function ProductFamilies({
     }
   };
 
-  const categoryProducts = (!products || products.length === 0) && category ? buildFromCategory(category) : [];
-  const displayProducts = products && products.length > 0 ? products : categoryProducts.length > 0 ? categoryProducts : EXAMPLE_PRODUCTS;
+  const categoryProducts = (!products || products.length === 0) && category && !autoLoad ? buildFromCategory(category) : [];
+  const displayProducts = autoLoad && autoLoadedProducts.length > 0
+    ? autoLoadedProducts
+    : products && products.length > 0
+    ? products
+    : categoryProducts.length > 0
+    ? categoryProducts
+    : EXAMPLE_PRODUCTS;
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <section className="relative py-16 text-white" style={gridStyle}>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-center py-20">
+            <div className="text-white text-lg">Loading products...</div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative py-16 text-white" style={gridStyle}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* heading */}
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">{heading}</h2>
+          {React.createElement(
+            headingLevel,
+            { className: "text-3xl md:text-4xl font-extrabold tracking-tight mb-2" },
+            heading
+          )}
           <p className="text-white/90 text-sm md:text-base max-w-2xl mx-auto">{subheading}</p>
         </div>
 

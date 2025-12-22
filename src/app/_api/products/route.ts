@@ -4,7 +4,7 @@ import { getAllProducts, getProductData } from "@/lib/products";
 
 export async function GET() {
   try {
-    const allProducts = getAllProducts();
+    const allProducts = await getAllProducts();
     
     // Enrich each category with image from first product
     const enrichedProducts = await Promise.all(

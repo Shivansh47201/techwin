@@ -8,7 +8,7 @@ import { seedFiberData } from '@/data/categories/seedFiberData';
 import { highPowerData } from '@/data/categories/highPowerData';
 import { fiberAmplifierData } from '@/data/categories/fiberAmplifierData';
 import { laserTestingData } from '@/data/categories/laserTestingData';
-import { pointLightSourceData } from '@/data/categories/pointLightSourceData';
+// pointLightSourceData removed — it was missing; using SLED example instead
 import { sledLightData } from '@/data/categories/sledLightData';
 import { wavelengthConversionData } from '@/data/categories/wavelengthConversionData';
 
@@ -82,10 +82,10 @@ export function FeatureMatrixExample() {
         />
       )}
 
-      {/* Example 7: Point Light Sources */}
-      {pointLightSourceData.featureMatrix && (
+      {/* Example 7: SLED Point Light Sources (using existing SLED data) */}
+      {sledLightData.featureMatrix && (
         <FeatureMatrix
-          data={pointLightSourceData.featureMatrix}
+          data={sledLightData.featureMatrix}
           title="SLED Point Light Source Features"
           description="Compare low-coherence broadband sources optimized for OCT, imaging, and fiber sensing applications."
         />

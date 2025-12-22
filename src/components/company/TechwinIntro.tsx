@@ -1,23 +1,56 @@
 import React from "react";
 import Image from "next/image";
 
-const TechwinIntro = () => {
+type IntroData = {
+  title?: string;
+  subtitle?: string;
+  leadText?: string;
+  image?: string;
+  sections?: Array<{ heading: string; content: string }>;
+  quote?: string;
+};
+
+type Props = {
+  data?: IntroData;
+  headingLevel?: string;
+};
+
+const TechwinIntro = ({ data, headingLevel = 'h2' }: Props) => {
+  // Fallback to default values if data not provided
+  const title = data?.title || "Welcome to Techwin";
+  const subtitle = data?.subtitle || "A Leader in High-Performance Fiber Laser Technology";
+  const leadText = data?.leadText || "As a high-tech enterprise, Techwin is dedicated to the research, development, manufacturing, and global supply of high-performance fiber lasers, fiber amplifiers, and laser sources for both scientific and industrial applications.";
+  const image = data?.image || "/images/innovation.jpg";
+  const sections = data?.sections || [
+    {
+      heading: "Our Expertise",
+      content: "With over 20 years of continuous innovation in single-frequency fiber laser materials and devices, Techwin has become a leading company in the field of single-frequency fiber laser technology."
+    },
+    {
+      heading: "Global Reach and Application",
+      content: "Our products have been widely applied in fields such as high-energy laser systems, fiber optic sensing, quantum technology, gravitational wave detection, satellite laser communication, and LiDAR."
+    }
+  ];
+  const quote = data?.quote || "Our mission is to create world-class laser products, empower scientific innovation, and become a global leader in high-performance fiber laser technology.";
+
   return (
     <div className="bg-white text-gray-800 py-16 overflow-hidden">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div className="text-center mb-12">
-          <h1 
-            className="text-4xl font-extrabold text-[#3087C0] sm:text-5xl animate-reveal"
-            style={{ animationDelay: '150ms' }}
-          >
-            Welcome to Techwin
-          </h1>
+          {React.createElement(
+            headingLevel,
+            {
+              className: "text-4xl font-extrabold text-[#3087C0] sm:text-5xl animate-reveal",
+              style: { animationDelay: '150ms' }
+            },
+            title
+          )}
           <p 
             className="mt-4 text-xl text-gray-600 animate-reveal"
             style={{ animationDelay: '300ms' }}
           >
-            A Leader in High-Performance Fiber Laser Technology
+            {subtitle}
           </p>
           <div 
             className="w-24 h-1 bg-[#3087C0] mx-auto mt-6 animate-reveal"
@@ -30,10 +63,7 @@ const TechwinIntro = () => {
             className="lead animate-reveal"
             style={{ animationDelay: '600ms' }}
           >
-            As a high-tech enterprise, Techwin is dedicated to the research,
-            development, manufacturing, and global supply of high-performance
-            fiber lasers, fiber amplifiers, and laser sources for both
-            scientific and industrial applications.
+            {leadText}
           </p>
           
           <div 
@@ -41,7 +71,7 @@ const TechwinIntro = () => {
             style={{ animationDelay: '750ms' }}
           >
             <Image 
-              src="/images/innovation.jpg" 
+              src={image} 
               alt="Innovation at Techwin"
               width={1200}
               height={600}

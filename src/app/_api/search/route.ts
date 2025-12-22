@@ -43,10 +43,10 @@ export async function GET(request: NextRequest) {
   }
 
   // Search in products and categories
-  const allProducts = getAllProducts();
+  const allProducts = await getAllProducts();
   
   for (const category of allProducts) {
-    const categoryTitle = category.categoryTitle || category.categorySlug;
+    const categoryTitle = (category as any).categoryTitle || category.categorySlug;
     
     // Check if category matches
     if (categoryTitle.toLowerCase().includes(q)) {

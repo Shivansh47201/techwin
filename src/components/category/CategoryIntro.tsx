@@ -12,6 +12,7 @@ export type IntroData = {
 type Props = {
   intro: IntroData;
   keyFeaturesPreview?: string[];
+  headingLevel?: string;
 };
 
 const fadeUp: Variants = {
@@ -37,7 +38,7 @@ const listItem: Variants = {
   }),
 };
 
-export default function CategoryIntro({ intro, keyFeaturesPreview = [] }: Props) {
+export default function CategoryIntro({ intro, keyFeaturesPreview = [], headingLevel = "h2" }: Props) {
   const { heading, description } = intro;
 
   return (
@@ -92,12 +93,14 @@ export default function CategoryIntro({ intro, keyFeaturesPreview = [] }: Props)
               </span>
             </div>
 
-            <h2
-              id="category-intro-title"
-              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight tracking-[-0.03em]"
-            >
-              {heading}
-            </h2>
+            {React.createElement(
+              headingLevel,
+              {
+                id: "category-intro-title",
+                className: "text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight tracking-[-0.03em]"
+              },
+              heading
+            )}
 
             <p className="mt-5 text-white/90 text-base md:text-lg leading-relaxed max-w-2xl">
               {description}

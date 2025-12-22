@@ -35,6 +35,7 @@ type Props = {
    * not to change per slide. Defaults to "/contact#request-quote".
    */
   primaryCtaHref?: string;
+  headingLevel?: string;
 };
 
 export default function Hero({
@@ -42,6 +43,7 @@ export default function Hero({
   autoplay = true,
   autoplayInterval = 6000,
   primaryCtaHref = "/contact#request-quote",
+  headingLevel = "h1",
 }: Props) {
   const [index, setIndex] = useState(0);
   const length = slides.length;
@@ -182,15 +184,17 @@ export default function Hero({
               <div className="absolute inset-0 flex items-center">
                 <div className="mx-auto max-w-6xl w-full px-6 md:px-10 lg:px-16">
                   <div className="max-w-2xl text-white">
-                    {/* animated headline */}
-                    <h1
-                      className={`text-2xl sm:text-4xl lg:text-5xl font-semibold leading-tight drop-shadow-md transform transition-all duration-700 ${
-                        active ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
-                      }`}
-                      style={{ transitionDelay: active ? "120ms" : "0ms" }}
-                    >
-                      {s.headline}
-                    </h1>
+                    {/* animated headline - first slide uses H1, others use H2 for SEO */}
+                    {React.createElement(
+                      i === 0 ? headingLevel : 'h2',
+                      {
+                        className: `text-2xl sm:text-4xl lg:text-5xl font-semibold leading-tight drop-shadow-md transform transition-all duration-700 ${
+                          active ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+                        }`,
+                        style: { transitionDelay: active ? "120ms" : "0ms" }
+                      },
+                      s.headline
+                    )}
 
                     {/* subtext with slight delay */}
                     <p

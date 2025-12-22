@@ -25,6 +25,7 @@ type Props = {
   fallbackImage?: string;
   showGlassCard?: boolean;
   showImageCTA?: boolean;
+  headingLevel?: string;
 };
 
 const containerVariants: Variants = {
@@ -59,6 +60,7 @@ export default function CategoryHero({
   fallbackImage = "/techwin-company/category-hero-default.webp",
   showGlassCard = true,
   showImageCTA = false,
+  headingLevel = "h1",
 }: Props) {
   const { title, tagline, image, imageAlt, breadcrumb = [], ctaPrimary, ctaSecondary } = hero;
   const heroSrc = image || fallbackImage;
@@ -220,13 +222,15 @@ export default function CategoryHero({
                   <span>Single-frequency photonics platform</span>
                 </motion.div>
 
-                <motion.h1
-                  variants={textItem}
-                  id="category-hero-title"
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.05rem] leading-tight font-bold tracking-[-0.015em] text-[#3B9ACB]"
-                >
-                  {title}
-                </motion.h1>
+                {React.createElement(
+                  motion[headingLevel as keyof typeof motion] as any,
+                  {
+                    variants: textItem,
+                    id: "category-hero-title",
+                    className: "text-3xl sm:text-4xl md:text-5xl lg:text-[3.05rem] leading-tight font-bold tracking-[-0.015em] text-[#3B9ACB]"
+                  },
+                  title
+                )}
 
                 <motion.p
                   variants={textItem}

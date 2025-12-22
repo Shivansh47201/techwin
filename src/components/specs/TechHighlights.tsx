@@ -8,13 +8,30 @@ type Spec = {
   id: string;
   title: string;
   desc: string;
-  icon?: React.ReactNode;
+  icon?: React.ReactNode | string;
 };
 
 type Props = {
   heading?: string;
   subheading?: string;
   specs?: Spec[];
+  headingLevel?: string;
+};
+
+// Icon map for string-based icons
+const getIconComponent = (iconName: string | React.ReactNode) => {
+  if (typeof iconName !== "string") return iconName;
+  
+  const iconMap: Record<string, React.ReactNode> = {
+    Waves: <Waves className="h-6 w-6" />,
+    Activity: <Activity className="h-6 w-6" />,
+    Radio: <Radio className="h-6 w-6" />,
+    Zap: <Zap className="h-6 w-6" />,
+    Ruler: <Ruler className="h-6 w-6" />,
+    Sparkles: <Sparkles className="h-6 w-6" />,
+  };
+  
+  return iconMap[iconName] || <Sparkles className="h-6 w-6" />;
 };
 
 export default function TechHighlights({
@@ -58,6 +75,7 @@ export default function TechHighlights({
       icon: <Sparkles className="h-6 w-6" />,
     },
   ],
+  headingLevel = "h2",
 }: Props) {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -84,9 +102,11 @@ export default function TechHighlights({
     <section className="w-full bg-gray-50 py-12 md:py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8 md:mb-12">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#3087C0]">
-            {heading}
-          </h2>
+          {React.createElement(
+            headingLevel,
+            { className: "text-3xl sm:text-4xl font-extrabold text-[#3087C0]" },
+            heading
+          )}
           <p className="mt-3 text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
             {subheading}
           </p>
@@ -104,7 +124,7 @@ export default function TechHighlights({
             >
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 h-10 w-10 sm:h-12 sm:w-12 rounded-lg bg-[#3087C0]/10 text-[#3087C0] flex items-center justify-center">
-                  {s.icon}
+                  {getIconComponent(s.icon)}
                 </div>
                 <div>
                   <h3 className="text-base sm:text-lg font-semibold text-[#08263b]">

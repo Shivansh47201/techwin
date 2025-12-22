@@ -14,6 +14,8 @@ import ApplicationGalleryCarousel from "@/components/application/detail/Applicat
 import ApplicationComparisonMatrix from "@/components/application/detail/ApplicationComparisonMatrix";
 import ApplicationTestimonialsStrip from "@/components/application/detail/ApplicationTestimonialsStrip";
 import ApplicationCTA from "@/components/application/detail/ApplicationCTA";
+import { connectDB } from "@/lib/db";
+import ApplicationModel from "@/models/Application";
 
 type PageProps = {
   params: { slug?: string } | Promise<{ slug?: string }>;
@@ -22,8 +24,8 @@ type PageProps = {
 export const dynamic = "auto";
 export const revalidate = 60;
 
-// normalize imported data into an array
-const applicationList: Application[] = Array.isArray(rawData)
+// normalize imported data into an array (STATIC applications)
+const staticApplicationList: Application[] = Array.isArray(rawData)
   ? (rawData as Application[])
   : Array.isArray(namedApplications)
   ? (namedApplications as Application[])
@@ -31,16 +33,30 @@ const applicationList: Application[] = Array.isArray(rawData)
   ? (Object.values(rawData) as Application[])
   : [];
 
+// Fetch dynamic applications from MongoDB
+async function getDynamicApplications(): Promise<any[]> {
+  try {
+    await connectDB();
+    const Model: any = ApplicationModel as unknown as any;
+    const apps = await Model.find({ status: "published" } as any).lean();
+    return apps || [];
+  } catch (error) {
+    console.error("Error fetching dynamic applications:", error);
+    return [];
+  }
+}
+
 if (process.env.NODE_ENV === "development") {
   // eslint-disable-next-line no-console
-  console.log("[apps] normalized applicationList slugs:", applicationList.map((a) => a.slug));
+  console.log("[apps] normalized static applicationList slugs:", staticApplicationList.map((a) => a.slug));
 }
 
 // generateStaticParams for SSG
 export async function generateStaticParams() {
   const params: { slug: string }[] = [];
   
-  applicationList.forEach((a) => {
+  // Add static application slugs
+  staticApplicationList.forEach((a) => {
     if (a && typeof a.slug === "string") {
       // Add the main slug
       params.push({ slug: a.slug });
@@ -56,6 +72,14 @@ export async function generateStaticParams() {
     }
   });
   
+  // Add dynamic application slugs
+  const dynamicApps = await getDynamicApplications();
+  dynamicApps.forEach((app: any) => {
+    if (app && typeof app.slug === "string") {
+      params.push({ slug: app.slug });
+    }
+  });
+  
   return params;
 }
 
@@ -64,17 +88,21 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const resolvedParams = (await params) ?? {};
   const slug = String(resolvedParams.slug ?? "");
   
+  // Get all applications (static + dynamic)
+  const dynamicApps = await getDynamicApplications();
+  const allApplications = [...dynamicApps, ...staticApplicationList];
+  
   // Search by slug and aliases
   const findBySlug = (s: string) => {
     const norm = (x: string) => String(x ?? "").toLowerCase().replace(/^\/+|\/+$/g, "");
     const normalizedSlug = norm(s);
     
     // 1. Exact slug match
-    const exactMatch = applicationList.find((a) => a && norm(a.slug) === normalizedSlug);
+    const exactMatch = allApplications.find((a) => a && norm(a.slug) === normalizedSlug);
     if (exactMatch) return exactMatch;
     
-    // 2. Alias match
-    const aliasMatch = applicationList.find((a) => a && a.aliases && a.aliases.map(norm).includes(normalizedSlug));
+    // 2. Alias match (only for static apps)
+    const aliasMatch = staticApplicationList.find((a) => a && a.aliases && a.aliases.map(norm).includes(normalizedSlug));
     if (aliasMatch) return aliasMatch;
     
     return null;
@@ -82,14 +110,25 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   
   const app = findBySlug(slug);
   if (!app) return { title: "Application" };
+  
   const title = app.title ?? app.name ?? app.heroTitle ?? "Application";
+  const siteBase = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/+$/g, "");
+  const canonicalUrl = app.canonicalUrl || `${siteBase}/application/${slug}`;
+  
   return {
     title: `${title} — Our Applications`,
-    description: app.tagline ?? app.heroTagline ?? app.metaDescription ?? "",
+    description: app.tagline ?? app.heroTagline ?? app.metaDescription ?? app.shortDescription ?? "",
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
       title: `${title} — Our Applications`,
-      description: app.tagline ?? app.heroTagline ?? app.metaDescription ?? "",
-      images: app.heroImage ? [{ url: app.heroImage.src, alt: app.heroImage.alt || title }] : undefined,
+      description: app.tagline ?? app.heroTagline ?? app.metaDescription ?? app.shortDescription ?? "",
+      type: (app.ogType as "article" | "website" | "product") || "article",
+      images: (app.ogImage || app.heroImage || app.hero?.image) ? [{ 
+        url: app.ogImage || (typeof app.heroImage === "string" ? app.heroImage : app.heroImage?.src) || app.hero?.image, 
+        alt: app.ogImageAlt || (typeof app.heroImage === "object" ? app.heroImage?.alt : undefined) || title 
+      }] : undefined,
     },
   };
 }
@@ -130,6 +169,83 @@ const coerceImage = (img: any) => (img == null ? undefined : img);
 function normalizeApp(raw: any): NormalizedApp | null {
   if (!raw || typeof raw !== "object") return null;
 
+  // Handle dynamic MongoDB applications
+  const isDynamic = raw._id && raw.hero;
+  
+  if (isDynamic) {
+    // Dynamic application from MongoDB
+    const title = raw.title || "";
+    const tagline = raw.shortDescription || raw.hero?.subtitle || "";
+    const kicker = raw.title ? String(raw.title).split(" ")[0] : "";
+    const heroImage = raw.hero?.image ? { src: raw.hero.image, alt: raw.hero.imageAlt || title } : undefined;
+    
+    const sectionsNormalized: any[] = [];
+    
+    // Add overview section if available
+    if (raw.overview) {
+      sectionsNormalized.push({
+        type: "feature",
+        title: "Overview",
+        body: raw.overview,
+      });
+    }
+    
+    // Add key features section
+    if (raw.keyFeatures && raw.keyFeatures.length > 0) {
+      sectionsNormalized.push({
+        type: "subsections",
+        title: "Key Features",
+        bullets: raw.keyFeatures,
+        background: "white",
+      });
+    }
+    
+    // Add use cases section
+    if (raw.useCases && raw.useCases.length > 0) {
+      sectionsNormalized.push({
+        type: "subsections",
+        title: "Use Cases",
+        bullets: raw.useCases,
+        background: "blue",
+      });
+    }
+    
+    // Add benefits section
+    if (raw.benefits && raw.benefits.length > 0) {
+      sectionsNormalized.push({
+        type: "subsections",
+        title: "Benefits",
+        bullets: raw.benefits,
+        background: "white",
+      });
+    }
+    
+    return {
+      original: {
+        ...raw,
+        whiteHeroTitle: raw.whiteHeroTitle || `Why ${title}`,
+        whiteHeroDescription: raw.whiteHeroDescription || "",
+      },
+      slug: raw.slug,
+      title,
+      tagline,
+      kicker,
+      heroImage,
+      ctas: raw.cta ? [{ label: raw.cta.label, href: raw.cta.href }] : [],
+      overviewStats: [],
+      sections: sectionsNormalized,
+      useCases: raw.industries ? raw.industries.map((ind: string) => ({ title: ind, description: "" })) : undefined,
+      gallery: raw.galleryImages && raw.galleryImages.length > 0 ? raw.galleryImages.map((img: string) => ({ src: img, alt: title })) : undefined,
+      ctaHeading: "Talk to our experts",
+      ctaSubheading: "Discuss integration, samples & prototyping.",
+      ctaPrimary: "Contact sales",
+      ctaPrimaryHref: "/contact",
+      ctaSecondary: "Request sample",
+      ctaSecondaryHref: "/contact",
+    };
+  }
+
+  // Static application - existing logic
   const title = raw.title ?? raw.name ?? raw.heroTitle ?? raw.metaTitle ?? "";
   const tagline = raw.tagline ?? raw.heroTagline ?? raw.heroIntro ?? raw.metaDescription ?? "";
   const kicker = raw.kicker ?? raw.name ?? (title ? String(title).split(" ")[0] : "");
@@ -225,21 +341,25 @@ export default async function Page({ params }: PageProps) {
   const resolvedParams = (await params) ?? {};
   const slug = String(resolvedParams.slug ?? "");
 
+  // Get all applications (dynamic + static)
+  const dynamicApps = await getDynamicApplications();
+  const allApplications = [...dynamicApps, ...staticApplicationList];
+
   // find raw app (flexible)
   const findBySlug = (s: string) => {
     const norm = (x: string) => String(x ?? "").toLowerCase().replace(/^\/+|\/+$/g, "");
     const slug = norm(s);
 
     // 1. Exact slug match
-    const exactMatch = applicationList.find((a) => a && norm(a.slug) === slug);
+    const exactMatch = allApplications.find((a) => a && norm(a.slug) === slug);
     if (exactMatch) return exactMatch;
 
-    // 2. Alias match
-    const aliasMatch = applicationList.find((a) => a && a.aliases && a.aliases.map(norm).includes(slug));
+    // 2. Alias match (only for static apps)
+    const aliasMatch = staticApplicationList.find((a) => a && a.aliases && a.aliases.map(norm).includes(slug));
     if (aliasMatch) return aliasMatch;
 
     // 3. Fallback to looser search (name/title contains)
-    return applicationList.find((a) => {
+    return allApplications.find((a) => {
       if (!a) return false;
       if (a.title && norm(a.title).includes(slug)) return true;
       if (a.name && norm(a.name).includes(slug)) return true;
@@ -256,14 +376,14 @@ export default async function Page({ params }: PageProps) {
           <p className="text-lg mb-6">The application for <strong>{slug || "(no slug provided)"}</strong> was not found. The available slugs are shown below.</p>
 
           <section className="mb-6 p-4 bg-white rounded-lg shadow">
-            <h3 className="font-semibold mb-2">Available slugs ({applicationList.length})</h3>
+            <h3 className="font-semibold mb-2">Available slugs ({allApplications.length})</h3>
             <ul className="list-disc ml-6 text-left">
-              {applicationList.map((a) => <li key={a.slug}><strong>{a.slug}</strong> — {a.title ?? a.name ?? "—no title—"}</li>)}
+              {allApplications.map((a, idx) => <li key={a.slug || idx}><strong>{a.slug}</strong> — {a.title ?? a.name ?? "—no title—"}</li>)}
             </ul>
           </section>
 
           <div className="flex justify-center gap-3">
-            <a href="/applications" className="inline-block px-5 py-3 rounded-2xl bg-[--primary] text-white font-semibold">Go to Applications</a>
+            <a href="/application" className="inline-block px-5 py-3 rounded-2xl bg-[--primary] text-white font-semibold">Go to Applications</a>
             <a href="/admin" className="inline-block px-5 py-3 rounded-2xl border border-gray-200">Check data files</a>
           </div>
         </div>
@@ -290,6 +410,17 @@ export default async function Page({ params }: PageProps) {
 
   // Now normalized is guaranteed to be non-null and typed
   const app: NormalizedApp = normalized;
+
+  // Get heading levels from DB or use defaults
+  const headingLevels = app.original?.headingLevels || {
+    hero: "h1",
+    whiteHero: "h2",
+    overview: "h2",
+    features: "h2",
+    useCases: "h2",
+    benefits: "h2",
+    cta: "h2",
+  };
 
   if (process.env.NODE_ENV === "development") {
     // eslint-disable-next-line no-console
@@ -350,11 +481,35 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <main>
-      <ApplicationDetailHero title={app.title} tagline={app.tagline} kicker={app.kicker} image={coerceImage(app.heroImage)} ctas={app.ctas} />
+      {/* Schema.org JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            app.original?.schemaData || {
+              "@context": "https://schema.org",
+              "@type": app.original?.schemaType || "Service",
+              "name": app.title,
+              "description": app.tagline || "",
+              "image": typeof app.heroImage === "string" ? app.heroImage : app.heroImage?.src,
+            }
+          ),
+        }}
+      />
+      
+      <ApplicationDetailHero 
+        title={app.title} 
+        tagline={app.tagline} 
+        kicker={app.kicker} 
+        image={coerceImage(app.heroImage)} 
+        ctas={app.ctas}
+        headingLevel={headingLevels.hero}
+      />
 
       <ApplicationWhiteHero 
         title={app.original?.whiteHeroTitle ?? `Why ${app.title}`}
         description={app.original?.whiteHeroDescription}
+        headingLevel={headingLevels.whiteHero}
       />
 
       {/* <ApplicationOverviewStrip stats={app.overviewStats || []} ctaLabel={app.ctaPrimary ?? "Talk to expert"} ctaHref={app.ctaPrimaryHref ?? "#"} image={coerceImage(app.overviewImage)} background="blue" /> */}

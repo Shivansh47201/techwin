@@ -26,6 +26,7 @@ export type Hero = {
 type Props = {
   hero?: Hero;
   applications: string[];
+  headingLevel?: string;
 };
 
 const iconMap: Record<string, any> = {
@@ -66,7 +67,7 @@ const itemVariants: Variants = {
   },
 };
 
-export default function ApplicationsSection({ hero, applications }: Props) {
+export default function ApplicationsSection({ hero, applications, headingLevel = "h2" }: Props) {
   const tagline =
     hero?.tagline ??
     "Explore where our advanced laser technologies make a real impact across scientific, industrial, and communication fields.";
@@ -124,12 +125,14 @@ export default function ApplicationsSection({ hero, applications }: Props) {
             whileTap={{ scale: 0.98 }}
             className="inline-flex items-center justify-center rounded-full px-7 py-3 bg-white shadow-[0_12px_35px_rgba(0,0,0,0.22)]"
           >
-            <h2
-              id="applications-heading"
-              className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight tracking-tight text-[#3B9ACB]"
-            >
-              Applications
-            </h2>
+            {React.createElement(
+              headingLevel,
+              {
+                id: "applications-heading",
+                className: "text-xl md:text-2xl lg:text-3xl font-bold leading-tight tracking-tight text-[#3B9ACB]"
+              },
+              "Applications"
+            )}
           </motion.div>
 
           <p className="mt-6 max-w-3xl text-center text-sm md:text-base leading-relaxed text-white">

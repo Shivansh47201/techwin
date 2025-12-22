@@ -4,12 +4,12 @@ import Post from "@/models/Post";
 
 export async function GET(
   req: Request,
-  { params }: { params: { slug: string } }
+  context: { params: Promise<{ slug: string }> }
 ) {
   await connectDB();
 
   // `params` may be a Promise (App Router). Resolve it before use.
-  const resolvedParams = (await Promise.resolve(params)) as { slug?: string };
+  const resolvedParams = (await context.params) as { slug?: string };
 
   // Normalize slug (trim trailing slash and lowercase)
   const slug = (resolvedParams?.slug || "").replace(/\/$/, "").toLowerCase();

@@ -12,6 +12,7 @@ export type HeroProps = {
   kicker?: string;
   image?: any; // can be string or { src, alt }
   ctas?: { label: string; href?: string }[];
+  headingLevel?: string;
 };
 
 // Animations
@@ -48,7 +49,7 @@ const StatItem = ({ icon: Icon, value, label }: { icon: React.ElementType, value
 );
 
 
-const PrimaryHero: React.FC<HeroProps> = ({ title, tagline, kicker, image, ctas = [] }) => {
+const PrimaryHero: React.FC<HeroProps> = ({ title, tagline, kicker, image, ctas = [], headingLevel = "h1" }) => {
   const heroTitle = title ?? "Optical Fiber Sensing";
   const heroTagline =
     tagline ??
@@ -99,9 +100,11 @@ const PrimaryHero: React.FC<HeroProps> = ({ title, tagline, kicker, image, ctas 
               </div>
 
               {/* Title */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.06] text-white drop-shadow-md">
-                <span className="block opacity-95">{heroTitle}</span>
-              </h1>
+              {React.createElement(
+                headingLevel,
+                { className: "text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.06] text-white drop-shadow-md" },
+                React.createElement("span", { className: "block opacity-95" }, heroTitle)
+              )}
 
               {/* Tagline */}
               <p className="text-base md:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed text-white/90 font-medium">{heroTagline}</p>

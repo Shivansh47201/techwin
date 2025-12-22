@@ -18,6 +18,7 @@ export type CategoryCTAProps = {
   contactPhone?: string | null;
   contactEmail?: string | null;
   className?: string;
+  headingLevel?: string;
 };
 
 const containerVariants = {
@@ -38,6 +39,7 @@ const itemVariants = {
 export default function CategoryCTA({
   cta,
   contactPhone,
+  headingLevel = "h2",
   contactEmail,
   className = "",
 }: CategoryCTAProps) {
@@ -99,9 +101,15 @@ export default function CategoryCTA({
             </motion.div>
             
             {/* Heading */}
-            <motion.h2 variants={itemVariants} id="category-cta-heading" className="text-2xl md:text-4xl font-bold text-white">
-              {cta.heading ?? "Let's Engineer Your Perfect Setup"}
-            </motion.h2>
+            {React.createElement(
+              motion[headingLevel as keyof typeof motion] as any,
+              {
+                variants: itemVariants,
+                id: "category-cta-heading",
+                className: "text-2xl md:text-4xl font-bold text-white"
+              },
+              cta.heading ?? "Let's Engineer Your Perfect Setup"
+            )}
 
             {/* Description */}
             <motion.p variants={itemVariants} className="mt-4 text-sm md:text-base text-white/80 max-w-xl mx-auto">

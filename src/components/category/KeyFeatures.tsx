@@ -45,6 +45,7 @@ type Props = {
   maxColumns?: 1 | 2 | 3;
   interactive?: boolean;
   compact?: boolean;
+  headingLevel?: string;
 };
 
 const WRAPPER = "max-w-7xl mx-auto px-4 sm:px-6";
@@ -92,6 +93,7 @@ export default function KeyFeatures({
   featureMatrix,
   subCategories = [],
   interactive = true,
+  headingLevel = "h2",
 }: Props) {
   const hasFeatureMatrix =
     featureMatrix && featureMatrix.categories && featureMatrix.categories.length > 0;
@@ -201,9 +203,11 @@ export default function KeyFeatures({
                   Feature matrix
                 </span>
               </div>
-              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-[-0.02em] text-[#3B9ACB]">
-                Engineered features that matter in the lab
-              </h2>
+              {React.createElement(
+                headingLevel,
+                { className: "text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold tracking-[-0.02em] text-[#3B9ACB]" },
+                "Engineered features that matter in the lab"
+              )}
             </div>
 
             {/* mobile compact action / count (keeps layout tidy) */}

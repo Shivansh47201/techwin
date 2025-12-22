@@ -2,9 +2,41 @@
 
 import { motion } from "framer-motion";
 import { useRequestQuote } from "@/context/RequestQuoteContext";
+import { useEffect, useState } from "react";
+import React from "react";
 
-export default function AboutFinalStatement() {
+type Props = {
+  headingLevel?: string;
+};
+
+export default function AboutFinalStatement({ headingLevel = 'h3' }: Props) {
   const { openModal } = useRequestQuote();
+  const [title, setTitle] = useState("Techwin — Advancing Precision Through Innovation & Reliability");
+  const [content, setContent] = useState("Techwin continues to uphold its reputation as a reliable optoelectronic technology manufacturer — combining innovation, precision, and quality into every laser system. With advanced R&D and global outreach, we support professionals seeking dependable optical solutions.");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch('/api/admin/pages/about');
+        const data = await res.json();
+        if (data.finalStatement) {
+          setTitle(data.finalStatement.title || title);
+          setContent(data.finalStatement.content || content);
+        }
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching final statement:', error);
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return null;
+  }
+
   return (
     <section className="py-8 sm:py-14 bg-white">
       <div className="max-w-[1100px] mx-auto px-3 sm:px-4">
@@ -27,22 +59,17 @@ export default function AboutFinalStatement() {
 
           {/* TEXT */}
           <div className="text-center space-y-3">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#08263b]">
-              Techwin — Advancing Precision Through Innovation & Reliability
-            </h2>
+            {React.createElement(
+              headingLevel,
+              {
+                className: "text-xl sm:text-2xl md:text-3xl font-bold text-[#08263b]"
+              },
+              title
+            )}
 
-            <p className="text-sm sm:text-base md:text-lg text-slate-700 leading-relaxed max-w-[85%] mx-auto">
-              Techwin continues to uphold its reputation as a reliable optoelectronic
-              technology manufacturer — combining innovation, precision, and quality
-              into every laser system. With advanced R&D and global outreach, we support
-              professionals seeking dependable optical solutions.
-            </p>
-
-            <p className="text-sm sm:text-base text-slate-700 leading-relaxed max-w-[90%] mx-auto">
-              For more information or to request a quote, contact us at 
-              <span className="font-semibold text-[#3087C0]"><a href="tel:+8657188284299">+86-57188284299</a> </span>
-              or visit our facility in Hangzhou City.
-            </p>
+            <div className="text-sm sm:text-base md:text-lg text-slate-700 leading-relaxed max-w-[85%] mx-auto whitespace-pre-line">
+              {content}
+            </div>
           </div>
 
           {/* BUTTONS */}

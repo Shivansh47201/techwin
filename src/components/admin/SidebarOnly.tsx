@@ -33,12 +33,35 @@ export default function Sidebar() {
       href: "/admin/dashboard",
       icon: <LayoutDashboard size={20} />,
     },
-    { label: "Blog Posts", href: "/admin/posts", icon: <FileText size={20} /> },
+    {
+      label: "Home Page",
+      href: "/admin/pages/home",
+      icon: <LayoutDashboard size={20} />,
+    },
+    {
+      label: "About Page",
+      href: "/admin/pages/about",
+      icon: <User size={20} />,
+    },
+    {
+      label: "Applications",
+      href: "/admin/applications",
+      icon: <FolderOpen size={20} />,
+    },
+    {
+      label: "Categories",
+      href: "/admin/categories",
+      icon: <Tags size={20} />,
+    },
     {
       label: "Products",
-      href: "#products",
+      href: "/admin/products",
       icon: <Package size={20} />,
-      disabled: true,
+    },
+    { 
+      label: "Blog Posts", 
+      href: "/admin/posts", 
+      icon: <FileText size={20} /> 
     },
     {
       label: "Inbox",

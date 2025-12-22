@@ -22,6 +22,7 @@ type Props = {
   items: Array<string | BenefitCard>;
   columns?: 1 | 2 | 3;
   compact?: boolean;
+  headingLevel?: string;
 };
 
 const CONTAINER = "max-w-7xl mx-auto px-6 md:px-8 lg:px-12";
@@ -48,7 +49,7 @@ const cardVariants = {
  * Advanced, futuristic technical benefits section.
  * White page, primary-blue “3D” container + interactive compare.
  */
-export default function TechnicalBenefits({ items, columns = 3, compact = false }: Props) {
+export default function TechnicalBenefits({ items, columns = 3, compact = false, headingLevel = "h2" }: Props) {
   const normalized = useMemo(
     () =>
       items.map((it, i) =>
@@ -122,10 +123,11 @@ export default function TechnicalBenefits({ items, columns = 3, compact = false 
               </div>
 
               <div>
-                <h2 className="text-3xl md:text-4xl lg:text-[2.6rem] font-semibold tracking-[-0.03em] text-black">
-                  Engineering advantages,
-                  <span className="block text-[#3B9ACB]">explained visually.</span>
-                </h2>
+                {React.createElement(
+                  headingLevel,
+                  { className: "text-3xl md:text-4xl lg:text-[2.6rem] font-semibold tracking-[-0.03em] text-black" },
+                  <>Engineering advantages, <span className="block text-[#3B9ACB]">explained visually.</span></>
+                )}
                 <p className="mt-4 text-sm md:text-base text-black/70 leading-relaxed max-w-lg">
                   See how this laser family behaves where it matters most – noise, linewidth, stability and system
                   integration. Click a card to select it for comparison, or tap the info icon to see more details.
@@ -326,7 +328,7 @@ function BlueCard({
   onToggle?: () => void;
   compareSelected?: boolean;
   compareIndex?: number;
-  onCompare?: (e: React.MouseEvent) => void;
+  onCompare?: (e?: React.MouseEvent) => void;
 }) {
   const mx = useMotionValue(0);
   const my = useMotionValue(0);

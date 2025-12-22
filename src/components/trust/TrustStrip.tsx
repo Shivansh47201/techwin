@@ -11,6 +11,7 @@ export default function TrustStrip(props: {
   logos?: { id: string; src: string; alt?: string; href?: string }[];
   heading?: string;
   cta?: { label: string; href: string };
+  headingLevel?: string;
 }) {
   const {
     bullets = [
@@ -32,6 +33,7 @@ export default function TrustStrip(props: {
     ],
     heading = "Why Techwin — Trusted Worldwide",
     cta = { label: "Request a Quote", href: "/request-quote" },
+    headingLevel = "h3",
   } = props;
 
   const [values, setValues] = useState<number[]>(counters.map(() => 0));
@@ -100,9 +102,11 @@ export default function TrustStrip(props: {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           {/* left: heading + bullets */}
           <div className="lg:col-span-5 text-center lg:text-left">
-            <h3 className="text-3xl md:text-4xl font-extrabold mb-5">
-              {heading}
-            </h3>
+            {React.createElement(
+              headingLevel,
+              { className: "text-3xl md:text-4xl font-extrabold mb-5" },
+              heading
+            )}
             <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
               {bullets.map((b, i) => (
                 <div
@@ -166,14 +170,16 @@ export default function TrustStrip(props: {
                     key={`${l.id}-${i}`}
                     className="shrink-0 w-28 h-14 flex items-center justify-center p-2"
                   >
-                    <Image
-                      src={encodeURI(l.src)}
-                      alt={l.alt || l.id}
-                      width={120}
-                      height={48}
-                      style={{ width: "auto", height: "auto" }}
-                      className="object-contain"
-                    />
+                    {l.src && (
+                      <Image
+                        src={l.src}
+                        alt={l.alt || l.id}
+                        width={120}
+                        height={48}
+                        className="object-contain max-w-full max-h-full"
+                        unoptimized={l.src.includes('cloudinary')}
+                      />
+                    )}
                   </div>
                 ))}
               </div>

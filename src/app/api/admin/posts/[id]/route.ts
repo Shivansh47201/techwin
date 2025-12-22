@@ -8,7 +8,7 @@ import { connectDB } from "@/lib/db";
 import Post from "@/models/Post";
 
 interface RouteParams {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 /* -----------------------------------------------------------

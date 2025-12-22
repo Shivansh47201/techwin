@@ -5,9 +5,13 @@ import { motion, type Variants } from 'framer-motion';
 import { useRequestQuote } from '@/context/RequestQuoteContext';
 
 type Props = {
+  title?: string;
+  subtitle?: string;
+  description?: string;
   backgroundImage?: string;
   backgroundVideo?: string;
   overlayDarkness?: number;
+  headingLevel?: string;
 };
 
 const fadeUp: Variants = {
@@ -20,9 +24,13 @@ const fadeUp: Variants = {
 };
 
 export default function AboutHero({
+  title = 'About Us — Techwin',
+  subtitle = 'Leading Fiber Laser Manufacturer',
+  description = 'Techwin is a trusted Fiber Laser Manufacturer based in Hangzhou City, China, specializing in advanced optical and photonic technologies.',
   backgroundImage = '/techwin-company/techwin-building.jpg',
   backgroundVideo = '/videos/about-hero-video.webm',
-  overlayDarkness = 0.45, // darker overlay for readable white text
+  overlayDarkness = 0.45,
+  headingLevel = 'h1',
 }: Props) {
   const { openModal } = useRequestQuote();
 
@@ -79,21 +87,24 @@ export default function AboutHero({
           viewport={{ once: true, amount: 0.22 }}
           className="space-y-6"
         >
-          {/* H1 */}
-          <motion.h1
-            id="about-title"
-            variants={fadeUp}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mt-5"
-          >
-            About Us — Techwin
-          </motion.h1>
+          {/* Main Heading */}
+          <motion.div variants={fadeUp}>
+            {React.createElement(
+              headingLevel,
+              {
+                id: "about-title",
+                className: "text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mt-5"
+              },
+              title
+            )}
+          </motion.div>
 
           {/* H2 */}
           <motion.h2
             variants={fadeUp}
             className="text-base sm:text-lg md:text-xl font-semibold mt-2"
           >
-            Leading Fiber Laser Manufacturer
+            {subtitle}
           </motion.h2>
 
           {/* Paragraph */}
@@ -101,7 +112,7 @@ export default function AboutHero({
             variants={fadeUp}
             className="max-w-2xl mx-auto text-sm sm:text-base md:text-lg text-white/90 leading-relaxed"
           >
-            Techwin is a trusted Fiber Laser Manufacturer based in Hangzhou City, China, specializing in advanced optical and photonic technologies. With years of industry expertise, Techwin has become one of the most respected names in high-precision laser solutions, providing innovative, reliable, and energy-efficient systems for clients across the globe.
+            {description}
           </motion.p>
 
           {/* Highlights */}

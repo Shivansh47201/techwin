@@ -15,11 +15,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Base metadata - can be overridden by page-level metadata
 export const metadata: Metadata = {
-  title: "Techwin",
-  description: "Techwin — World-class Single-Frequency Fiber Laser Solutions",
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_METADATA_BASE || "http://localhost:3001"
+    process.env.NEXT_PUBLIC_METADATA_BASE || "http://localhost:3000"
   ),
   icons: {
     icon: { url: "/favicon.ico", type: "image/png" },
@@ -38,6 +37,28 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        {settings.googleSiteVerification?.trim() ? (
+          <meta name="google-site-verification" content={settings.googleSiteVerification.trim()} />
+        ) : null}
+
+        {GA ? (
+          <>
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA}`} />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${GA}');
+                `,
+              }}
+            />
+          </>
+        ) : null}
+      </head>
+
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
@@ -46,23 +67,6 @@ export default async function RootLayout({
           <ClientLayout>
             {children}
           </ClientLayout>
-
-          {/* Google Analytics */}
-          {GA ? (
-            <>
-              <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA}`} />
-              <script
-                dangerouslySetInnerHTML={{
-                  __html: `
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
-                    gtag('js', new Date());
-                    gtag('config', '${GA}');
-                  `,
-                }}
-              />
-            </>
-          ) : null}
         </RequestQuoteProvider>
       </body>
     </html>

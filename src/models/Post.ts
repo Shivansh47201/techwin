@@ -64,6 +64,12 @@ export interface IPost extends Document {
   wordCount?: number;
   viewCount?: number;
   lastViewedAt?: Date;
+
+  headingLevels?: {
+    title?: string;
+    sections?: string;
+    related?: string;
+  };
 }
 
 // Mongoose Schema
@@ -227,6 +233,12 @@ const PostSchema = new Schema<IPost>(
     },
     lastViewedAt: {
       type: Date,
+    },
+
+    headingLevels: {
+      title: { type: String, default: "h1" },
+      sections: { type: String, default: "h2" },
+      related: { type: String, default: "h2" },
     },
   },
   {

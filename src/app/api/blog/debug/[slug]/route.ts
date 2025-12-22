@@ -4,7 +4,7 @@ import Post from "@/models/Post";
 
 export async function GET(
   req: Request,
-  { params }: { params: { slug: string } }
+  context: { params: Promise<{ slug: string }> }
 ) {
   // Debug endpoint only enabled in development to avoid exposing drafts in production
   if (process.env.NODE_ENV === "production") {
@@ -14,7 +14,8 @@ export async function GET(
   try {
     await connectDB();
 
-    const slug = (params.slug || "").replace(/\/$/, "").toLowerCase();
+    const resolved = await context.params;
+    const slug = (resolved.slug || "").replace(/\/$/, "").toLowerCase();
 
     const post = await Post.findOne({ slug }).lean();
 

@@ -1,6 +1,7 @@
 {
-  "analyticsId": "",
-  "robotsTxt": "User-agent: *\nAllow: /\nSitemap: http://localhost:3000/sitemap.xml",
+  "analyticsId": "G-CG99E575Z8",
+  "googleSiteVerification": "BVFWxCHmh_6oC_ABmsxnijVBQtv9VbHqM8hRB7KZ3PU",
+  "robotsTxt": "User-agent: *\nAllow: /\nSitemap: https://www.singlefrequencyfiberlaser.com/sitemap.xml",
   "sitemapEnabled": true,
   "includePostsInSitemap": true
 }

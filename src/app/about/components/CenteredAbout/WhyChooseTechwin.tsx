@@ -9,7 +9,7 @@ const fadeUp = {
   show: { opacity: 1, y: 0, transition: { duration: 0.55 } },
 };
 
-const points = [
+const defaultPoints = [
   {
     title: "Comprehensive R&D Capability",
     desc: "In-house design and development for fiber laser sources and high-precision optical systems.",
@@ -72,7 +72,30 @@ const points = [
 
 ];
 
-export default function WhyChooseTechwin() {
+type WhyChooseData = {
+  title?: string;
+  description?: string;
+  points?: Array<{ title: string; desc: string; }>;
+};
+
+type Props = {
+  data?: WhyChooseData;
+  headingLevel?: string;
+};
+
+export default function WhyChooseTechwin({ data, headingLevel = 'h2' }: Props) {
+  const title = data?.title || 'Why Choose Techwin';
+  const description = data?.description || 'With over two decades of expertise, we offer reliable, high-performance fiber laser solutions tailored for scientific research and industrial applications.';
+  
+  // Merge custom points with default icons
+  const customPoints = data?.points || [];
+  const points = customPoints.length > 0 
+    ? customPoints.map((point, idx) => ({
+        ...point,
+        icon: defaultPoints[idx]?.icon || defaultPoints[0].icon // Use default icon by index, fallback to first icon
+      }))
+    : defaultPoints;
+  
   return (
     <section className="py-12 sm:py-20 bg-white text-[#08263b]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -83,7 +106,13 @@ export default function WhyChooseTechwin() {
           variants={fadeUp}
           className="text-center max-w-3xl mx-auto mb-8 sm:mb-12"
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#3087C0]">Why Choose Techwin</h2>
+          {React.createElement(
+            headingLevel,
+            {
+              className: "text-2xl sm:text-3xl md:text-4xl font-bold text-[#3087C0]"
+            },
+            "Why Choose Techwin"
+          )}
           <p className="mt-4 text-base sm:text-lg text-slate-700 leading-relaxed">
             Choosing Techwin means partnering with a Fiber Laser Manufacturer that values precision,
             stability, and reliability. Our client-first approach ensures every project is handled with technical precision and professional integrity.

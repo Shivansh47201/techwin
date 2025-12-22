@@ -11,8 +11,11 @@ export type ApplicationCTAProps = {
   subheading?: string;
   primaryLabel?: string;
   primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
   phone?: string;
   email?: string;
+  background?: "blue" | "white";
 };
 
 const PRIMARY = "#3B9ACB";

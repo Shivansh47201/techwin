@@ -4,6 +4,8 @@ import React from "react";
 import type { Metadata } from "next";
 import ApplicationsPage from "@/components/application/listing/ApplicationsPage";
 import type { ApplicationSummary } from "@/components/application/listing/ApplicationCard";
+import { connectDB } from "@/lib/db";
+import Application from "@/models/Application";
 
 export const metadata: Metadata = {
   title: "Fiber Laser Applications | Techwin Solutions",
@@ -11,8 +13,8 @@ export const metadata: Metadata = {
     "Discover fiber laser applications from Techwin: LiDAR systems, quantum technology, optical sensing, gravitational waves, communications, biomedical, spectroscopy, material processing and more.",
 };
 
-// NOTE: yahi data tumne pehle share kiya tha (name, URL, title, keywords)
-const applications: ApplicationSummary[] = [
+// Static applications - yeh hamesha rahenge
+const staticApplications: ApplicationSummary[] = [
   {
     name: "LiDAR Systems",
     slug: "lidar",
@@ -75,6 +77,34 @@ const applications: ApplicationSummary[] = [
   },
 ];
 
-export default function ApplicationsRoutePage() {
-  return <ApplicationsPage applications={applications} />;
+// Fetch dynamic applications from MongoDB
+async function getDynamicApplications(): Promise<ApplicationSummary[]> {
+  try {
+    await connectDB();
+    const Model: any = Application as unknown as any;
+    const dynamicApps = await Model.find({ status: "published" } as any)
+      .select("slug title shortDescription hero")
+      .sort({ createdAt: -1 })
+      .lean();
+
+    return dynamicApps.map((app: any) => ({
+      name: app.title,
+      slug: app.slug,
+      heading: app.shortDescription || app.hero?.title || app.title,
+      keywords: [],
+    }));
+  } catch (error) {
+    console.error("Error fetching dynamic applications:", error);
+    return [];
+  }
+}
+
+export default async function ApplicationsRoutePage() {
+  // Fetch dynamic applications
+  const dynamicApplications = await getDynamicApplications();
+  
+  // Combine both: dynamic first, then static
+  const allApplications = [...dynamicApplications, ...staticApplications];
+  
+  return <ApplicationsPage applications={allApplications} />;
 }

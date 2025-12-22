@@ -5,6 +5,7 @@ const SETTINGS_PATH = path.join(process.cwd(), 'data', 'site-settings.json');
 
 export interface SiteSettings {
   analyticsId?: string; // e.g., G-XXXX or UA-XXXX
+  googleSiteVerification?: string;
   robotsTxt?: string;
   sitemapEnabled?: boolean;
   includePostsInSitemap?: boolean;
@@ -17,6 +18,7 @@ export async function readSiteSettings(): Promise<SiteSettings> {
   } catch (err) {
     return {
       analyticsId: '',
+      googleSiteVerification: '',
       robotsTxt: `User-agent: *\nAllow: /\nSitemap: ${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/sitemap.xml`,
       sitemapEnabled: true,
       includePostsInSitemap: true,

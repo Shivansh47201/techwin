@@ -7,11 +7,19 @@ import { motion, Variants } from 'framer-motion';
 // Correct import for ShadCN Aceternity CometCard
 import { CometCard } from "@/components/ui/comet-card";
 
+type WhoWeAreData = {
+  image?: string;
+  imageAlt?: string;
+  content?: string;
+};
+
 type WhoWeAreProps = {
+  data?: WhoWeAreData;
   imageSrc?: string;
   content?: React.ReactNode;
   imageAlt?: string;
   onTrigger?: () => void;
+  headingLevel?: string;
 };
 
 const cometVariants: Variants = {
@@ -34,10 +42,12 @@ const imageGlowVariants: Variants = {
 };
 
 export default function WhoWeAre({
-  imageSrc = '/images/who-we-are.jpg', 
-  imageAlt = 'Techwin R&D and photonics lab',
-  content,
+  data,
+  imageSrc = data?.image || '/images/who-we-are.jpg', 
+  imageAlt = data?.imageAlt || 'Techwin R&D and photonics lab',
+  content = data?.content,
   onTrigger,
+  headingLevel = 'h2',
 }: WhoWeAreProps) {
 
   const [triggered, setTriggered] = useState(false);
@@ -107,12 +117,14 @@ export default function WhoWeAre({
                 }}
                 className="cursor-pointer select-none p-4 sm:p-6 md:p-8"
               >
-                <h3
-                  id="who-we-are-heading"
-                  className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#3087C0]"
-                >
-                  Who We Are
-                </h3>
+                {React.createElement(
+                  headingLevel,
+                  {
+                    id: "who-we-are-heading",
+                    className: "text-xl sm:text-2xl md:text-3xl font-semibold text-[#3087C0]"
+                  },
+                  "Who We Are"
+                )}
 
                 <div className="mt-4 text-slate-800 prose prose-sm max-w-none leading-relaxed">
                   {content ?? (

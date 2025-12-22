@@ -1,7 +1,7 @@
 // src/components/category/SubCategoryGrid.tsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, Variants, AnimatePresence } from "framer-motion";
@@ -19,13 +19,14 @@ export type SubCategoryItem = {
 };
 
 type Props = {
-  items: SubCategoryItem[];
+  items?: SubCategoryItem[]; // optional now - can be auto-loaded
   categorySlug?: string; // used to build links: /${categorySlug}/${id}
   columns?: number; // default 3 (desktop)
   fallbackImage?: string;
   heading?: string;
   subtitle?: string;
   compact?: boolean;
+  autoLoad?: boolean; // NEW: automatically load products from products.json based on categorySlug
 };
 
 const WRAPPER = "max-w-7xl mx-auto px-6 md:px-8 lg:px-12";
@@ -57,15 +58,38 @@ function normalizeSlug(name: string) {
 }
 
 export default function SubCategoryGrid({
-  items,
+  items: itemsProp,
   categorySlug = "",
   columns = 3,
   fallbackImage = "/techwin-company/card-thumb-default.webp",
   heading = "Products",
   subtitle = "Explore product families and models — quick specs, datasheets, and deep dive.",
   compact = false,
+  autoLoad = false,
 }: Props) {
   const [openItem, setOpenItem] = useState<SubCategoryItem | null>(null);
+  const [autoLoadedItems, setAutoLoadedItems] = useState<SubCategoryItem[]>([]);
+  const [isLoading, setIsLoading] = useState(autoLoad);
+
+  // Auto-load products from products.json if autoLoad is enabled
+  React.useEffect(() => {
+    if (autoLoad && categorySlug) {
+      setIsLoading(true);
+      fetch(`/api/products/category/${categorySlug}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setAutoLoadedItems(data.products || []);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error auto-loading products:", error);
+          setIsLoading(false);
+        });
+    }
+  }, [autoLoad, categorySlug]);
+
+  // Use auto-loaded items if available, otherwise use provided items
+  const items = autoLoad ? autoLoadedItems : (itemsProp || []);
 
   const gridCols =
     columns === 1
@@ -75,6 +99,50 @@ export default function SubCategoryGrid({
       : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
 
   const cardPadding = compact ? "p-4" : "p-5";
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <section
+        aria-label="Products and subcategories"
+        className={`
+          relative
+          overflow-visible
+          ${SECTION_PADDING}
+          w-screen left-1/2 -translate-x-1/2
+          bg-[#3B9ACB]
+        `}
+      >
+        <div className={WRAPPER}>
+          <div className="flex items-center justify-center py-20">
+            <div className="text-white text-lg">Loading products...</div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Show empty state
+  if (items.length === 0) {
+    return (
+      <section
+        aria-label="Products and subcategories"
+        className={`
+          relative
+          overflow-visible
+          ${SECTION_PADDING}
+          w-screen left-1/2 -translate-x-1/2
+          bg-[#3B9ACB]
+        `}
+      >
+        <div className={WRAPPER}>
+          <div className="text-center py-20">
+            <p className="text-white text-lg">No products found for this category.</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section

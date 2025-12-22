@@ -16,6 +16,7 @@ type Props = {
   highlights?: Highlight[];
   ctaPrimary?: { label: string; href: string };
   ctaSecondary?: { label: string; href: string };
+  headingLevel?: string;
 };
 
 export default function CompanyProfile({
@@ -29,74 +30,22 @@ export default function CompanyProfile({
   ],
   ctaPrimary = { label: "Learn More", href: "/about" },
   ctaSecondary = { label: "Request Quote", href: "/request-quote" },
+  headingLevel = "h2",
 }: Props) {
   const paragraphs = (text || "").split(/\n\s*\n|\r\n\r\n/).filter(Boolean);
   const [imgError, setImgError] = useState(false);
   const [imgLoading, setImgLoading] = useState(true);
   const imageSrc = image || "/techwin-company/techwin-building.jpg";
-  const defaultText = COMPANY_INFO?.shortText ?? "";
-  const providedText = (text || "").trim();
-  const thresholdWords = 50;
-  function countWords(s: string) {
-    return String(s || "").trim().split(/\s+/).filter(Boolean).length;
-  }
-  function normalizeForCompare(s: string) {
-    return String(s || "")
-      .replace(/…/g, " ")
-      .replace(/\.+$/g, "")
-      .replace(/[^\w\s]/g, " ")
-      .replace(/\s+/g, " ")
-      .trim()
-      .toLowerCase();
-  }
-  function mergeAvoidDup(a: string, b: string) {
-    if (!a) return b;
-    if (!b) return a;
-    const aWords = a.trim().split(/\s+/);
-    const bWords = b.trim().split(/\s+/);
-    let maxOverlap = 0;
-    const maxK = Math.min(aWords.length, bWords.length);
-    for (let k = maxK; k > 0; k--) {
-      const aTail = aWords.slice(aWords.length - k).join(" ").toLowerCase();
-      const bHead = bWords.slice(0, k).join(" ").toLowerCase();
-      if (aTail === bHead) {
-        maxOverlap = k;
-        break;
-      }
-    }
-    if (maxOverlap > 0) {
-      return aWords.concat(bWords.slice(maxOverlap)).join(" ");
-    }
-    return `${a} ${b}`;
-  }
-
-  let combinedText = providedText || "";
-  const providedWords = countWords(providedText);
-  const defaultWords = countWords(defaultText);
-
-  if (!providedText) {
-    combinedText = defaultText;
-  } else if (providedWords < thresholdWords) {
-    const normProvided = normalizeForCompare(providedText);
-    const normDefault = normalizeForCompare(defaultText);
-
-    if (normDefault.includes(normProvided)) {
-      combinedText = defaultText;
-    } else if (normProvided.includes(normDefault)) {
-      combinedText = providedText;
-    } else {
-      combinedText = mergeAvoidDup(providedText, defaultText);
-    }
-  } else {
-    combinedText = providedText;
-  }
+  
+  // Use provided text if available, otherwise use default
+  const displayText = text || COMPANY_INFO?.shortText || "";
 
   function firstNWords(str: string, n = 100) {
     const words = String(str || "").trim().split(/\s+/).filter(Boolean);
     if (words.length <= n) return words.join(" ");
     return words.slice(0, n).join(" ") + "...";
   }
-  const previewText = firstNWords(combinedText, 100);
+  const previewText = firstNWords(displayText, 100);
 
   const [animatedValues, setAnimatedValues] = useState<number[]>(
     highlights.map(() => 0)
@@ -188,9 +137,11 @@ export default function CompanyProfile({
           </div>
 
           <div className="lg:col-span-7 text-center md:text-left">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary">
-              {headline}
-            </h2>
+            {React.createElement(
+              headingLevel,
+              { className: "text-2xl md:text-3xl lg:text-4xl font-bold text-primary" },
+              headline
+            )}
 
             <p className="mt-3 text-gray-700 text-sm md:text-base max-w-3xl mx-auto md:mx-0">
               {previewText}
